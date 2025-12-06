@@ -121,7 +121,7 @@ const TabPill = ({ label, active }: { label: string, active?: boolean }) => (
    </button>
 );
 
-const ChatBubble = ({ message }: { message: Message }) => {
+const ChatBubble: React.FC<{ message: Message }> = ({ message }) => {
    const isAssistant = message.sender === 'assistant';
    return (
       <div className={`flex w-full ${isAssistant ? 'justify-start' : 'justify-end'} animate-slide-up`}>

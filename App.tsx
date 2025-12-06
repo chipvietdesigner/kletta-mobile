@@ -8,6 +8,8 @@ import {
     OnboardingStep1, OnboardingStep2, OnboardingStep3, OnboardingStep4, 
     OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8 
 } from './screens/OnboardingScreens';
+import { AddToInvoiceScreen, InvoiceCreateDetailsScreen } from './screens/NewInvoiceScreens';
+import { InvoiceDetailScreen } from './screens/InvoiceDetailScreen';
 import { ScreenName } from './types';
 
 const App = () => {
@@ -37,6 +39,14 @@ const App = () => {
         case 'onboarding-6': navigate('onboarding-5'); break;
         case 'onboarding-7': navigate('onboarding-6'); break;
         case 'onboarding-8': navigate('onboarding-7'); break;
+        
+        // New Invoice Flow
+        case 'new-invoice': navigate('home'); break;
+        case 'invoice-create-details': navigate('new-invoice'); break;
+        
+        // Sales Flow
+        case 'invoice-detail': navigate('home'); break; // Should actually go back to sales tab in home, but 'home' resets tab state in this simple router. Ideal would be goBack to sales.
+
         default: break;
     }
   };
@@ -64,8 +74,15 @@ const App = () => {
       case 'onboarding-7': return <OnboardingStep7 navigate={navigate} goBack={goBack} />;
       case 'onboarding-8': return <OnboardingStep8 navigate={navigate} goBack={goBack} />;
 
+      // New Invoice Flow
+      case 'new-invoice': return <AddToInvoiceScreen navigate={navigate} goBack={goBack} />;
+      case 'invoice-create-details': return <InvoiceCreateDetailsScreen navigate={navigate} goBack={goBack} />;
+      
+      // Invoice Detail
+      case 'invoice-detail': return <InvoiceDetailScreen navigate={navigate} goBack={goBack} params={navParams} />;
+
       case 'home':
-        return <HomeScreen />;
+        return <HomeScreen navigate={navigate} />;
       default:
         return <SplashScreen onFinish={() => navigate('welcome')} />;
     }
@@ -74,9 +91,10 @@ const App = () => {
   return (
     // Updated Main Container: iPhone 16 Pro dimensions (402x874) on desktop.
     // Using font-aktifo globally.
-    <div className="relative w-full h-[100dvh] md:w-[402px] md:h-[874px] bg-white md:rounded-[55px] shadow-2xl overflow-hidden font-aktifo mx-auto selection:bg-kletta-yellow selection:text-kletta-dark">
+    <div className="relative w-full h-[100dvh] md:w-[402px] md:h-[874px] bg-white md:rounded-[24px] shadow-2xl overflow-hidden font-aktifo mx-auto selection:bg-kletta-yellow selection:text-kletta-dark">
       
-      {/* Status Bar - Overlay   <div className="absolute top-0 w-full h-[54px] z-50 flex justify-between items-end pb-3 px-7 pointer-events-none mix-blend-exclusion text-white font-aktifo">
+      {/* Status Bar - Overlay   */}
+     <div className="absolute top-0 w-full h-[54px] z-50 flex justify-between items-end pb-3 px-7 pointer-events-none mix-blend-exclusion text-white font-aktifo">
         <span className="text-[16px] font-bold tracking-normal leading-none ml-2">9:41</span>
         <div className="flex gap-1.5 mr-1 items-center">
            <div className="w-[18px] h-[12px] bg-current rounded-[1px] opacity-100 relative">
@@ -88,8 +106,7 @@ const App = () => {
               <div className="absolute -right-[3px] top-[2px] w-[1px] h-[4px] bg-current rounded-r-[1px]"></div>
            </div>
         </div>
-      </div> */}
-    
+      </div>
 
       {/* Screen Content */}
       <div className="w-full h-full relative z-0">
