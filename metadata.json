@@ -1,0 +1,5 @@
+{
+  "name": "Kletta Mobile Clone",
+  "description": "A high-fidelity mobile UI clone of the Kletta accounting app using React and Tailwind CSS to simulate the mobile experience.",
+  "requestFramePermissions": []
+}
