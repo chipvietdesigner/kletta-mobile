@@ -21,7 +21,7 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
         
 
          {/* Hero Image / Illustration */}
-         <div className="relative z-10 w-full max-w-[360px] flex-1 flex items-end justify-center pb-8 px-4">
+         <div className="relative z-10 w-full max-w-[360px] flex-1 flex items-end justify-center pb-2 px-4">
             <div className="w-72 h-[380px] bg-gradient-to-b from-gray-700 to-gray-900 rounded-[36px] border-[6px] border-gray-800 shadow-2xl relative overflow-hidden transform rotate-[-4deg]">
                 {/* Mockup Screen */}
                 <div className="absolute inset-0 bg-gray-100 flex flex-col">
@@ -48,11 +48,11 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
          </div>
          
          {/* Bottom Curve Divider */}
-         <div className="absolute bottom-0 left-0 right-0 h-20 bg-white rounded-t-[44px] z-20"></div>
+         <div className="absolute bottom-0 left-0 right-0 h-10 bg-white rounded-t-[24px] z-10"></div>
       </div>
 
       {/* Bottom Content Section */}
-      <div className="bg-white px-8 pb-14 pt-2 flex flex-col items-center text-center z-30 font-aktifo">
+      <div className="bg-white px-8 pb-4 pt-2 flex flex-col items-center text-center z-10 font-aktifo">
         <h1 className="text-[32px] font-bold text-kletta-dark mb-5 leading-tight tracking-tight">
           Make your accounting <br />
           <span className="text-kletta-teal">simple</span>, clear and stress-free.
