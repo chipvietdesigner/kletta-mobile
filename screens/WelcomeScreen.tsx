@@ -52,7 +52,7 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
       </div>
 
       {/* Bottom Content Section */}
-      <div className="bg-white px-8 pb-4 pt-2 flex flex-col items-center text-center z-10 font-aktifo">
+      <div className="bg-white px-8 pb-12 pt-2 flex flex-col items-center text-center z-20 font-aktifo">
         <h1 className="text-[32px] font-bold text-kletta-dark mb-5 leading-tight tracking-tight">
           Make your accounting <br />
           <span className="text-kletta-teal">simple</span>, clear and stress-free.
