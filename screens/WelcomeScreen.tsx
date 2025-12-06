@@ -59,7 +59,8 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
         </h1>
         
         <p className="text-gray-500 text-lg mb-10 max-w-xs leading-relaxed">
-          The all-in-one solution for sole traders
+          The all-in-one solution for sole traders.
+        </p>
 
         <button 
           onClick={() => navigate('signup-email')} 
