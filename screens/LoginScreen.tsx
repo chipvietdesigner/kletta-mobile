@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { IconBack } from '../components/Icons';
 import { NavigationProps } from '../types';

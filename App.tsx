@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SplashScreen from './screens/SplashScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -13,6 +12,7 @@ import { AddToInvoiceScreen, InvoiceCreateDetailsScreen } from './screens/NewInv
 import { InvoiceDetailScreen } from './screens/InvoiceDetailScreen';
 import { SummaryScreen } from './screens/SummaryScreen';
 import { BusinessIncomeScreen } from './screens/SummaryDetailScreens';
+import { SettingsScreen } from './screens/SettingsScreen';
 import { ScreenName } from './types';
 
 const App = () => {
@@ -54,6 +54,9 @@ const App = () => {
         case 'summary': navigate('home'); break;
         case 'summary-business-income': navigate('summary'); break;
 
+        // Settings
+        case 'settings': navigate('home'); break;
+
         default: break;
     }
   };
@@ -92,6 +95,9 @@ const App = () => {
       case 'summary': return <SummaryScreen navigate={navigate} goBack={goBack} />;
       case 'summary-business-income': return <BusinessIncomeScreen navigate={navigate} goBack={goBack} />;
 
+      // Settings
+      case 'settings': return <SettingsScreen navigate={navigate} goBack={goBack} />;
+
       case 'home':
         return <HomeScreen navigate={navigate} />;
       default:
@@ -104,8 +110,8 @@ const App = () => {
     // Using font-aktifo globally.
     <div className="relative w-full h-[100dvh] md:w-[402px] md:h-[874px] bg-white md:rounded-[24px] shadow-2xl overflow-hidden font-aktifo mx-auto selection:bg-kletta-yellow selection:text-kletta-dark">
       
-      {/* Status Bar - Overlay   */}
-     <div className="absolute top-0 w-full h-[60px] z-50 flex justify-between items-end pb-5 px-7 pointer-events-none mix-blend-exclusion text-white font-aktifo">
+      {/* Status Bar - Overlay 
+      <div className="absolute top-0 w-full h-[60px] z-50 flex justify-between items-end pb-5 px-7 pointer-events-none mix-blend-exclusion text-white font-aktifo">
         <span className="text-[16px] font-bold tracking-normal leading-none ml-2">9:41</span>
         <div className="flex gap-1.5 mr-1 items-center">
            <div className="w-[18px] h-[12px] bg-current rounded-[1px] opacity-100 relative">
@@ -118,7 +124,8 @@ const App = () => {
            </div>
         </div>
       </div>
-
+   */}
+     
       {/* Screen Content */}
       <div className="w-full h-full relative z-0">
         {renderScreen()}

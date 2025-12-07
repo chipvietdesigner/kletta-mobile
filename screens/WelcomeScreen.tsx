@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { KlettaLogo } from '../components/Icons';
 import { NavigationProps } from '../types';

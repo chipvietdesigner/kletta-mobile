@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { 
   IconSettings, IconGear, IconChevronDown, IconChevronRight, IconClose, IconArrowRight,
   IconHome, IconBank, IconSales, IconExpenses, IconChat, IconPieChart,
   IconNewInvoice, IconAddEntry, IconNewProduct, IconStartTrip, IconScanReceipt, IconUploadReceipt,
   IconCheck, IconRun, IconSparkle, IconVerified, IconInvoice, IconAddTrip,
-  KlettaLogo, IconBatteryFull, IconWifiHigh, IconCellSignalFull
+  KlettaLogo
 } from '../components/Icons';
 import { TabName, ScreenName } from '../types';
 import BankScreen from './BankScreen';
@@ -28,9 +27,12 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           {/* Header Row */}
           <div className="flex justify-between items-center mb-6 mt-2">
             <div className="flex items-center gap-2">
-               <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+               <button 
+                  onClick={() => navigate('settings')}
+                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 active:bg-white/30 transition-colors"
+               >
                   <IconGear size={22} color="white" weight="fill" />
-               </div>
+               </button>
                <KlettaLogo color="white" className="h-6 ml-1" />
             </div>
             

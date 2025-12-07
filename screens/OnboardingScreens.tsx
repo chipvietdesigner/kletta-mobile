@@ -12,7 +12,8 @@ import {
   IconCar, 
   IconCheck, 
   IconBike,
-  IconInfo
+  IconInfo,
+  IconBack
 } from '../components/Icons';
 
 // --- Shared Layout with Custom Header ---
@@ -22,6 +23,7 @@ interface OnboardingLayoutProps extends React.PropsWithChildren {
     icon: React.ReactNode;
     onPrimary: () => void;
     onSecondary: () => void;
+    onBack?: () => void;
     primaryLabel?: string;
     secondaryLabel?: string;
     disablePrimary?: boolean;
@@ -37,31 +39,49 @@ const OnboardingHeader = ({ icon }: { icon: React.ReactNode }) => {
     return (
         <div className="relative w-full shrink-0 z-20 bg-white">
             {/* Teal background with rounded bottom corners */}
-            <div className="bg-kletta-teal w-full h-[180px] rounded-b-[40px] pt-14 flex items-start justify-center shadow-sm">
+            <div className="bg-kletta-teal w-full h-[160px] pt-14 flex items-start justify-center shadow-sm">
                 {/* Optional: Add a subtle texture or keep plain teal */}
             </div>
 
             {/* Icon Wrapper: Absolute positioned to overlap */}
             {/* Bottom position = - half of icon size (72px / 2 = 36px) */}
             <div className="absolute bottom-[-36px] left-0 right-0 flex justify-center items-center pointer-events-none">
-                <div className="w-[72px] h-[72px] rounded-full bg-white flex items-center justify-center border-[4px] border-kletta-teal shadow-md z-20">
-                    {/* The icon itself. We clone it to force the teal color since it sits on white. */}
-                    {React.cloneElement(icon as React.ReactElement<any>, { 
-                        color: '#00343B', 
-                        size: 32 
-                    })}
-                </div>
-            </div>
+    
+    {/* Outer white ring */}
+    <div className="w-[92px] h-[92px] rounded-full bg-white flex items-center justify-center shadow-md">
+        
+        {/* Middle teal ring */}
+        <div className="w-[84px] h-[84px] rounded-full bg-white border-[4px] border-kletta-teal flex items-center justify-center">
+            
+            {/* Icon */}
+            {React.cloneElement(icon as React.ReactElement<any>, { 
+                color: '#00343B', 
+                size: 32 
+            })}
+        </div>
+
+    </div>
+</div>
         </div>
     );
 };
 
 const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ 
-    title, subtitle, icon, children, onPrimary, onSecondary, 
+    title, subtitle, icon, children, onPrimary, onSecondary, onBack,
     primaryLabel = "Continue", secondaryLabel = "Remind me later", disablePrimary = false 
 }) => {
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo relative animate-fade-in overflow-hidden">
+            {/* Back Button */}
+            {onBack && (
+                <button 
+                    onClick={onBack}
+                    className="absolute top-[52px] left-6 z-50 w-10 h-10 -ml-2 flex items-center justify-center rounded-full text-white active:bg-white/20 transition-colors"
+                >
+                    <IconBack size={26} />
+                </button>
+            )}
+
             {/* Custom Header */}
             <OnboardingHeader icon={icon} />
 
@@ -92,7 +112,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                </button>
                <button 
                  onClick={onSecondary}
-                 className="w-full py-3 mt-2 text-gray-400 font-medium text-[14px] hover:text-kletta-dark transition-colors"
+                 className="w-full py-6 mt-2 text-kletta-dark font-medium text-[14px] hover:text-kletta-dark transition-colors"
                >
                  {secondaryLabel}
                </button>
@@ -102,7 +122,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
 };
 
 // --- Step 1: Authorization ---
-export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
@@ -112,6 +132,7 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate }) => {
             primaryLabel="Proceed to authorize"
             onPrimary={() => navigate('onboarding-2')}
             onSecondary={() => navigate('onboarding-2')}
+            onBack={goBack}
         >
             <div className="flex flex-col items-center">
                 <p className="text-gray-500 text-[15px] font-light leading-relaxed text-center mb-6">
@@ -136,7 +157,7 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate }) => {
 };
 
 // --- Step 2: Tax Info ---
-export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <OnboardingLayout
             title="Add your tax information"
@@ -144,6 +165,7 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate }) => {
             icon={<IconFile />}
             onPrimary={() => navigate('onboarding-3')}
             onSecondary={() => navigate('onboarding-3')}
+            onBack={goBack}
         >
             <div className="space-y-6 mb-8">
                 <InputGroup label="Business ID" placeholder="1234567-8" />
@@ -174,7 +196,7 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate }) => {
 };
 
 // --- Step 3: Bookkeeping ---
-export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     const [selected, setSelected] = useState<number | null>(null);
 
     return (
@@ -185,6 +207,7 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate }) => {
             onPrimary={() => navigate('onboarding-4')}
             onSecondary={() => navigate('onboarding-4')}
             disablePrimary={selected === null}
+            onBack={goBack}
         >
             <div className="space-y-4">
                <SelectionCard 
@@ -214,7 +237,7 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate }) => {
 };
 
 // --- Step 4: Tax Return Details ---
-export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <OnboardingLayout
             title="Confirm your tax return details"
@@ -223,6 +246,7 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate }) => {
             primaryLabel="Confirm and continue"
             onPrimary={() => navigate('onboarding-5')}
             onSecondary={() => navigate('onboarding-5')}
+            onBack={goBack}
         >
             <div className="mb-8">
                 <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Select Period</label>
@@ -244,7 +268,7 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate }) => {
 };
 
 // --- Step 5: Phone Number ---
-export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <OnboardingLayout
             title="Phone number"
@@ -252,6 +276,7 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate }) => {
             icon={<IconPhone />}
             onPrimary={() => navigate('onboarding-6')}
             onSecondary={() => navigate('onboarding-6')}
+            onBack={goBack}
         >
             <div className="flex gap-3">
                 <div className="relative w-28 shrink-0">
@@ -273,7 +298,7 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate }) => {
 };
 
 // --- Step 6: YEL Insurance ---
-export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <OnboardingLayout
             title="YEL insurance"
@@ -281,6 +306,7 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate }) => {
             primaryLabel="Confirm and continue"
             onPrimary={() => navigate('onboarding-7')}
             onSecondary={() => navigate('onboarding-7')}
+            onBack={goBack}
         >
              <div className="space-y-5 mb-8 text-gray-600 font-light text-[15px] leading-relaxed">
                 <p>An entrepreneur must take YEL insurance when:</p>
@@ -307,7 +333,7 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate }) => {
 };
 
 // --- Step 7: Vehicle Use ---
-export const OnboardingStep7: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep7: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     const [selected, setSelected] = useState<number | null>(null);
 
     const handleContinue = () => {
@@ -326,6 +352,7 @@ export const OnboardingStep7: React.FC<NavigationProps> = ({ navigate }) => {
             onPrimary={handleContinue}
             onSecondary={() => navigate('home')}
             disablePrimary={selected === null}
+            onBack={goBack}
         >
             <div className="space-y-4">
                 <SelectionCard 
@@ -355,7 +382,7 @@ export const OnboardingStep7: React.FC<NavigationProps> = ({ navigate }) => {
 };
 
 // --- Step 8: Add Vehicle ---
-export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate }) => {
+export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <OnboardingLayout
             title="Add a vehicle"
@@ -364,6 +391,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate }) => {
             primaryLabel="Confirm and continue"
             onPrimary={() => navigate('home')}
             onSecondary={() => navigate('home')}
+            onBack={goBack}
         >
             <div className="space-y-8">
                 <InputGroup label="Vehicle Name" placeholder="e.g. Van or ABC-123" />

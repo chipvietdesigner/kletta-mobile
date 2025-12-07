@@ -1,4 +1,3 @@
-
 export type ScreenName = 
   | 'splash' | 'welcome' | 'login' | 'home'
   | 'signup-email' | 'signup-verify'
@@ -7,7 +6,8 @@ export type ScreenName =
   | 'new-invoice' | 'invoice-create-details'
   | 'invoice-detail'
   | 'summary'
-  | 'summary-business-income';
+  | 'summary-business-income'
+  | 'settings';
 
 export interface NavigationProps {
   navigate: (screen: ScreenName, params?: any) => void;

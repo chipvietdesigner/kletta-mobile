@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { KlettaLogo, IconBack } from '../components/Icons';
 import { NavigationProps } from '../types';
@@ -119,13 +118,13 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             </div>
 
             <div className="flex justify-center mb-12">
-                <button className="text-kletta-teal font-bold text-[14px] hover:opacity-80 transition-opacity">
+                <button className="text-kletta-teal font-bold text-[13px] hover:opacity-80 transition-opacity">
                     Didn't receive code? Resend
                 </button>
             </div>
 
             <div className="mb-6">
-                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider ml-1 mb-2 block">Promotion Code (Optional)</label>
+                <label className="text-[11px] font-base text-gray-700 uppercase tracking-wider ml-1 mb-2 block">Promotion Code (Optional)</label>
                 <input 
                     type="text" 
                     placeholder="Type your code" 
@@ -144,7 +143,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             Sign up
          </button>
 
-         <p className="text-[12px] text-gray-400 text-center mt-6 leading-relaxed px-2 font-light">
+         <p className="text-[13px] text-gray-700 text-center mt-6 leading-relaxed px-2 font-light">
             By continuing, you accept to our <button className="underline font-medium hover:text-kletta-dark">Terms of Service</button> and <button className="underline font-medium hover:text-kletta-dark">Privacy Policy</button>.
          </p>
       </div>

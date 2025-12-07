@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { IconBack, IconCheckCircle, IconBatteryFull, IconWifiHigh, IconCellSignalFull, IconCheck, IconPaperclip, IconChevronRight } from '../components/Icons';
 import { NavigationProps } from '../types';

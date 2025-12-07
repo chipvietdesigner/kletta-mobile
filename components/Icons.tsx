@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   ArrowLeft, 
@@ -55,7 +54,12 @@ import {
   ShareNetwork,
   Coins,
   Money,
-  Question
+  Question,
+  SignOut,
+  Bell,
+  Globe,
+  LockKey,
+  UserCircle
 } from '@phosphor-icons/react';
 import { IconProps } from '../types';
 
@@ -110,6 +114,14 @@ export const IconTrendUp = ({ className, size = 24, color, weight }: IconProps) 
 export const IconTrendDown = ({ className, size = 24, color, weight }: IconProps) => <TrendDown className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconMoney = ({ className, size = 24, color, weight }: IconProps) => <Money className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconQuestion = ({ className, size = 24, color, weight }: IconProps) => <Question className={className} size={size} color={color} weight={weight || "bold"} />;
+
+// Settings Icons
+export const IconSignOut = ({ className, size = 24, color, weight }: IconProps) => <SignOut className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconBell = ({ className, size = 24, color, weight }: IconProps) => <Bell className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconGlobe = ({ className, size = 24, color, weight }: IconProps) => <Globe className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconLock = ({ className, size = 24, color, weight }: IconProps) => <LockKey className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconUserCircle = ({ className, size = 24, color, weight }: IconProps) => <UserCircle className={className} size={size} color={color} weight={weight || "bold"} />;
+
 
 // Status Bar Icons
 export const IconBatteryFull = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <BatteryFull className={className} size={size} color={color} weight={weight || "fill"} />;

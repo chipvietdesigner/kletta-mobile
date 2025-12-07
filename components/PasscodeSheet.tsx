@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 interface PasscodeSheetProps {
@@ -32,7 +31,7 @@ const PasscodeSheet: React.FC<PasscodeSheetProps> = ({ onSuccess, onLogout }) =>
       <div className="w-full z-10 animate-slide-up shadow-2xl relative rounded-t-[32px] overflow-hidden flex flex-col">
         
         {/* Top Section: Yellow */}
-        <div className="bg-kletta-yellow w-full pt-8 pb-10 flex flex-col items-center">
+        <div className="bg-[#FFEE99] w-full pt-8 pb-10 flex flex-col items-center">
            <h2 className="text-[17px] font-bold text-kletta-dark mb-8">Enter the passcode</h2>
 
            {/* Dots */}

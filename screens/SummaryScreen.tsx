@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
     IconBack, IconShare, IconChevronDown, IconChevronRight, IconCoins,
