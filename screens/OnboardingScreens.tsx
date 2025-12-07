@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { NavigationProps } from '../types';
 import { 
@@ -67,9 +68,9 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
             {/* Scrollable Content Body */}
             {/* Padding Top = Icon Half Size (36) + Spacing (24) = 60px */}
             <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-[60px] pb-40 bg-white">
-                <h1 className="text-[26px] font-bold text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
+                <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
                 {subtitle && (
-                    <p className="text-center text-gray-500 font-medium text-[15px] leading-relaxed mb-8 max-w-[320px] mx-auto">
+                    <p className="text-center text-gray-500 font-light text-[15px] leading-relaxed mb-8 max-w-[320px] mx-auto">
                         {subtitle}
                     </p>
                 )}
@@ -85,13 +86,13 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                <button 
                  onClick={onPrimary}
                  disabled={disablePrimary}
-                 className={`w-full py-4 rounded-2xl font-bold text-lg shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
+                 className={`w-full py-4 rounded-2xl font-bold text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
                >
                  {primaryLabel}
                </button>
                <button 
                  onClick={onSecondary}
-                 className="w-full py-3 mt-2 text-gray-400 font-bold text-sm hover:text-kletta-dark transition-colors"
+                 className="w-full py-3 mt-2 text-gray-400 font-medium text-[14px] hover:text-kletta-dark transition-colors"
                >
                  {secondaryLabel}
                </button>
@@ -113,7 +114,7 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate }) => {
             onSecondary={() => navigate('onboarding-2')}
         >
             <div className="flex flex-col items-center">
-                <p className="text-gray-500 text-[15px] font-medium leading-relaxed text-center mb-6">
+                <p className="text-gray-500 text-[15px] font-light leading-relaxed text-center mb-6">
                     We need Suomi.fi authorizations in order to handle your tax matters.
                 </p>
                 
@@ -125,7 +126,7 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate }) => {
                 </button>
                 
                 {expanded && (
-                    <div className="bg-gray-50 p-5 rounded-2xl text-left text-sm text-gray-600 leading-relaxed mb-4 animate-slide-up border border-gray-100 w-full">
+                    <div className="bg-gray-50 p-5 rounded-2xl text-left text-sm text-gray-600 leading-relaxed mb-4 animate-slide-up border border-gray-100 w-full font-light">
                         <p>Kletta uses the Suomi.fi authorization service to submit your tax returns directly to the Tax Administration. This ensures your data is handled securely and correctly.</p>
                     </div>
                 )}
@@ -149,9 +150,9 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate }) => {
                 <InputGroup label="Company Name" placeholder="Company ABC" />
                 
                 <div>
-                   <label className="text-xs font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">VAT Period</label>
+                   <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">VAT Period</label>
                    <div className="relative">
-                      <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all appearance-none text-[15px]">
+                      <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all appearance-none text-[15px]">
                          <option>No VAT liability</option>
                          <option>Monthly</option>
                          <option>Quarterly</option>
@@ -164,7 +165,7 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate }) => {
 
             <div className="bg-teal-50 border border-teal-100 p-5 rounded-2xl flex gap-3.5 items-start">
                 <IconInfo size={20} className="text-kletta-teal flex-shrink-0 mt-0.5" />
-                <p className="text-[13px] text-gray-600 leading-relaxed font-medium">
+                <p className="text-[13px] text-gray-600 leading-relaxed font-light">
                     These details cannot be changed later. Information such as the VAT period can only be updated through support.
                 </p>
             </div>
@@ -224,9 +225,9 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate }) => {
             onSecondary={() => navigate('onboarding-5')}
         >
             <div className="mb-8">
-                <label className="text-xs font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Select Period</label>
+                <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Select Period</label>
                 <div className="relative">
-                    <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-bold text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all appearance-none">
+                    <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all appearance-none">
                         <option>2025</option>
                         <option>Quarter I, 2025</option>
                         <option>Quarter II, 2025</option>
@@ -235,7 +236,7 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate }) => {
                 </div>
             </div>
 
-            <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-sm font-bold text-center">
+            <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-[13px] font-bold text-center">
                 Please note that you cannot change this selection later.
             </div>
         </OnboardingLayout>
@@ -254,7 +255,7 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate }) => {
         >
             <div className="flex gap-3">
                 <div className="relative w-28 shrink-0">
-                    <select className="w-full h-[56px] pl-4 bg-gray-50 rounded-2xl border border-gray-200 font-bold text-[15px] text-kletta-dark outline-none appearance-none focus:border-kletta-teal">
+                    <select className="w-full h-[56px] pl-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none appearance-none focus:border-kletta-teal">
                         <option>+358</option>
                         <option>+46</option>
                         <option>+1</option>
@@ -264,7 +265,7 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate }) => {
                 <input 
                     type="tel" 
                     placeholder="40 123 4567" 
-                    className="flex-1 h-[56px] px-4 bg-gray-50 rounded-2xl border border-gray-200 font-bold text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300"
+                    className="flex-1 h-[56px] px-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300"
                 />
             </div>
         </OnboardingLayout>
@@ -281,7 +282,7 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate }) => {
             onPrimary={() => navigate('onboarding-7')}
             onSecondary={() => navigate('onboarding-7')}
         >
-             <div className="space-y-5 mb-8 text-gray-600 font-medium text-[15px] leading-relaxed">
+             <div className="space-y-5 mb-8 text-gray-600 font-light text-[15px] leading-relaxed">
                 <p>An entrepreneur must take YEL insurance when:</p>
                 <ul className="list-none space-y-3">
                     <li className="flex gap-3">
@@ -296,8 +297,8 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate }) => {
              </div>
 
              <div className="bg-[#FFF9E6] border border-kletta-yellow rounded-2xl p-6 text-center shadow-[0_4px_20px_rgba(255,217,59,0.15)]">
-                <h3 className="font-bold text-lg text-kletta-dark mb-2">Make use of your benefit now!</h3>
-                <p className="text-[13px] text-gray-700 leading-relaxed opacity-80">
+                <h3 className="font-bold text-[16px] text-kletta-dark mb-2">Make use of your benefit now!</h3>
+                <p className="text-[13px] text-gray-700 leading-relaxed opacity-80 font-light">
                     When you take YEL insurance with Ilmarinen, you will receive one free month of Kletta. The value of your benefit is €29–69.
                 </p>
              </div>
@@ -368,7 +369,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate }) => {
                 <InputGroup label="Vehicle Name" placeholder="e.g. Van or ABC-123" />
 
                 <div>
-                    <label className="text-xs font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Vehicle Type</label>
+                    <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Vehicle Type</label>
                     <div className="flex flex-wrap gap-2">
                         <ChipOption label="Passenger car" active />
                         <ChipOption label="Van / Taxi" />
@@ -377,7 +378,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate }) => {
                 </div>
 
                 <div>
-                    <label className="text-xs font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Business Use</label>
+                    <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Business Use</label>
                     <div className="relative">
                          <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-kletta-dark outline-none appearance-none focus:border-kletta-teal">
                              <option>Less than 50%</option>
@@ -389,7 +390,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate }) => {
                 </div>
                 
                  <div>
-                    <label className="text-xs font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Acquisition Type</label>
+                    <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Acquisition Type</label>
                     <div className="space-y-3">
                         <RadioOption label="Transfer from personal ownership" active />
                         <RadioOption label="Transfer from previous bookkeeping" />
@@ -405,11 +406,11 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate }) => {
 
 const InputGroup = ({ label, placeholder }: { label: string, placeholder: string }) => (
     <div>
-       <label className="text-xs font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">{label}</label>
+       <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">{label}</label>
        <input 
            type="text" 
            placeholder={placeholder} 
-           className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-bold text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300 placeholder:font-medium" 
+           className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300 placeholder:font-light" 
         />
     </div>
 );
@@ -427,7 +428,7 @@ const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
         </div>
         <div className="flex-1 pt-0.5">
             <h3 className={`font-bold text-[15px] mb-1 leading-tight ${selected ? 'text-kletta-teal' : 'text-kletta-dark'}`}>{title}</h3>
-            <p className="text-[13px] text-gray-500 leading-snug">{desc}</p>
+            <p className="text-[13px] text-gray-500 leading-snug font-light">{desc}</p>
         </div>
         <div className={`w-6 h-6 rounded-full border-[2px] mt-2 flex-shrink-0 flex items-center justify-center transition-all ${selected ? 'border-kletta-teal bg-kletta-teal scale-110' : 'border-gray-300'}`}>
             {selected && <IconCheck size={14} color="white" />}
@@ -436,7 +437,7 @@ const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
 );
 
 const ChipOption = ({ label, active }: any) => (
-    <button className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-colors ${active ? 'bg-kletta-dark text-white border-kletta-dark shadow-sm' : 'bg-white text-gray-500 border-gray-200'}`}>
+    <button className={`px-4 py-2.5 rounded-xl text-[12px] font-bold border transition-colors ${active ? 'bg-kletta-dark text-white border-kletta-dark shadow-sm' : 'bg-white text-gray-500 border-gray-200'}`}>
         {label}
     </button>
 );
@@ -446,6 +447,6 @@ const RadioOption = ({ label, active }: any) => (
         <div className={`w-6 h-6 rounded-full border-[2.5px] flex items-center justify-center shrink-0 ${active ? 'border-kletta-teal' : 'border-gray-200'}`}>
             {active && <div className="w-2.5 h-2.5 bg-kletta-teal rounded-full"></div>}
         </div>
-        <span className={`text-[15px] font-bold ${active ? 'text-kletta-dark' : 'text-gray-600'}`}>{label}</span>
+        <span className={`text-[14px] font-medium ${active ? 'text-kletta-dark' : 'text-gray-600'}`}>{label}</span>
     </button>
 );

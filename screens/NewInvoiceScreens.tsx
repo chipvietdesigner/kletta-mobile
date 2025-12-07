@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   IconBack, IconPlus, IconCheck, IconTag, IconCalendarBlank, IconPaperclip, 
@@ -43,8 +44,8 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
                 </button>
                 <div className="flex justify-between items-end">
                    <div>
-                      <h1 className="text-[32px] font-bold text-white leading-tight mb-1">Add to invoice</h1>
-                      <p className="text-[15px] font-medium text-white/70">Choose products or services</p>
+                      <h1 className="text-[30px] font-bold text-white leading-tight mb-1">Add to invoice</h1>
+                      <p className="text-[15px] font-light text-white/80">Choose products or services</p>
                    </div>
                    <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white">
                       <IconSearch size={20} weight="bold" />
@@ -62,8 +63,8 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
                   <IconPlus size={24} weight="bold" />
                </div>
                <div className="text-left flex-1">
-                  <p className="font-bold text-[17px] text-kletta-dark">Create new product</p>
-                  <p className="text-[13px] font-medium text-gray-400">Add custom item to inventory</p>
+                  <p className="font-bold text-[16px] text-kletta-dark">Create new product</p>
+                  <p className="text-[13px] font-light text-gray-400">Add custom item to inventory</p>
                </div>
                <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
                   <IconChevronRight size={16} className="text-gray-400" weight="bold" />
@@ -72,7 +73,7 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
 
             {/* Recent Section */}
             <div className="mb-6">
-               <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 ml-2">Recently Used</h3>
+               <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 ml-2">Recently Used</h3>
                <div className="space-y-3">
                   <ProductCard 
                      id="prod-1"
@@ -95,7 +96,7 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
 
             {/* All Products Section */}
             <div>
-               <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 ml-2">All Products</h3>
+               <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 ml-2">All Products</h3>
                <div className="space-y-3">
                   <ProductCard 
                      id="prod-3"
@@ -155,13 +156,13 @@ const ProductCard = ({ id, title, price, sub, selected, onToggle }: any) => (
              <IconSparkle size={22} weight="fill" />
           </div>
           <div className="text-left">
-             <p className={`font-bold text-[16px] leading-tight mb-0.5 ${selected ? 'text-white' : 'text-kletta-dark'}`}>{title}</p>
+             <p className={`font-bold text-[15px] leading-tight mb-0.5 ${selected ? 'text-white' : 'text-kletta-dark'}`}>{title}</p>
              <p className={`text-[12px] font-medium ${selected ? 'text-white/60' : 'text-gray-400'}`}>{sub}</p>
           </div>
        </div>
  
        <div className="text-right">
-          <p className={`font-bold text-[16px] mb-1 ${selected ? 'text-white' : 'text-kletta-dark'}`}>{price}</p>
+          <p className={`font-bold text-[15px] mb-1 ${selected ? 'text-white' : 'text-kletta-dark'}`}>{price}</p>
           <div className={`inline-flex items-center justify-center w-6 h-6 rounded-full ${selected ? 'bg-kletta-yellow text-kletta-dark' : 'bg-gray-100 text-gray-300'}`}>
              {selected ? <IconCheck size={14} weight="bold" /> : <IconPlus size={14} weight="bold" />}
           </div>

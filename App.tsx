@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import SplashScreen from './screens/SplashScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -10,6 +11,8 @@ import {
 } from './screens/OnboardingScreens';
 import { AddToInvoiceScreen, InvoiceCreateDetailsScreen } from './screens/NewInvoiceScreens';
 import { InvoiceDetailScreen } from './screens/InvoiceDetailScreen';
+import { SummaryScreen } from './screens/SummaryScreen';
+import { BusinessIncomeScreen } from './screens/SummaryDetailScreens';
 import { ScreenName } from './types';
 
 const App = () => {
@@ -47,6 +50,10 @@ const App = () => {
         // Sales Flow
         case 'invoice-detail': navigate('home'); break; // Should actually go back to sales tab in home, but 'home' resets tab state in this simple router. Ideal would be goBack to sales.
 
+        // Summary
+        case 'summary': navigate('home'); break;
+        case 'summary-business-income': navigate('summary'); break;
+
         default: break;
     }
   };
@@ -81,6 +88,10 @@ const App = () => {
       // Invoice Detail
       case 'invoice-detail': return <InvoiceDetailScreen navigate={navigate} goBack={goBack} params={navParams} />;
 
+      // Summary
+      case 'summary': return <SummaryScreen navigate={navigate} goBack={goBack} />;
+      case 'summary-business-income': return <BusinessIncomeScreen navigate={navigate} goBack={goBack} />;
+
       case 'home':
         return <HomeScreen navigate={navigate} />;
       default:
@@ -94,7 +105,7 @@ const App = () => {
     <div className="relative w-full h-[100dvh] md:w-[402px] md:h-[874px] bg-white md:rounded-[24px] shadow-2xl overflow-hidden font-aktifo mx-auto selection:bg-kletta-yellow selection:text-kletta-dark">
       
       {/* Status Bar - Overlay   */}
-     <div className="absolute top-0 w-full h-[54px] z-50 flex justify-between items-end pb-3 px-7 pointer-events-none mix-blend-exclusion text-white font-aktifo">
+     <div className="absolute top-0 w-full h-[60px] z-50 flex justify-between items-end pb-5 px-7 pointer-events-none mix-blend-exclusion text-white font-aktifo">
         <span className="text-[16px] font-bold tracking-normal leading-none ml-2">9:41</span>
         <div className="flex gap-1.5 mr-1 items-center">
            <div className="w-[18px] h-[12px] bg-current rounded-[1px] opacity-100 relative">

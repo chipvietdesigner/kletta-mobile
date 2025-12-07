@@ -73,7 +73,7 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
             <div className="flex justify-between items-start mb-4 mt-2">
                 <div>
                     <h1 className="text-[28px] font-bold text-kletta-dark tracking-tight mb-1">Invoice #{invoice.id}</h1>
-                    <p className="text-[15px] text-gray-400 font-medium">Created on {invoice.date}</p>
+                    <p className="text-[15px] text-gray-400 font-light">Created on {invoice.date}</p>
                 </div>
                 <div className="mt-1">
                     {renderStatusBadge()}
@@ -87,7 +87,7 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
                 <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Billed to</p>
                 <p className="font-bold text-[17px] text-kletta-dark mb-0.5">{invoice.name}</p>
                 <p className="text-[15px] font-medium text-kletta-teal mb-0.5">{invoice.email}</p>
-                <p className="text-[15px] text-gray-500">Laajaniintie 12 D46, 01620 Vantaa</p>
+                <p className="text-[15px] text-gray-500 font-light">Laajaniintie 12 D46, 01620 Vantaa</p>
             </div>
 
             {/* Visual Illustration */}
@@ -144,13 +144,13 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
             <div className="mb-6">
                 <div className="flex justify-between items-end mb-4 border-b border-gray-100 pb-2">
                     <h3 className="font-bold text-[17px] text-kletta-dark">Items</h3>
-                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">Due on 30/12/2025</p>
+                    <p className="text-[12px] text-gray-400 font-bold uppercase tracking-wider">Due on 30/12/2025</p>
                 </div>
                 
                 <div className="flex justify-between items-start py-3 border-b border-dashed border-gray-200">
                     <div className="flex-1">
                         <p className="text-[15px] font-bold text-kletta-dark">Consulting Services</p>
-                        <p className="text-[13px] text-gray-400 mt-0.5">Project management & review</p>
+                        <p className="text-[13px] text-gray-400 mt-0.5 font-light">Project management & review</p>
                     </div>
                     <div className="w-16 text-center">
                         <p className="text-[13px] font-bold text-gray-400 bg-gray-100 rounded-md py-0.5">x1</p>
@@ -178,7 +178,7 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
                     <IconPaperclip size={16} weight="bold" className="text-kletta-teal" />
                     <h3 className="font-bold text-[15px] text-kletta-dark">Additional note</h3>
                 </div>
-                <p className="text-[14px] text-gray-500 leading-relaxed">
+                <p className="text-[14px] text-gray-500 leading-relaxed font-light">
                     Thank you for your business! Please include invoice number in payment reference.
                 </p>
             </div>

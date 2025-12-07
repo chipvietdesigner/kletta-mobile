@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { KlettaLogo, IconBack } from '../components/Icons';
 import { NavigationProps } from '../types';
@@ -21,28 +22,27 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
         <button onClick={goBack} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors">
           <IconBack size={26} />
         </button>
-        <KlettaLogo color="black" className="h-6" />
         <div className="w-8"></div> {/* Spacer */}
       </div>
 
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-6 pb-32">
         <div className="text-center mb-12 max-w-[420px] mx-auto">
             <h2 className="text-[28px] font-bold text-kletta-dark mb-4 leading-tight">Welcome to Kletta!</h2>
-            <p className="text-gray-500 font-medium text-lg leading-relaxed">Let's start by entering your e-mail address.</p>
+            <p className="text-gray-500 font-light text-[16px] leading-relaxed">Let's start by entering your e-mail address.</p>
         </div>
 
         <div className="space-y-6 max-w-[420px] mx-auto">
            <div>
-              <label className="text-xs font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Email Address</label>
+              <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Email Address</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 text-lg text-kletta-dark font-medium outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300"
+                className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 text-[16px] text-kletta-dark font-medium outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300"
                 placeholder="name@example.com"
                 autoFocus
               />
-              <p className="text-[13px] text-gray-400 font-medium ml-1 mt-2 flex items-start gap-1">
+              <p className="text-[13px] text-gray-400 font-light ml-1 mt-2 flex items-start gap-1">
                 <span className="text-kletta-teal">ℹ</span> We will send a 6-digit code to this email
               </p>
            </div>
@@ -53,7 +53,7 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
          <button 
            onClick={handleContinue}
-           className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-lg shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+           className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
          >
            Continue
          </button>
@@ -100,7 +100,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-32">
         <div className="max-w-[420px] mx-auto">
             <h2 className="text-[28px] font-bold text-kletta-dark mb-4 leading-tight text-center">Check your inbox</h2>
-            <p className="text-gray-500 text-[17px] font-medium mb-10 leading-relaxed text-center">
+            <p className="text-gray-500 text-[16px] font-light mb-10 leading-relaxed text-center">
                 We have sent a 6 digit code to <br/><span className="text-kletta-dark font-bold">{email}</span>.
             </p>
 
@@ -113,19 +113,19 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
                         maxLength={1}
                         value={digit}
                         onChange={(e) => handleChange(i, e.target.value)}
-                        className="w-12 h-16 bg-gray-50 border border-gray-200 rounded-xl text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white focus:-translate-y-1 transition-all shadow-sm"
+                        className="w-14 h-14 bg-gray-50 border border-gray-200 rounded-xl text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white focus:-translate-y-1 transition-all shadow-sm"
                     />
                 ))}
             </div>
 
             <div className="flex justify-center mb-12">
-                <button className="text-kletta-teal font-bold text-sm hover:opacity-80 transition-opacity">
+                <button className="text-kletta-teal font-bold text-[14px] hover:opacity-80 transition-opacity">
                     Didn't receive code? Resend
                 </button>
             </div>
 
             <div className="mb-6">
-                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1 mb-2 block">Promotion Code (Optional)</label>
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider ml-1 mb-2 block">Promotion Code (Optional)</label>
                 <input 
                     type="text" 
                     placeholder="Type your code" 
@@ -139,13 +139,13 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
          <button 
             onClick={handleSignUp}
             disabled={!code.every(c => c !== '')}
-            className={`w-full py-4 rounded-2xl text-kletta-dark font-bold text-lg shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
+            className={`w-full py-4 rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
          >
             Sign up
          </button>
 
-         <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed px-2">
-            By continuing, you accept to our <button className="underline font-bold hover:text-kletta-dark">Terms of Service</button> and <button className="underline font-bold hover:text-kletta-dark">Privacy Policy</button>.
+         <p className="text-[12px] text-gray-400 text-center mt-6 leading-relaxed px-2 font-light">
+            By continuing, you accept to our <button className="underline font-medium hover:text-kletta-dark">Terms of Service</button> and <button className="underline font-medium hover:text-kletta-dark">Privacy Policy</button>.
          </p>
       </div>
     </div>

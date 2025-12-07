@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   ArrowLeft, 
@@ -7,6 +8,7 @@ import {
   House, 
   Bank, 
   TrendUp, 
+  TrendDown,
   Receipt, 
   ChatCircle,
   FileText,
@@ -49,7 +51,11 @@ import {
   HandWaving,
   Star,
   CheckCircle,
-  CreditCard
+  CreditCard,
+  ShareNetwork,
+  Coins,
+  Money,
+  Question
 } from '@phosphor-icons/react';
 import { IconProps } from '../types';
 
@@ -96,6 +102,14 @@ export const IconPlusCircle = ({ className, size = 24, color, weight }: IconProp
 // Invoice Detail
 export const IconCheckCircle = ({ className, size = 24, color, weight }: IconProps) => <CheckCircle className={className} size={size} color={color} weight={weight || "fill"} />;
 export const IconCreditCard = ({ className, size = 24, color, weight }: IconProps) => <CreditCard className={className} size={size} color={color} weight={weight || "bold"} />;
+
+// Summary Icons
+export const IconShare = ({ className, size = 24, color, weight }: IconProps) => <ShareNetwork className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconCoins = ({ className, size = 24, color, weight }: IconProps) => <Coins className={className} size={size} color={color} weight={weight || "fill"} />;
+export const IconTrendUp = ({ className, size = 24, color, weight }: IconProps) => <TrendUp className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconTrendDown = ({ className, size = 24, color, weight }: IconProps) => <TrendDown className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconMoney = ({ className, size = 24, color, weight }: IconProps) => <Money className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconQuestion = ({ className, size = 24, color, weight }: IconProps) => <Question className={className} size={size} color={color} weight={weight || "bold"} />;
 
 // Status Bar Icons
 export const IconBatteryFull = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <BatteryFull className={className} size={size} color={color} weight={weight || "fill"} />;

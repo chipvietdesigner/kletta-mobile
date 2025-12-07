@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { KlettaLogo } from '../components/Icons';
 import { NavigationProps } from '../types';
@@ -15,9 +16,10 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
          </div>
 
          {/* Logo
-          <div className="relative z-10 mt-6 mb-10">
-            <KlettaLogo color="white" className="h-6" />
-         </div> */}
+          */}
+        <div className="relative z-10 mt-6 mb-10">
+            <KlettaLogo color="white" className="h-10" />
+        </div>
         
 
          {/* Hero Image / Illustration */}
@@ -53,25 +55,25 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
 
       {/* Bottom Content Section */}
       <div className="bg-white px-8 pb-20 pt-2 flex flex-col items-center text-center z-20 font-aktifo">
-        <h1 className="text-[28px] font-bold text-kletta-dark mb-5 leading-tight tracking-tight">
+        <h1 className="text-[30px] font-bold text-kletta-dark mb-16 leading-tight tracking-tight">
           Make your accounting <br />
           <span className="text-kletta-teal">simple</span>, clear and stress-free.
         </h1>
         
-        <p className="text-gray-500 text-lg mb-10 max-w-xs leading-relaxed">
-          The all-in-one solution for sole traders.
-        </p>
+        {/* <p className="text-gray-500 text-lg mb-10 max-w-xs leading-relaxed">
+        //   The all-in-one solution for sole traders.
+        // </p> */}
 
         <button 
           onClick={() => navigate('signup-email')} 
-          className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-lg mb-4 active:scale-95 transition-transform shadow-sm hover:shadow-md"
+          className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-[16px] mb-4 active:scale-95 transition-transform shadow-sm hover:shadow-md"
         >
           Get started
         </button>
 
         <button 
           onClick={() => navigate('login')}
-          className="py-2 text-kletta-teal font-bold text-base active:opacity-60 transition-opacity"
+          className="py-4 text-kletta-teal font-bold text-[16px] active:opacity-60 transition-opacity"
         >
           I already have an account
         </button>
