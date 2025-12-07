@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import SplashScreen from './screens/SplashScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -5,7 +6,7 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import { SignUpEmailScreen, VerifyEmailCodeScreen } from './screens/SignUpScreens';
 import { 
-    OnboardingStep1, OnboardingStep2, OnboardingStep3, OnboardingStep4, 
+    OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, OnboardingStep4, 
     OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8 
 } from './screens/OnboardingScreens';
 import { AddToInvoiceScreen, InvoiceCreateDetailsScreen } from './screens/NewInvoiceScreens';
@@ -34,7 +35,8 @@ const App = () => {
         case 'signup-verify': navigate('signup-email'); break;
         case 'welcome': navigate('splash'); break;
         // Onboarding usually prevents back for this demo, or goes to previous step
-        case 'onboarding-1': navigate('welcome'); break; 
+        case 'onboarding-welcome': navigate('signup-verify'); break; // or welcome if verifying flow feels detached
+        case 'onboarding-1': navigate('onboarding-welcome'); break; 
         case 'onboarding-2': navigate('onboarding-1'); break;
         case 'onboarding-3': navigate('onboarding-2'); break;
         case 'onboarding-4': navigate('onboarding-3'); break;
@@ -75,6 +77,7 @@ const App = () => {
         return <VerifyEmailCodeScreen navigate={navigate} goBack={goBack} params={navParams} />;
       
       // Onboarding Flow
+      case 'onboarding-welcome': return <OnboardingWelcome navigate={navigate} goBack={goBack} />;
       case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
       case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
       case 'onboarding-3': return <OnboardingStep3 navigate={navigate} goBack={goBack} />;

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { KlettaLogo, IconBack } from '../components/Icons';
 import { NavigationProps } from '../types';
@@ -82,7 +83,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
 
   const handleSignUp = () => {
     if (code.every(c => c !== '')) {
-      navigate('onboarding-1');
+      navigate('onboarding-welcome');
     } else {
       alert('Please enter the 6-digit code');
     }

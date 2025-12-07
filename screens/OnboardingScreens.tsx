@@ -13,7 +13,8 @@ import {
   IconCheck, 
   IconBike,
   IconInfo,
-  IconBack
+  IconBack,
+  IconHandWaving
 } from '../components/Icons';
 
 // --- Shared Layout with Custom Header ---
@@ -118,6 +119,27 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                </button>
             </div>
         </div>
+    );
+};
+
+// --- Step 0: Welcome Sole Proprietor ---
+export const OnboardingWelcome: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+    return (
+        <OnboardingLayout
+            title="Welcome, sole proprietor!"
+            icon={<IconHandWaving />}
+            primaryLabel="Transfer my accounting to Kletta"
+            secondaryLabel="I am a new sole proprietor"
+            onPrimary={() => navigate('onboarding-1')}
+            onSecondary={() => navigate('onboarding-1')}
+            onBack={goBack}
+        >
+            <div className="flex flex-col items-center">
+                <p className="text-gray-500 text-[15px] font-light leading-relaxed text-center mb-6">
+                    If you have already been operating as an entrepreneur, we need your current season’s bookkeeping in order to submit VAT and tax declarations.
+                </p>
+            </div>
+        </OnboardingLayout>
     );
 };
 
