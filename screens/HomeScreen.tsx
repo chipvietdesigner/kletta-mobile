@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   IconSettings, IconGear, IconChevronDown, IconChevronRight, IconClose, IconArrowRight,
   IconHome, IconBank, IconSales, IconExpenses, IconChat, IconPieChart,
@@ -6,7 +6,7 @@ import {
   IconCheck, IconRun, IconSparkle, IconVerified, IconInvoice, IconAddTrip,
   KlettaLogo
 } from '../components/Icons';
-import { TabName, ScreenName } from '../types';
+import { TabName, ScreenName, NavigationProps } from '../types';
 import BankScreen from './BankScreen';
 import SalesScreen from './SalesScreen';
 import ExpensesScreen from './ExpensesScreen';
@@ -179,8 +179,14 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
 
 
 // Main Component
-const HomeScreen: React.FC<{ navigate: (screen: ScreenName) => void }> = ({ navigate }) => {
-  const [activeTab, setActiveTab] = useState<TabName>('home');
+const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+  const [activeTab, setActiveTab] = useState<TabName>(params?.tab || 'home');
+
+  useEffect(() => {
+    if (params?.tab) {
+        setActiveTab(params.tab);
+    }
+  }, [params?.tab]);
 
   return (
     <div className="h-full w-full pt-5 bg-[#F5F5F5] relative font-aktifo overflow-hidden">
@@ -189,7 +195,7 @@ const HomeScreen: React.FC<{ navigate: (screen: ScreenName) => void }> = ({ navi
       <div className="absolute inset-0 w-full h-full z-0">
         {activeTab === 'home' && <DashboardContent navigate={navigate} />}
         {activeTab === 'bank' && <BankScreen />}
-        {activeTab === 'sales' && <SalesScreen navigate={navigate} />}
+        {activeTab === 'sales' && <SalesScreen navigate={navigate} goBack={goBack} />}
         {activeTab === 'expenses' && <ExpensesScreen />}
         {activeTab === 'chat' && <ChatScreen />}
         {activeTab === 'assets' && <AssetsScreen />}

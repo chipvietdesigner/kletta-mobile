@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SplashScreen from './screens/SplashScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -10,9 +9,17 @@ import {
     OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8 
 } from './screens/OnboardingScreens';
 import { AddToInvoiceScreen, InvoiceCreateDetailsScreen } from './screens/NewInvoiceScreens';
+import { 
+  InvoicePaymentMethodScreen, InvoiceCustomerSelectScreen, InvoiceNewCustomerScreen, 
+  InvoiceConfirmCustomerScreen, InvoiceDueDateScreen, InvoiceNotesScreen, 
+  InvoicePreviewScreen, InvoiceSuccessScreen 
+} from './screens/InvoiceFlowScreens';
 import { InvoiceDetailScreen } from './screens/InvoiceDetailScreen';
 import { SummaryScreen } from './screens/SummaryScreen';
-import { BusinessIncomeScreen } from './screens/SummaryDetailScreens';
+import { 
+  BusinessIncomeScreen, OtherIncomeScreen, BusinessExpensesScreen, 
+  NonAllowableExpensesScreen, ClaimedKilometersScreen, CashWithdrawalScreen, TaxPrepaymentsScreen 
+} from './screens/SummaryDetailScreens';
 import { SettingsScreen } from './screens/SettingsScreen';
 import { ScreenName } from './types';
 
@@ -21,9 +28,7 @@ const App = () => {
   const [navParams, setNavParams] = useState<any>({});
 
   const navigate = (screen: ScreenName, params?: any) => {
-    if (params) {
-        setNavParams(params);
-    }
+    setNavParams(params || {});
     setCurrentScreen(screen);
   };
 
@@ -48,13 +53,27 @@ const App = () => {
         // New Invoice Flow
         case 'new-invoice': navigate('home'); break;
         case 'invoice-create-details': navigate('new-invoice'); break;
+        case 'invoice-payment-method': navigate('invoice-create-details'); break;
+        case 'invoice-customer-select': navigate('invoice-payment-method'); break;
+        case 'invoice-customer-new': navigate('invoice-customer-select'); break;
+        case 'invoice-customer-confirm': navigate('invoice-customer-new'); break; // Or select
+        case 'invoice-due-date': navigate('invoice-customer-confirm'); break;
+        case 'invoice-notes': navigate('invoice-due-date'); break;
+        case 'invoice-preview': navigate('invoice-notes'); break;
+        case 'invoice-success': navigate('home'); break;
         
-        // Sales Flow
-        case 'invoice-detail': navigate('home'); break; // Should actually go back to sales tab in home, but 'home' resets tab state in this simple router. Ideal would be goBack to sales.
+        // Sales Flow - Back to Sales Tab
+        case 'invoice-detail': navigate('home', { tab: 'sales' }); break; 
 
-        // Summary
+        // Summary Flow
         case 'summary': navigate('home'); break;
         case 'summary-business-income': navigate('summary'); break;
+        case 'summary-other-income': navigate('summary'); break;
+        case 'summary-business-expenses': navigate('summary'); break;
+        case 'summary-nonallowable-expenses': navigate('summary'); break;
+        case 'summary-claimed-kilometers': navigate('summary'); break;
+        case 'summary-cash-withdrawal': navigate('summary'); break;
+        case 'summary-tax-prepayments': navigate('summary'); break;
 
         // Settings
         case 'settings': navigate('home'); break;
@@ -90,51 +109,43 @@ const App = () => {
       // New Invoice Flow
       case 'new-invoice': return <AddToInvoiceScreen navigate={navigate} goBack={goBack} />;
       case 'invoice-create-details': return <InvoiceCreateDetailsScreen navigate={navigate} goBack={goBack} />;
-      
+      case 'invoice-payment-method': return <InvoicePaymentMethodScreen navigate={navigate} goBack={goBack} />;
+      case 'invoice-customer-select': return <InvoiceCustomerSelectScreen navigate={navigate} goBack={goBack} />;
+      case 'invoice-customer-new': return <InvoiceNewCustomerScreen navigate={navigate} goBack={goBack} />;
+      case 'invoice-customer-confirm': return <InvoiceConfirmCustomerScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'invoice-due-date': return <InvoiceDueDateScreen navigate={navigate} goBack={goBack} />;
+      case 'invoice-notes': return <InvoiceNotesScreen navigate={navigate} goBack={goBack} />;
+      case 'invoice-preview': return <InvoicePreviewScreen navigate={navigate} goBack={goBack} />;
+      case 'invoice-success': return <InvoiceSuccessScreen navigate={navigate} goBack={goBack} />;
+
       // Invoice Detail
       case 'invoice-detail': return <InvoiceDetailScreen navigate={navigate} goBack={goBack} params={navParams} />;
 
       // Summary
       case 'summary': return <SummaryScreen navigate={navigate} goBack={goBack} />;
       case 'summary-business-income': return <BusinessIncomeScreen navigate={navigate} goBack={goBack} />;
+      case 'summary-other-income': return <OtherIncomeScreen navigate={navigate} goBack={goBack} />;
+      case 'summary-business-expenses': return <BusinessExpensesScreen navigate={navigate} goBack={goBack} />;
+      case 'summary-nonallowable-expenses': return <NonAllowableExpensesScreen navigate={navigate} goBack={goBack} />;
+      case 'summary-claimed-kilometers': return <ClaimedKilometersScreen navigate={navigate} goBack={goBack} />;
+      case 'summary-cash-withdrawal': return <CashWithdrawalScreen navigate={navigate} goBack={goBack} />;
+      case 'summary-tax-prepayments': return <TaxPrepaymentsScreen navigate={navigate} goBack={goBack} />;
 
       // Settings
       case 'settings': return <SettingsScreen navigate={navigate} goBack={goBack} />;
 
       case 'home':
-        return <HomeScreen navigate={navigate} />;
+        return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;
       default:
         return <SplashScreen onFinish={() => navigate('welcome')} />;
     }
   };
 
   return (
-    // Updated Main Container: iPhone 16 Pro dimensions (402x874) on desktop.
-    // Using font-aktifo globally.
     <div className="relative w-full h-[100dvh] md:w-[402px] md:h-[874px] bg-white md:rounded-[24px] shadow-2xl overflow-hidden font-aktifo mx-auto selection:bg-kletta-yellow selection:text-kletta-dark">
-      
-      {/* Status Bar - Overlay 
-      <div className="absolute top-0 w-full h-[60px] z-50 flex justify-between items-end pb-5 px-7 pointer-events-none mix-blend-exclusion text-white font-aktifo">
-        <span className="text-[16px] font-bold tracking-normal leading-none ml-2">9:41</span>
-        <div className="flex gap-1.5 mr-1 items-center">
-           <div className="w-[18px] h-[12px] bg-current rounded-[1px] opacity-100 relative">
-              <div className="absolute inset-0.5 bg-current opacity-20"></div> 
-           </div>
-           <div className="w-[17px] h-[12px] bg-current rounded-[1px]"></div>
-           <div className="w-[26px] h-[12px] border-[1px] border-current rounded-[3px] relative flex items-center justify-start px-[1px]">
-              <div className="w-[19px] h-[8px] bg-current rounded-[1px]"></div>
-              <div className="absolute -right-[3px] top-[2px] w-[1px] h-[4px] bg-current rounded-r-[1px]"></div>
-           </div>
-        </div>
-      </div>
-   */}
-     
-      {/* Screen Content */}
       <div className="w-full h-full relative z-0">
         {renderScreen()}
       </div>
-
-      {/* Home Indicator */}
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[140px] h-[5px] bg-black/30 rounded-full z-50 pointer-events-none mix-blend-difference"></div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IconBack } from '../components/Icons';
 import { NavigationProps } from '../types';
 import PasscodeSheet from '../components/PasscodeSheet';
+import { KlettaInput } from '../components/Inputs';
 
 const LoginScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
   const [email, setEmail] = useState('johndoe@gmail.com');
@@ -46,18 +47,14 @@ const LoginScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
         </div>
 
         <div className="space-y-6 max-w-[420px] mx-auto">
-           <div>
-              <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Email Address</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 text-[16px] text-kletta-dark font-medium outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300"
-                placeholder="name@example.com"
-                autoFocus
-              />
-              
-           </div>
+           <KlettaInput 
+              label="Email Address"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="name@example.com"
+              autoFocus
+           />
         </div>
       </div>
 

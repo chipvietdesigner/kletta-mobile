@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { KlettaLogo, IconBack } from '../components/Icons';
 import { NavigationProps } from '../types';
+import { KlettaInput } from '../components/Inputs';
 
 // Screen 1: Sign Up Email
 export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
@@ -33,12 +34,11 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
 
         <div className="space-y-6 max-w-[420px] mx-auto">
            <div>
-              <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Email Address</label>
-              <input
+              <KlettaInput 
+                label="Email Address"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 text-[16px] text-kletta-dark font-medium outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300"
                 placeholder="name@example.com"
                 autoFocus
               />
@@ -113,7 +113,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
                         maxLength={1}
                         value={digit}
                         onChange={(e) => handleChange(i, e.target.value)}
-                        className="w-14 h-14 bg-gray-50 border border-gray-200 rounded-xl text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white focus:-translate-y-1 transition-all shadow-sm"
+                        className="w-14 h-14 bg-white border border-[#E6E8EC] rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all shadow-sm"
                     />
                 ))}
             </div>
@@ -125,11 +125,10 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             </div>
 
             <div className="mb-6">
-                <label className="text-[11px] font-base text-gray-700 uppercase tracking-wider ml-1 mb-2 block">Promotion Code (Optional)</label>
-                <input 
+                <KlettaInput 
+                    label="Promotion Code (Optional)"
                     type="text" 
                     placeholder="Type your code" 
-                    className="w-full p-4 bg-gray-50 rounded-2xl border-transparent focus:border-gray-200 font-medium text-kletta-dark outline-none placeholder:text-gray-300 transition-all"
                 />
             </div>
         </div>

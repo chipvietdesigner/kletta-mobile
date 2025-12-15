@@ -16,6 +16,7 @@ import {
   IconBack,
   IconHandWaving
 } from '../components/Icons';
+import { KlettaInput, KlettaSelect } from '../components/Inputs';
 
 // --- Shared Layout with Custom Header ---
 interface OnboardingLayoutProps extends React.PropsWithChildren {
@@ -31,12 +32,6 @@ interface OnboardingLayoutProps extends React.PropsWithChildren {
 }
 
 const OnboardingHeader = ({ icon }: { icon: React.ReactNode }) => {
-    // Header Logic:
-    // Full width teal background.
-    // Height approx 180px.
-    // Rounded bottom corners (40px).
-    // Icon overlaps bottom edge (half in, half out).
-    
     return (
         <div className="relative w-full shrink-0 z-20 bg-white">
             {/* Teal background with rounded bottom corners */}
@@ -45,24 +40,19 @@ const OnboardingHeader = ({ icon }: { icon: React.ReactNode }) => {
             </div>
 
             {/* Icon Wrapper: Absolute positioned to overlap */}
-            {/* Bottom position = - half of icon size (72px / 2 = 36px) */}
             <div className="absolute bottom-[-36px] left-0 right-0 flex justify-center items-center pointer-events-none">
-    
-    {/* Outer white ring */}
-    <div className="w-[92px] h-[92px] rounded-full bg-white flex items-center justify-center shadow-md">
-        
-        {/* Middle teal ring */}
-        <div className="w-[84px] h-[84px] rounded-full bg-white border-[4px] border-kletta-teal flex items-center justify-center">
-            
-            {/* Icon */}
-            {React.cloneElement(icon as React.ReactElement<any>, { 
-                color: '#00343B', 
-                size: 32 
-            })}
-        </div>
-
-    </div>
-</div>
+                {/* Outer white ring */}
+                <div className="w-[92px] h-[92px] rounded-full bg-white flex items-center justify-center shadow-md">
+                    {/* Middle teal ring */}
+                    <div className="w-[84px] h-[84px] rounded-full bg-white border-[4px] border-kletta-teal flex items-center justify-center">
+                        {/* Icon */}
+                        {React.cloneElement(icon as React.ReactElement<any>, { 
+                            color: '#00343B', 
+                            size: 32 
+                        })}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
@@ -87,7 +77,6 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
             <OnboardingHeader icon={icon} />
 
             {/* Scrollable Content Body */}
-            {/* Padding Top = Icon Half Size (36) + Spacing (24) = 60px */}
             <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-[60px] pb-40 bg-white">
                 <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
                 {subtitle && (
@@ -190,21 +179,15 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
             onBack={goBack}
         >
             <div className="space-y-6 mb-8">
-                <InputGroup label="Business ID" placeholder="1234567-8" />
-                <InputGroup label="Company Name" placeholder="Company ABC" />
+                <KlettaInput label="Business ID" placeholder="1234567-8" />
+                <KlettaInput label="Company Name" placeholder="Company ABC" />
                 
-                <div>
-                   <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">VAT Period</label>
-                   <div className="relative">
-                      <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all appearance-none text-[15px]">
-                         <option>No VAT liability</option>
-                         <option>Monthly</option>
-                         <option>Quarterly</option>
-                         <option>Yearly</option>
-                      </select>
-                      <IconChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
-                   </div>
-                </div>
+                <KlettaSelect label="VAT Period">
+                     <option>No VAT liability</option>
+                     <option>Monthly</option>
+                     <option>Quarterly</option>
+                     <option>Yearly</option>
+                </KlettaSelect>
             </div>
 
             <div className="bg-teal-50 border border-teal-100 p-5 rounded-2xl flex gap-3.5 items-start">
@@ -271,15 +254,11 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack })
             onBack={goBack}
         >
             <div className="mb-8">
-                <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Select Period</label>
-                <div className="relative">
-                    <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all appearance-none">
-                        <option>2025</option>
-                        <option>Quarter I, 2025</option>
-                        <option>Quarter II, 2025</option>
-                    </select>
-                    <IconChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={20} />
-                </div>
+                <KlettaSelect label="Select Period">
+                    <option>2025</option>
+                    <option>Quarter I, 2025</option>
+                    <option>Quarter II, 2025</option>
+                </KlettaSelect>
             </div>
 
             <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-[13px] font-bold text-center">
@@ -302,18 +281,15 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate, goBack })
         >
             <div className="flex gap-3">
                 <div className="relative w-28 shrink-0">
-                    <select className="w-full h-[56px] pl-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none appearance-none focus:border-kletta-teal">
+                    <KlettaSelect>
                         <option>+358</option>
                         <option>+46</option>
                         <option>+1</option>
-                    </select>
-                     <IconChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                    </KlettaSelect>
                 </div>
-                <input 
-                    type="tel" 
-                    placeholder="40 123 4567" 
-                    className="flex-1 h-[56px] px-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300"
-                />
+                <div className="flex-1">
+                    <KlettaInput type="tel" placeholder="40 123 4567" />
+                </div>
             </div>
         </OnboardingLayout>
     );
@@ -416,7 +392,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
             onBack={goBack}
         >
             <div className="space-y-8">
-                <InputGroup label="Vehicle Name" placeholder="e.g. Van or ABC-123" />
+                <KlettaInput label="Vehicle Name" placeholder="e.g. Van or ABC-123" />
 
                 <div>
                     <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Vehicle Type</label>
@@ -427,17 +403,11 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
                     </div>
                 </div>
 
-                <div>
-                    <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Business Use</label>
-                    <div className="relative">
-                         <select className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-kletta-dark outline-none appearance-none focus:border-kletta-teal">
-                             <option>Less than 50%</option>
-                             <option>More than 50%</option>
-                             <option>100%</option>
-                          </select>
-                          <IconChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={20} />
-                    </div>
-                </div>
+                <KlettaSelect label="Business Use">
+                     <option>Less than 50%</option>
+                     <option>More than 50%</option>
+                     <option>100%</option>
+                </KlettaSelect>
                 
                  <div>
                     <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Acquisition Type</label>
@@ -453,17 +423,6 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
 };
 
 // --- Helper Components ---
-
-const InputGroup = ({ label, placeholder }: { label: string, placeholder: string }) => (
-    <div>
-       <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">{label}</label>
-       <input 
-           type="text" 
-           placeholder={placeholder} 
-           className="w-full p-4 bg-gray-50 rounded-2xl border border-gray-200 font-medium text-[15px] text-kletta-dark outline-none focus:border-kletta-teal focus:bg-white transition-all placeholder:text-gray-300 placeholder:font-light" 
-        />
-    </div>
-);
 
 const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
     <button 
