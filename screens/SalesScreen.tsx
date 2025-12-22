@@ -1,106 +1,163 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { NavigationProps } from '../types';
 import { 
   IconCellSignalFull, IconWifiHigh, IconBatteryFull, 
-  IconPlus, IconChevronDown, IconUser, IconCheck, IconWarningCircle
+  IconPlus, IconChevronDown, IconCheckCircle, IconWarningCircle,
+  IconInvoice, IconCheck, IconFileText
 } from '../components/Icons';
 
 // --- Types ---
 interface Invoice {
     id: string;
-    client: string;
-    number: string;
-    date: string;
     amount: string;
-    status: 'paid' | 'overdue' | 'unpaid' | 'outstanding';
-    imageUrl?: string;
-    email?: string;
+    date: string;
+    meta: string; // Combined string for Date • Invoice # • Customer
+    status: 'paid' | 'overdue' | 'outstanding';
+    iconType: 'terminal' | 'kletta';
 }
 
 // --- Mock Data ---
 const INITIAL_INVOICES: Invoice[] = [
     { 
-       id: '12345',
-       client: "Jari",
-       number: "#12345",
+       id: '14128',
+       amount: "€327.92",
        date: "29.04.2025",
+       meta: "29.04.2025 • #14128 • Jari",
+       status: "paid",
+       iconType: 'terminal'
+    },
+    { 
+       id: 'nocust',
+       amount: "€50,000.00",
+       date: "09.04.2025",
+       meta: "09.04.2025 • No Customer",
+       status: "paid",
+       iconType: 'terminal'
+    },
+    { 
+       id: '10712',
        amount: "€100.00",
-       status: "paid",
-       imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=100&h=100&fit=crop",
-       email: "jari@example.com"
-    },
-    { 
-       id: '12346',
-       client: "Matti Meikäläinen",
-       number: "#12346",
-       date: "29.04.2025",
-       amount: "€250.00",
+       date: "18.03.2025",
+       meta: "18.03.2025 • #10712 • Sami",
        status: "overdue",
-       imageUrl: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=100&h=100&fit=crop",
-       email: "matti@example.com"
+       iconType: 'kletta'
     },
     { 
-       id: '12347',
-       client: "Tech Oy Long Company Name Test Truncation",
-       number: "#12347",
-       date: "29.04.2025",
-       amount: "€1,200.00",
-       status: "unpaid",
-       imageUrl: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=100&h=100&fit=crop",
-       email: "contact@techoy.fi"
+       id: '10708',
+       amount: "€80.65",
+       date: "18.03.2025",
+       meta: "18.03.2025 • #10708 • Liz",
+       status: "overdue",
+       iconType: 'kletta'
     },
     { 
-       id: '12344',
-       client: "Design Studio",
-       number: "#12344",
-       date: "15.03.2025",
+       id: '10394',
+       amount: "€50.20",
+       date: "13.03.2025",
+       meta: "13.03.2025 • #10394 • Noja Rahoitus Oy",
+       status: "overdue",
+       iconType: 'terminal'
+    },
+    { 
+       id: '10390',
+       amount: "€1.00",
+       date: "13.03.2025",
+       meta: "13.03.2025 • #10390 • Unknown",
+       status: "overdue",
+       iconType: 'kletta'
+    },
+    // --- Additional Data for Grouping ---
+    { 
+       id: '10388',
+       amount: "€1,250.00",
+       date: "10.03.2025",
+       meta: "10.03.2025 • #10388 • Design Studio",
+       status: "paid",
+       iconType: 'terminal'
+    },
+    { 
+       id: '10385',
        amount: "€450.00",
+       date: "05.03.2025",
+       meta: "05.03.2025 • #10385 • Consulting Group",
        status: "paid",
-       imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=100&h=100&fit=crop",
-       email: "studio@design.com"
+       iconType: 'terminal'
     },
     { 
-       id: '12343',
-       client: "Consulting Group",
-       number: "#12343",
-       date: "12.03.2025",
-       amount: "€3,400.00",
-       status: "paid",
-       imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=100&h=100&fit=crop",
-       email: "billing@consulting.com"
-    },
-    { 
-       id: '12342',
-       client: "Personal Project",
-       number: "#12342",
+       id: '10382',
+       amount: "€2,400.00",
        date: "01.03.2025",
-       amount: "€120.00",
+       meta: "01.03.2025 • #10382 • Tech Corp",
+       status: "outstanding",
+       iconType: 'kletta'
+    },
+    { 
+       id: '10380',
+       amount: "€120.50",
+       date: "28.02.2025",
+       meta: "28.02.2025 • #10380 • Local Cafe",
        status: "paid",
-       imageUrl: "https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?w=100&h=100&fit=crop",
-       email: "me@project.com"
+       iconType: 'terminal'
+    },
+    { 
+       id: '10375',
+       amount: "€85.00",
+       date: "25.02.2025",
+       meta: "25.02.2025 • #10375 • Personal",
+       status: "paid",
+       iconType: 'terminal'
+    },
+    // --- More History for Scrolling ---
+    { 
+       id: '10250',
+       amount: "€2,100.00",
+       date: "15.02.2025",
+       meta: "15.02.2025 • #10250 • Startup Inc",
+       status: "paid",
+       iconType: 'kletta'
+    },
+    { 
+       id: '10245',
+       amount: "€350.00",
+       date: "02.02.2025",
+       meta: "02.02.2025 • #10245 • Freelance Gig",
+       status: "paid",
+       iconType: 'terminal'
+    },
+    { 
+       id: '10100',
+       amount: "€99.00",
+       date: "20.01.2025",
+       meta: "20.01.2025 • #10100 • Web Hosting Ref",
+       status: "paid",
+       iconType: 'terminal'
+    },
+    { 
+       id: '10090',
+       amount: "€5,000.00",
+       date: "05.01.2025",
+       meta: "05.01.2025 • #10090 • Enterprise License",
+       status: "paid",
+       iconType: 'kletta'
     }
 ];
 
-// --- Helper: List Image ---
-const SalesListImage = ({ src, alt }: { src?: string, alt?: string }) => {
-  const [error, setError] = useState(false);
-  
-  if (!src || error) {
-    return (
-      <div className="w-11 h-11 rounded-[12px] bg-gray-50 flex items-center justify-center border border-gray-100 shrink-0">
-         <IconUser size={20} className="text-gray-300" weight="fill" />
-      </div>
-    );
-  }
+// --- Helpers ---
+const parseDate = (dateStr: string) => {
+    const [day, month, year] = dateStr.split('.').map(Number);
+    return new Date(year, month - 1, day);
+};
 
+const getMonthYear = (dateStr: string) => {
+    const date = parseDate(dateStr);
+    return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+};
+
+// Simplified Solid Icon - No background, no border
+const SalesListIcon = ({ type }: { type: 'terminal' | 'kletta' }) => {
   return (
-    <div className="w-11 h-11 rounded-[12px] bg-gray-50 overflow-hidden border border-gray-100 shrink-0 relative">
-      <img 
-        src={src} 
-        alt={alt} 
-        onError={() => setError(true)}
-        className="w-full h-full object-cover"
-      />
+    <div className="shrink-0 pt-0.5">
+       <IconFileText size={26} weight="fill" className="text-gray-200" />
     </div>
   );
 };
@@ -128,110 +185,120 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
       navigate('invoice-detail', { 
           id: invoice.id,
           amount: invoice.amount,
-          status: invoice.status.toUpperCase(), // Convert to display format (PAID, OVERDUE, UNPAID)
-          name: invoice.client,
-          date: invoice.date,
-          email: invoice.email
+          status: invoice.status.toUpperCase(),
+          date: invoice.date
       });
   };
 
-  // Filter Logic
-  const filteredInvoices = filter === 'all' 
-    ? invoices 
-    : invoices.filter(inv => inv.status !== 'paid');
+  // Grouping Logic
+  const groupedInvoices = useMemo<{ [key: string]: Invoice[] }>(() => {
+    const filtered = filter === 'all' 
+        ? invoices 
+        : invoices.filter(inv => inv.status !== 'paid');
 
-  // Group by Month (Simple check for demo)
-  const aprilInvoices = filteredInvoices.filter(inv => inv.date.includes('.04.'));
-  const marchInvoices = filteredInvoices.filter(inv => inv.date.includes('.03.'));
+    // Sort by date descending
+    const sorted = [...filtered].sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
+
+    // Group by month
+    const groups: { [key: string]: Invoice[] } = {};
+    sorted.forEach(inv => {
+        const monthYear = getMonthYear(inv.date);
+        if (!groups[monthYear]) {
+            groups[monthYear] = [];
+        }
+        groups[monthYear].push(inv);
+    });
+
+    return groups;
+  }, [invoices, filter]);
 
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
-      {/* Header Section - Dark Theme (Kletta Teal) */}
-      <div className="w-full bg-kletta-teal flex flex-col z-20 pb-6 pt-0 shadow-sm">
+      {/* Header Container - Fixed at Top */}
+      <div className="w-full z-20 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col shrink-0 bg-white">
           
-          {/* Status Bar */}
-          <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
-              <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
-              <div className="flex gap-1.5 items-center mr-1">
-                 <IconCellSignalFull size={16} weight="fill" />
-                 <IconWifiHigh size={16} weight="bold" />
-                 <IconBatteryFull size={24} weight="fill" className="rotate-0" />
+          {/* Dark Header Part */}
+          <div className="w-full bg-kletta-teal pb-5 pt-0">
+              {/* Status Bar */}
+              <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
+                  <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
+                  <div className="flex gap-1.5 items-center mr-1">
+                     <IconCellSignalFull size={16} weight="fill" />
+                     <IconWifiHigh size={16} weight="bold" />
+                     <IconBatteryFull size={24} weight="fill" className="rotate-0" />
+                  </div>
+              </div>
+
+              {/* Title Row */}
+              <div className="px-6 pt-2">
+                  <div className="flex justify-between items-center">
+                     <div className="flex flex-col">
+                         <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
+                         <div className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer">
+                             <span className="text-[13px] font-medium">All time</span>
+                             <IconChevronDown size={12} weight="bold" />
+                         </div>
+                     </div>
+                     <button 
+                        onClick={() => navigate('new-invoice')}
+                        className="w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors"
+                     >
+                        <IconPlus size={24} weight="regular" />
+                     </button>
+                  </div>
               </div>
           </div>
 
-          {/* Header Content */}
-          <div className="px-6 pt-2 flex flex-col">
-              {/* Title Row */}
-              <div className="flex justify-between items-center mb-6">
-                 <div className="flex flex-col">
-                     <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
-                     <div className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer">
-                         <span className="text-[13px] font-medium">All time</span>
-                         <IconChevronDown size={12} weight="bold" />
-                     </div>
-                 </div>
-                 <button 
-                    onClick={() => navigate('new-invoice')}
-                    className="w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors"
-                 >
-                    <IconPlus size={24} weight="regular" />
-                 </button>
-              </div>
-
-              {/* Segmented Control */}
-              <div className="w-full h-[38px] bg-white/10 p-0.5 rounded-full flex relative backdrop-blur-sm">
-                  <button 
-                    onClick={() => setFilter('all')}
-                    className={`flex-1 rounded-full text-[13px] font-medium transition-all z-10 duration-200 ${filter === 'all' ? 'bg-white text-kletta-dark shadow-sm' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
-                  >
-                    All
-                  </button>
-                  <button 
-                    onClick={() => setFilter('outstanding')}
-                    className={`flex-1 rounded-full text-[13px] font-medium transition-all z-10 duration-200 ${filter === 'outstanding' ? 'bg-white text-kletta-dark shadow-sm' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
-                  >
-                    Outstanding
-                  </button>
-              </div>
+          {/* Light Tabs Part - Sticky below Header */}
+          <div className="bg-white w-full grid grid-cols-2 border-b border-gray-100">
+              <button 
+                onClick={() => setFilter('all')}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${filter === 'all' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+              >
+                All
+                {filter === 'all' && (
+                    <div className="absolute bottom-0 left-0 w-full h-[3px] bg-kletta-dark rounded-t-sm animate-fade-in"></div>
+                )}
+              </button>
+              <button 
+                onClick={() => setFilter('outstanding')}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${filter === 'outstanding' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+              >
+                Outstanding
+                {filter === 'outstanding' && (
+                    <div className="absolute bottom-0 left-0 w-full h-[3px] bg-kletta-dark rounded-t-sm animate-fade-in"></div>
+                )}
+              </button>
           </div>
       </div>
 
       {/* List Content */}
       <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-0 bg-white">
-        
-        {/* April Group */}
-        {aprilInvoices.length > 0 && (
-            <>
-                <div className="px-6 pt-5 pb-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                    <p className="text-[12px] font-medium text-[#6F7683] uppercase tracking-wider">April 2025</p>
+        {Object.keys(groupedInvoices).length === 0 ? (
+            <div className="flex flex-col items-center justify-center pt-20 px-6 opacity-50">
+                <IconInvoice size={40} className="text-gray-300 mb-4" />
+                <p className="text-gray-500 font-medium">No invoices found</p>
+            </div>
+        ) : (
+            Object.keys(groupedInvoices).map((month) => (
+                <div key={month} className="mb-0">
+                    {/* Month Header - Light, Uppercase, Spaced, Subtle Gray */}
+                    <div className="px-6 pt-8 pb-3 bg-white sticky top-0 z-10 bg-white/95 backdrop-blur-sm border-b border-gray-50/50">
+                        <h2 className="text-[12px] font-medium text-[#6F7683] uppercase tracking-wider">{month}</h2>
+                    </div>
+                    <div>
+                        {groupedInvoices[month].map(invoice => (
+                            <InvoiceRow 
+                                key={invoice.id}
+                                invoice={invoice}
+                                onRegisterPaid={(e) => handleRegisterPaidClick(e, invoice)}
+                                onClick={() => handleRowClick(invoice)}
+                            />
+                        ))}
+                    </div>
                 </div>
-                {aprilInvoices.map(invoice => (
-                    <InvoiceRow 
-                        key={invoice.id}
-                        invoice={invoice}
-                        onRegisterPaid={(e) => handleRegisterPaidClick(e, invoice)}
-                        onClick={() => handleRowClick(invoice)}
-                    />
-                ))}
-            </>
-        )}
-
-        {/* March Group */}
-        {marchInvoices.length > 0 && (
-            <>
-                <div className="px-6 pt-6 pb-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50 mt-2">
-                    <p className="text-[12px] font-medium text-[#6F7683] uppercase tracking-wider">March 2025</p>
-                </div>
-                {marchInvoices.map(invoice => (
-                    <InvoiceRow 
-                        key={invoice.id}
-                        invoice={invoice}
-                        onRegisterPaid={(e) => handleRegisterPaidClick(e, invoice)}
-                        onClick={() => handleRowClick(invoice)}
-                    />
-                ))}
-            </>
+            ))
         )}
       </div>
 
@@ -241,7 +308,7 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
             <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in" onClick={() => setSelectedForPayment(null)} />
             <div className="bg-white w-full max-w-[320px] rounded-[24px] p-6 relative z-10 animate-slide-up shadow-2xl text-center">
                 <div className="w-12 h-12 bg-kletta-yellow/20 rounded-full flex items-center justify-center mx-auto mb-4 text-kletta-dark">
-                     <IconCheck size={28} weight="bold" />
+                     <IconCheckCircle size={28} weight="fill" />
                 </div>
                 <h3 className="text-[18px] font-bold text-kletta-dark mb-2">Mark as paid?</h3>
                 <p className="text-[14px] text-gray-500 font-light mb-6 leading-relaxed">
@@ -263,68 +330,69 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
                 </div>
             </div>
         </div>
-      )}
+    )}
     </div>
   );
 };
 
 // --- Row Component ---
-const InvoiceRow = ({ invoice, onRegisterPaid, onClick }: { invoice: Invoice, onRegisterPaid: (e: React.MouseEvent) => void, onClick: () => void }) => {
-   // Determine styling based on status
-   let statusText = '';
-   let statusColor = 'text-[#8A8F9A]'; 
+interface InvoiceRowProps {
+    invoice: Invoice;
+    onRegisterPaid: (e: React.MouseEvent) => void;
+    onClick: () => void;
+}
 
-   if (invoice.status === 'overdue') {
-       statusText = 'OVERDUE'; // Uppercase for consistency
-       statusColor = 'text-red-600 font-bold';
-   } else if (invoice.status === 'unpaid' || invoice.status === 'outstanding') {
-       statusText = 'Unpaid';
-       statusColor = 'text-kletta-dark font-medium opacity-60';
-   } else if (invoice.status === 'paid') {
-       statusText = 'Paid';
-       statusColor = 'text-green-600 font-medium';
-   }
-
-   const showAction = invoice.status !== 'paid';
+const InvoiceRow: React.FC<InvoiceRowProps> = ({ invoice, onRegisterPaid, onClick }) => {
+   const isPaid = invoice.status === 'paid';
+   const isOverdue = invoice.status === 'overdue';
 
    return (
       <button 
          onClick={onClick}
-         className="w-full px-6 py-4 flex items-center gap-4 transition-colors border-b border-gray-50 bg-white hover:bg-gray-50 group text-left min-h-[80px]"
+         className="w-full px-6 py-5 flex items-start gap-4 transition-colors bg-white hover:bg-gray-50 group text-left border-b border-gray-50"
       >
-         {/* Image */}
-         <SalesListImage src={invoice.imageUrl} alt={invoice.client} />
-
-         {/* Middle Content - Flex Grow with min-width 0 to allow truncation */}
-         <div className="flex-1 min-w-0 flex flex-col justify-center">
-             <div className="flex items-center justify-between mb-1">
-                 <p className="text-[13px] font-light text-[#111111] leading-snug whitespace-nowrap overflow-hidden text-ellipsis pr-2">
-                     {invoice.client}
-                 </p>
-             </div>
-             
-             {/* Meta Line: Date • Number • Status */}
-             <div className="flex items-center text-[12px] font-light leading-tight text-left">
-                 <span className="text-[#8A8F9A] whitespace-nowrap">{invoice.date} • {invoice.number}</span>
-                 <span className="mx-1.5 text-[#E5E5E5]">|</span>
-                 {/* Status is shrink-0 to prevent truncation */}
-                 <span className={`shrink-0 ${statusColor} tracking-wide`}>{statusText}</span>
-             </div>
+         {/* Icon - Solid, No Background, Simple */}
+         <div className="mt-0.5">
+            <SalesListIcon type={invoice.iconType} />
          </div>
 
-         {/* Right Content */}
-         <div className="shrink-0 pl-2 text-right flex flex-col items-end gap-1.5 justify-center min-w-[80px]">
-             <p className={`text-[15px] font-medium tracking-normal ${invoice.status === 'paid' ? 'text-green-600' : 'text-kletta-dark'}`}>
-                {invoice.amount}
-             </p>
+         {/* Content */}
+         <div className="flex-1 min-w-0 flex flex-col gap-1">
              
-             {/* Premium "Register as paid" Action */}
-             {showAction && (
-                 <div 
-                    onClick={onRegisterPaid}
-                    className="px-3 py-1.5 bg-kletta-yellow rounded-[14px] shadow-sm hover:shadow-md active:scale-95 transition-all cursor-pointer flex items-center justify-center"
-                 >
-                     <span className="text-[11px] font-bold text-kletta-teal whitespace-nowrap">Register as paid</span>
+             {/* Row 1: Amount (Black, Medium) & Status */}
+             <div className="flex items-center justify-between">
+                 <span className="text-[15px] font-bold text-kletta-dark leading-tight">
+                    {invoice.amount}
+                 </span>
+                 
+                 {/* Status Indicator - Clean, Inline, No Pill */}
+                 {isPaid ? (
+                     <div className="flex items-center gap-1.5">
+                         <IconCheckCircle size={18} weight="fill" className="text-[#0D8240]" />
+                         <span className="text-[12px] font-bold text-[#0D8240] tracking-wide">PAID</span>
+                     </div>
+                 ) : isOverdue ? (
+                     <span className="text-[11px] font-bold text-[#D32F2F] tracking-wide">OVERDUE</span>
+                 ) : (
+                     <span className="text-[11px] font-medium text-gray-400 tracking-wide">UNPAID</span>
+                 )}
+             </div>
+             
+             {/* Row 2: Meta Info - Neutral Gray, Normal Weight */}
+             <p className="text-[14px] text-gray-500 font-normal leading-relaxed w-full">
+                 {invoice.meta}
+             </p>
+
+             {/* Row 3: Action Button (Register as paid) - Outlined, Clean */}
+             {!isPaid && (
+                 <div className="pt-2">
+                     <div 
+                        onClick={onRegisterPaid}
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-[8px] border border-gray-200 bg-white hover:bg-gray-50 active:scale-[0.98] transition-all"
+                     >
+                         <IconCheck size={14} className="text-kletta-dark" weight="bold" />
+                         <span className="text-[13px] font-medium text-kletta-dark">Register as paid</span>
+                     </div>
                  </div>
              )}
          </div>

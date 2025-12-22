@@ -1,82 +1,93 @@
 import React from 'react';
-import { KlettaLogo } from '../components/Icons';
 import { NavigationProps } from '../types';
+import { IconArrowRight } from '../components/Icons';
 
 const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
   return (
-    <div className="h-full w-full flex flex-col bg-white overflow-hidden relative font-aktifo">
+    <div className="h-full w-full flex flex-col bg-[#F0F7F6] relative font-aktifo overflow-hidden">
       
-      {/* Top Hero Section */}
-      <div className="flex-1 bg-kletta-teal relative flex flex-col items-center pt-14">
-         {/* Background Curves */}
-         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-             <div className="absolute -top-20 -left-20 w-72 h-72 bg-white opacity-5 rounded-full blur-3xl"></div>
-             <div className="absolute top-40 -right-20 w-80 h-80 bg-kletta-yellow opacity-10 rounded-full blur-3xl"></div>
-         </div>
+      {/* --- TOP SECTION --- */}
+      <div className="flex-1 flex flex-col items-center pt-14 px-8 relative z-0">
+         
+         {/* Headline */}
+         <h1 className="text-[32px] leading-[1.15] font-medium text-[#00343B] text-center tracking-tight mb-10 max-w-[300px]">
+            Sole trader accounting made easy
+         </h1>
 
-         {/* Logo
-          */}
-        <div className="relative z-10 mt-6 mb-10">
-            <KlettaLogo color="white" className="h-10" />
-        </div>
-        
+         {/* Hero Visual Container */}
+         <div className="relative w-full max-w-[280px]">
+             
+             {/* Arch Image - Rounded Top, Flat Bottom */}
+             <div className="w-full aspect-[0.9] bg-white rounded-t-[140px] rounded-b-[4px] overflow-hidden relative z-10 shadow-lg">
+                 <img 
+                    src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800" 
+                    alt="European Cafe Working" 
+                    className="w-full h-full object-cover"
+                 />
+                 {/* Gradient overlay */}
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+             </div>
 
-         {/* Hero Image / Illustration */}
-         <div className="relative z-10 w-full max-w-[360px] flex-1 flex items-end justify-center pb-2 px-4">
-            <div className="w-72 h-[380px] bg-gradient-to-b from-gray-700 to-gray-900 rounded-[36px] border-[6px] border-gray-800 shadow-2xl relative overflow-hidden transform rotate-[-4deg]">
-                {/* Mockup Screen */}
-                <div className="absolute inset-0 bg-gray-100 flex flex-col">
-                    <div className="h-36 bg-kletta-teal w-full rounded-b-xl p-5">
-                       <div className="w-14 h-14 bg-white/20 rounded-full mb-3"></div>
-                       <div className="h-2 w-24 bg-white/20 rounded mb-1.5"></div>
-                       <div className="h-6 w-36 bg-white/30 rounded"></div>
-                    </div>
-                    <div className="p-5 space-y-3">
-                       <div className="h-14 bg-white rounded-xl shadow-sm"></div>
-                       <div className="h-14 bg-white rounded-xl shadow-sm"></div>
-                       <div className="h-14 bg-white rounded-xl shadow-sm"></div>
-                    </div>
+             {/* Floating Info Card */}
+             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[108%] bg-white rounded-[24px] p-5 shadow-[0_12px_30px_rgba(0,52,59,0.1)] z-20">
+                <div className="flex justify-between items-center mb-4">
+                    <span className="text-[15px] font-bold text-[#00343B]">Kletta</span>
+                    <IconArrowRight size={18} weight="bold" className="text-[#00343B]" />
                 </div>
-            </div>
-            {/* Decorative Card */}
-             <div className="absolute bottom-28 -right-4 bg-white p-4 rounded-2xl shadow-xl transform rotate-[6deg] max-w-[160px] animate-slide-up">
-                <div className="flex items-center gap-2 mb-1">
-                   <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-                   <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wide">Incoming</span>
+                
+                <div className="flex items-end justify-between">
+                     {/* Abstract Icons */}
+                     <div className="flex -space-x-2 pb-1">
+                        <div className="w-8 h-8 rounded-full bg-[#E0F7F5] border-2 border-white flex items-center justify-center text-[#00343B] z-10">
+                           <div className="w-3.5 h-3.5 bg-[#008c9e] rounded-full"></div>
+                        </div>
+                        <div className="w-8 h-8 rounded-full bg-[#FFD93B] border-2 border-white flex items-center justify-center z-0"></div>
+                     </div>
+                     
+                     <div className="text-right">
+                         <span className="block text-[22px] font-bold text-[#00343B] leading-none mb-1">€1,653.78</span>
+                         <span className="inline-block bg-[#E0F7F5] text-[#005c66] text-[10px] font-bold px-2 py-1 rounded-[6px]">
+                            +€28.47 interest
+                         </span>
+                     </div>
                 </div>
-                <div className="font-bold text-xl text-kletta-dark font-aktifo">+€1,250.00</div>
              </div>
          </div>
-         
-         {/* Bottom Curve Divider */}
-         <div className="absolute bottom-0 left-0 right-0 h-10 bg-white rounded-t-[24px] z-10"></div>
       </div>
 
-      {/* Bottom Content Section */}
-      <div className="bg-white px-8 pb-20 pt-2 flex flex-col items-center text-center z-20 font-aktifo">
-        <h1 className="text-[30px] font-bold text-kletta-dark mb-16 leading-tight tracking-tight">
-          Make your accounting <br />
-          <span className="text-kletta-teal">simple</span>, clear and stress-free.
-        </h1>
-        
-        {/* <p className="text-gray-500 text-lg mb-10 max-w-xs leading-relaxed">
-        //   The all-in-one solution for sole traders.
-        // </p> */}
+      {/* --- BOTTOM SECTION (Dark Curve) --- */}
+      <div className="relative z-10 mt-auto">
+          {/* Curve SVG - Hill Shape (Convex) */}
+          <div className="absolute -top-[30px] left-0 right-0 w-full h-[31px] overflow-hidden">
+             <svg viewBox="0 0 375 30" preserveAspectRatio="none" className="w-full h-full text-[#00343B] fill-current">
+                 <path d="M0 30 Q 187.5 -5 375 30 V 30 H 0 Z" />
+             </svg>
+          </div>
 
-        <button 
-          onClick={() => navigate('signup-email')} 
-          className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-[16px] mb-4 active:scale-95 transition-transform shadow-sm hover:shadow-md"
-        >
-          Get started
-        </button>
+          <div className="bg-[#00343B] pb-10 pt-8 px-6 flex flex-col items-center">
+              
+              <div className="mb-8 text-center mt-2">
+                  <h2 className="text-[34px] font-medium text-white mb-2 tracking-tight">Welcome to Kletta</h2>
+              </div>
 
-        <button 
-          onClick={() => navigate('login')}
-          className="py-4 text-kletta-teal font-bold text-[16px] active:opacity-60 transition-opacity"
-        >
-          I already have an account
-        </button>
+              <div className="w-full space-y-4 max-w-[340px]">
+                  <button 
+                    onClick={() => navigate('signup-email')}
+                    className="w-full py-4 bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] hover:shadow-lg active:scale-[0.98] transition-all shadow-sm"
+                  >
+                    Create an account
+                  </button>
+                  
+                  <button 
+                    onClick={() => navigate('login')}
+                    className="w-full py-4 bg-white rounded-[16px] text-[#00343B] font-bold text-[16px] hover:bg-gray-50 active:scale-[0.98] transition-all shadow-sm"
+                  >
+                    Sign In
+                  </button>
+              </div>
+          </div>
       </div>
+
     </div>
   );
 };

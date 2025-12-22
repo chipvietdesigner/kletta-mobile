@@ -1,17 +1,18 @@
 import React from 'react';
 import { 
   IconBack, IconCellSignalFull, IconWifiHigh, IconBatteryFull,
-  IconUserCircle, IconBell, IconGlobe, IconLock, IconShield, IconQuestion, IconSignOut, IconChevronRight
+  IconUser, IconGlobe, IconBank, IconPhone, IconLock, IconCar, 
+  IconReceipt, IconFileText, IconCreditCard, IconSignOut, IconChevronRight
 } from '../components/Icons';
 import { NavigationProps } from '../types';
 
 export const SettingsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
-        <div className="h-full w-full bg-[#FAFAFA] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-[#111111]">
              
             {/* Status Bar */}
-            <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20">
-                <span className="text-[15px] font-bold tracking-normal leading-none ml-2">9:41</span>
+            <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20 bg-white">
+                <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
                 <div className="flex gap-1.5 items-center mr-1">
                     <IconCellSignalFull size={16} weight="fill" />
                     <IconWifiHigh size={16} weight="bold" />
@@ -20,62 +21,94 @@ export const SettingsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) 
             </div>
 
             {/* Header */}
-            <div className="px-6 pt-2 pb-6 flex items-center justify-between z-10">
+            <div className="px-6 pt-2 pb-4 flex items-center justify-between z-10 bg-white shrink-0 border-b border-gray-50">
                 <button 
                     onClick={goBack} 
-                    className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-black/5 active:bg-black/10 transition-colors"
+                    className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors"
                 >
-                    <IconBack size={26} className="text-kletta-dark" />
+                    <IconBack size={26} className="text-kletta-dark" weight="bold" />
                 </button>
-                <h1 className="text-[17px] font-bold text-kletta-dark">Settings</h1>
+                <h1 className="text-[17px] font-medium text-kletta-dark">Settings</h1>
                 <div className="w-8"></div>
             </div>
 
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto no-scrollbar pb-36 px-5 space-y-6">
+            {/* Content List */}
+            <div className="flex-1 overflow-y-auto no-scrollbar pb-10 bg-white">
                 
-                {/* Account Section */}
-                <div>
-                    <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 ml-2">Account</h3>
-                    <div className="bg-white rounded-[24px] overflow-hidden shadow-sm">
-                        <SettingsRow icon={<IconUserCircle size={24} />} title="Profile Details" />
-                        <div className="h-[1px] bg-gray-50 mx-4 border-t border-dashed border-gray-100"></div>
-                        <SettingsRow icon={<IconGlobe size={24} />} title="Language" value="English" />
-                    </div>
+                <div className="w-full">
+                    {/* Name & address */}
+                    <SettingsRow 
+                        icon={<IconUser size={24} />} 
+                        title="Name & address" 
+                    />
+
+                    {/* Region & language */}
+                    <SettingsRow 
+                        icon={<IconGlobe size={24} />} 
+                        title="Region & language" 
+                        subtitle="Region and language settings"
+                    />
+
+                    {/* Bank details */}
+                    <SettingsRow 
+                        icon={<IconBank size={24} />} 
+                        title="Bank details" 
+                        subtitle="Update your bank information"
+                    />
+
+                    {/* Phone number */}
+                    <SettingsRow 
+                        icon={<IconPhone size={24} />} 
+                        title="Phone number" 
+                    />
+
+                    {/* Passcode */}
+                    <SettingsRow 
+                        icon={<IconLock size={24} />} 
+                        title="Passcode" 
+                        subtitle="Change passcode"
+                    />
+
+                    {/* Vehicles & assets */}
+                    <SettingsRow 
+                        icon={<IconCar size={24} />} 
+                        title="Vehicles & assets" 
+                        subtitle="0 vehicles, 0 assets"
+                    />
+
+                    {/* VAT */}
+                    <SettingsRow 
+                        icon={<IconReceipt size={24} />} 
+                        title="VAT" 
+                        subtitle="VAT settings"
+                    />
+
+                    {/* Tax return */}
+                    <SettingsRow 
+                        icon={<IconFileText size={24} />} 
+                        title="Tax return" 
+                    />
+
+                    {/* Billing */}
+                    <SettingsRow 
+                        icon={<IconCreditCard size={24} />} 
+                        title="Billing" 
+                        subtitle="Monthly subscription and invoices"
+                    />
+
+                    {/* Log out */}
+                    <SettingsRow 
+                        icon={<IconSignOut size={24} />} 
+                        title="Log out" 
+                        isDestructive
+                        onClick={() => navigate('welcome')}
+                    />
                 </div>
 
-                {/* App Settings */}
-                <div>
-                    <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 ml-2">App Settings</h3>
-                    <div className="bg-white rounded-[24px] overflow-hidden shadow-sm">
-                        <SettingsRow icon={<IconBell size={24} />} title="Notifications" />
-                        <div className="h-[1px] bg-gray-50 mx-4 border-t border-dashed border-gray-100"></div>
-                        <SettingsRow icon={<IconLock size={24} />} title="Security & Privacy" />
-                    </div>
+                {/* Footer */}
+                <div className="py-8 text-center">
+                    <p className="text-[13px] text-gray-400 font-normal">Kletta, Version: 2.32.2</p>
                 </div>
-
-                {/* Support */}
-                <div>
-                    <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 ml-2">Support</h3>
-                    <div className="bg-white rounded-[24px] overflow-hidden shadow-sm">
-                        <SettingsRow icon={<IconQuestion size={24} />} title="Help Center" />
-                        <div className="h-[1px] bg-gray-50 mx-4 border-t border-dashed border-gray-100"></div>
-                        <SettingsRow icon={<IconShield size={24} />} title="Terms of Service" />
-                    </div>
-                </div>
-
-                {/* Logout Button */}
-                <button 
-                    onClick={() => navigate('welcome')}
-                    className="w-full bg-white rounded-[24px] p-5 flex items-center gap-4 shadow-sm hover:bg-red-50 active:bg-red-100 transition-colors group mt-4"
-                >
-                    <div className="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-500 shrink-0 group-hover:bg-red-100">
-                        <IconSignOut size={24} weight="bold" />
-                    </div>
-                    <span className="text-[15px] font-bold text-red-500 flex-1 text-left">Log out</span>
-                </button>
-                
-                <p className="text-center text-[11px] text-gray-400 font-medium pt-4">Version 1.0.2 (Build 450)</p>
 
             </div>
         </div>
@@ -85,21 +118,41 @@ export const SettingsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) 
 interface SettingsRowProps {
     icon: React.ReactNode;
     title: string;
+    subtitle?: string;
     value?: string;
     onClick?: () => void;
+    isDestructive?: boolean;
 }
 
-const SettingsRow: React.FC<SettingsRowProps> = ({ icon, title, value, onClick }) => (
-    <button onClick={onClick} className="w-full p-5 flex items-center gap-4 hover:bg-gray-50 active:bg-gray-100 transition-colors group">
-        <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-kletta-dark shrink-0">
-            {icon}
+const SettingsRow: React.FC<SettingsRowProps> = ({ icon, title, subtitle, value, onClick, isDestructive }) => (
+    <button 
+        onClick={onClick} 
+        className="w-full px-6 py-5 flex items-center gap-5 hover:bg-gray-50 active:bg-gray-100 transition-colors group border-b border-gray-100"
+    >
+        {/* Leading Icon */}
+        <div className={`shrink-0 ${isDestructive ? 'text-red-500' : 'text-gray-400'}`}>
+            {React.cloneElement(icon as React.ReactElement<any>, { 
+                weight: 'regular', // Ensure consistent stroke weight
+                className: isDestructive ? 'text-red-500' : 'text-gray-900' // Darker gray for premium feel, or keep gray-400? Prompt says neutral gray.
+            })}
+            {/* Note: Overriding className color here for better contrast if needed, but let's stick to gray-400 for neutral look as per instruction "Neutral gray" */}
         </div>
-        <div className="flex-1 flex justify-between items-center">
-            <span className="text-[15px] font-medium text-kletta-dark">{title}</span>
-            <div className="flex items-center gap-2">
-                {value && <span className="text-[13px] text-gray-400 font-medium">{value}</span>}
-                <IconChevronRight size={16} weight="bold" className="text-gray-300 group-hover:text-kletta-teal transition-colors" />
-            </div>
+
+        {/* Text Content */}
+        <div className="flex-1 text-left">
+            <p className={`text-[16px] font-medium leading-tight mb-0.5 ${isDestructive ? 'text-red-500' : 'text-kletta-dark'}`}>
+                {title}
+            </p>
+            {subtitle && (
+                <p className="text-[14px] text-gray-500 font-normal leading-snug">
+                    {subtitle}
+                </p>
+            )}
+        </div>
+
+        {/* Trailing Chevron */}
+        <div className="shrink-0 text-gray-300">
+            <IconChevronRight size={18} weight="bold" />
         </div>
     </button>
 );

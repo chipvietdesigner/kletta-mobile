@@ -248,7 +248,12 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
 };
 
 // --- Helper: Product Row (Refined Typography) ---
-const ProductRow = ({ product, onTap }: { product: Product, onTap: (p: Product) => void }) => {
+interface ProductRowProps {
+    product: Product;
+    onTap: (product: Product) => void;
+}
+
+const ProductRow: React.FC<ProductRowProps> = ({ product, onTap }) => {
     // Calculate total for display
     const total = product.basePrice * (1 + product.vat / 100);
     // Format: €380.70 • VAT 14% • €434.00 • Service

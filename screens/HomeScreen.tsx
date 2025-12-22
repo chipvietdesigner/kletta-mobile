@@ -56,7 +56,7 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
 
         {/* Unified Summary Card - Overlapping Header */}
         <div className="px-5 -mt-12 relative z-10 mb-6">
-            <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col overflow-hidden">
+            <div className="bg-white rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col overflow-hidden">
                
                {/* Stats Row */}
                <div className="flex justify-between py-5 px-1">
@@ -103,7 +103,7 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           </div>
 
           {/* Upcoming Section */}
-          <div className="bg-white rounded-[24px] p-5 shadow-sm border border-gray-100/50">
+          <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold text-[16px] text-kletta-dark">Upcoming</h3>
             </div>
@@ -115,7 +115,7 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           </div>
 
           {/* Banner */}
-          <div className="bg-kletta-yellow rounded-[24px] p-5 flex items-start justify-between relative shadow-sm">
+          <div className="bg-kletta-yellow rounded-[20px] p-5 flex items-start justify-between relative shadow-sm">
             <div className="flex gap-3.5 items-center">
                <div className="w-10 h-10 flex items-center justify-center">
                   <IconRun size={30} color="#111111" weight="fill" />
@@ -130,7 +130,7 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           </div>
 
           {/* Setup Account */}
-          <div className="bg-white rounded-[24px] p-5 shadow-sm border border-gray-100/50">
+          <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
             <div className="flex justify-between items-center mb-2">
               <h3 className="font-bold text-[16px] text-kletta-dark">Set up your account</h3>
               <span className="text-[11px] font-bold text-[#008c9e]">55% complete</span>
@@ -143,14 +143,14 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           </div>
           
            {/* Overdue */}
-           <button className="w-full py-4 bg-kletta-yellow rounded-[24px] flex flex-col items-center justify-center font-bold text-kletta-dark shadow-sm active:scale-[0.98] transition-transform gap-0.5">
+           <button className="w-full py-4 bg-kletta-yellow rounded-[20px] flex flex-col items-center justify-center font-bold text-kletta-dark shadow-sm active:scale-[0.98] transition-transform gap-0.5">
             <span className="text-xl tracking-tight font-bold">27(28)</span>
             <span className="text-[11px] font-bold opacity-70 uppercase tracking-wide">Overdue invoices</span>
           </button>
 
 
           {/* YEL Insurance */}
-          <div className="bg-[#00343B] rounded-[24px] p-6 text-white shadow-sm">
+          <div className="bg-[#00343B] rounded-[20px] p-6 text-white shadow-sm">
             <div className="flex justify-between items-start mb-2">
               <h3 className="font-bold text-[16px] leading-tight max-w-[200px]">Get YEL insurance from Ilmarinen</h3>
               <div className="mt-0.5">
@@ -163,7 +163,7 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           </div>
 
           {/* AI Assistant */}
-          <button className="w-full bg-white rounded-[24px] p-4 flex justify-between items-center shadow-sm border border-gray-100/50 active:bg-gray-50 transition-colors">
+          <button className="w-full bg-white rounded-[20px] p-4 flex justify-between items-center shadow-sm border border-gray-100/50 active:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <IconSparkle size={20} className="text-kletta-yellow" weight="fill" />
               <span className="text-[14px] font-medium text-gray-500">Ask from David Kletta AI Assistant</span>

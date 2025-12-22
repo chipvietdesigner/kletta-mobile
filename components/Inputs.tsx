@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconChevronDown } from './Icons';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   icon?: React.ReactNode;
 }
@@ -31,9 +31,8 @@ export const KlettaInput = ({ label, icon, className = '', ...props }: InputProp
   );
 };
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
-  options?: string[]; 
 }
 
 export const KlettaSelect = ({ label, children, className = '', ...props }: SelectProps) => {
@@ -53,7 +52,7 @@ export const KlettaSelect = ({ label, children, className = '', ...props }: Sele
   );
 };
 
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
 }
 
@@ -67,4 +66,4 @@ export const KlettaTextarea = ({ label, className = '', ...props }: TextareaProp
        />
     </div>
   );
-}
+};
