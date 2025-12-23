@@ -70,7 +70,7 @@ const ChatScreen: React.FC = () => {
             </div>
             <div className="flex-1 text-left pt-0.5">
                <div className="flex justify-between items-center mb-1">
-                  <p className="text-[15px] font-bold text-kletta-dark">Kletta AI</p>
+                  <p className="text-[15px] font-medium text-kletta-dark">Kletta AI</p>
                   <p className="text-[11px] font-medium text-kletta-teal">Now</p>
                </div>
                <p className="text-[13px] font-light text-kletta-dark leading-relaxed opacity-90">I noticed a recurring payment. Do you want to set it as a subscription rule?</p>
@@ -161,16 +161,16 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
                     
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                            <h1 className="text-[17px] font-bold text-kletta-dark truncate">Kletta Tuki Support</h1>
+                            <h1 className="text-[17px] font-medium text-kletta-dark truncate">Kletta Tuki Support</h1>
                             {/* Verified badge mock */}
                             <div className="w-3.5 h-3.5 bg-kletta-teal rounded-full flex items-center justify-center">
                                 <IconCheck size={10} color="white" weight="bold" />
                             </div>
                         </div>
-                        <p className="text-[12px] text-gray-400 font-light truncate">Typically replies in two business days</p>
+                        <p className="text-[12px] text-kletta-secondary font-light truncate">Typically replies in two business days</p>
                     </div>
 
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 shrink-0">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-kletta-secondary shrink-0">
                         <IconUserCircle size={24} weight="fill" />
                     </div>
                 </div>
@@ -179,7 +179,7 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
              {/* Message List */}
              <div className="flex-1 overflow-y-auto no-scrollbar bg-white p-4 space-y-1 pb-4">
                  <div className="flex justify-center my-6">
-                     <span className="text-[11px] font-medium text-gray-300 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full">Today</span>
+                     <span className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full">Today</span>
                  </div>
                  
                  {messages.map((msg, index) => {
@@ -202,7 +202,7 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
              {/* Input Area */}
              <div className="shrink-0 bg-white border-t border-gray-100 p-4 pb-10">
                  <div className="flex items-end gap-3">
-                     <button className="w-10 h-12 flex items-center justify-center text-gray-400 hover:text-kletta-teal transition-colors rounded-xl hover:bg-gray-50 shrink-0">
+                     <button className="w-10 h-12 flex items-center justify-center text-kletta-secondary hover:text-kletta-teal transition-colors rounded-xl hover:bg-gray-50 shrink-0">
                          <IconPaperclip size={24} weight="bold" />
                      </button>
                      
@@ -269,7 +269,7 @@ const MessageBubble = ({ message, isNextSame, isPrevSame }: { message: Message, 
 
                 {/* Timestamp (Only show at end of group) */}
                 {!isNextSame && (
-                    <span className={`text-[10px] text-gray-300 mt-1.5 font-medium ${isUser ? 'mr-1' : 'ml-1'}`}>
+                    <span className={`text-[10px] text-kletta-secondary mt-1.5 font-medium ${isUser ? 'mr-1' : 'ml-1'}`}>
                         {message.time}
                     </span>
                 )}
@@ -284,15 +284,15 @@ const ChatRow = ({ name, message, time, unread, onClick }: { name: string, messa
       onClick={onClick}
       className={`w-full px-6 py-4 flex items-start gap-4 hover:bg-gray-50 active:bg-gray-100 transition-colors border-b border-gray-50 ${unread ? 'bg-white' : 'bg-white'}`}
    >
-      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 shrink-0">
+      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-kletta-secondary shrink-0">
          <IconUserCircle size={24} weight="fill" />
       </div>
       <div className="flex-1 text-left pt-0.5 overflow-hidden">
          <div className="flex justify-between items-center mb-0.5">
-            <p className={`text-[15px] ${unread ? 'font-bold text-kletta-dark' : 'font-medium text-kletta-dark'}`}>{name}</p>
-            <p className={`text-[11px] ${unread ? 'text-kletta-teal font-bold' : 'text-gray-400 font-light'}`}>{time}</p>
+            <p className={`text-[15px] font-medium text-kletta-dark`}>{name}</p>
+            <p className={`text-[11px] ${unread ? 'text-kletta-teal font-medium' : 'text-kletta-secondary font-light'}`}>{time}</p>
          </div>
-         <p className={`text-[13px] truncate leading-relaxed ${unread ? 'font-medium text-kletta-dark' : 'font-light text-gray-500'}`}>{message}</p>
+         <p className={`text-[13px] truncate leading-relaxed ${unread ? 'font-medium text-kletta-dark' : 'font-light text-kletta-secondary'}`}>{message}</p>
       </div>
       {unread && (
          <div className="w-2 h-2 rounded-full bg-kletta-teal shrink-0 mt-2"></div>

@@ -105,11 +105,11 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
                 {/* Meta Row: Created / Due */}
                 <div className="flex justify-between items-baseline mb-6">
                     <p className="text-[15px] text-[#111111]">Created on</p>
-                    <p className="text-[15px] font-bold text-[#111111]">{invoice.createdDate}</p>
+                    <p className="text-[15px] font-medium text-[#111111]">{invoice.createdDate}</p>
                 </div>
                 <div className="flex justify-end items-baseline mb-6 -mt-4">
-                    <p className={`text-[15px] mr-2 ${statusConfig.label === 'OVERDUE' ? 'text-red-600 font-bold' : 'text-[#111111]'}`}>Due on</p>
-                    <p className={`text-[15px] ${statusConfig.label === 'OVERDUE' ? 'text-red-600 font-bold' : 'text-[#111111]'}`}>{invoice.dueDate}</p>
+                    <p className={`text-[15px] mr-2 ${statusConfig.label === 'OVERDUE' ? 'text-red-600 font-medium' : 'text-[#111111]'}`}>Due on</p>
+                    <p className={`text-[15px] ${statusConfig.label === 'OVERDUE' ? 'text-red-600 font-medium' : 'text-[#111111]'}`}>{invoice.dueDate}</p>
                 </div>
 
                 {/* Thin Divider */}
@@ -117,12 +117,12 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
 
                 {/* Items Section */}
                 <div className="mb-6">
-                    <h3 className="text-[16px] font-bold text-[#111111] mb-5">Service</h3>
+                    <h3 className="text-[16px] font-medium text-[#111111] mb-5">Service</h3>
                     
                     <div className="flex items-start justify-between">
                         <span className="text-[15px] text-[#111111] flex-1">25,5 palvelu</span>
                         <span className="text-[15px] text-[#111111] opacity-40 mx-6">x1</span>
-                        <span className="text-[15px] font-bold text-[#111111] whitespace-nowrap">
+                        <span className="text-[15px] font-medium text-[#111111] whitespace-nowrap">
                             €{invoice.amount.replace('€', '')} <span className="text-[15px] font-normal text-[#111111]">(VAT 0%)</span>
                         </span>
                     </div>
@@ -135,19 +135,19 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
                 <div className="space-y-3 mb-6">
                     <div className="flex justify-between">
                         <span className="text-[15px] text-[#111111]">Subtotal</span>
-                        <span className="text-[15px] font-bold text-[#111111]">{invoice.amount}</span>
+                        <span className="text-[15px] font-medium text-[#111111]">{invoice.amount}</span>
                     </div>
                     <div className="flex justify-between">
                         <span className="text-[15px] text-[#111111]">VAT</span>
-                        <span className="text-[15px] font-bold text-[#111111]">€0.00</span>
+                        <span className="text-[15px] font-bomediumld text-[#111111]">€0.00</span>
                     </div>
                     <div className="flex justify-between">
                         <span className="text-[15px] text-[#111111]">Discount</span>
-                        <span className="text-[15px] font-bold text-[#111111]">0%</span>
+                        <span className="text-[15px] font-medium text-[#111111]">0%</span>
                     </div>
                     <div className="flex justify-between mt-1 pt-1">
-                        <span className="text-[16px] font-bold text-[#111111]">Total</span>
-                        <span className="text-[16px] font-bold text-[#111111]">{invoice.amount}</span>
+                        <span className="text-[16px] font-medium text-[#111111]">Total</span>
+                        <span className="text-[16px] font-medium text-[#111111]">{invoice.amount}</span>
                     </div>
                 </div>
 
@@ -156,14 +156,14 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
 
                 {/* Additional Note */}
                 <div className="mb-10">
-                    <h3 className="text-[16px] font-bold text-[#111111] mb-3">Additional note</h3>
+                    <h3 className="text-[16px] font-medium text-[#111111] mb-3">Additional note</h3>
                     <p className="text-[15px] text-[#111111] leading-relaxed">
                         Lorem ipsum dolor sit amet, conse tetur adipiscing elit.
                     </p>
                 </div>
 
                 {/* Bottom Actions Button */}
-                <button className="w-full py-4 bg-[#F5F5F5] rounded-[12px] font-bold text-[16px] text-[#111111] hover:bg-gray-200 transition-colors active:scale-[0.99]">
+                <button className="w-full py-4 bg-[#F5F5F5] rounded-[12px] font-medium text-[16px] text-[#111111] hover:bg-gray-200 transition-colors active:scale-[0.99]">
                     Actions
                 </button>
 

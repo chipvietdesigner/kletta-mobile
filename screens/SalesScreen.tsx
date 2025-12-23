@@ -254,7 +254,7 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
           <div className="bg-white w-full grid grid-cols-2 border-b border-gray-100">
               <button 
                 onClick={() => setFilter('all')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${filter === 'all' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${filter === 'all' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
               >
                 All
                 {filter === 'all' && (
@@ -263,7 +263,7 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
               </button>
               <button 
                 onClick={() => setFilter('outstanding')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${filter === 'outstanding' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${filter === 'outstanding' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
               >
                 Outstanding
                 {filter === 'outstanding' && (
@@ -278,14 +278,14 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
         {Object.keys(groupedInvoices).length === 0 ? (
             <div className="flex flex-col items-center justify-center pt-20 px-6 opacity-50">
                 <IconInvoice size={40} className="text-gray-300 mb-4" />
-                <p className="text-gray-500 font-medium">No invoices found</p>
+                <p className="text-kletta-secondary font-medium">No invoices found</p>
             </div>
         ) : (
             Object.keys(groupedInvoices).map((month) => (
                 <div key={month} className="mb-0">
                     {/* Month Header - Light, Uppercase, Spaced, Subtle Gray */}
                     <div className="px-6 pt-8 pb-3 bg-white sticky top-0 z-10 bg-white/95 backdrop-blur-sm border-b border-gray-50/50">
-                        <h2 className="text-[12px] font-medium text-[#6F7683] uppercase tracking-wider">{month}</h2>
+                        <h2 className="text-[12px] font-medium text-kletta-secondary uppercase tracking-wider">{month}</h2>
                     </div>
                     <div>
                         {groupedInvoices[month].map(invoice => (
@@ -310,20 +310,20 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
                 <div className="w-12 h-12 bg-kletta-yellow/20 rounded-full flex items-center justify-center mx-auto mb-4 text-kletta-dark">
                      <IconCheckCircle size={28} weight="fill" />
                 </div>
-                <h3 className="text-[18px] font-bold text-kletta-dark mb-2">Mark as paid?</h3>
-                <p className="text-[14px] text-gray-500 font-light mb-6 leading-relaxed">
+                <h3 className="text-[18px] font-medium text-kletta-dark mb-2">Mark as paid?</h3>
+                <p className="text-[14px] text-kletta-secondary font-light mb-6 leading-relaxed">
                     This will register the invoice as paid. You can’t undo this action easily.
                 </p>
                 <div className="flex flex-col gap-3">
                      <button 
                         onClick={confirmPayment}
-                        className="w-full py-3.5 bg-kletta-yellow rounded-[14px] font-bold text-[15px] text-kletta-dark shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+                        className="w-full py-3.5 bg-kletta-yellow rounded-[14px] font-medium text-[15px] text-kletta-dark shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
                      >
                         Mark as paid
                      </button>
                      <button 
                         onClick={() => setSelectedForPayment(null)}
-                        className="w-full py-3.5 bg-white border border-gray-100 rounded-[14px] font-bold text-[15px] text-gray-600 hover:bg-gray-50 transition-colors"
+                        className="w-full py-3.5 bg-white border border-gray-100 rounded-[14px] font-medium text-[15px] text-kletta-secondary hover:bg-gray-50 transition-colors"
                      >
                         Cancel
                      </button>
@@ -359,9 +359,9 @@ const InvoiceRow: React.FC<InvoiceRowProps> = ({ invoice, onRegisterPaid, onClic
          {/* Content */}
          <div className="flex-1 min-w-0 flex flex-col gap-1">
              
-             {/* Row 1: Amount (Black, Medium) & Status */}
+             {/* Row 1: Amount & Status */}
              <div className="flex items-center justify-between">
-                 <span className="text-[15px] font-bold text-kletta-dark leading-tight">
+                 <span className="text-[15px] font-medium text-kletta-dark leading-tight">
                     {invoice.amount}
                  </span>
                  
@@ -369,17 +369,17 @@ const InvoiceRow: React.FC<InvoiceRowProps> = ({ invoice, onRegisterPaid, onClic
                  {isPaid ? (
                      <div className="flex items-center gap-1.5">
                          <IconCheckCircle size={18} weight="fill" className="text-[#0D8240]" />
-                         <span className="text-[12px] font-bold text-[#0D8240] tracking-wide">PAID</span>
+                         <span className="text-[12px] font-medium text-[#0D8240] tracking-wide">PAID</span>
                      </div>
                  ) : isOverdue ? (
-                     <span className="text-[11px] font-bold text-[#D32F2F] tracking-wide">OVERDUE</span>
+                     <span className="text-[11px] font-medium text-[#D32F2F] tracking-wide">OVERDUE</span>
                  ) : (
-                     <span className="text-[11px] font-medium text-gray-400 tracking-wide">UNPAID</span>
+                     <span className="text-[11px] font-medium text-kletta-secondary tracking-wide">UNPAID</span>
                  )}
              </div>
              
              {/* Row 2: Meta Info - Neutral Gray, Normal Weight */}
-             <p className="text-[14px] text-gray-500 font-normal leading-relaxed w-full">
+             <p className="text-[14px] text-kletta-secondary font-normal leading-relaxed w-full">
                  {invoice.meta}
              </p>
 

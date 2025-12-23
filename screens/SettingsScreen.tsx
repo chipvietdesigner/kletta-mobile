@@ -8,7 +8,7 @@ import { NavigationProps } from '../types';
 
 export const SettingsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
-        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-[#111111]">
+        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-kletta-dark">
              
             {/* Status Bar */}
             <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20 bg-white">
@@ -107,7 +107,7 @@ export const SettingsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) 
 
                 {/* Footer */}
                 <div className="py-8 text-center">
-                    <p className="text-[13px] text-gray-400 font-normal">Kletta, Version: 2.32.2</p>
+                    <p className="text-[13px] text-kletta-secondary font-normal">Kletta, Version: 2.32.2</p>
                 </div>
 
             </div>
@@ -130,12 +130,11 @@ const SettingsRow: React.FC<SettingsRowProps> = ({ icon, title, subtitle, value,
         className="w-full px-6 py-5 flex items-center gap-5 hover:bg-gray-50 active:bg-gray-100 transition-colors group border-b border-gray-100"
     >
         {/* Leading Icon */}
-        <div className={`shrink-0 ${isDestructive ? 'text-red-500' : 'text-gray-400'}`}>
+        <div className={`shrink-0 ${isDestructive ? 'text-red-500' : 'text-kletta-secondary'}`}>
             {React.cloneElement(icon as React.ReactElement<any>, { 
-                weight: 'regular', // Ensure consistent stroke weight
-                className: isDestructive ? 'text-red-500' : 'text-gray-900' // Darker gray for premium feel, or keep gray-400? Prompt says neutral gray.
+                weight: 'regular', 
+                className: isDestructive ? 'text-red-500' : 'text-kletta-dark' 
             })}
-            {/* Note: Overriding className color here for better contrast if needed, but let's stick to gray-400 for neutral look as per instruction "Neutral gray" */}
         </div>
 
         {/* Text Content */}
@@ -144,7 +143,7 @@ const SettingsRow: React.FC<SettingsRowProps> = ({ icon, title, subtitle, value,
                 {title}
             </p>
             {subtitle && (
-                <p className="text-[14px] text-gray-500 font-normal leading-snug">
+                <p className="text-[14px] text-kletta-secondary font-normal leading-snug">
                     {subtitle}
                 </p>
             )}

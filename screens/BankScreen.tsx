@@ -27,8 +27,8 @@ const BankScreen: React.FC = () => {
                 <div className="flex flex-col">
                     <h1 className="text-[26px] font-medium text-kletta-dark tracking-tight mb-1">Bank</h1>
                     <div className="flex items-center gap-1 opacity-60 transition-opacity hover:opacity-100 cursor-pointer">
-                         <span className="text-[13px] font-medium">All accounts</span>
-                         <IconChevronDown size={12} weight="bold" />
+                         <span className="text-[13px] font-medium text-kletta-secondary">All accounts</span>
+                         <IconChevronDown size={12} weight="bold" className="text-kletta-secondary" />
                     </div>
                 </div>
                 <button className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-black/5 rounded-full transition-colors text-kletta-dark">
@@ -37,11 +37,11 @@ const BankScreen: React.FC = () => {
              </div>
 
              <div className="flex flex-col gap-1">
-                <p className="text-[12px] font-medium text-gray-400 uppercase tracking-widest">Total Balance</p>
+                <p className="text-[12px] font-medium text-kletta-secondary uppercase tracking-widest">Total Balance</p>
                 <p className="text-[34px] font-light text-kletta-dark tracking-tight leading-none">€14,250.00</p>
                 <div className="flex items-center gap-2 mt-2">
-                   <div className="px-2 py-0.5 bg-[#E1E9EA] rounded text-[11px] font-medium text-gray-500 tracking-wide">Business</div>
-                   <p className="text-[13px] font-light text-gray-400 font-mono tracking-wide">FI89 1234 5678 90</p>
+                   <div className="px-2 py-0.5 bg-[#E1E9EA] rounded text-[11px] font-medium text-kletta-secondary tracking-wide">Business</div>
+                   <p className="text-[13px] font-light text-kletta-secondary font-mono tracking-wide">FI89 1234 5678 90</p>
                 </div>
              </div>
           </div>
@@ -52,7 +52,7 @@ const BankScreen: React.FC = () => {
         
          {/* Date Header */}
          <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Today</p>
+             <p className="text-[11px] font-bold text-kletta-secondary uppercase tracking-widest">Today</p>
          </div>
          
          <TransactionRow 
@@ -72,7 +72,7 @@ const BankScreen: React.FC = () => {
 
          {/* Date Header */}
          <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50 mt-2">
-             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Yesterday</p>
+             <p className="text-[11px] font-bold text-kletta-secondary uppercase tracking-widest">Yesterday</p>
          </div>
 
          <TransactionRow 
@@ -99,7 +99,7 @@ const BankScreen: React.FC = () => {
 
          {/* Date Header */}
          <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50 mt-2">
-             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">12 Oct 2025</p>
+             <p className="text-[11px] font-bold text-kletta-secondary uppercase tracking-widest">12 Oct 2025</p>
          </div>
 
          <TransactionRow 
@@ -128,9 +128,9 @@ const TransactionRow = ({ title, subtitle, amount, type, time }: { title: string
             <p className="text-[15px] font-medium text-kletta-dark">{title}</p>
         </div>
         <div className="flex items-center gap-2">
-            <p className="text-[13px] font-light text-gray-400">{time}</p>
+            <p className="text-[13px] font-light text-kletta-secondary">{time}</p>
             <div className="w-0.5 h-0.5 rounded-full bg-gray-300"></div>
-            <p className="text-[13px] font-light text-gray-500">{subtitle}</p>
+            <p className="text-[13px] font-light text-kletta-secondary">{subtitle}</p>
         </div>
      </div>
      <div className="text-right whitespace-nowrap">

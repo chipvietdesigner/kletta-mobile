@@ -62,24 +62,24 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
                <div className="flex justify-between py-5 px-1">
                   <div className="flex-1 flex flex-col items-center text-center">
                      <p className="text-[13px] font-light text-kletta-dark mb-1 opacity-80">Income</p>
-                     <p className="font-bold text-[16px] text-kletta-dark leading-tight">€2,986.30</p>
+                     <p className="font-medium text-[16px] text-kletta-dark leading-tight">€2,986.30</p>
                   </div>
                   <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                   <div className="flex-1 flex flex-col items-center text-center">
                      <p className="text-[13px] font-light text-kletta-dark mb-1 opacity-80">Expenses</p>
-                     <p className="font-bold text-[16px] text-kletta-dark leading-tight">€523.46</p>
+                     <p className="font-medium text-[16px] text-kletta-dark leading-tight">€523.46</p>
                   </div>
                    <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                   <div className="flex-1 flex flex-col items-center text-center">
                      <p className="text-[13px] font-light text-kletta-dark mb-1 opacity-80">VAT</p>
-                     <p className="font-bold text-[16px] text-kletta-dark leading-tight">€145.90</p>
+                     <p className="font-medium text-[16px] text-kletta-dark leading-tight">€145.90</p>
                   </div>
                </div>
 
                {/* Button */}
                <button 
                  onClick={() => navigate('summary')}
-                 className="w-full py-4 bg-kletta-yellow flex items-center justify-center gap-1 font-bold text-[14px] text-kletta-dark active:bg-[#FCD32A] transition-colors"
+                 className="w-full py-4 bg-kletta-yellow flex items-center justify-center gap-1 font-medium text-[14px] text-kletta-dark active:bg-[#FCD32A] transition-colors"
                >
                   View summary <IconChevronRight size={16} weight="bold" />
                </button>
@@ -105,7 +105,7 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           {/* Upcoming Section */}
           <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-[16px] text-kletta-dark">Upcoming</h3>
+                <h3 className="font-medium text-[16px] text-kletta-dark">Upcoming</h3>
             </div>
             <div className="space-y-0">
               <UpcomingItem days={45} text="VAT return 06/2025 not ready" dotColor="bg-gray-300" />
@@ -118,9 +118,9 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           <div className="bg-kletta-yellow rounded-[20px] p-5 flex items-start justify-between relative shadow-sm">
             <div className="flex gap-3.5 items-center">
                <div className="w-10 h-10 flex items-center justify-center">
-                  <IconRun size={30} color="#111111" weight="fill" />
+                  <IconRun size={30} color="#000000" weight="fill" />
                </div>
-              <p className="font-bold text-[14px] leading-snug text-kletta-dark max-w-[200px]">
+              <p className="font-medium text-[14px] leading-snug text-kletta-dark max-w-[200px]">
                 Earn money by inviting your friends to Kletta
               </p>
             </div>
@@ -132,8 +132,8 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           {/* Setup Account */}
           <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
             <div className="flex justify-between items-center mb-2">
-              <h3 className="font-bold text-[16px] text-kletta-dark">Set up your account</h3>
-              <span className="text-[11px] font-bold text-[#008c9e]">55% complete</span>
+              <h3 className="font-medium text-[16px] text-kletta-dark">Set up your account</h3>
+              <span className="text-[11px] font-medium text-[#008c9e]">55% complete</span>
             </div>
             <div className="divide-y divide-gray-50">
               <ChecklistItem text="Lisää yrityksesi tiedot" />
@@ -143,16 +143,16 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           </div>
           
            {/* Overdue */}
-           <button className="w-full py-4 bg-kletta-yellow rounded-[20px] flex flex-col items-center justify-center font-bold text-kletta-dark shadow-sm active:scale-[0.98] transition-transform gap-0.5">
+           <button className="w-full py-4 bg-kletta-yellow rounded-[20px] flex flex-col items-center justify-center font-medium text-kletta-dark shadow-sm active:scale-[0.98] transition-transform gap-0.5">
             <span className="text-xl tracking-tight font-bold">27(28)</span>
-            <span className="text-[11px] font-bold opacity-70 uppercase tracking-wide">Overdue invoices</span>
+            <span className="text-[11px] font-medium opacity-70 uppercase tracking-wide">Overdue invoices</span>
           </button>
 
 
           {/* YEL Insurance */}
           <div className="bg-[#00343B] rounded-[20px] p-6 text-white shadow-sm">
             <div className="flex justify-between items-start mb-2">
-              <h3 className="font-bold text-[16px] leading-tight max-w-[200px]">Get YEL insurance from Ilmarinen</h3>
+              <h3 className="font-medium text-[16px] leading-tight max-w-[200px]">Get YEL insurance from Ilmarinen</h3>
               <div className="mt-0.5">
                  <IconArrowRight size={20} weight="bold" />
               </div>
@@ -166,9 +166,9 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
           <button className="w-full bg-white rounded-[20px] p-4 flex justify-between items-center shadow-sm border border-gray-100/50 active:bg-gray-50 transition-colors">
             <div className="flex items-center gap-3">
               <IconSparkle size={20} className="text-kletta-yellow" weight="fill" />
-              <span className="text-[14px] font-medium text-gray-500">Ask from David Kletta AI Assistant</span>
+              <span className="text-[14px] font-medium text-kletta-secondary">Ask from David Kletta AI Assistant</span>
             </div>
-            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-kletta-secondary">
               <IconArrowRight size={16} weight="bold" />
             </div>
           </button>
@@ -257,10 +257,10 @@ const ActionIcon = ({ icon: Icon, label, highlight, onClick }: { icon: any, labe
 const UpcomingItem = ({ days, text, dotColor }: { days: number, text: string, dotColor: string }) => (
   <button className="w-full flex justify-between items-center py-3 group">
     <div className="flex-1 text-left">
-        <p className="font-bold text-[14px] text-kletta-dark mb-1">{days} days</p>
+        <p className="font-medium text-[14px] text-kletta-dark mb-1">{days} days</p>
         <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${dotColor}`}></div>
-            <p className="text-[13px] text-gray-500 font-light">{text}</p>
+            <p className="text-[13px] text-kletta-secondary font-light">{text}</p>
         </div>
     </div>
     <div className="w-8 h-8 flex items-center justify-end">
@@ -289,7 +289,7 @@ const TabItem = ({ active, icon: Icon, label, onClick }: { active: boolean, icon
            weight={active ? "fill" : "regular"} 
         />
     </div>
-    <span className={`text-[10px] font-medium tracking-wide transition-colors ${active ? 'text-kletta-teal' : 'text-gray-400'}`}>{label}</span>
+    <span className={`text-[10px] font-medium tracking-wide transition-colors ${active ? 'text-kletta-teal' : 'text-kletta-secondary'}`}>{label}</span>
   </button>
 );
 

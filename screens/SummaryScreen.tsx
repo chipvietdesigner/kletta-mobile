@@ -39,8 +39,8 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
                         <div className="flex flex-col">
                             <h1 className="text-[26px] font-medium text-kletta-dark tracking-tight mb-1">Summary</h1>
                             <div className="flex items-center gap-1 opacity-60 transition-opacity hover:opacity-100 cursor-pointer text-kletta-dark">
-                                <span className="text-[13px] font-medium">All time</span>
-                                <IconChevronDown size={12} weight="bold" />
+                                <span className="text-[13px] font-medium text-kletta-secondary">All time</span>
+                                <IconChevronDown size={12} weight="bold" className="text-kletta-secondary" />
                             </div>
                         </div>
                         <button className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-black/5 rounded-full transition-colors text-kletta-dark">
@@ -49,7 +49,7 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <p className="text-[12px] font-medium text-gray-400 uppercase tracking-widest">Total Profit</p>
+                        <p className="text-[12px] font-medium text-kletta-secondary uppercase tracking-widest">Total Profit</p>
                         <p className="text-[34px] font-light text-kletta-dark tracking-tight leading-none">€135,433.10</p>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
                 
                 {/* Income Section */}
                 <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Income</p>
+                    <p className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest">Income</p>
                 </div>
                 
                 <SummaryRow 
@@ -80,7 +80,7 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
 
                 {/* Expenses Section */}
                 <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50 mt-2">
-                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Expenses</p>
+                    <p className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest">Expenses</p>
                 </div>
 
                 <SummaryRow 
@@ -100,7 +100,7 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
 
                 {/* Other Section */}
                 <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50 mt-2">
-                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Other</p>
+                    <p className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest">Other</p>
                 </div>
 
                 <SummaryRow 
@@ -146,7 +146,7 @@ const SummaryRow: React.FC<SummaryRowProps> = ({ title, amount, type, icon, onCl
         >
             <div className="flex items-center gap-4 flex-1 min-w-0 pr-2">
                 {/* Subtle Icon Container */}
-                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 shrink-0">
+                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-kletta-secondary shrink-0">
                     {icon}
                 </div>
                 

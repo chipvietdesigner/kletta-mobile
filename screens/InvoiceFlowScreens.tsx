@@ -89,7 +89,7 @@ export const InvoicePaymentMethodScreen: React.FC<NavigationProps> = ({ navigate
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-customer-select')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                 >
                     Next
                 </button>
@@ -144,14 +144,14 @@ export const InvoiceCustomerSelectScreen: React.FC<NavigationProps> = ({ navigat
                 <div className="flex gap-3">
                     <button 
                          onClick={() => navigate('invoice-due-date')} 
-                         className="flex-1 py-4 bg-white border border-gray-200 rounded-[14px] font-bold text-[15px] text-kletta-dark active:bg-gray-50 transition-colors"
+                         className="flex-1 py-4 bg-white border border-gray-200 rounded-[14px] font-medium text-[15px] text-kletta-dark active:bg-gray-50 transition-colors"
                     >
                         No customer
                     </button>
                     <button 
                         onClick={() => navigate('invoice-customer-confirm', { customerId: selectedId })}
                         // Enable next even if not selected for demo flow, usually disabled={!selectedId}
-                        className="flex-[2] py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                        className="flex-[2] py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                     >
                         Next
                     </button>
@@ -168,7 +168,7 @@ export const InvoiceCustomerSelectScreen: React.FC<NavigationProps> = ({ navigat
              <div className="px-6 mb-8">
                  <button 
                     onClick={() => navigate('invoice-customer-new')}
-                    className="text-[16px] font-bold text-[#0056D2] hover:underline flex items-center gap-1"
+                    className="text-[16px] font-medium text-[#0056D2] hover:underline flex items-center gap-1"
                  >
                      + Add a new customer
                  </button>
@@ -210,7 +210,7 @@ export const InvoiceNewCustomerScreen: React.FC<NavigationProps> = ({ navigate, 
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-customer-confirm', { isNew: true })}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                 >
                     Next
                 </button>
@@ -273,7 +273,7 @@ export const InvoiceConfirmCustomerScreen: React.FC<NavigationProps> = ({ naviga
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-due-date')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                 >
                     Confirm
                 </button>
@@ -325,7 +325,7 @@ export const InvoiceDueDateScreen: React.FC<NavigationProps> = ({ navigate, goBa
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-notes')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                 >
                     Next
                 </button>
@@ -360,13 +360,13 @@ export const InvoiceNotesScreen: React.FC<NavigationProps> = ({ navigate, goBack
                 <div className="flex gap-3">
                     <button 
                          onClick={() => navigate('invoice-preview')} 
-                         className="flex-1 py-4 bg-white border border-gray-200 rounded-[14px] font-bold text-[15px] text-kletta-dark active:bg-gray-50 transition-colors"
+                         className="flex-1 py-4 bg-white border border-gray-200 rounded-[14px] font-medium text-[15px] text-kletta-dark active:bg-gray-50 transition-colors"
                     >
                         Skip
                     </button>
                     <button 
                         onClick={() => navigate('invoice-preview')}
-                        className="flex-[2] py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                        className="flex-[2] py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                     >
                         Next
                     </button>
@@ -407,22 +407,22 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                          <div className="w-full bg-[#002B49] rounded-[10px] p-4 flex items-center justify-between mb-2">
                              <div className="flex flex-col">
                                  <div className="flex items-center gap-1 mb-0.5">
-                                     <span className="text-white font-bold text-[16px]">NOJA</span>
-                                     <span className="text-white/60 text-[10px] uppercase font-bold tracking-widest mt-0.5">RAHOITUS</span>
+                                     <span className="text-white font-medium text-[16px]">NOJA</span>
+                                     <span className="text-white/60 text-[10px] uppercase font-medium tracking-widest mt-0.5">RAHOITUS</span>
                                  </div>
                              </div>
-                             <span className="text-white font-bold text-[16px]">Get 50% now</span>
+                             <span className="text-white font-medium text-[16px]">Get 50% now</span>
                          </div>
 
                         <button 
                             onClick={() => navigate('invoice-success')}
-                            className="w-full py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                            className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                         >
                             Send
                         </button>
                         <button 
                             onClick={() => navigate('home')}
-                            className="w-full py-4 bg-white border border-gray-200 rounded-[14px] font-bold text-[15px] text-kletta-dark hover:bg-gray-50 transition-colors"
+                            className="w-full py-4 bg-white border border-gray-200 rounded-[14px] font-medium text-[15px] text-kletta-dark hover:bg-gray-50 transition-colors"
                         >
                             Save as draft
                         </button>
@@ -440,15 +440,15 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                     <div className="p-6">
                         {/* Header */}
                         <div className="flex justify-between items-start mb-8">
-                            <h2 className="text-2xl font-bold text-kletta-dark">Invoice</h2>
-                            <span className="font-bold text-xl text-kletta-dark">Kletta</span>
+                            <h2 className="text-2xl font-medium text-kletta-dark">Invoice</h2>
+                            <span className="font-medium text-xl text-kletta-dark">Kletta</span>
                         </div>
                         
                         {/* Info Grid */}
                         <div className="grid grid-cols-2 gap-8 mb-8">
                              <div>
-                                 <p className="text-[10px] font-bold text-gray-900 mb-1">From</p>
-                                 <p className="text-[11px] font-bold text-kletta-dark">Kletta Sami</p>
+                                 <p className="text-[10px] font-medium text-gray-900 mb-1">From</p>
+                                 <p className="text-[11px] font-medium text-kletta-dark">Kletta Sami</p>
                                  <p className="text-[11px] text-gray-500">sami+1@kletta.com</p>
                                  <p className="text-[11px] text-gray-500">Laajaniityntie 12 D46</p>
                                  <p className="text-[11px] text-gray-500">01620 Vantaa, Suomi</p>
@@ -456,16 +456,16 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                              <div>
                                  <div className="grid grid-cols-2 gap-y-2 gap-x-1 mb-4">
                                      <div>
-                                         <p className="text-[8px] font-bold border border-gray-300 p-0.5 inline-block mb-0.5">Date</p>
-                                         <p className="text-[9px] font-bold">29.04.2025</p>
+                                         <p className="text-[8px] font-medium border border-gray-300 p-0.5 inline-block mb-0.5">Date</p>
+                                         <p className="text-[9px] font-medium">29.04.2025</p>
                                      </div>
                                      <div>
-                                         <p className="text-[8px] font-bold border border-gray-300 p-0.5 inline-block mb-0.5">Invoice number</p>
-                                         <p className="text-[9px] font-bold">14149</p>
+                                         <p className="text-[8px] font-medium border border-gray-300 p-0.5 inline-block mb-0.5">Invoice number</p>
+                                         <p className="text-[9px] font-medium">14149</p>
                                      </div>
                                      <div>
-                                         <p className="text-[8px] font-bold border border-gray-300 p-0.5 inline-block mb-0.5">Due date</p>
-                                         <p className="text-[9px] font-bold">13.05.2025</p>
+                                         <p className="text-[8px] font-medium border border-gray-300 p-0.5 inline-block mb-0.5">Due date</p>
+                                         <p className="text-[9px] font-medium">13.05.2025</p>
                                      </div>
                                  </div>
                              </div>
@@ -473,24 +473,24 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
 
                         {/* Bill To */}
                         <div className="mb-8">
-                             <p className="text-[10px] font-bold text-gray-900 mb-1">Billed to</p>
-                             <p className="text-[11px] font-bold text-kletta-dark">Jari</p>
+                             <p className="text-[10px] font-medium text-gray-900 mb-1">Billed to</p>
+                             <p className="text-[11px] font-medium text-kletta-dark">Jari</p>
                              <p className="text-[11px] text-gray-500">United Kingdom</p>
                              <p className="text-[11px] text-gray-500">sami+56778@kletta.com</p>
                         </div>
                         
                         {/* Table Header */}
                         <div className="flex border-b border-black pb-1 mb-2">
-                            <p className="w-1/2 text-[9px] font-bold">Item</p>
-                            <p className="w-1/6 text-[9px] font-bold text-right">Quantity</p>
-                            <p className="w-1/6 text-[9px] font-bold text-right">Price</p>
-                            <p className="w-1/6 text-[9px] font-bold text-right">Total</p>
+                            <p className="w-1/2 text-[9px] font-medium">Item</p>
+                            <p className="w-1/6 text-[9px] font-medium text-right">Quantity</p>
+                            <p className="w-1/6 text-[9px] font-medium text-right">Price</p>
+                            <p className="w-1/6 text-[9px] font-medium text-right">Total</p>
                         </div>
 
                         {/* Item Row */}
                         <div className="flex mb-4">
                             <div className="w-1/2">
-                                <p className="text-[9px] font-bold">Customer work</p>
+                                <p className="text-[9px] font-medium">Customer work</p>
                             </div>
                             <p className="w-1/6 text-[9px] text-right">1</p>
                             <p className="w-1/6 text-[9px] text-right">€855.00</p>
@@ -501,16 +501,16 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                         <div className="flex justify-end border-t border-black pt-2">
                              <div className="w-1/2">
                                  <div className="flex justify-between mb-1">
-                                     <span className="text-[9px] font-bold">Subtotal</span>
+                                     <span className="text-[9px] font-medium">Subtotal</span>
                                      <span className="text-[9px]">€855.00</span>
                                  </div>
                                  <div className="flex justify-between mb-1">
-                                     <span className="text-[9px] font-bold">Tax 25.5%</span>
+                                     <span className="text-[9px] font-medium">Tax 25.5%</span>
                                      <span className="text-[9px]">€218.03</span>
                                  </div>
                                  <div className="flex justify-between border-t border-black pt-1">
-                                     <span className="text-[10px] font-bold">Total</span>
-                                     <span className="text-[10px] font-bold">€1,073.03</span>
+                                     <span className="text-[10px] font-medium">Total</span>
+                                     <span className="text-[10px] font-medium">€1,073.03</span>
                                  </div>
                              </div>
                         </div>
@@ -526,20 +526,20 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                         <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 text-red-500">
                              <IconWarningCircle size={28} weight="fill" />
                         </div>
-                        <h3 className="text-[18px] font-bold text-kletta-dark mb-2">Discard invoice?</h3>
+                        <h3 className="text-[18px] font-medium text-kletta-dark mb-2">Discard invoice?</h3>
                         <p className="text-[14px] text-gray-500 font-light mb-6 leading-relaxed">
                             Your changes will be lost and this invoice will not be saved.
                         </p>
                         <div className="flex flex-col gap-3">
                              <button 
                                 onClick={() => setShowDiscard(false)}
-                                className="w-full py-3.5 bg-gray-100 rounded-[14px] font-bold text-[15px] text-kletta-dark hover:bg-gray-200 transition-colors"
+                                className="w-full py-3.5 bg-gray-100 rounded-[14px] font-medium text-[15px] text-kletta-dark hover:bg-gray-200 transition-colors"
                              >
                                 Keep editing
                              </button>
                              <button 
                                 onClick={() => navigate('home')}
-                                className="w-full py-3.5 bg-white border border-red-100 rounded-[14px] font-bold text-[15px] text-red-500 hover:bg-red-50 transition-colors"
+                                className="w-full py-3.5 bg-white border border-red-100 rounded-[14px] font-medium text-[15px] text-red-500 hover:bg-red-50 transition-colors"
                              >
                                 Discard
                              </button>
@@ -562,9 +562,9 @@ export const InvoiceSuccessScreen: React.FC<NavigationProps> = ({ navigate }) =>
                  <IconSparkle size={16} weight="fill" className="text-kletta-yellow absolute bottom-4 left-2 animate-bounce" />
              </div>
 
-             <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-4 leading-tight">Your invoice has been sent</h1>
+             <h1 className="text-[24px] font-medium text-kletta-dark text-center mb-4 leading-tight">Your invoice has been sent</h1>
              
-             <button className="text-[15px] font-bold text-kletta-dark underline hover:no-underline mb-20">
+             <button className="text-[15px] font-medium text-kletta-dark underline hover:no-underline mb-20">
                  View invoice details
              </button>
 
@@ -574,15 +574,15 @@ export const InvoiceSuccessScreen: React.FC<NavigationProps> = ({ navigate }) =>
                      😉
                  </div>
                  <div className="flex-1">
-                     <p className="text-[14px] font-bold text-kletta-dark mb-0.5">Are you loving your experience with us so far?</p>
-                     <button className="text-[12px] font-bold text-kletta-teal underline">Give us a rating</button>
+                     <p className="text-[14px] font-medium text-kletta-dark mb-0.5">Are you loving your experience with us so far?</p>
+                     <button className="text-[12px] font-medium text-kletta-teal underline">Give us a rating</button>
                  </div>
              </div>
 
              <div className="absolute bottom-0 left-0 right-0 p-6">
                  <button 
                     onClick={() => navigate('home')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
                  >
                     Done
                  </button>

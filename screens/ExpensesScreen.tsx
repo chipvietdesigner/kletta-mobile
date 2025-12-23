@@ -203,7 +203,7 @@ const ExpensesScreen: React.FC = () => {
           <div className="bg-white w-full grid grid-cols-2 border-b border-gray-100">
               <button 
                 onClick={() => setActiveTab('receipts')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'receipts' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'receipts' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
               >
                 Receipts
                 {activeTab === 'receipts' && (
@@ -212,7 +212,7 @@ const ExpensesScreen: React.FC = () => {
               </button>
               <button 
                 onClick={() => setActiveTab('trips')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'trips' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'trips' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
               >
                 Trips
                 {activeTab === 'trips' && (
@@ -263,17 +263,17 @@ const ExpenseRow = ({ title, merchant, meta, description, amount, imageUrl }: an
              
              {/* Row 1: Title & Amount */}
              <div className="flex justify-between items-baseline mb-0.5">
-                 <h3 className="text-[15px] font-bold text-kletta-dark leading-tight">{title}</h3>
-                 <span className="text-[15px] font-bold text-kletta-dark shrink-0 ml-2">{amount}</span>
+                 <h3 className="text-[15px] font-medium text-kletta-dark leading-tight">{title}</h3>
+                 <span className="text-[15px] font-medium text-kletta-dark shrink-0 ml-2">{amount}</span>
              </div>
 
              {/* Row 2: Merchant */}
              {merchant && (
-                 <h3 className="text-[15px] font-bold text-kletta-dark leading-tight mb-1">{merchant}</h3>
+                 <h3 className="text-[15px] font-medium text-kletta-dark leading-tight mb-1">{merchant}</h3>
              )}
 
              {/* Row 3: Meta */}
-             <p className="text-[13px] text-gray-400 font-light mb-0.5 truncate leading-snug">
+             <p className="text-[13px] text-kletta-secondary font-light mb-0.5 truncate leading-snug">
                  {meta}
              </p>
 
@@ -298,7 +298,7 @@ const TripRow = (props: any) => {
     if (props.type === 'action') {
         return (
             <button className="w-full px-6 py-4 flex items-center justify-between transition-colors border-b border-gray-100 bg-white hover:bg-gray-50 group text-left">
-                <span className="text-[15px] font-bold text-kletta-dark truncate pr-4">{props.title}</span>
+                <span className="text-[15px] font-medium text-kletta-dark truncate pr-4">{props.title}</span>
                 <div className="shrink-0 text-gray-300">
                     <IconChevronRight size={16} weight="bold" />
                 </div>
@@ -311,12 +311,12 @@ const TripRow = (props: any) => {
         <button className="w-full px-6 py-4 flex items-center justify-between transition-colors border-b border-gray-100 bg-white hover:bg-gray-50 group text-left">
             <div className="flex-1 min-w-0 pr-4">
                 {/* Title */}
-                <h3 className="text-[15px] font-bold text-kletta-dark truncate mb-1">
+                <h3 className="text-[15px] font-medium text-kletta-dark truncate mb-1">
                     {props.isAllowance ? props.title : `${props.from} - ${props.to}`}
                 </h3>
                 
                 {/* Meta Data Grid */}
-                <div className="flex items-center gap-6 text-[13px] text-gray-400 font-light">
+                <div className="flex items-center gap-6 text-[13px] text-kletta-secondary font-light">
                     <span>{props.date}</span>
                     {props.duration && <span>{props.duration}</span>}
                     {props.distance && <span>{props.distance}</span>}
@@ -325,7 +325,7 @@ const TripRow = (props: any) => {
 
             {/* Right Side: Amount & Chevron */}
             <div className="shrink-0 flex items-center gap-3">
-                 <span className="text-[15px] font-bold text-kletta-dark">{props.amount}</span>
+                 <span className="text-[15px] font-medium text-kletta-dark">{props.amount}</span>
                  <div className="text-gray-300">
                     <IconChevronRight size={16} weight="bold" />
                  </div>

@@ -118,7 +118,7 @@ const ProductImage = ({ src, alt }: { src?: string, alt?: string }) => {
   );
 };
 
-// --- Screen 1: Add To Invoice (Refined) ---
+// --- Screen 1: Add To Invoice ---
 export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
   const [cart, setCart] = useState<Array<Product & { quantity: number; total: number }>>([]);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
@@ -137,12 +137,12 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
          
-         {/* --- FIXED TOP SECTION (Header + Create Action) --- */}
+         {/* --- FIXED TOP SECTION --- */}
          <div className="w-full bg-white z-20 shadow-[0_1px_2px_rgba(0,0,0,0.03)] shrink-0">
              
-             {/* Header (Dark Teal) */}
+             {/* Header */}
              <div className="w-full bg-kletta-teal flex flex-col pb-5 pt-0">
-                 {/* Status Bar - White Text */}
+                 {/* Status Bar */}
                  <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
                      <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
                      <div className="flex gap-1.5 items-center mr-1">
@@ -174,7 +174,7 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
                  </div>
              </div>
 
-             {/* Create New Product (Fixed sticky block) */}
+             {/* Create New Product */}
              <button className="w-full py-4 px-6 bg-white border-b border-gray-100 flex items-center gap-4 group hover:bg-gray-50 transition-colors">
                 <div className="w-11 h-11 rounded-full bg-kletta-yellow flex items-center justify-center text-kletta-dark shadow-sm shrink-0 group-active:scale-95 transition-transform">
                    <IconPlus size={20} weight="bold" />
@@ -219,16 +219,16 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
             ))}
          </div>
 
-         {/* Fixed Bottom Bar - Cart Summary */}
+         {/* Fixed Bottom Bar */}
          {cart.length > 0 && (
             <div className="absolute bottom-6 left-6 right-6 bg-kletta-yellow rounded-[24px] p-4 flex items-center justify-between shadow-[0_8px_30px_rgba(255,217,59,0.3)] z-30 animate-slide-up border border-kletta-yellow/50">
                <div className="pl-2">
-                  <p className="text-[11px] font-bold text-kletta-dark opacity-80 uppercase tracking-wide">{cart.length} items added</p>
+                  <p className="text-[11px] font-medium text-kletta-dark opacity-80 uppercase tracking-wide">{cart.length} items added</p>
                   <p className="text-xl font-bold text-kletta-dark">€{cartTotal.toFixed(2)}</p>
                </div>
                <button 
                   onClick={() => navigate('invoice-create-details')}
-                  className="bg-white rounded-xl px-6 py-3 font-bold text-[14px] text-kletta-dark shadow-sm active:scale-95 transition-transform flex items-center gap-2"
+                  className="bg-white rounded-xl px-6 py-3 font-medium text-[14px] text-kletta-dark shadow-sm active:scale-95 transition-transform flex items-center gap-2"
                >
                   Next <IconChevronRight size={14} weight="bold" />
                </button>
@@ -247,7 +247,7 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
   );
 };
 
-// --- Helper: Product Row (Refined Typography) ---
+// --- Helper: Product Row ---
 interface ProductRowProps {
     product: Product;
     onTap: (product: Product) => void;
@@ -267,19 +267,19 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, onTap }) => {
            {/* Image Fallback Component */}
            <ProductImage src={product.imageUrl} alt={product.title} />
 
-           {/* Middle Content - Refined Typography */}
+           {/* Middle Content */}
            <div className="flex-1 min-w-0">
-               {/* Title: 13px Book (300) #111 */}
-               <p className="text-[13px] font-light text-[#111111] leading-snug mb-1 whitespace-normal text-left">
+               {/* Title */}
+               <p className="text-[13px] font-medium text-[#111111] leading-snug mb-1 whitespace-normal text-left">
                    {product.title}
                </p>
-               {/* Meta: 12px Light (300) #8A8F9A */}
+               {/* Meta */}
                <p className="text-[12px] font-light text-[#8A8F9A] leading-tight text-left truncate">
                    {metaString}
                </p>
            </div>
      
-           {/* Right Action - Yellow Button */}
+           {/* Right Action */}
            <div className="shrink-0 pl-2">
               <div className="w-9 h-9 rounded-full bg-kletta-yellow flex items-center justify-center text-kletta-dark shadow-sm group-hover:shadow-md transition-all active:scale-95">
                   <IconPlus size={18} weight="bold" />
@@ -323,12 +323,12 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
         <div className="absolute inset-0 z-50 flex flex-col justify-end">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose} />
             
-            {/* Modal Container: Tightened Radius (20px top), White Background */}
+            {/* Modal Container */}
             <div className="bg-white w-full rounded-t-[20px] p-6 animate-slide-up relative z-10 max-h-[90%] flex flex-col shadow-2xl">
                 {/* Drag Handle */}
                 <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-6" />
 
-                {/* Header: Typography Refined (Medium 500, not Bold) */}
+                {/* Header */}
                 <div className="flex justify-between items-start mb-6">
                     <div>
                         <h2 className="text-[18px] font-medium text-kletta-dark leading-tight pr-8">{product.title}</h2>
@@ -342,7 +342,7 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
                 {/* Scrollable Form Area */}
                 <div className="flex-1 overflow-y-auto no-scrollbar space-y-6 pb-6">
                     
-                    {/* Quantity Stepper: White Bg, Border, Lighter Buttons */}
+                    {/* Quantity Stepper */}
                     <div className="flex items-center justify-between p-4 bg-white rounded-[12px] border border-[#E6E8EC]">
                         <span className="text-[11px] font-medium text-gray-500 uppercase tracking-wider">Quantity</span>
                         <div className="flex items-center gap-6">
@@ -362,7 +362,7 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
                         </div>
                     </div>
 
-                    {/* Price & VAT Row: White Inputs, Crisp Borders */}
+                    {/* Price & VAT Row */}
                     <div className="flex gap-4">
                         <div className="flex-1">
                             <KlettaInput 
@@ -382,7 +382,7 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
                         </div>
                     </div>
 
-                    {/* Notes: White TextArea */}
+                    {/* Notes */}
                     <div>
                          <KlettaTextarea 
                             label="Description (Optional)"
@@ -393,7 +393,7 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
                          />
                     </div>
 
-                    {/* Calculation Summary: Clean, No Grey Block */}
+                    {/* Calculation Summary */}
                     <div className="p-1 space-y-2 mt-2">
                          <div className="flex justify-between text-[13px] text-gray-500 font-light px-2">
                              <span>Subtotal</span>
@@ -416,7 +416,7 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
                 <div className="pt-4 mt-2 border-t border-gray-50">
                     <button 
                         onClick={handleAdd}
-                        className="w-full py-4 bg-kletta-yellow rounded-[14px] text-kletta-dark font-bold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex justify-between px-6 items-center"
+                        className="w-full py-4 bg-kletta-yellow rounded-[14px] text-kletta-dark font-medium text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex justify-between px-6 items-center"
                     >
                         <span>Add line item</span>
                         <span className="opacity-90 font-medium">€{total.toFixed(2)}</span>
@@ -427,12 +427,12 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
     );
 };
 
-// --- Screen 2: Invoice Create Details (Refined) ---
+// --- Screen 2: Invoice Create Details ---
 export const InvoiceCreateDetailsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
    return (
       <div className="h-full w-full bg-[#F5F5F5] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
          
-         {/* Fixed Header - Solid Dark */}
+         {/* Fixed Header */}
          <div className="bg-kletta-dark w-full z-20 shadow-sm shrink-0">
              {/* Status Bar */}
              <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
@@ -540,7 +540,7 @@ export const InvoiceCreateDetailsScreen: React.FC<NavigationProps> = ({ navigate
                          <span className="text-[12px] text-gray-400 font-light block mt-0.5">No files added</span>
                       </div>
                    </div>
-                   <button className="text-[12px] font-bold text-kletta-teal bg-teal-50 px-4 py-2 rounded-[10px] hover:bg-teal-100 transition-colors">
+                   <button className="text-[12px] font-medium text-kletta-teal bg-teal-50 px-4 py-2 rounded-[10px] hover:bg-teal-100 transition-colors">
                       Add
                    </button>
                 </div>
@@ -551,7 +551,7 @@ export const InvoiceCreateDetailsScreen: React.FC<NavigationProps> = ({ navigate
          <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-100 z-30">
             <button 
                onClick={() => navigate('invoice-payment-method')}
-               className="w-full py-4 bg-kletta-yellow rounded-[14px] font-bold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+               className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
             >
                Next
             </button>
@@ -569,7 +569,7 @@ const InvoiceItem = ({ qty, title, total, vat, last }: any) => (
       
       {/* Middle Content */}
       <div className="flex-1 min-w-0 pr-2">
-         <p className="text-[13px] font-light text-[#111111] leading-snug mb-0.5 whitespace-normal break-words">
+         <p className="text-[13px] font-medium text-[#111111] leading-snug mb-0.5 whitespace-normal break-words">
              {title}
          </p>
          <p className="text-[11px] font-light text-gray-400">

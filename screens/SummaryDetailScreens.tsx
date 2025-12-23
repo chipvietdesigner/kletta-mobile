@@ -151,7 +151,7 @@ export const BusinessIncomeScreen: React.FC<NavigationProps> = ({ navigate, goBa
             onAdd={() => navigate('new-invoice')}
         >
             <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Recent Invoices</p>
+                <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Recent Invoices</p>
             </div>
             {data.map((item, i) => (
                 <DetailRow 
@@ -213,7 +213,7 @@ export const BusinessExpensesScreen: React.FC<NavigationProps> = ({ navigate, go
             onAdd={() => navigate('home', { tab: 'expenses' })} 
         >
             <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Deductible Expenses</p>
+                <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Deductible Expenses</p>
             </div>
             {data.map((item, i) => (
                 <DetailRow 
@@ -248,7 +248,7 @@ export const NonAllowableExpensesScreen: React.FC<NavigationProps> = ({ navigate
             goBack={goBack}
         >
              <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Personal & Fines</p>
+                <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Personal & Fines</p>
             </div>
             {data.map((item, i) => (
                 <DetailRow 
@@ -285,7 +285,7 @@ export const ClaimedKilometersScreen: React.FC<NavigationProps> = ({ navigate, g
             onAdd={() => navigate('home', { tab: 'assets' })} 
         >
             <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Mileage Log</p>
+                <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Mileage Log</p>
             </div>
             {data.map((item, i) => (
                 <DetailRow 
@@ -321,7 +321,7 @@ export const CashWithdrawalScreen: React.FC<NavigationProps> = ({ navigate, goBa
             goBack={goBack}
         >
             <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">History</p>
+                <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">History</p>
             </div>
             {data.map((item, i) => (
                 <DetailRow 
@@ -354,7 +354,7 @@ export const TaxPrepaymentsScreen: React.FC<NavigationProps> = ({ navigate, goBa
            goBack={goBack}
        >
            <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-               <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Prepayment History</p>
+               <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Prepayment History</p>
            </div>
            {data.map((item, i) => (
                <DetailRow 

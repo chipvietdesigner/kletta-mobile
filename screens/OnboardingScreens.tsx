@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { NavigationProps } from '../types';
 import { 
@@ -78,7 +77,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
 
             {/* Scrollable Content Body */}
             <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-[60px] pb-40 bg-white">
-                <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
+                <h1 className="text-[24px] font-medium text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
                 {subtitle && (
                     <p className="text-center text-gray-500 font-light text-[15px] leading-relaxed mb-8 max-w-[320px] mx-auto">
                         {subtitle}
@@ -96,7 +95,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                <button 
                  onClick={onPrimary}
                  disabled={disablePrimary}
-                 className={`w-full py-4 rounded-2xl font-bold text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
+                 className={`w-full py-4 rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
                >
                  {primaryLabel}
                </button>
@@ -152,7 +151,7 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate, goBack })
                 
                 <button 
                    onClick={() => setExpanded(!expanded)}
-                   className="flex items-center gap-2 text-kletta-teal font-bold mb-6 hover:opacity-80 transition-opacity bg-teal-50 px-5 py-2.5 rounded-full"
+                   className="flex items-center gap-2 text-kletta-teal font-medium mb-6 hover:opacity-80 transition-opacity bg-teal-50 px-5 py-2.5 rounded-full"
                 >
                    Read more <IconChevronDown size={16} className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
                 </button>
@@ -261,7 +260,7 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack })
                 </KlettaSelect>
             </div>
 
-            <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-[13px] font-bold text-center">
+            <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-[13px] font-medium text-center">
                 Please note that you cannot change this selection later.
             </div>
         </OnboardingLayout>
@@ -321,7 +320,7 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate, goBack })
              </div>
 
              <div className="bg-[#FFF9E6] border border-kletta-yellow rounded-2xl p-6 text-center shadow-[0_4px_20px_rgba(255,217,59,0.15)]">
-                <h3 className="font-bold text-[16px] text-kletta-dark mb-2">Make use of your benefit now!</h3>
+                <h3 className="font-medium text-[16px] text-kletta-dark mb-2">Make use of your benefit now!</h3>
                 <p className="text-[13px] text-gray-700 leading-relaxed opacity-80 font-light">
                     When you take YEL insurance with Ilmarinen, you will receive one free month of Kletta. The value of your benefit is €29–69.
                 </p>
@@ -395,7 +394,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
                 <KlettaInput label="Vehicle Name" placeholder="e.g. Van or ABC-123" />
 
                 <div>
-                    <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Vehicle Type</label>
+                    <label className="text-[11px] font-medium text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Vehicle Type</label>
                     <div className="flex flex-wrap gap-2">
                         <ChipOption label="Passenger car" active />
                         <ChipOption label="Van / Taxi" />
@@ -410,7 +409,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
                 </KlettaSelect>
                 
                  <div>
-                    <label className="text-[11px] font-bold text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Acquisition Type</label>
+                    <label className="text-[11px] font-medium text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Acquisition Type</label>
                     <div className="space-y-3">
                         <RadioOption label="Transfer from personal ownership" active />
                         <RadioOption label="Transfer from previous bookkeeping" />
@@ -436,7 +435,7 @@ const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
             })}
         </div>
         <div className="flex-1 pt-0.5">
-            <h3 className={`font-bold text-[15px] mb-1 leading-tight ${selected ? 'text-kletta-teal' : 'text-kletta-dark'}`}>{title}</h3>
+            <h3 className={`font-medium text-[15px] mb-1 leading-tight ${selected ? 'text-kletta-teal' : 'text-kletta-dark'}`}>{title}</h3>
             <p className="text-[13px] text-gray-500 leading-snug font-light">{desc}</p>
         </div>
         <div className={`w-6 h-6 rounded-full border-[2px] mt-2 flex-shrink-0 flex items-center justify-center transition-all ${selected ? 'border-kletta-teal bg-kletta-teal scale-110' : 'border-gray-300'}`}>
@@ -446,7 +445,7 @@ const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
 );
 
 const ChipOption = ({ label, active }: any) => (
-    <button className={`px-4 py-2.5 rounded-xl text-[12px] font-bold border transition-colors ${active ? 'bg-kletta-dark text-white border-kletta-dark shadow-sm' : 'bg-white text-gray-500 border-gray-200'}`}>
+    <button className={`px-4 py-2.5 rounded-xl text-[12px] font-medium border transition-colors ${active ? 'bg-kletta-dark text-white border-kletta-dark shadow-sm' : 'bg-white text-gray-500 border-gray-200'}`}>
         {label}
     </button>
 );

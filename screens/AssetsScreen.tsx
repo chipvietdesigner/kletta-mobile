@@ -46,7 +46,7 @@ const AssetsScreen: React.FC = () => {
           <div className="bg-white w-full grid grid-cols-2 border-b border-gray-100">
               <button 
                 onClick={() => setActiveTab('vehicles')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'vehicles' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'vehicles' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
               >
                 Vehicles
                 {activeTab === 'vehicles' && (
@@ -55,7 +55,7 @@ const AssetsScreen: React.FC = () => {
               </button>
               <button 
                 onClick={() => setActiveTab('assets')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'assets' ? 'text-kletta-dark' : 'text-gray-400 hover:text-gray-600'}`}
+                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'assets' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
               >
                 Assets
                 {activeTab === 'assets' && (
@@ -120,17 +120,17 @@ const AssetsScreen: React.FC = () => {
 
 const VehicleRow = ({ icon, name, type, usage, value }: any) => (
    <div className="w-full px-6 py-5 flex items-start gap-4 border-b border-gray-100 hover:bg-gray-50 transition-colors group">
-      <div className="mt-1 text-gray-400 opacity-60">
+      <div className="mt-1 text-kletta-secondary opacity-60">
          {icon}
       </div>
       <div className="flex-1">
-         <h3 className="text-[15px] font-bold text-kletta-dark mb-0.5">{name}</h3>
-         <div className="flex flex-wrap items-center gap-1 text-[13px] font-light text-gray-500 mb-1.5">
+         <h3 className="text-[15px] font-medium text-kletta-dark mb-0.5">{name}</h3>
+         <div className="flex flex-wrap items-center gap-1 text-[13px] font-light text-kletta-secondary mb-1.5">
             <span>{type}</span>
             <span className="w-0.5 h-0.5 rounded-full bg-gray-300"></span>
             <span>{usage}</span>
             <span className="w-0.5 h-0.5 rounded-full bg-gray-300"></span>
-            <span className="text-gray-700 font-normal">{value}</span>
+            <span className="text-kletta-dark font-normal">{value}</span>
          </div>
          <button className="text-[12px] font-medium text-[#C03500] hover:underline opacity-80 hover:opacity-100 transition-opacity">
             Mark as sold or broken
