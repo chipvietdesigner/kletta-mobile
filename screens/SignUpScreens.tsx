@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { KlettaLogo, IconBack } from '../components/Icons';
 import { NavigationProps } from '../types';
@@ -53,7 +52,7 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
          <button 
            onClick={handleContinue}
-           className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+           className="w-full h-[64px] bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
          >
            Continue
          </button>
@@ -138,7 +137,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
          <button 
             onClick={handleSignUp}
             disabled={!code.every(c => c !== '')}
-            className={`w-full py-4 rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
+            className={`w-full h-[64px] rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
          >
             Sign up
          </button>

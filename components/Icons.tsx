@@ -112,6 +112,8 @@ export const IconWarningCircle = ({ className, size = 24, color = "currentColor"
 export const IconReceipt = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Receipt className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconCoffee = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Coffee className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconMagnifyingGlass = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <MagnifyingGlass className={className} size={size} color={color} weight={weight || "bold"} />;
+// Added for WelcomeScreen consistency
+export const IconChartPieSlice = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <ChartPieSlice className={className} size={size} color={color} weight={weight || "fill"} />;
 
 
 // Invoice Flow Icons

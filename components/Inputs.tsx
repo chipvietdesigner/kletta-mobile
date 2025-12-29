@@ -1,17 +1,23 @@
+
 import React from 'react';
 import { IconChevronDown } from './Icons';
 
+// Explicitly extend React.InputHTMLAttributes to ensure standard props like type, placeholder, etc. are included
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   icon?: React.ReactNode;
 }
 
-export const KlettaLabel = ({ children }: { children: React.ReactNode }) => (
-  <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-2 block">
-    {children}
-  </label>
-);
+export const KlettaLabel = ({ children }: { children?: React.ReactNode }) => {
+  if (!children) return null;
+  return (
+    <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-2 block">
+      {children}
+    </label>
+  );
+};
 
+// Component that accepts standard input props
 export const KlettaInput = ({ label, icon, className = '', ...props }: InputProps) => {
   return (
     <div className="w-full">
@@ -31,10 +37,12 @@ export const KlettaInput = ({ label, icon, className = '', ...props }: InputProp
   );
 };
 
+// Explicitly extend React.SelectHTMLAttributes to ensure standard props like value, onChange, etc. are included
 export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
 }
 
+// Component that accepts standard select props
 export const KlettaSelect = ({ label, children, className = '', ...props }: SelectProps) => {
   return (
     <div className="w-full">
@@ -52,10 +60,12 @@ export const KlettaSelect = ({ label, children, className = '', ...props }: Sele
   );
 };
 
+// Explicitly extend React.TextareaHTMLAttributes to ensure standard props like value, onChange, etc. are included
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
 }
 
+// Component that accepts standard textarea props
 export const KlettaTextarea = ({ label, className = '', ...props }: TextareaProps) => {
   return (
     <div className="w-full">
