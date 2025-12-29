@@ -26,9 +26,11 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
       </div>
 
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-6 pb-32">
-        <div className="text-center mb-12 max-w-[420px] mx-auto">
-            <h2 className="text-[28px] font-bold text-kletta-dark mb-4 leading-tight">Welcome to Kletta!</h2>
-            <p className="text-gray-500 font-light text-[16px] leading-relaxed">Let's start by entering your e-mail address.</p>
+         <div className="mb-12 max-w-[420px]">
+            <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome to Kletta!</h2>
+            <p className="text-kletta-secondary font-light text-[15px]">
+              Let's start by entering your e-mail address.
+            </p>
         </div>
 
         <div className="space-y-6 max-w-[420px] mx-auto">
@@ -98,7 +100,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
 
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-32">
         <div className="max-w-[420px] mx-auto">
-            <h2 className="text-[28px] font-bold text-kletta-dark mb-4 leading-tight text-center">Check your inbox</h2>
+            <h2 className="text-[32px] font-meidum text-kletta-dark mb-2 traking-tight text-center">Check your inbox</h2>
             <p className="text-gray-500 text-[16px] font-light mb-10 leading-relaxed text-center">
                 We have sent a 6 digit code to <br/><span className="text-kletta-dark font-bold">{email}</span>.
             </p>
