@@ -157,7 +157,7 @@ const getMonthYear = (dateStr: string) => {
 const SalesListIcon = ({ type }: { type: 'terminal' | 'kletta' }) => {
   return (
     <div className="shrink-0 pt-0.5">
-       <IconFileText size={26} weight="fill" className="text-gray-200" />
+       <IconFileText size={40} weight="fill" className="text-gray-300" />
     </div>
   );
 };
@@ -234,7 +234,7 @@ const SalesScreen: React.FC<NavigationProps> = ({ navigate }) => {
               <div className="px-6 pt-2">
                   <div className="flex justify-between items-center">
                      <div className="flex flex-col">
-                         <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
+                         <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5 text-center">Sales</h1>
                          <div className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer">
                              <span className="text-[13px] font-medium">All time</span>
                              <IconChevronDown size={12} weight="bold" />
@@ -349,10 +349,10 @@ const InvoiceRow: React.FC<InvoiceRowProps> = ({ invoice, onRegisterPaid, onClic
    return (
       <button 
          onClick={onClick}
-         className="w-full px-6 py-5 flex items-start gap-4 transition-colors bg-white hover:bg-gray-50 group text-left border-b border-gray-50"
+         className="w-full px-6 py-5 flex items-start gap-4 transition-colors bg-white hover:bg-gray-50 group text-left border-b border-gray-100"
       >
          {/* Icon - Solid, No Background, Simple */}
-         <div className="mt-0.5">
+         <div className="mt-0.5 shrink-0  ">
             <SalesListIcon type={invoice.iconType} />
          </div>
 
@@ -361,7 +361,7 @@ const InvoiceRow: React.FC<InvoiceRowProps> = ({ invoice, onRegisterPaid, onClic
              
              {/* Row 1: Amount & Status */}
              <div className="flex items-center justify-between">
-                 <span className="text-[15px] font-medium text-kletta-dark leading-tight">
+                 <span className="text-[16px] font-semibold text-kletta-dark leading-tight">
                     {invoice.amount}
                  </span>
                  

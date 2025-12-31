@@ -1,20 +1,21 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   IconSettings, IconGear, IconChevronDown, IconChevronRight, IconClose, IconArrowRight,
-  IconHome, IconBank, IconSales, IconExpenses, IconChat, IconPieChart,
+  IconHome, IconSales, IconExpenses, IconChat, IconPieChart, IconBank,
   IconNewInvoice, IconAddEntry, IconNewProduct, IconStartTrip, IconScanReceipt, IconUploadReceipt,
   IconCheck, IconRun, IconSparkle, IconVerified, IconInvoice, IconAddTrip,
   KlettaLogo
 } from '../components/Icons';
 import { TabName, ScreenName, NavigationProps } from '../types';
-import BankScreen from './BankScreen';
 import SalesScreen from './SalesScreen';
 import ExpensesScreen from './ExpensesScreen';
 import ChatScreen from './ChatScreen';
 import AssetsScreen from './AssetsScreen';
+import BankScreen from './BankScreen';
 
 // Dashboard (Original Home Content)
-const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void }) => (
+const DashboardContent = ({ navigate, onBankClick }: { navigate: (screen: ScreenName) => void, onBankClick: () => void }) => (
   <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#F5F5F5] animate-fade-in">
       
       {/* Scrollable Content */}
@@ -22,8 +23,6 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
         {/* Top Header Card */}
         <div className="bg-kletta-teal pt-12 pb-16 px-6 rounded-b-[42px] text-white relative shadow-sm z-0">
            
-           {/* Status Bar Mock */}
-
           {/* Header Row */}
           <div className="flex justify-between items-center mb-6 mt-2">
             <div className="flex items-center gap-2">
@@ -94,10 +93,10 @@ const DashboardContent = ({ navigate }: { navigate: (screen: ScreenName) => void
             <ActionIcon icon={IconNewInvoice} label="New invoice" onClick={() => navigate('new-invoice')} />
             <ActionIcon icon={IconAddEntry} label="Add entry" />
             <ActionIcon icon={IconNewProduct} label="New product" />
-            <ActionIcon icon={IconBank} label="Bank" />
-            
             <ActionIcon icon={IconStartTrip} label="Start trip" />
+            
             <ActionIcon icon={IconAddTrip} label="Add trip" /> 
+            <ActionIcon icon={IconBank} label="Bank" onClick={onBankClick} />
             <ActionIcon icon={IconScanReceipt} label="Scan receipt" highlight />
             <ActionIcon icon={IconUploadReceipt} label="Upload receipt" highlight />
           </div>
@@ -188,12 +187,16 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     }
   }, [params?.tab]);
 
+  const handleBankClick = () => {
+    setActiveTab('bank');
+  };
+
   return (
     <div className="h-full w-full pt-5 bg-[#F5F5F5] relative font-aktifo overflow-hidden">
       
-      {/* Content Area Based on Tab - Absolute inset to force full height */}
+      {/* Content Area Based on Tab */}
       <div className="absolute inset-0 w-full h-full z-0">
-        {activeTab === 'home' && <DashboardContent navigate={navigate} />}
+        {activeTab === 'home' && <DashboardContent navigate={navigate} onBankClick={handleBankClick} />}
         {activeTab === 'bank' && <BankScreen />}
         {activeTab === 'sales' && <SalesScreen navigate={navigate} goBack={goBack} />}
         {activeTab === 'expenses' && <ExpensesScreen />}
@@ -202,7 +205,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
       </div>
 
       {/* Fixed Bottom Tab Bar */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 pb-8 pt-3 px-2 flex justify-between items-end z-50">
+      <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 pb-8 pt-3 px-4 flex justify-between items-end z-50">
         <TabItem 
           active={activeTab === 'home'} 
           icon={IconHome} 

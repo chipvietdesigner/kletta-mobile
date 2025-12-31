@@ -82,7 +82,7 @@ const LoginScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-12 border-t border-gray-50 z-20">
          <button 
            onClick={handleContinue}
-           className="w-full h-[64px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-medium text-[17px] shadow-sm hover:shadow-[0_8px_24px_rgba(255,217,59,0.3)] active:scale-[0.98] transition-all"
+           className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-[0_8px_24px_rgba(255,217,59,0.3)] active:scale-[0.98] transition-all"
          >
            Log in
          </button>

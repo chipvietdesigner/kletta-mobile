@@ -56,7 +56,8 @@ interface MessageBubbleProps {
   isPrevSame: boolean;
 }
 
-const MessageBubble = ({ message, isNextSame, isPrevSame }: MessageBubbleProps) => {
+// Fixed: Explicitly use React.FC to handle JSX special props like key correctly
+const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isNextSame, isPrevSame }) => {
     const isUser = message.sender === 'user';
     
     let borderRadius = 'rounded-[18px]';

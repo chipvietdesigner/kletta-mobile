@@ -54,7 +54,7 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
          <button 
            onClick={handleContinue}
-           className="w-full h-[64px] bg-kletta-yellow rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+           className="w-full h-[60px] bg-kletta-yellow rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
          >
            Continue
          </button>
@@ -100,9 +100,9 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
 
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-32">
         <div className="max-w-[420px] mx-auto">
-            <h2 className="text-[32px] font-meidum text-kletta-dark mb-2 traking-tight text-center">Check your inbox</h2>
-            <p className="text-gray-500 text-[16px] font-light mb-10 leading-relaxed text-center">
-                We have sent a 6 digit code to <br/><span className="text-kletta-dark font-bold">{email}</span>.
+            <h2 className="text-[32px] font-meidum text-kletta-dark mb-2 traking-tight">Check your inbox</h2>
+            <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">
+                We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{email}</span>.
             </p>
 
             <div className="flex gap-3 justify-center mb-10">
@@ -120,7 +120,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             </div>
 
             <div className="flex justify-center mb-12">
-                <button className="text-kletta-teal font-bold text-[13px] hover:opacity-80 transition-opacity">
+                <button className="text-gray-700 font-medium text-[13px] hover:opacity-80 transition-opacity">
                     Didn't receive code? Resend
                 </button>
             </div>
@@ -139,7 +139,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
          <button 
             onClick={handleSignUp}
             disabled={!code.every(c => c !== '')}
-            className={`w-full h-[64px] rounded-2xl text-kletta-dark font-bold text-[16px] shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
+            className={`w-full h-[60px] rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
          >
             Sign up
          </button>

@@ -7,7 +7,7 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
     <div className="h-full w-full flex flex-col bg-white font-aktifo overflow-hidden selection:bg-kletta-yellow selection:text-kletta-dark animate-fade-in">
       
       {/* --- TOP SECTION (TEAL) --- */}
-      <div className="flex-[1.8] bg-kletta-teal relative flex flex-col px-8 pt-16 pb-12">
+      <div className="flex-[1.6] bg-kletta-teal relative flex flex-col px-8 pt-16 pb-12">
          
          {/* Logo at Top - Centered */}
          <div className="flex justify-center mb-10">
@@ -46,29 +46,27 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
          </div>
 
          {/* Headlines and Text */}
-         <div className="mt-auto space-y-4">
-            <h1 className="text-[36px] leading-[0.95] font-bold text-white uppercase tracking-tighter max-w-[300px]">
-               CLEARER ACCOUNTING,<br />LESS EFFORT.
-            </h1>
-            <p className="text-white font-light text-[15px] leading-relaxed max-w-[320px]">
-               Kletta is the smart accounting partner built for you — the ambitious sole traders who take on the business world with confidence and clarity.
-            </p>
-         </div>
       </div>
 
       {/* --- BOTTOM SECTION (WHITE) --- */}
-      <div className="flex-1 bg-white px-8 pt-8 pb-14 flex flex-col justify-center">
-         <div className="w-full flex flex-col gap-4">
+      <div className="flex-1 bg-white px-8 pt-8 pb-8 flex flex-col justify-center">
+         <div className="w-full flex flex-col gap-6">
+            <h1 className="text-[28px] font-bold text-kletta-dark tracking-tighter max-w-[360px] text-center">
+               Accounting app for<br />sole traders
+            </h1>
+            <p className="text-kletta-dark font-light text-[15px] leading-relaxed max-w-[360px] text-center pb-8">
+               Kletta automates your accounting, VAT declarations and yearly income tax self assessment - easily, on time and correctly
+            </p>
             <button 
                onClick={() => navigate('signup-email')}
-               className="w-full h-[64px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[17px] active:scale-[0.98] transition-all shadow-sm hover:shadow-md"
+               className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-semibold text-[16px] active:scale-[0.98] transition-all shadow-sm hover:shadow-md"
             >
                Create an account
             </button>
             
             <button 
                onClick={() => navigate('login')}
-               className="w-full h-[64px] bg-white border border-kletta-teal/20 rounded-[16px] text-kletta-dark font-bold text-[17px] active:scale-[0.98] transition-all hover:bg-gray-50"
+               className="w-full h-[60px] bg-white border border-kletta-teal/20 rounded-[16px] text-kletta-dark font-semibold text-[16px] active:scale-[0.98] transition-all hover:bg-gray-50"
             >
                Sign In
             </button>

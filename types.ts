@@ -17,12 +17,8 @@ export type ScreenName =
   | 'invoice-success'
   | 'invoice-detail'
   | 'summary'
-  | 'summary-business-income'
-  | 'summary-other-income'
-  | 'summary-business-expenses'
-  | 'summary-nonallowable-expenses'
-  | 'summary-claimed-kilometers'
-  | 'summary-cash-withdrawal'
+  | 'summary-business-income' | 'summary-other-income' | 'summary-business-expenses'
+  | 'summary-nonallowable-expenses' | 'summary-claimed-kilometers' | 'summary-cash-withdrawal'
   | 'summary-tax-prepayments'
   | 'settings';
 

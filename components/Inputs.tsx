@@ -2,12 +2,13 @@
 import React from 'react';
 import { IconChevronDown } from './Icons';
 
-// Explicitly extend React.InputHTMLAttributes to ensure standard props like type, placeholder, etc. are included
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+// Use type intersection for more robust prop inheritance from standard HTML elements
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   icon?: React.ReactNode;
-}
+};
 
+// Label component for reuse
 export const KlettaLabel = ({ children }: { children?: React.ReactNode }) => {
   if (!children) return null;
   return (
@@ -17,7 +18,7 @@ export const KlettaLabel = ({ children }: { children?: React.ReactNode }) => {
   );
 };
 
-// Component that accepts standard input props
+// Input component with standard HTML attributes support
 export const KlettaInput = ({ label, icon, className = '', ...props }: InputProps) => {
   return (
     <div className="w-full">
@@ -29,7 +30,7 @@ export const KlettaInput = ({ label, icon, className = '', ...props }: InputProp
           </div>
         )}
         <input 
-          className={`w-full p-4 bg-white rounded-[12px] border border-[#E6E8EC] font-medium text-[16px] text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all placeholder:text-gray-300 disabled:bg-gray-50 disabled:text-kletta-secondary ${icon ? 'pl-11' : ''} ${className}`}
+          className={`w-full p-4 bg-white rounded-[12px] border border-[#E6E8EC] font-normal text-[16px] text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all placeholder:text-gray-300 disabled:bg-gray-50 disabled:text-kletta-secondary ${icon ? 'pl-11' : ''} ${className}`}
           {...props}
         />
       </div>
@@ -37,12 +38,11 @@ export const KlettaInput = ({ label, icon, className = '', ...props }: InputProp
   );
 };
 
-// Explicitly extend React.SelectHTMLAttributes to ensure standard props like value, onChange, etc. are included
-export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+// Select component with standard HTML attributes support
+export type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
   label?: string;
-}
+};
 
-// Component that accepts standard select props
 export const KlettaSelect = ({ label, children, className = '', ...props }: SelectProps) => {
   return (
     <div className="w-full">
@@ -60,12 +60,11 @@ export const KlettaSelect = ({ label, children, className = '', ...props }: Sele
   );
 };
 
-// Explicitly extend React.TextareaHTMLAttributes to ensure standard props like value, onChange, etc. are included
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+// Textarea component with standard HTML attributes support
+export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
-}
+};
 
-// Component that accepts standard textarea props
 export const KlettaTextarea = ({ label, className = '', ...props }: TextareaProps) => {
   return (
     <div className="w-full">

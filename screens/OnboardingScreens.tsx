@@ -79,7 +79,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
             <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-[60px] pb-40 bg-white">
                 <h1 className="text-[24px] font-medium text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
                 {subtitle && (
-                    <p className="text-center text-gray-500 font-light text-[15px] leading-relaxed mb-8 max-w-[320px] mx-auto">
+                    <p className="text-center text-gray-700 font-light text-[15px] leading-relaxed mb-8 max-w-[320px] mx-auto">
                         {subtitle}
                     </p>
                 )}
@@ -123,7 +123,7 @@ export const OnboardingWelcome: React.FC<NavigationProps> = ({ navigate, goBack 
             onBack={goBack}
         >
             <div className="flex flex-col items-center">
-                <p className="text-gray-500 text-[15px] font-light leading-relaxed text-center mb-6">
+                <p className="text-gray-700 text-[15px] font-light leading-relaxed text-center mb-6">
                     If you have already been operating as an entrepreneur, we need your current season’s bookkeeping in order to submit VAT and tax declarations.
                 </p>
             </div>
@@ -145,22 +145,13 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate, goBack })
             onBack={goBack}
         >
             <div className="flex flex-col items-center">
-                <p className="text-gray-500 text-[15px] font-light leading-relaxed text-center mb-6">
+                <p className="text-gray-700 text-[15px] font-light leading-relaxed text-center mb-6">
                     We need Suomi.fi authorizations in order to handle your tax matters.
                 </p>
                 
-                <button 
-                   onClick={() => setExpanded(!expanded)}
-                   className="flex items-center gap-2 text-kletta-teal font-medium mb-6 hover:opacity-80 transition-opacity bg-teal-50 px-5 py-2.5 rounded-full"
-                >
-                   Read more <IconChevronDown size={16} className={`transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
-                </button>
-                
-                {expanded && (
-                    <div className="bg-gray-50 p-5 rounded-2xl text-left text-sm text-gray-600 leading-relaxed mb-4 animate-slide-up border border-gray-100 w-full font-light">
+                    <div className="bg-gray-50 p-5 rounded-2xl text-left text-[14px] text-gray-700 leading-relaxed mb-4 animate-slide-up border border-gray-100 w-full font-light">
                         <p>Kletta uses the Suomi.fi authorization service to submit your tax returns directly to the Tax Administration. This ensures your data is handled securely and correctly.</p>
                     </div>
-                )}
             </div>
         </OnboardingLayout>
     );
@@ -187,13 +178,6 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
                      <option>Quarterly</option>
                      <option>Yearly</option>
                 </KlettaSelect>
-            </div>
-
-            <div className="bg-teal-50 border border-teal-100 p-5 rounded-2xl flex gap-3.5 items-start">
-                <IconInfo size={20} className="text-kletta-teal flex-shrink-0 mt-0.5" />
-                <p className="text-[13px] text-gray-600 leading-relaxed font-light">
-                    These details cannot be changed later. Information such as the VAT period can only be updated through support.
-                </p>
             </div>
         </OnboardingLayout>
     );
@@ -244,7 +228,7 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
 export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <OnboardingLayout
-            title="Confirm your tax return details"
+            title="Confirm your tax return"
             subtitle="Which is the first tax return you want Kletta to submit?"
             icon={<IconFile />}
             primaryLabel="Confirm and continue"
@@ -260,7 +244,7 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack })
                 </KlettaSelect>
             </div>
 
-            <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-[13px] font-medium text-center">
+            <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-[13px] font-normal">
                 Please note that you cannot change this selection later.
             </div>
         </OnboardingLayout>
@@ -305,7 +289,7 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate, goBack })
             onSecondary={() => navigate('onboarding-7')}
             onBack={goBack}
         >
-             <div className="space-y-5 mb-8 text-gray-600 font-light text-[15px] leading-relaxed">
+             <div className="space-y-5 mb-8 text-gray-700 font-light text-[15px] leading-relaxed">
                 <p>An entrepreneur must take YEL insurance when:</p>
                 <ul className="list-none space-y-3">
                     <li className="flex gap-3">
@@ -321,7 +305,7 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate, goBack })
 
              <div className="bg-[#FFF9E6] border border-kletta-yellow rounded-2xl p-6 text-center shadow-[0_4px_20px_rgba(255,217,59,0.15)]">
                 <h3 className="font-medium text-[16px] text-kletta-dark mb-2">Make use of your benefit now!</h3>
-                <p className="text-[13px] text-gray-700 leading-relaxed opacity-80 font-light">
+                <p className="text-[13px] text-kletta-dark leading-relaxed font-light">
                     When you take YEL insurance with Ilmarinen, you will receive one free month of Kletta. The value of your benefit is €29–69.
                 </p>
              </div>
@@ -428,18 +412,15 @@ const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
         onClick={onClick}
         className={`w-full text-left p-5 rounded-2xl border-[2px] transition-all duration-200 flex items-start gap-4 active:scale-[0.98] ${selected ? 'border-kletta-teal bg-teal-50/50 shadow-sm' : 'border-transparent bg-gray-50 hover:bg-gray-100'}`}
     >
-        <div className={`w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${selected ? 'bg-kletta-teal text-white' : 'bg-white text-gray-400'}`}>
+        <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${selected ? 'bg-kletta-teal text-white' : 'bg-white text-gray-700'}`}>
             {React.cloneElement(icon as React.ReactElement<any>, { 
                 color: selected ? 'white' : 'currentColor',
                 size: 24 
             })}
         </div>
         <div className="flex-1 pt-0.5">
-            <h3 className={`font-medium text-[15px] mb-1 leading-tight ${selected ? 'text-kletta-teal' : 'text-kletta-dark'}`}>{title}</h3>
-            <p className="text-[13px] text-gray-500 leading-snug font-light">{desc}</p>
-        </div>
-        <div className={`w-6 h-6 rounded-full border-[2px] mt-2 flex-shrink-0 flex items-center justify-center transition-all ${selected ? 'border-kletta-teal bg-kletta-teal scale-110' : 'border-gray-300'}`}>
-            {selected && <IconCheck size={14} color="white" />}
+            <h3 className={`font-normal text-[15px] mb-1 leading-tight ${selected ? 'text-kletta-dark' : 'text-kletta-dark'}`}>{title}</h3>
+            <p className="text-[13px] text-gray-600 leading-snug font-light">{desc}</p>
         </div>
     </button>
 );

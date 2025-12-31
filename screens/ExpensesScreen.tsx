@@ -51,7 +51,7 @@ const EXPENSE_DATA = [
         meta: "01 Apr, 2025 • Non-allowable ex...",
         description: "Pysäköintivirhemaksu Helsingin kaupungil...",
         amount: "€60.00",
-        imageUrl: "https://images.unsplash.com/photo-1554224154-260327c00c4b?w=200&h=200&fit=crop"
+        imageUrl: "https://images.unsplash.com/photo-1554224155-1696413565d3?w=200&h=200&fit=crop"
     },
     {
         id: "76993",
@@ -69,7 +69,7 @@ const EXPENSE_DATA = [
         meta: "26 Mar, 2025 • Purchases and in...",
         description: "PIKALIIMA FLEX CO",
         amount: "€8.99",
-        imageUrl: "https://images.unsplash.com/photo-1581578731117-104f886f4b6d?w=200&h=200&fit=crop"
+        imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=200&h=200&fit=crop"
     },
     {
         id: "66851",
