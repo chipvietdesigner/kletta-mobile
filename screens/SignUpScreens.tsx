@@ -114,7 +114,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
                         maxLength={1}
                         value={digit}
                         onChange={(e) => handleChange(i, e.target.value)}
-                        className="w-14 h-14 bg-white border border-[#E6E8EC] rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all shadow-sm"
+                        className="w-[16%] h-14 bg-white border border-[#E6E8EC] rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all shadow-sm"
                     />
                 ))}
             </div>
