@@ -101,64 +101,49 @@ const TRIP_DATA = [
     },
     {
         id: 't1',
-        from: 'Haarniskatie 6, 0...',
-        to: 'Turku, Finland',
-        date: '29-Apr-2025',
+        from: 'Haarniskatie 6d, ...',
+        to: 'Haarniskatie 6d, ...',
+        date: '29.04.2025',
         duration: '02:03:24',
-        distance: '177.66 km',
-        amount: '€0.00'
-    },
-    {
-        id: 't2',
-        from: 'Helsinki, Finland',
-        to: 'Turku, Finland',
-        date: '29-Apr-2025',
-        duration: '03:14:44',
-        distance: '264.86 km',
-        amount: '€150.97'
-    },
-    {
-        id: 't3',
-        from: 'Haarniskatie 6d, ...',
-        to: 'Haarniskatie 6d, ...',
-        date: '29-Apr-2025',
-        duration: '00:00:00',
-        distance: '0.00 km',
-        amount: '€0.00'
-    },
-    {
-        id: 't4',
-        from: 'Haarniskatie 6d, ...',
-        to: 'Haarniskatie 6d, ...',
-        date: '29-Apr-2025',
-        duration: '10:03:00',
-        distance: '0.00 km',
-        amount: '€0.00'
+        distance: '177.66km',
+        amount: '€0.00',
+        stops: [
+          'Vantaanlaaksontie 34, 01670 Vantaa, Finland',
+          'Laajaniitynkuja 6, 01620 Vantaa, Finland',
+          'Lamminjärventie, 39100 Hämeenkyrö, Finland'
+        ]
     },
     {
         id: 't5',
         title: 'Daily allowance',
-        date: '29-Apr-2025',
+        date: '29.04.2025',
         amount: '€51.00',
         isAllowance: true
     },
     {
-        id: 't6',
-        from: 'Louhelantie 6, 01...',
-        to: 'Torpantie 6, 0165...',
-        date: '14-Apr-2025',
-        duration: '00:15:00',
-        distance: '11.76 km',
-        amount: '€6.70'
+        id: 't2',
+        from: 'Haarniskatie 6d',
+        to: 'Haarniskatie 6d, ...',
+        date: '29.04.2025',
+        duration: '02:03:24',
+        distance: '177.66km',
+        amount: '€150.97',
+        stops: [
+          'Vantaanlaaksontie 34, 01670 Vantaa, Finland',
+          'Lamminjärventie, 39100 Hämeenkyrö, Finland'
+        ]
     },
     {
-        id: 't7',
-        from: 'Kuitinmäentie 1, ...',
-        to: 'Piispansilta 17 b, ...',
-        date: '19-Mar-2025',
-        duration: '00:04:00',
-        distance: '1.68 km',
-        amount: '€0.96'
+        id: 't3',
+        from: 'Haarniskatie 6d',
+        to: 'Haarniskatie 6d, ...',
+        date: '29.04.2025',
+        duration: '02:03:24',
+        distance: '177.66km',
+        amount: '€150.97',
+        stops: [
+          'Vantaanlaaksontie 34, 01670 Vantaa, Finland'
+        ]
     }
 ];
 
@@ -315,31 +300,69 @@ const TripRow = (props: any) => {
         );
     }
 
-    // Standard Trip Row
+    // Daily Allowance special case
+    if (props.isAllowance) {
+        return (
+            <div className="px-6 py-6 border-b border-dashed border-gray-200 bg-white">
+                <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-[16px] font-medium text-kletta-dark tracking-tight leading-none">{props.title}</h3>
+                    <span className="text-[16px] font-medium text-kletta-dark leading-none">{props.amount}</span>
+                </div>
+                <div className="flex gap-2">
+                    <span className="px-3 py-1 bg-[#F2F4F7] rounded-[8px] text-[14px] font-normal text-kletta-dark">
+                        {props.date}
+                    </span>
+                </div>
+            </div>
+        );
+    }
+
+    // Standard Trip Row (Multi-stop)
     return (
-        <button className="w-full px-6 py-4 flex items-center justify-between transition-colors border-b border-gray-100 bg-white hover:bg-gray-50 group text-left">
-            <div className="flex-1 min-w-0 pr-4">
-                {/* Title */}
-                <h3 className="text-[15px] font-medium text-kletta-dark truncate mb-1">
-                    {props.isAllowance ? props.title : `${props.from} - ${props.to}`}
+        <div className="px-6 py-6 border-b border-dashed border-gray-200 bg-white">
+            {/* Header: Title and Price */}
+            <div className="flex justify-between items-start mb-3">
+                <h3 className="text-[16px] font-medium text-kletta-dark tracking-tight leading-tight pr-4">
+                    {props.from} – {props.to}
                 </h3>
-                
-                {/* Meta Data Grid */}
-                <div className="flex items-center gap-6 text-[13px] text-kletta-secondary font-light">
-                    <span>{props.date}</span>
-                    {props.duration && <span>{props.duration}</span>}
-                    {props.distance && <span>{props.distance}</span>}
+                <span className="text-[16px] font-medium text-kletta-dark shrink-0 leading-none">{props.amount}</span>
+            </div>
+
+            {/* Chips */}
+            <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-[#F2F4F7] rounded-[8px] text-[15px] font-normal text-kletta-dark leading-none">{props.date}</span>
+                </div>
+                <div className="flex items-center gap-2 before:content-['•'] before:text-gray-300 before:text-xs">
+                    <span className="px-3 py-1 bg-[#F2F4F7] rounded-[8px] text-[15px] font-normal text-kletta-dark leading-none">{props.distance}</span>
+                </div>
+                <div className="flex items-center gap-2 before:content-['•'] before:text-gray-300 before:text-xs">
+                    <span className="px-3 py-1 bg-[#F2F4F7] rounded-[8px] text-[15px] font-normal text-kletta-dark leading-none">{props.duration}</span>
                 </div>
             </div>
 
-            {/* Right Side: Amount & Chevron */}
-            <div className="shrink-0 flex items-center gap-3">
-                 <span className="text-[15px] font-medium text-kletta-dark">{props.amount}</span>
-                 <div className="text-gray-300">
-                    <IconChevronRight size={16} weight="bold" />
-                 </div>
+            {/* Stops / Timeline */}
+            <div className="space-y-4">
+                {props.stops?.map((stop: string, idx: number) => (
+                    <div key={idx} className="flex items-start gap-4 relative">
+                        {/* Vertical line between dots (dashed) */}
+                        {idx < props.stops.length - 1 && (
+                            <div className="absolute left-[4.5px] top-[14px] bottom-[-18px] w-px border-l border-dotted border-gray-400"></div>
+                        )}
+                        
+                        {/* Dot */}
+                        {idx === 0 ? (
+                            <div className="w-[10px] h-[10px] rounded-full bg-kletta-teal mt-[6px] shrink-0 z-10"></div>
+                        ) : (
+                            <div className="w-[10px] h-[10px] rounded-full border border-kletta-dark bg-white mt-[6px] shrink-0 z-10"></div>
+                        )}
+                        
+                        {/* Address */}
+                        <span className="text-[14.5px] text-kletta-dark font-normal leading-snug">{stop}</span>
+                    </div>
+                ))}
             </div>
-        </button>
+        </div>
     );
 };
 

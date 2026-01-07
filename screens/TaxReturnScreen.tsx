@@ -30,10 +30,10 @@ export const TaxReturnScreen: React.FC<NavigationProps> = ({ goBack }) => {
             </div>
 
             {/* Scrollable Report Content */}
-            <div className="flex-1 overflow-y-auto no-scrollbar pt-4 pb-32">
+            <div className="flex-1 overflow-y-auto no-scrollbar pt-0 pb-32">
                 
-                {/* Profile Section */}
-                <div className="bg-white rounded-[12px] mx-6 p-4 mb-6 text-center shadow-sm border border-gray-100">
+                {/* Profile Section - Updated to full width, no padding/margin as requested */}
+                <div className="bg-white w-full py-8 mb-6 text-center border-b border-gray-100">
                     <h2 className="text-[18px] font-bold text-kletta-dark mb-1">Kletta Sami</h2>
                     <p className="text-[14px] text-gray-500 font-normal">1234567-8</p>
                 </div>
@@ -117,6 +117,7 @@ export const TaxReturnScreen: React.FC<NavigationProps> = ({ goBack }) => {
                 </div>
 
                 <div className="px-6 mb-10">
+                    <h3 className="text-[16px] font-bold text-kletta-dark mb-4 leading-tight">Other</h3>
                     <ReportRow label="Division of business income between spouses" value={<ContactBtn />} />
                 </div>
 
@@ -216,6 +217,7 @@ export const TaxReturnScreen: React.FC<NavigationProps> = ({ goBack }) => {
                     </div>
                 </div>
 
+                {/* Final Totals */}
                 <div className="px-6 mb-10 border-t border-gray-100 pt-6">
                     <ReportRow label="Net worth of business" value="€53,703.94" highlight large />
                 </div>

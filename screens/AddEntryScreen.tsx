@@ -266,8 +266,8 @@ export const AddEntryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) 
                     <IconClose size={26} className="text-kletta-dark" weight="bold" />
                 </button>
                 <div className="mt-4">
-                    <h1 className="text-[28px] font-bold text-kletta-dark tracking-tight">Add entry</h1>
-                    <p className="text-[15px] text-gray-500 font-normal mt-1">Select what you’re adding to your tax record.</p>
+                    <h1 className="text-[20px] font-semibold text-kletta-dark tracking-tight">Add entry</h1>
+                    <p className="text-[14px] text-gray-500 font-normal mt-1">Select what you’re adding to your tax record.</p>
                 </div>
             </div>
 

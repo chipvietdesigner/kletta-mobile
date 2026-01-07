@@ -87,7 +87,7 @@ const DashboardContent = ({
     <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#F5F5F5] animate-fade-in">
         
         {/* Scrollable Content */}
-        <div className="flex-1 w-full overflow-y-auto no-scrollbar pb-32">
+        <div className="flex-1 w-full overflow-y-auto no-scrollbar pb-64">
           {/* Top Header Card */}
           <div className="bg-kletta-teal pt-12 pb-16 px-6 rounded-b-[42px] text-white relative shadow-sm z-0">
              
@@ -241,17 +241,6 @@ const DashboardContent = ({
                 When you take Ilmarinen YEL insurance through our application, we offer you one free month of Kletta's service. The offer does not affect the price or conditions of YEL insurance
               </p>
             </div>
-
-            {/* AI Assistant */}
-            <button className="w-full bg-white rounded-[20px] p-4 flex justify-between items-center shadow-sm border border-gray-100/50 active:bg-gray-50 transition-colors">
-              <div className="flex items-center gap-3">
-                <IconSparkle size={20} className="text-kletta-yellow" weight="fill" />
-                <span className="text-[14px] font-medium text-kletta-secondary">Ask from David Kletta AI Assistant</span>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-kletta-secondary">
-                <IconArrowRight size={16} weight="bold" />
-              </div>
-            </button>
           </div>
         </div>
     </div>
@@ -306,45 +295,61 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
         {activeTab === 'assets' && <AssetsScreen />}
       </div>
 
-      {/* Fixed Bottom Tab Bar */}
+      {/* Fixed Bottom Action Group */}
       {!isTabBarHidden && (
-        <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 pb-8 pt-3 px-4 flex justify-between items-end z-50 animate-fade-in">
-            <TabItem 
-            active={activeTab === 'home'} 
-            icon={IconHome} 
-            label="Home" 
-            onClick={() => setActiveTab('home')} 
-            />
-            <TabItem 
-            active={activeTab === 'bank'} 
-            icon={IconBank} 
-            label="Bank" 
-            onClick={() => setActiveTab('bank')} 
-            />
-            <TabItem 
-            active={activeTab === 'sales'} 
-            icon={IconSales} 
-            label="Sales" 
-            onClick={() => setActiveTab('sales')} 
-            />
-            <TabItem 
-            active={activeTab === 'expenses'} 
-            icon={IconExpenses} 
-            label="Expenses" 
-            onClick={() => setActiveTab('expenses')} 
-            />
-            <TabItem 
-            active={activeTab === 'chat'} 
-            icon={IconChat} 
-            label="Chat" 
-            onClick={() => setActiveTab('chat')} 
-            />
-            <TabItem 
-            active={activeTab === 'assets'} 
-            icon={IconPieChart} 
-            label="Assets" 
-            onClick={() => setActiveTab('assets')} 
-            />
+        <div className="absolute bottom-0 left-0 right-0 z-50 animate-fade-in">
+            {/* AI Assistant Bar - Fixed above Nav Bar */}
+            {activeTab === 'home' && (
+              <button className="w-full bg-white/95 backdrop-blur-md px-6 py-4 flex justify-between items-center border-t border-gray-100 active:bg-gray-50 transition-colors">
+                <div className="flex items-center gap-3">
+                  <IconSparkle size={20} className="text-kletta-yellow" weight="fill" />
+                  <span className="text-[14px] font-medium text-kletta-secondary">Ask from David Kletta AI Assistant</span>
+                </div>
+                <div className="text-kletta-secondary opacity-60">
+                  <IconArrowRight size={18} weight="bold" />
+                </div>
+              </button>
+            )}
+
+            {/* Fixed Bottom Tab Bar */}
+            <div className="bg-white border-t border-gray-100 pb-8 pt-3 px-4 flex justify-between items-end">
+                <TabItem 
+                active={activeTab === 'home'} 
+                icon={IconHome} 
+                label="Home" 
+                onClick={() => setActiveTab('home')} 
+                />
+                <TabItem 
+                active={activeTab === 'bank'} 
+                icon={IconBank} 
+                label="Bank" 
+                onClick={() => setActiveTab('bank')} 
+                />
+                <TabItem 
+                active={activeTab === 'sales'} 
+                icon={IconSales} 
+                label="Sales" 
+                onClick={() => setActiveTab('sales')} 
+                />
+                <TabItem 
+                active={activeTab === 'expenses'} 
+                icon={IconExpenses} 
+                label="Expenses" 
+                onClick={() => setActiveTab('expenses')} 
+                />
+                <TabItem 
+                active={activeTab === 'chat'} 
+                icon={IconChat} 
+                label="Chat" 
+                onClick={() => setActiveTab('chat')} 
+                />
+                <TabItem 
+                active={activeTab === 'assets'} 
+                icon={IconPieChart} 
+                label="Assets" 
+                onClick={() => setActiveTab('assets')} 
+                />
+            </div>
         </div>
       )}
 

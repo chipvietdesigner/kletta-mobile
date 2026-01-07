@@ -39,6 +39,15 @@ const OUTSTANDING_INVOICES: Invoice[] = [
        status: "outstanding",
        daysUntilDue: "-32 Days"
     }
+     { 
+       id: 'inv-out-3',
+       amount: "€250.00",
+       date: "12.01.2026",
+       invoiceNumber: "#20260002",
+       clientName: "Kletta",
+       status: "outstanding",
+       daysUntilDue: "-32 Days"
+    }
 ];
 
 const ALL_SALES: Invoice[] = [
@@ -74,6 +83,14 @@ const ALL_SALES: Invoice[] = [
        clientName: "Kletta",
        status: "overdue"
     }
+     { 
+       id: 'inv-all-5',
+       amount: "€756.88",
+       date: "09.10.2025",
+       invoiceNumber: "#20250004",
+       clientName: "Kletta",
+       status: "paid"
+    }
 ];
 
 interface SalesScreenProps extends NavigationProps {
@@ -88,13 +105,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
       {/* Header Container */}
       <div className="w-full z-20 flex flex-col shrink-0 bg-white border-b border-gray-50">
           {/* Status Bar */}
-          <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
-              <span className="text-[15px] font-normal tracking-normal leading-none ml-2">9:41</span>
-              <div className="flex gap-1.5 items-center mr-1">
-                 <IconCellSignalFull size={16} weight="fill" />
-                 <IconWifiHigh size={16} weight="bold" />
-                 <IconBatteryFull size={24} weight="fill" className="rotate-0" />
-              </div>
+          <div className="w-full h-[30px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
           </div>
 
           {/* Title Row */}
@@ -129,31 +140,35 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
             <h2 className="px-6 text-[16px] font-medium text-kletta-dark mb-4 tracking-tight">Outstanding invoices</h2>
             
             {/* Horizontal Carousel */}
-            <div className="flex overflow-x-auto no-scrollbar gap-4 px-6 snap-x snap-mandatory">
+            <div className="flex overflow-x-auto no-scrollbar px-[calc(50%-130px)] gap-4 px-4 snap-x snap-mandatory">
                 {OUTSTANDING_INVOICES.map((inv) => (
-                    <div key={inv.id} className="w-[200px] shrink-0 bg-[#F7F8F9] rounded-[20px] p-5 shadow-sm snap-center flex flex-col">
+                    <div key={inv.id} className="w-[200px] shrink-0 bg-[#F7F8F9]  rounded-[20px] p-3 shadow-sm snap-center flex flex-col">
                         <div className="flex justify-start mb-10">
-                            <span className="bg-[#949494] text-white text-[12px] font-normal px-4 py-1.5 rounded-lg">
+                            <span className="bg-gray-200 text-white text-[12px] font-normal px-4 py-1.5 rounded-lg">
                                 {inv.daysUntilDue}
                             </span>
                         </div>
                         
                         {/* Illustration Placeholder */}
-                        <div className="flex-1 flex items-center justify-center mb-6 opacity-10">
+                        <div className="flex-1 flex items-center justify-center mb-2 opacity-20">
                             <IconInvoice size={40} weight="fill" />
                         </div>
 
-                        <div className="text-center mb-6">
+                        <div className="w-10 h-10 rounded-lg bg-[#FDF7EA] flex items-center justify-center text-kletta-yellow opacity-60">
+                                <span className="font-bold text-lg">K</span>
+                        </div>
+
+                        <div className="text-center mb-2">
                             <p className="text-[13px] font-normal text-kletta-dark opacity-80 mb-1">Invoice {inv.invoiceNumber}</p>
                             <p className="text-[16px] font-semibold text-kletta-dark tracking-tight">{inv.amount}</p>
                             <p className="text-[13px] font-normal text-kletta-dark opacity-60">{inv.clientName}</p>
                         </div>
 
-                        <div className="space-y-3">
-                            <button className="w-full py-3.5 bg-kletta-teal text-white rounded-[12px] font-medium text-[13px] active:scale-[0.98] transition-transform">
+                        <div className="space-y-2">
+                            <button className="w-full py-2 bg-kletta-teal text-white rounded-[12px] font-medium text-[12px] active:scale-[0.98] transition-transform">
                                 Register as paid
                             </button>
-                            <button className="w-full py-3.5 bg-white border border-gray-100 text-[#949494] rounded-[12px] font-medium text-[13px] active:scale-[0.98] transition-transform">
+                            <button className="w-full py-2 bg-white border border-gray-100 text-gray-500 rounded-[12px] font-medium text-[12px] active:scale-[0.98] transition-transform">
                                 Send a reminder
                             </button>
                         </div>
@@ -170,7 +185,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                     <div key={inv.id} className="px-6 py-5 flex items-center justify-between group active:bg-gray-50 transition-colors">
                         <div className="flex items-center gap-4 flex-1">
                             {/* Logo Placeholder */}
-                            <div className="w-10 h-10 rounded-lg bg-[#FDF7EA] flex items-center justify-center text-kletta-yellow opacity-40">
+                            <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-kletta-yellow opacity-60">
                                 <span className="font-bold text-lg">K</span>
                             </div>
                             
@@ -190,11 +205,11 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                         {/* Action Buttons */}
                         <div className="shrink-0 ml-4">
                             {inv.status === 'paid' ? (
-                                <div className="bg-kletta-yellow px-8 py-2.5 rounded-[10px] text-[14px] font-medium text-kletta-dark min-w-[120px] text-center">
+                                <div className="bg-kletta-yellow px-2 py-2 rounded-[10px] text-[12px] font-medium text-kletta-dark min-w-[120px] text-center">
                                     Paid
                                 </div>
                             ) : (
-                                <button className="bg-kletta-teal px-4 py-2.5 rounded-[10px] text-[14px] font-medium text-white min-w-[120px] active:scale-[0.95] transition-transform">
+                                <button className="bg-kletta-teal px-2 py-2 rounded-[12px] text-[12px] font-medium text-white min-w-[120px] active:scale-[0.95] transition-transform">
                                     Register as paid
                                 </button>
                             )}
