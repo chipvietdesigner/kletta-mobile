@@ -103,33 +103,37 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
       {/* Header Container */}
-      <div className="w-full z-20 flex flex-col shrink-0 bg-white border-b border-gray-50">
+      <div className="w-full bg-kletta-teal pb-5 pt-0">
           {/* Status Bar */}
-          <div className="w-full h-[30px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
-          </div>
-
-          {/* Title Row */}
-          <div className="px-6 py-4 flex items-center justify-between">
-              <div className="w-10"></div>
-              
-              <div className="flex flex-col items-center flex-1">
-                  <h1 className="text-[20px] font-bold text-kletta-dark tracking-tight">Sales</h1>
-                  <button 
-                    onClick={onOpenFilter}
-                    className="flex items-center gap-1 opacity-40 text-kletta-dark transition-opacity hover:opacity-100 mt-0.5"
-                  >
-                      <span className="text-[14px] font-normal">1 year</span>
-                      <IconChevronDown size={14} weight="bold" />
-                  </button>
+          <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
+                  <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
+                  <div className="flex gap-1.5 items-center mr-1">
+                     <IconCellSignalFull size={16} weight="fill" />
+                     <IconWifiHigh size={16} weight="bold" />
+                     <IconBatteryFull size={24} weight="fill" className="rotate-0" />
+                  </div>
               </div>
-              
-              <button 
-                onClick={() => navigate('new-invoice')}
-                className="w-10 h-10 flex items-center justify-end text-kletta-teal hover:opacity-70 transition-opacity"
-              >
-                <IconPlus size={28} weight="regular" />
-              </button>
-          </div>
+            {/* Title Row */}
+              <div className="px-6 pt-2 flex items-center justify-between ">
+                  <div className="flex justify-between items-center">
+                     <div className="flex flex-col">
+                         <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
+                         <div 
+                           onClick={onOpenFilter}
+                           className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer"
+                         >
+                             <span className="text-[13px] font-medium">{dateRange}</span>
+                             <IconChevronDown size={12} weight="bold" />
+                         </div>
+                     </div>
+                     <button 
+                            onClick={() => navigate('new-invoice')}
+                            className="w-10 h-10 flex items-center justify-end text-white hover:opacity-70 transition-opacity"
+                        >
+                            <IconPlus size={28} weight="regular" />
+                        </button>
+                  </div>
+              </div>
       </div>
 
       {/* Main Content */}
