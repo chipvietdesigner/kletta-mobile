@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import SplashScreen from './screens/SplashScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -21,6 +22,11 @@ import {
   NonAllowableExpensesScreen, ClaimedKilometersScreen, CashWithdrawalScreen, TaxPrepaymentsScreen 
 } from './screens/SummaryDetailScreens';
 import { SettingsScreen } from './screens/SettingsScreen';
+import { 
+  ScanReceiptCamera, ScanReceiptPreview, ScanReceiptAnalyzing, ScanReceiptReview 
+} from './screens/ScanReceiptFlow';
+import { TaxReturnScreen } from './screens/TaxReturnScreen';
+import { AddEntryScreen } from './screens/AddEntryScreen';
 import { ScreenName } from './types';
 
 const App = () => {
@@ -33,14 +39,12 @@ const App = () => {
   };
 
   const goBack = () => {
-    // Simple stack-like behavior for linear flows
     switch (currentScreen) {
         case 'login': navigate('welcome'); break;
         case 'signup-email': navigate('welcome'); break;
         case 'signup-verify': navigate('signup-email'); break;
         case 'welcome': navigate('splash'); break;
-        // Onboarding usually prevents back for this demo, or goes to previous step
-        case 'onboarding-welcome': navigate('signup-verify'); break; // or welcome if verifying flow feels detached
+        case 'onboarding-welcome': navigate('signup-verify'); break;
         case 'onboarding-1': navigate('onboarding-welcome'); break; 
         case 'onboarding-2': navigate('onboarding-1'); break;
         case 'onboarding-3': navigate('onboarding-2'); break;
@@ -49,23 +53,17 @@ const App = () => {
         case 'onboarding-6': navigate('onboarding-5'); break;
         case 'onboarding-7': navigate('onboarding-6'); break;
         case 'onboarding-8': navigate('onboarding-7'); break;
-        
-        // New Invoice Flow
         case 'new-invoice': navigate('home'); break;
         case 'invoice-create-details': navigate('new-invoice'); break;
         case 'invoice-payment-method': navigate('invoice-create-details'); break;
         case 'invoice-customer-select': navigate('invoice-payment-method'); break;
         case 'invoice-customer-new': navigate('invoice-customer-select'); break;
-        case 'invoice-customer-confirm': navigate('invoice-customer-new'); break; // Or select
+        case 'invoice-customer-confirm': navigate('invoice-customer-new'); break;
         case 'invoice-due-date': navigate('invoice-customer-confirm'); break;
         case 'invoice-notes': navigate('invoice-due-date'); break;
         case 'invoice-preview': navigate('invoice-notes'); break;
         case 'invoice-success': navigate('home'); break;
-        
-        // Sales Flow - Back to Sales Tab
         case 'invoice-detail': navigate('home', { tab: 'sales' }); break; 
-
-        // Summary Flow
         case 'summary': navigate('home'); break;
         case 'summary-business-income': navigate('summary'); break;
         case 'summary-other-income': navigate('summary'); break;
@@ -74,28 +72,24 @@ const App = () => {
         case 'summary-claimed-kilometers': navigate('summary'); break;
         case 'summary-cash-withdrawal': navigate('summary'); break;
         case 'summary-tax-prepayments': navigate('summary'); break;
-
-        // Settings
         case 'settings': navigate('home'); break;
-
+        case 'scan-receipt-camera': navigate('home'); break;
+        case 'scan-receipt-preview': navigate('scan-receipt-camera'); break;
+        case 'scan-receipt-analyzing': navigate('scan-receipt-camera'); break;
+        case 'scan-receipt-review': navigate('home', { tab: 'expenses' }); break;
+        case 'tax-return': navigate('home'); break;
+        case 'add-entry': navigate('home'); break;
         default: break;
     }
   };
 
   const renderScreen = () => {
     switch (currentScreen) {
-      case 'splash':
-        return <SplashScreen onFinish={() => navigate('welcome')} />;
-      case 'welcome':
-        return <WelcomeScreen navigate={navigate} goBack={goBack} />;
-      case 'login':
-        return <LoginScreen navigate={navigate} goBack={goBack} />;
-      case 'signup-email':
-        return <SignUpEmailScreen navigate={navigate} goBack={goBack} />;
-      case 'signup-verify':
-        return <VerifyEmailCodeScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      
-      // Onboarding Flow
+      case 'splash': return <SplashScreen onFinish={() => navigate('welcome')} />;
+      case 'welcome': return <WelcomeScreen navigate={navigate} goBack={goBack} />;
+      case 'login': return <LoginScreen navigate={navigate} goBack={goBack} />;
+      case 'signup-email': return <SignUpEmailScreen navigate={navigate} goBack={goBack} />;
+      case 'signup-verify': return <VerifyEmailCodeScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'onboarding-welcome': return <OnboardingWelcome navigate={navigate} goBack={goBack} />;
       case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
       case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
@@ -105,8 +99,6 @@ const App = () => {
       case 'onboarding-6': return <OnboardingStep6 navigate={navigate} goBack={goBack} />;
       case 'onboarding-7': return <OnboardingStep7 navigate={navigate} goBack={goBack} />;
       case 'onboarding-8': return <OnboardingStep8 navigate={navigate} goBack={goBack} />;
-
-      // New Invoice Flow
       case 'new-invoice': return <AddToInvoiceScreen navigate={navigate} goBack={goBack} />;
       case 'invoice-create-details': return <InvoiceCreateDetailsScreen navigate={navigate} goBack={goBack} />;
       case 'invoice-payment-method': return <InvoicePaymentMethodScreen navigate={navigate} goBack={goBack} />;
@@ -116,12 +108,8 @@ const App = () => {
       case 'invoice-due-date': return <InvoiceDueDateScreen navigate={navigate} goBack={goBack} />;
       case 'invoice-notes': return <InvoiceNotesScreen navigate={navigate} goBack={goBack} />;
       case 'invoice-preview': return <InvoicePreviewScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-success': return <InvoiceSuccessScreen navigate={navigate} goBack={goBack} />;
-
-      // Invoice Detail
+      case 'invoice-success': return <InvoiceSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'invoice-detail': return <InvoiceDetailScreen navigate={navigate} goBack={goBack} params={navParams} />;
-
-      // Summary
       case 'summary': return <SummaryScreen navigate={navigate} goBack={goBack} />;
       case 'summary-business-income': return <BusinessIncomeScreen navigate={navigate} goBack={goBack} />;
       case 'summary-other-income': return <OtherIncomeScreen navigate={navigate} goBack={goBack} />;
@@ -130,14 +118,15 @@ const App = () => {
       case 'summary-claimed-kilometers': return <ClaimedKilometersScreen navigate={navigate} goBack={goBack} />;
       case 'summary-cash-withdrawal': return <CashWithdrawalScreen navigate={navigate} goBack={goBack} />;
       case 'summary-tax-prepayments': return <TaxPrepaymentsScreen navigate={navigate} goBack={goBack} />;
-
-      // Settings
       case 'settings': return <SettingsScreen navigate={navigate} goBack={goBack} />;
-
-      case 'home':
-        return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      default:
-        return <SplashScreen onFinish={() => navigate('welcome')} />;
+      case 'scan-receipt-camera': return <ScanReceiptCamera navigate={navigate} goBack={goBack} />;
+      case 'scan-receipt-preview': return <ScanReceiptPreview navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'scan-receipt-analyzing': return <ScanReceiptAnalyzing navigate={navigate} goBack={goBack} />;
+      case 'scan-receipt-review': return <ScanReceiptReview navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'tax-return': return <TaxReturnScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'add-entry': return <AddEntryScreen navigate={navigate} goBack={goBack} />;
+      case 'home': return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      default: return <SplashScreen onFinish={() => navigate('welcome')} />;
     }
   };
 

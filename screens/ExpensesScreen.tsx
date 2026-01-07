@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   IconCellSignalFull, IconWifiHigh, IconBatteryFull, 
@@ -161,7 +162,12 @@ const TRIP_DATA = [
     }
 ];
 
-const ExpensesScreen: React.FC = () => {
+interface ExpensesScreenProps {
+  dateRange: string;
+  onOpenFilter: () => void;
+}
+
+const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ dateRange, onOpenFilter }) => {
   const [activeTab, setActiveTab] = useState<'receipts' | 'trips'>('receipts');
 
   return (
@@ -187,8 +193,11 @@ const ExpensesScreen: React.FC = () => {
                   <div className="flex justify-between items-center">
                      <div className="flex flex-col">
                          <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Expenses</h1>
-                         <div className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer">
-                             <span className="text-[13px] font-medium">All time</span>
+                         <div 
+                           onClick={onOpenFilter}
+                           className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer"
+                         >
+                             <span className="text-[13px] font-medium">{dateRange}</span>
                              <IconChevronDown size={12} weight="bold" />
                          </div>
                      </div>

@@ -270,7 +270,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, onTap }) => {
            {/* Middle Content */}
            <div className="flex-1 min-w-0">
                {/* Title */}
-               <p className="text-[13px] font-medium text-[#111111] leading-snug mb-1 whitespace-normal text-left">
+               <p className="text-[14px] font-medium text-[#111111] leading-snug mb-1 whitespace-normal text-left">
                    {product.title}
                </p>
                {/* Meta */}

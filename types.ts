@@ -6,7 +6,6 @@ export type ScreenName =
   | 'onboarding-1' | 'onboarding-2' | 'onboarding-3' | 'onboarding-4' 
   | 'onboarding-5' | 'onboarding-6' | 'onboarding-7' | 'onboarding-8'
   | 'new-invoice' | 'invoice-create-details'
-  // New Flow
   | 'invoice-payment-method'
   | 'invoice-customer-select'
   | 'invoice-customer-new'
@@ -20,7 +19,10 @@ export type ScreenName =
   | 'summary-business-income' | 'summary-other-income' | 'summary-business-expenses'
   | 'summary-nonallowable-expenses' | 'summary-claimed-kilometers' | 'summary-cash-withdrawal'
   | 'summary-tax-prepayments'
-  | 'settings';
+  | 'settings'
+  | 'scan-receipt-camera' | 'scan-receipt-preview' | 'scan-receipt-analyzing' | 'scan-receipt-review'
+  | 'tax-return'
+  | 'add-entry';
 
 export interface NavigationProps {
   navigate: (screen: ScreenName, params?: any) => void;

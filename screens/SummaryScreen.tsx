@@ -1,20 +1,25 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { 
     IconBack, IconShare, IconChevronDown, IconChevronRight,
     IconTrendUp, IconTrendDown, IconMoney, IconCar,
     IconCellSignalFull, IconWifiHigh, IconBatteryFull, IconCoins
 } from '../components/Icons';
 import { NavigationProps } from '../types';
+import DateFilterSheet from '../components/DateFilterSheet';
 
 export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+    const [showFilter, setShowFilter] = useState(false);
+    const [dateRange, setDateRange] = useState("All time");
+
     return (
-        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-kletta-dark">
              
-            {/* Header Section - Flat Fill #F2F7F8 (Matches Bank) */}
-            <div className="w-full bg-[#F2F7F8] flex flex-col z-20 pb-5 pt-0">
+            {/* Header Section - Dark Teal */}
+            <div className="w-full bg-kletta-teal flex flex-col z-20 pb-5 pt-0 border-b border-white/5">
                 
                 {/* Status Bar */}
-                <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
+                <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
                     <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
                     <div className="flex gap-1.5 items-center mr-1">
                         <IconCellSignalFull size={16} weight="fill" />
@@ -23,39 +28,42 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
                     </div>
                 </div>
 
-                {/* Navigation Row (Extra row for Back button since this is a pushed screen) */}
+                {/* Navigation Row */}
                 <div className="px-6 pt-2 pb-2">
                     <button 
                         onClick={goBack} 
-                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-black/5 transition-colors text-kletta-dark"
+                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white"
                     >
                         <IconBack size={26} weight="bold" />
                     </button>
                 </div>
 
-                {/* Header Content (Matches Bank Layout) */}
+                {/* Header Content */}
                 <div className="px-6 pt-0 flex flex-col">
                     <div className="flex justify-between items-center mb-6">
                         <div className="flex flex-col">
-                            <h1 className="text-[26px] font-medium text-kletta-dark tracking-tight mb-1">Summary</h1>
-                            <div className="flex items-center gap-1 opacity-60 transition-opacity hover:opacity-100 cursor-pointer text-kletta-dark">
-                                <span className="text-[13px] font-medium text-kletta-secondary">All time</span>
-                                <IconChevronDown size={12} weight="bold" className="text-kletta-secondary" />
+                            <h1 className="text-[26px] font-medium text-white tracking-tight mb-1">Summary</h1>
+                            <div 
+                              onClick={() => setShowFilter(true)}
+                              className="flex items-center gap-1 opacity-70 transition-opacity hover:opacity-100 cursor-pointer text-white"
+                            >
+                                <span className="text-[13px] font-medium">{dateRange}</span>
+                                <IconChevronDown size={12} weight="bold" />
                             </div>
                         </div>
-                        <button className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-black/5 rounded-full transition-colors text-kletta-dark">
+                        <button className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors text-white">
                             <IconShare size={24} weight="bold" />
                         </button>
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <p className="text-[12px] font-medium text-kletta-secondary uppercase tracking-widest">Total Profit</p>
-                        <p className="text-[34px] font-light text-kletta-dark tracking-tight leading-none">€135,433.10</p>
+                        <p className="text-[12px] font-medium text-white/70 uppercase tracking-widest">Total Profit</p>
+                        <p className="text-[34px] font-light text-white tracking-tight leading-none">€135,433.10</p>
                     </div>
                 </div>
             </div>
 
-            {/* Scrollable Content - Flat List (Matches Bank) */}
+            {/* Scrollable Content - Flat List */}
             <div className="flex-1 overflow-y-auto no-scrollbar pb-36 pt-0 bg-white">
                 
                 {/* Income Section */}
@@ -126,6 +134,15 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
                 />
 
             </div>
+
+            {/* Date Filter Sheet - Fixed to overlap everything */}
+            {showFilter && (
+                <DateFilterSheet 
+                    currentValue={dateRange}
+                    onClose={() => setShowFilter(false)} 
+                    onApply={(val) => setDateRange(val)}
+                />
+            )}
         </div>
     );
 };
@@ -151,7 +168,6 @@ const SummaryRow: React.FC<SummaryRowProps> = ({ title, amount, type, icon, onCl
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                    {/* Updated to allow 2 lines of text if needed */}
                     <p className="text-[15px] font-medium text-kletta-dark line-clamp-2 leading-tight">{title}</p>
                 </div>
             </div>

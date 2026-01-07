@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   IconBack, IconCellSignalFull, IconWifiHigh, IconBatteryFull, IconChevronRight, IconPlus,
@@ -552,7 +553,11 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
 };
 
 // --- SCREEN 8: SUCCESS ---
-export const InvoiceSuccessScreen: React.FC<NavigationProps> = ({ navigate }) => {
+export const InvoiceSuccessScreen: React.FC<NavigationProps> = ({ navigate, params }) => {
+    const isExpense = params?.type === 'expense';
+    const title = isExpense ? 'Your receipt has been recorded' : 'Your invoice has been sent';
+    const subActionText = isExpense ? 'View expense details' : 'View invoice details';
+
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden items-center justify-center p-8">
              
@@ -562,10 +567,10 @@ export const InvoiceSuccessScreen: React.FC<NavigationProps> = ({ navigate }) =>
                  <IconSparkle size={16} weight="fill" className="text-kletta-yellow absolute bottom-4 left-2 animate-bounce" />
              </div>
 
-             <h1 className="text-[24px] font-medium text-kletta-dark text-center mb-4 leading-tight">Your invoice has been sent</h1>
+             <h1 className="text-[24px] font-medium text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
              
              <button className="text-[15px] font-medium text-kletta-dark underline hover:no-underline mb-20">
-                 View invoice details
+                 {subActionText}
              </button>
 
              {/* Feedback Card */}

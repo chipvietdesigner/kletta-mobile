@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
     IconBack, IconCheckCircle, IconWarningCircle, IconClock
@@ -80,24 +81,24 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
                 </div>
             </div>
 
-            {/* Hero Illustration Block */}
+            {/* Hero Illustration Block - Updated to match List Icon style */}
             <div className="w-full h-[220px] bg-[#E0F7F5] mb-8 flex items-center justify-center relative overflow-hidden">
-                {/* Decorative mock element representing the payment terminal illustration */}
-                <div className="relative z-10 flex flex-col items-center justify-center">
-                    <div className="w-24 h-32 bg-gray-100 rounded-xl shadow-xl border border-gray-200 flex flex-col items-center justify-end pb-4 relative">
-                         {/* Card popping out */}
-                         <div className="absolute -top-6 w-16 h-10 bg-gray-300 rounded-md shadow-md flex items-center justify-center">
-                             <div className="w-3 h-3 rounded-full bg-red-400 ml-1"></div>
-                             <div className="w-3 h-3 rounded-full bg-yellow-400 -ml-1"></div>
+                <div className="relative z-10 flex flex-col items-center justify-center pt-8">
+                    <div className="w-24 h-36 bg-white rounded-xl shadow-xl border border-gray-100 flex flex-col items-center justify-end pb-6 relative">
+                         {/* Card inserted at top with specific colors */}
+                         <div className="absolute -top-7 w-16 h-12 bg-[#D1D5DB] rounded-md shadow-md flex items-center justify-center">
+                             <div className="w-3.5 h-3.5 rounded-full bg-[#FF5F5F] mr-1.5"></div>
+                             <div className="w-3.5 h-3.5 rounded-full bg-[#FFD93B] -ml-1.5"></div>
                          </div>
                          {/* Terminal Screen */}
-                         <div className="w-16 h-8 bg-gray-600 rounded mb-2"></div>
-                         {/* Buttons */}
-                         <div className="grid grid-cols-3 gap-1">
-                             {[...Array(9)].map((_, i) => <div key={i} className="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>)}
+                         <div className="w-18 h-10 bg-[#4B5563] rounded-[4px] mb-3 shadow-inner"></div>
+                         {/* Keypad */}
+                         <div className="grid grid-cols-3 gap-1.5">
+                             {[...Array(9)].map((_, i) => <div key={i} className="w-2 h-2 bg-[#E5E7EB] rounded-full"></div>)}
                          </div>
                     </div>
-                    <div className="w-32 h-2 bg-black/5 rounded-[100%] absolute bottom-[-10px] blur-sm"></div>
+                    {/* Shadow underneath */}
+                    <div className="w-32 h-2 bg-black/5 rounded-[100%] absolute bottom-[-5px] blur-sm"></div>
                 </div>
             </div>
 

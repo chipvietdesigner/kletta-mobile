@@ -49,14 +49,13 @@ const ChatRow = ({ name, message, time, unread, onClick }: { name: string, messa
   </button>
 );
 
-// Define MessageBubbleProps to fix key assignment error
+// Define MessageBubbleProps
 interface MessageBubbleProps {
   message: Message;
   isNextSame: boolean;
   isPrevSame: boolean;
 }
 
-// Fixed: Explicitly use React.FC to handle JSX special props like key correctly
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isNextSame, isPrevSame }) => {
     const isUser = message.sender === 'user';
     
@@ -77,7 +76,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isNextSame, isPr
         <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} ${isNextSame ? 'mb-1' : 'mb-4'}`}>
             <div className={`max-w-[80%] flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
                 <div 
-                    className={`px-4 py-3 text-[15px] leading-relaxed shadow-sm ${borderRadius} ${isUser ? 'bg-kletta-teal text-white' : 'bg-[#F2F4F5] text-kletta-dark'}`}
+                    className={`px-4 py-3 text-[15px] leading-relaxed shadow-sm ${borderRadius} ${isUser ? 'bg-kletta-teal text-white font-normal' : 'bg-[#F2F4F5] text-kletta-dark font-normal'}`}
                 >
                     {message.text}
                 </div>
@@ -124,7 +123,8 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
     };
 
     return (
-        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-slide-in relative overflow-hidden z-30">
+        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-slide-in relative overflow-hidden z-[60]">
+             {/* Sticky Header */}
              <div className="w-full bg-white z-20 shrink-0 border-b border-gray-100 shadow-sm">
                 <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
                     <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
@@ -159,7 +159,8 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
                 </div>
              </div>
 
-             <div className="flex-1 overflow-y-auto no-scrollbar bg-white p-4 space-y-1 pb-4">
+             {/* Message List */}
+             <div className="flex-1 overflow-y-auto no-scrollbar bg-white p-4 space-y-1">
                  <div className="flex justify-center my-6">
                      <span className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full">Today</span>
                  </div>
@@ -180,20 +181,21 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
                  <div ref={messagesEndRef} />
              </div>
 
-             <div className="shrink-0 bg-white border-t border-gray-100 p-4 pb-10">
-                 <div className="flex items-end gap-3">
+             {/* Input Area - Adjusted to sit at bottom since tab bar is hidden */}
+             <div className="shrink-0 bg-white border-t border-gray-100 px-4 pt-4 pb-10">
+                 <div className="flex items-center gap-3">
                      <button className="w-10 h-12 flex items-center justify-center text-kletta-secondary hover:text-kletta-teal transition-colors rounded-xl hover:bg-gray-50 shrink-0">
                          <IconPaperclip size={24} weight="bold" />
                      </button>
                      
-                     <div className="flex-1 bg-gray-50 rounded-[20px] border border-gray-200 focus-within:border-kletta-teal transition-all flex items-center min-h-[48px]">
+                     <div className="flex-1 bg-gray-50 rounded-[24px] border border-gray-200 focus-within:border-kletta-teal transition-all flex items-center min-h-[48px] overflow-hidden">
                          <input 
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                            placeholder="Send a message..."
-                            className="w-full h-full bg-transparent px-4 py-3 text-[15px] text-kletta-dark outline-none placeholder:text-gray-400"
+                            placeholder="Type your message..."
+                            className="w-full h-full bg-transparent px-5 py-3 text-[15px] text-kletta-dark outline-none placeholder:text-gray-400 font-light"
                          />
                      </div>
 
@@ -210,8 +212,18 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
     );
 };
 
-const ChatScreen: React.FC = () => {
+interface ChatScreenProps {
+  onChatActive?: (active: boolean) => void;
+}
+
+const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive }) => {
   const [activeChat, setActiveChat] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (onChatActive) {
+      onChatActive(!!activeChat);
+    }
+  }, [activeChat, onChatActive]);
 
   if (activeChat) {
     return <ChatConversation onBack={() => setActiveChat(null)} />;
