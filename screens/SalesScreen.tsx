@@ -38,7 +38,7 @@ const OUTSTANDING_INVOICES: Invoice[] = [
        clientName: "Design Oy",
        status: "outstanding",
        daysUntilDue: "-32 Days"
-    }
+    },
      { 
        id: 'inv-out-3',
        amount: "€250.00",
@@ -82,7 +82,7 @@ const ALL_SALES: Invoice[] = [
        invoiceNumber: "#20250004",
        clientName: "Kletta",
        status: "overdue"
-    }
+    },
      { 
        id: 'inv-all-5',
        amount: "€756.88",
