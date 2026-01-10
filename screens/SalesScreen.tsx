@@ -158,10 +158,6 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                             <IconInvoice size={40} weight="fill" />
                         </div>
 
-                        <div className="w-10 h-10 rounded-lg bg-[#FDF7EA] flex items-center justify-center text-kletta-yellow opacity-60">
-                                <span className="font-bold text-lg">K</span>
-                        </div>
-
                         <div className="text-center mb-2">
                             <p className="text-[13px] font-normal text-kletta-dark opacity-80 mb-1">Invoice {inv.invoiceNumber}</p>
                             <p className="text-[16px] font-semibold text-kletta-dark tracking-tight">{inv.amount}</p>
