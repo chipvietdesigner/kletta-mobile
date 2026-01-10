@@ -128,7 +128,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                      </div>
                      <button 
                             onClick={() => navigate('new-invoice')}
-                            className="w-10 h-10 flex items-center justify-end text-white hover:opacity-70 transition-opacity"
+                            className="w-10 h-10 flex  justify-center text-white hover:opacity-70 transition-opacity"
                         >
                             <IconPlus size={28} weight="regular" />
                         </button>
