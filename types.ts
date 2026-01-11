@@ -22,7 +22,8 @@ export type ScreenName =
   | 'settings'
   | 'scan-receipt-camera' | 'scan-receipt-preview' | 'scan-receipt-analyzing' | 'scan-receipt-review'
   | 'tax-return'
-  | 'add-entry';
+  | 'add-entry'
+  | 'product-select-type' | 'product-add-details' | 'product-cover-art' | 'product-success';
 
 export interface NavigationProps {
   navigate: (screen: ScreenName, params?: any) => void;

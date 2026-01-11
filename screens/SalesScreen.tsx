@@ -99,6 +99,26 @@ interface SalesScreenProps extends NavigationProps {
 }
 
 const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFilter }) => {
+  const [showPaidModal, setShowPaidModal] = useState(false);
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+
+  const handleInvoiceClick = (inv: Invoice) => {
+    navigate('invoice-detail', {
+      id: inv.invoiceNumber.replace('#', ''),
+      amount: inv.amount,
+      status: inv.status.toUpperCase(),
+      name: inv.clientName,
+      date: inv.date,
+      type: 'invoice'
+    });
+  };
+
+  const handleOpenPaidModal = (e: React.MouseEvent, inv: Invoice) => {
+    e.stopPropagation();
+    setSelectedInvoice(inv);
+    setShowPaidModal(true);
+  };
+
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
@@ -113,10 +133,10 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                      <IconBatteryFull size={24} weight="fill" className="rotate-0" />
                   </div>
               </div>
-            {/* Title Row - Fixed Layout */}
+            {/* Title Row */}
               <div className="px-6 pt-2 flex items-center justify-between">
                    <div className="flex flex-col">
-                       <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
+                       <h1 className="text-[24px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
                        <div 
                          onClick={onOpenFilter}
                          className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer"
@@ -139,12 +159,16 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
         
         {/* Outstanding Invoices Section */}
         <div className="mb-10">
-            <h2 className="px-6 text-[16px] font-medium text-kletta-dark mb-4 tracking-tight">Outstanding invoices</h2>
+            <h2 className="px-4 text-[16px] font-medium text-kletta-dark mb-4 tracking-tight">Outstanding invoices</h2>
             
             {/* Horizontal Carousel */}
-            <div className="flex overflow-x-auto no-scrollbar gap-4 px-6 snap-x snap-mandatory">
+            <div className="flex overflow-x-auto no-scrollbar px-4 gap-4 pt-4 pb-4 snap-x snap-mandatory">
                 {OUTSTANDING_INVOICES.map((inv) => (
-                    <div key={inv.id} className="w-[200px] shrink-0 bg-white rounded-[20px] p-3 shadow-[0_12px_30px_rgba(0,0,0,0.08)] snap-center flex flex-col border border-gray-100/50 my-2">
+                    <div 
+                        key={inv.id} 
+                        onClick={() => handleInvoiceClick(inv)}
+                        className="w-[200px] shrink-0 bg-white rounded-[20px] p-3 shadow-[0_12px_12px_rgba(0,0,0,0.06)] snap-center flex flex-col border border-gray-100 cursor-pointer active:scale-[0.99] transition-transform"
+                    >
                         <div className="flex justify-start mb-10">
                             <span className="bg-[#DCDDFD] text-kletta-teal text-[12px] font-semibold px-4 py-1.5 rounded-lg">
                                 {inv.daysUntilDue}
@@ -163,10 +187,16 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                         </div>
 
                         <div className="space-y-2">
-                            <button className="w-full py-2 bg-kletta-teal text-white rounded-[12px] font-medium text-[12px] active:scale-[0.98] transition-transform">
+                            <button 
+                                onClick={(e) => handleOpenPaidModal(e, inv)}
+                                className="w-full py-2 bg-kletta-teal text-white rounded-[12px] font-medium text-[12px] active:scale-[0.98] transition-transform"
+                            >
                                 Register as paid
                             </button>
-                            <button className="w-full py-2 bg-white border border-gray-100 text-gray-500 rounded-[12px] font-medium text-[12px] active:scale-[0.98] transition-transform">
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); }}
+                                className="w-full py-2 bg-white border border-gray-100 text-gray-500 rounded-[12px] font-medium text-[12px] active:scale-[0.98] transition-transform"
+                            >
                                 Send a reminder
                             </button>
                         </div>
@@ -177,10 +207,14 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
 
         {/* All Sales Section */}
         <div>
-            <h2 className="px-6 text-[16px] font-medium text-kletta-dark mb-4 tracking-tight">All Sales</h2>
+            <h2 className="px-4 text-[16px] font-medium text-kletta-dark mb-4 tracking-tight">All Sales</h2>
             <div className="divide-y divide-gray-100">
                 {ALL_SALES.map((inv) => (
-                    <div key={inv.id} className="px-6 py-5 flex items-center justify-between group active:bg-gray-50 transition-colors bg-white">
+                    <div 
+                        key={inv.id} 
+                        onClick={() => handleInvoiceClick(inv)}
+                        className="px-6 py-5 flex items-center justify-between group active:bg-gray-50 transition-colors bg-white cursor-pointer"
+                    >
                         <div className="flex items-center gap-4 flex-1">
                             {/* Logo Placeholder */}
                             <div className="w-12 h-12 flex items-center justify-center">
@@ -209,7 +243,10 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                                     Paid
                                 </div>
                             ) : (
-                                <button className="bg-kletta-teal px-2 py-2 rounded-[12px] text-[12px] font-medium text-white min-w-[120px] active:scale-[0.95] transition-transform">
+                                <button 
+                                    onClick={(e) => handleOpenPaidModal(e, inv)}
+                                    className="bg-kletta-teal px-2 py-2 rounded-[12px] text-[12px] font-medium text-white min-w-[120px] active:scale-[0.95] transition-transform"
+                                >
                                     Register as paid
                                 </button>
                             )}
@@ -218,8 +255,39 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                 ))}
             </div>
         </div>
-
       </div>
+
+      {/* Confirmation Modal */}
+      {showPaidModal && (
+        <div className="absolute inset-0 z-[100] flex items-center justify-center p-6 animate-fade-in">
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowPaidModal(false)} />
+            <div className="bg-white w-full max-w-[320px] rounded-[24px] p-8 relative z-10 animate-slide-up shadow-2xl text-center">
+                <div className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-6 text-kletta-teal">
+                    <IconCheckCircle size={44} weight="fill" />
+                </div>
+                
+                <h3 className="text-[22px] font-bold text-kletta-dark mb-2 tracking-tight">Register as paid?</h3>
+                <p className="text-[15px] text-gray-500 font-normal mb-8 leading-relaxed">
+                    Mark invoice <span className="font-bold text-kletta-dark">{selectedInvoice?.invoiceNumber}</span> for <span className="font-bold text-kletta-dark">{selectedInvoice?.amount}</span> as paid?
+                </p>
+
+                <div className="flex flex-col gap-3">
+                    <button 
+                        onClick={() => setShowPaidModal(false)}
+                        className="w-full h-[60px] bg-kletta-yellow rounded-[16px] font-bold text-[17px] text-kletta-dark active:scale-[0.98] transition-all"
+                    >
+                        Register as paid
+                    </button>
+                    <button 
+                        onClick={() => setShowPaidModal(false)}
+                        className="w-full h-[60px] bg-white border border-gray-100 rounded-[16px] font-medium text-[16px] text-gray-400 active:bg-gray-50 transition-colors"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+      )}
     </div>
   );
 };

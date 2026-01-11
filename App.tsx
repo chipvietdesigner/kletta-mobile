@@ -27,6 +27,9 @@ import {
 } from './screens/ScanReceiptFlow';
 import { TaxReturnScreen } from './screens/TaxReturnScreen';
 import { AddEntryScreen } from './screens/AddEntryScreen';
+import { 
+  ProductSelectTypeScreen, ProductAddDetailsScreen, ProductCoverArtScreen, ProductSuccessScreen 
+} from './screens/ProductFlowScreens';
 import { ScreenName } from './types';
 
 const App = () => {
@@ -63,13 +66,7 @@ const App = () => {
         case 'invoice-notes': navigate('invoice-due-date'); break;
         case 'invoice-preview': navigate('invoice-notes'); break;
         case 'invoice-success': navigate('home'); break;
-        case 'invoice-detail': 
-            if (navParams?.type === 'receipt') {
-                navigate('home', { tab: 'expenses' });
-            } else {
-                navigate('home', { tab: 'sales' });
-            }
-            break; 
+        case 'invoice-detail': navigate('home', { tab: 'sales' }); break; 
         case 'summary': navigate('home'); break;
         case 'summary-business-income': navigate('summary'); break;
         case 'summary-other-income': navigate('summary'); break;
@@ -85,6 +82,10 @@ const App = () => {
         case 'scan-receipt-review': navigate('home', { tab: 'expenses' }); break;
         case 'tax-return': navigate('home'); break;
         case 'add-entry': navigate('home'); break;
+        case 'product-select-type': navigate('home'); break;
+        case 'product-add-details': navigate('home'); break;
+        case 'product-cover-art': navigate('product-add-details'); break;
+        case 'product-success': navigate('home'); break;
         default: break;
     }
   };
@@ -131,6 +132,10 @@ const App = () => {
       case 'scan-receipt-review': return <ScanReceiptReview navigate={navigate} goBack={goBack} params={navParams} />;
       case 'tax-return': return <TaxReturnScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'add-entry': return <AddEntryScreen navigate={navigate} goBack={goBack} />;
+      case 'product-select-type': return <ProductSelectTypeScreen navigate={navigate} goBack={goBack} />;
+      case 'product-add-details': return <ProductAddDetailsScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'product-cover-art': return <ProductCoverArtScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'product-success': return <ProductSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'home': return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;
       default: return <SplashScreen onFinish={() => navigate('welcome')} />;
     }

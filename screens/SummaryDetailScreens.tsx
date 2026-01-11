@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
     IconBack, IconChevronDown, IconPlus, IconQuestion, IconChevronRight, IconTrendUp,
@@ -22,11 +23,11 @@ const DetailScreenLayout: React.FC<DetailScreenLayoutProps> = ({
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
              
-            {/* Header Section - Flat Fill #F2F7F8 (Matches Bank) */}
-            <div className="w-full bg-[#F2F7F8] flex flex-col z-20 pb-5 pt-0">
+            {/* Header Section - Dark Teal #00343B */}
+            <div className="w-full bg-kletta-teal flex flex-col z-20 pb-6 pt-0 shadow-sm">
                 
                 {/* Status Bar */}
-                <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
+                <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
                     <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
                     <div className="flex gap-1.5 items-center mr-1">
                         <IconCellSignalFull size={16} weight="fill" />
@@ -39,7 +40,7 @@ const DetailScreenLayout: React.FC<DetailScreenLayoutProps> = ({
                 <div className="px-6 pt-2 pb-2">
                     <button 
                         onClick={goBack} 
-                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-black/5 transition-colors text-kletta-dark"
+                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white"
                     >
                         <IconBack size={26} weight="bold" />
                     </button>
@@ -49,9 +50,8 @@ const DetailScreenLayout: React.FC<DetailScreenLayoutProps> = ({
                 <div className="px-6 pt-0 flex flex-col">
                     <div className="flex justify-between items-center mb-6">
                         <div className="flex flex-col">
-                            {/* Updated to allow header wrapping for very long titles if necessary, though mostly 1 line */}
-                            <h1 className="text-[26px] font-medium text-kletta-dark tracking-tight mb-1 leading-tight">{title}</h1>
-                            <div className="flex items-center gap-1 opacity-60 transition-opacity hover:opacity-100 cursor-pointer text-kletta-dark">
+                            <h1 className="text-[26px] font-medium text-white tracking-tight mb-1 leading-tight">{title}</h1>
+                            <div className="flex items-center gap-1 opacity-70 transition-opacity hover:opacity-100 cursor-pointer text-white">
                                 <span className="text-[13px] font-medium">All time</span>
                                 <IconChevronDown size={12} weight="bold" />
                             </div>
@@ -59,7 +59,7 @@ const DetailScreenLayout: React.FC<DetailScreenLayoutProps> = ({
                         {onAdd && (
                             <button 
                                 onClick={onAdd}
-                                className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-black/5 rounded-full transition-colors text-kletta-dark shrink-0"
+                                className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors text-white shrink-0"
                             >
                                 <IconPlus size={24} weight="regular" />
                             </button>
@@ -67,8 +67,8 @@ const DetailScreenLayout: React.FC<DetailScreenLayoutProps> = ({
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <p className="text-[12px] font-medium text-gray-400 uppercase tracking-widest">{totalLabel}</p>
-                        <p className="text-[34px] font-light text-kletta-dark tracking-tight leading-none">{totalAmount}</p>
+                        <p className="text-[12px] font-medium text-white/60 uppercase tracking-widest">{totalLabel}</p>
+                        <p className="text-[34px] font-light text-white tracking-tight leading-none">{totalAmount}</p>
                     </div>
                 </div>
             </div>

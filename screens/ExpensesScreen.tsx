@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { NavigationProps } from '../types';
 import { 
   IconCellSignalFull, IconWifiHigh, IconBatteryFull, 
   IconPlus, IconChevronDown, IconReceipt, IconChevronRight
@@ -148,29 +147,13 @@ const TRIP_DATA = [
     }
 ];
 
-interface ExpensesScreenProps extends Partial<NavigationProps> {
+interface ExpensesScreenProps {
   dateRange: string;
   onOpenFilter: () => void;
 }
 
-const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ navigate, dateRange, onOpenFilter }) => {
+const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ dateRange, onOpenFilter }) => {
   const [activeTab, setActiveTab] = useState<'receipts' | 'trips'>('receipts');
-
-  const handleReceiptClick = (item: any) => {
-    if (navigate) {
-      navigate('invoice-detail', {
-        id: item.id,
-        amount: item.amount,
-        status: 'PAID',
-        name: item.merchant || 'General Expense',
-        email: 'receipt@kletta.com',
-        address: 'Helsinki, Finland',
-        date: item.meta.split(' • ')[0],
-        dueDate: item.meta.split(' • ')[0],
-        type: 'receipt'
-      });
-    }
-  };
 
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
@@ -240,7 +223,6 @@ const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ navigate, dateRange, on
                 <ExpenseRow 
                     key={item.id}
                     {...item}
-                    onClick={() => handleReceiptClick(item)}
                 />
              ))
          ) : (
@@ -257,21 +239,16 @@ const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ navigate, dateRange, on
 };
 
 // --- Receipt Row ---
-const ExpenseRow = ({ title, merchant, meta, description, amount, imageUrl, onClick }: any) => {
+const ExpenseRow = ({ title, merchant, meta, description, amount, imageUrl }: any) => {
    return (
-      <button 
-        onClick={onClick}
-        className="w-full px-6 py-5 flex items-start gap-5 transition-colors border-b border-gray-100 bg-white hover:bg-gray-50 group text-left"
-      >
+      <button className="w-full px-6 py-5 flex items-start gap-5 transition-colors border-b border-gray-100 bg-white hover:bg-gray-50 group text-left">
          
          {/* Image (Fixed Size) */}
          <div className="shrink-0">
              {imageUrl ? (
                  <ExpenseListImage src={imageUrl} alt={merchant || title} />
              ) : (
-                 <div className="w-[72px] shrink-0 h-[72px] bg-gray-50 rounded-[16px] flex items-center justify-center border border-gray-100">
-                    <IconReceipt size={24} className="text-gray-300" weight="fill" />
-                 </div>
+                 <div className="w-[72px] shrink-0" />
              )}
          </div>
 

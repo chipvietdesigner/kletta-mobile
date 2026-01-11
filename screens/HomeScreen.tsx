@@ -14,6 +14,7 @@ import ChatScreen from './ChatScreen';
 import AssetsScreen from './AssetsScreen';
 import BankScreen from './BankScreen';
 import DateFilterSheet from '../components/DateFilterSheet';
+import { ProductTypeSelectionSheet } from './ProductFlowScreens';
 
 // Mock Gallery Data
 const MOCK_GALLERY_IMAGES = [
@@ -74,12 +75,14 @@ const DashboardContent = ({
   navigate, 
   onBankClick, 
   onUploadClick, 
+  onNewProductClick,
   dateRange, 
   onOpenFilter 
 }: { 
   navigate: (screen: ScreenName) => void, 
   onBankClick: () => void, 
   onUploadClick: () => void,
+  onNewProductClick: () => void,
   dateRange: string, 
   onOpenFilter: () => void 
 }) => {
@@ -163,7 +166,7 @@ const DashboardContent = ({
             <div className="grid grid-cols-4 gap-y-6 gap-x-2 py-2">
               <ActionIcon icon={IconNewInvoice} label="New invoice" onClick={() => navigate('new-invoice')} />
               <ActionIcon icon={IconAddEntry} label="Add entry" onClick={() => navigate('add-entry')} />
-              <ActionIcon icon={IconNewProduct} label="New product" />
+              <ActionIcon icon={IconNewProduct} label="New product" onClick={onNewProductClick} />
               <ActionIcon icon={IconStartTrip} label="Start trip" />
               
               <ActionIcon icon={IconAddTrip} label="Add trip" /> 
@@ -172,10 +175,10 @@ const DashboardContent = ({
               <ActionIcon icon={IconUploadReceipt} label="Upload receipt" highlight onClick={onUploadClick} />
             </div>
 
-            {/* Upcoming Section */}
+            {/* Add new Section */}
             <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
               <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-medium text-[16px] text-kletta-dark">Upcoming</h3>
+                  <h3 className="font-medium text-[16px] text-kletta-dark">Add new</h3>
               </div>
               <div className="space-y-0">
                 <UpcomingItem 
@@ -253,6 +256,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   const [isTabBarHidden, setIsTabBarHidden] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [showProductTypeSheet, setShowProductTypeSheet] = useState(false);
   const [dateRange, setDateRange] = useState("Year to date");
   
   useEffect(() => {
@@ -274,6 +278,11 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     navigate('scan-receipt-preview', { imageUrl: url });
   };
 
+  const handleProductTypeSelect = (type: 'Product' | 'Service') => {
+    setShowProductTypeSheet(false);
+    navigate('product-add-details', { type });
+  };
+
   return (
     <div className="h-full w-full pt-5 bg-[#F5F5F5] relative font-aktifo overflow-hidden">
       
@@ -284,13 +293,14 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
             navigate={navigate} 
             onBankClick={handleBankClick} 
             onUploadClick={handleUploadClick}
+            onNewProductClick={() => setShowProductTypeSheet(true)}
             dateRange={dateRange} 
             onOpenFilter={() => setShowFilter(true)} 
           />
         )}
         {activeTab === 'bank' && <BankScreen />}
         {activeTab === 'sales' && <SalesScreen navigate={navigate} goBack={goBack} dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
-        {activeTab === 'expenses' && <ExpensesScreen navigate={navigate} dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
+        {activeTab === 'expenses' && <ExpensesScreen dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
         {activeTab === 'chat' && <ChatScreen onChatActive={setIsTabBarHidden} />}
         {activeTab === 'assets' && <AssetsScreen />}
       </div>
@@ -367,6 +377,14 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
         <VirtualGallerySheet 
           onClose={() => setShowGallery(false)}
           onSelect={handleGallerySelect}
+        />
+      )}
+
+      {/* Product Type Selection Sheet */}
+      {showProductTypeSheet && (
+        <ProductTypeSelectionSheet 
+          onClose={() => setShowProductTypeSheet(false)}
+          onSelect={handleProductTypeSelect}
         />
       )}
     </div>
