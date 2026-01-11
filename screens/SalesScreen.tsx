@@ -113,42 +113,40 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                      <IconBatteryFull size={24} weight="fill" className="rotate-0" />
                   </div>
               </div>
-            {/* Title Row */}
-              <div className="px-6 pt-2 flex items-center justify-between ">
-                  <div className="flex justify-between items-center">
-                     <div className="flex flex-col">
-                         <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
-                         <div 
-                           onClick={onOpenFilter}
-                           className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer"
-                         >
-                             <span className="text-[13px] font-medium">{dateRange}</span>
-                             <IconChevronDown size={12} weight="bold" />
-                         </div>
-                     </div>
-                     <button 
-                            onClick={() => navigate('new-invoice')}
-                            className="w-10 h-10 flex  justify-center text-white hover:opacity-70 transition-opacity"
-                        >
-                            <IconPlus size={28} weight="regular" />
-                        </button>
-                  </div>
+            {/* Title Row - Fixed Layout */}
+              <div className="px-6 pt-2 flex items-center justify-between">
+                   <div className="flex flex-col">
+                       <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Sales</h1>
+                       <div 
+                         onClick={onOpenFilter}
+                         className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer"
+                       >
+                           <span className="text-[13px] font-medium">{dateRange}</span>
+                           <IconChevronDown size={12} weight="bold" />
+                       </div>
+                   </div>
+                   <button 
+                        onClick={() => navigate('new-invoice')}
+                        className="w-10 h-10 flex items-center justify-end text-white hover:opacity-70 transition-opacity"
+                    >
+                        <IconPlus size={28} weight="regular" />
+                    </button>
               </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-6 bg-white">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-6">
         
         {/* Outstanding Invoices Section */}
         <div className="mb-10">
             <h2 className="px-6 text-[16px] font-medium text-kletta-dark mb-4 tracking-tight">Outstanding invoices</h2>
             
             {/* Horizontal Carousel */}
-            <div className="flex overflow-x-auto no-scrollbar px-[calc(50%-130px)] gap-4 px-4 snap-x snap-mandatory">
+            <div className="flex overflow-x-auto no-scrollbar gap-4 px-6 snap-x snap-mandatory">
                 {OUTSTANDING_INVOICES.map((inv) => (
-                    <div key={inv.id} className="w-[200px] shrink-0 bg-[#F7F8F9]  rounded-[20px] p-3 shadow-sm snap-center flex flex-col">
+                    <div key={inv.id} className="w-[200px] shrink-0 bg-white rounded-[20px] p-3 shadow-[0_12px_30px_rgba(0,0,0,0.08)] snap-center flex flex-col border border-gray-100/50 my-2">
                         <div className="flex justify-start mb-10">
-                            <span className="bg-gray-200 text-white text-[12px] font-normal px-4 py-1.5 rounded-lg">
+                            <span className="bg-[#DCDDFD] text-kletta-teal text-[12px] font-semibold px-4 py-1.5 rounded-lg">
                                 {inv.daysUntilDue}
                             </span>
                         </div>
@@ -182,11 +180,13 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
             <h2 className="px-6 text-[16px] font-medium text-kletta-dark mb-4 tracking-tight">All Sales</h2>
             <div className="divide-y divide-gray-100">
                 {ALL_SALES.map((inv) => (
-                    <div key={inv.id} className="px-6 py-5 flex items-center justify-between group active:bg-gray-50 transition-colors">
+                    <div key={inv.id} className="px-6 py-5 flex items-center justify-between group active:bg-gray-50 transition-colors bg-white">
                         <div className="flex items-center gap-4 flex-1">
                             {/* Logo Placeholder */}
-                            <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-kletta-yellow opacity-60">
-                                <span className="font-bold text-lg">K</span>
+                            <div className="w-12 h-12 flex items-center justify-center">
+                                <div className="flex-1 flex items-center justify-center mb-2 opacity-20">
+                                <IconInvoice size={40} weight="fill" />
+                            </div>
                             </div>
                             
                             <div className="flex-1">

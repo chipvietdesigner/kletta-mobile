@@ -28,7 +28,7 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
 
       {/* Headline */}
       <div className="w-full text-center mt-10 mb-14">
-          <h1 className="text-[28px] font-bold text-kletta-dark tracking-tight leading-[1.1] max-w-[300px] mx-auto">
+          <h1 className="text-[24px] font-bold text-kletta-dark tracking-tight leading-[1.1] max-w-[300px] mx-auto">
              Sole trader accounting made easy ✨
           </h1>
       </div>
@@ -37,14 +37,14 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
       <div className="w-full flex flex-col gap-4 pb-14">
           <button 
              onClick={() => navigate('signup-email')}
-             className="w-full h-[64px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[18px] active:scale-[0.98] transition-all shadow-sm"
+             className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-semibold text-[16px] active:scale-[0.98] transition-all shadow-sm"
           >
              Create account
           </button>
           
           <button 
              onClick={() => navigate('login')}
-             className="w-full py-4 text-kletta-dark font-bold text-[18px] active:opacity-60 transition-opacity"
+             className="w-full py-4 text-kletta-dark font-semibold text-[16px] active:opacity-60 transition-opacity"
           >
              Login
           </button>

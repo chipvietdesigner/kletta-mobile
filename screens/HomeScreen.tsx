@@ -290,7 +290,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
         )}
         {activeTab === 'bank' && <BankScreen />}
         {activeTab === 'sales' && <SalesScreen navigate={navigate} goBack={goBack} dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
-        {activeTab === 'expenses' && <ExpensesScreen dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
+        {activeTab === 'expenses' && <ExpensesScreen navigate={navigate} dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
         {activeTab === 'chat' && <ChatScreen onChatActive={setIsTabBarHidden} />}
         {activeTab === 'assets' && <AssetsScreen />}
       </div>

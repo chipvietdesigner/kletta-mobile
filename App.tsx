@@ -63,7 +63,13 @@ const App = () => {
         case 'invoice-notes': navigate('invoice-due-date'); break;
         case 'invoice-preview': navigate('invoice-notes'); break;
         case 'invoice-success': navigate('home'); break;
-        case 'invoice-detail': navigate('home', { tab: 'sales' }); break; 
+        case 'invoice-detail': 
+            if (navParams?.type === 'receipt') {
+                navigate('home', { tab: 'expenses' });
+            } else {
+                navigate('home', { tab: 'sales' });
+            }
+            break; 
         case 'summary': navigate('home'); break;
         case 'summary-business-income': navigate('summary'); break;
         case 'summary-other-income': navigate('summary'); break;

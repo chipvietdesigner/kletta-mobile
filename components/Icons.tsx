@@ -64,7 +64,9 @@ import {
   UserCircle,
   WarningCircle,
   Coffee,
-  DownloadSimple
+  DownloadSimple,
+  ShoppingCart,
+  Folder
 } from '@phosphor-icons/react';
 import { IconProps } from '../types';
 
@@ -104,6 +106,8 @@ export const IconAddTrip = ({ className, size = 24, color = "currentColor", weig
 export const IconHandWaving = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <HandWaving className={className} size={size} color={color} weight={weight || "fill"} />;
 export const IconStar = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Star className={className} size={size} color={color} weight={weight || "fill"} />;
 export const IconDownload = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <DownloadSimple className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconShoppingCart = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <ShoppingCart className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconFolder = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Folder className={className} size={size} color={color} weight={weight || "bold"} />;
 
 // Missing icons fixed
 export const IconDotsThree = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <DotsThree className={className} size={size} color={color} weight={weight || "bold"} />;

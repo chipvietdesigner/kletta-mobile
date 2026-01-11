@@ -1,53 +1,35 @@
 
 import React from 'react';
 import { 
-    IconBack, IconCheckCircle, IconWarningCircle, IconClock
+    IconBack, IconCheckCircle, IconWarningCircle, IconClock,
+    IconShoppingCart, IconCalendarBlank, IconFolder, IconFileText,
+    IconChevronDown
 } from '../components/Icons';
 import { NavigationProps } from '../types';
 
 export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
   // Mock data matching the design requirement, overlaid with params
   const invoice = {
-      id: params?.id || '123456',
-      amount: params?.amount || '€100.00',
+      id: params?.id || '82815',
+      amount: params?.amount || '€12.00',
       status: params?.status || 'PAID', // EXPECTS: 'PAID', 'OVERDUE', 'UNPAID', 'OUTSTANDING'
-      name: params?.name || 'Sami',
-      email: params?.email || 'sami@kletta.com',
-      address: params?.address || 'Laajaniintie 12 D46, 01620 Vantaa',
-      createdDate: params?.date || '12/10/2025',
-      dueDate: params?.dueDate || '30/12/2025'
+      name: params?.name || 'Welcome Break Group Keele Noth Fct.',
+      email: params?.email || 'receipt@kletta.com',
+      address: params?.address || 'London, United Kingdom',
+      createdDate: params?.date || '29 Apr, 2025',
+      dueDate: params?.dueDate || '29 Apr, 2025',
+      type: params?.type || 'receipt',
+      category: params?.category || 'Non-allowable expense',
+      description: params?.description || 'Taxi service from Helsinki on 29th April 2025.',
+      vatInfo: '€14.24 Incl. VAT 14%'
   };
 
-  const getStatusConfig = () => {
-      const s = invoice.status.toUpperCase();
-      if (s === 'PAID') {
-          return {
-              color: 'text-[#009944]',
-              icon: <IconCheckCircle size={22} weight="fill" />,
-              label: 'PAID'
-          };
-      } else if (s === 'OVERDUE') {
-          return {
-              color: 'text-[#C03500]',
-              icon: <IconWarningCircle size={22} weight="fill" />,
-              label: 'OVERDUE'
-          };
-      } else {
-          // Unpaid / Outstanding
-          return {
-              color: 'text-gray-500',
-              icon: null, // No green check for unpaid
-              label: 'UNPAID'
-          };
-      }
-  };
-
-  const statusConfig = getStatusConfig();
+  const isReceipt = invoice.type === 'receipt';
 
   return (
-    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-[#111111]">
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-kletta-dark">
         
-        {/* Header - Light (White) */}
+        {/* Header - Transparent/White */}
         <div className="w-full pt-14 pb-2 px-6 bg-white z-20 shrink-0">
             <button 
                 onClick={goBack} 
@@ -60,117 +42,103 @@ export const InvoiceDetailScreen: React.FC<NavigationProps> = ({ navigate, goBac
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto no-scrollbar bg-white">
             
-            <div className="px-6 pb-8">
-                {/* Title & Status Row */}
-                <div className="flex justify-between items-center mb-2">
-                    <h1 className="text-[26px] font-normal tracking-tight text-[#111111]">Invoice #{invoice.id}</h1>
-                    <div className={`flex items-center gap-1.5 ${statusConfig.color}`}>
-                        {statusConfig.icon}
-                        <span className="text-[13px] font-bold tracking-wide mt-0.5">{statusConfig.label}</span>
-                    </div>
-                </div>
+            <div className="px-6 pb-6">
+                {/* Title */}
+                <h1 className="text-[24px] font-normal tracking-tight text-[#111111] mb-1">
+                    <span className="opacity-80 font-light">{isReceipt ? 'Receipt' : 'Invoice'}</span> <span className="font-normal opacity-40">#{invoice.id}</span>
+                </h1>
 
                 {/* Amount */}
-                <h2 className="text-[34px] font-bold text-[#111111] tracking-tight mb-6">{invoice.amount}</h2>
-
-                {/* Customer Info Stack */}
-                <div className="flex flex-col space-y-1">
-                    <p className="text-[15px] font-normal text-[#111111]">{invoice.name}</p>
-                    <a href={`mailto:${invoice.email}`} className="text-[15px] font-medium text-kletta-teal hover:underline">{invoice.email}</a>
-                    <p className="text-[15px] font-normal text-[#111111]">{invoice.address}</p>
-                </div>
+                <h2 className="text-[36px] font-bold text-[#111111] tracking-tight mb-0.5 leading-tight">{invoice.amount}</h2>
+                
+                {/* VAT Line */}
+                <p className="text-[15px] font-normal text-gray-400">
+                    {invoice.vatInfo}
+                </p>
             </div>
 
-            {/* Hero Illustration Block - Updated to match List Icon style */}
-            <div className="w-full h-[220px] bg-[#E0F7F5] mb-8 flex items-center justify-center relative overflow-hidden">
-                <div className="relative z-10 flex flex-col items-center justify-center pt-8">
-                    <div className="w-24 h-36 bg-white rounded-xl shadow-xl border border-gray-100 flex flex-col items-center justify-end pb-6 relative">
-                         {/* Card inserted at top with specific colors */}
-                         <div className="absolute -top-7 w-16 h-12 bg-[#D1D5DB] rounded-md shadow-md flex items-center justify-center">
-                             <div className="w-3.5 h-3.5 rounded-full bg-[#FF5F5F] mr-1.5"></div>
-                             <div className="w-3.5 h-3.5 rounded-full bg-[#FFD93B] -ml-1.5"></div>
-                         </div>
-                         {/* Terminal Screen */}
-                         <div className="w-18 h-10 bg-[#4B5563] rounded-[4px] mb-3 shadow-inner"></div>
-                         {/* Keypad */}
-                         <div className="grid grid-cols-3 gap-1.5">
-                             {[...Array(9)].map((_, i) => <div key={i} className="w-2 h-2 bg-[#E5E7EB] rounded-full"></div>)}
-                         </div>
-                    </div>
-                    {/* Shadow underneath */}
-                    <div className="w-32 h-2 bg-black/5 rounded-[100%] absolute bottom-[-5px] blur-sm"></div>
-                </div>
+            {/* Thin Divider before Image */}
+            <div className="w-full h-px bg-gray-50 mb-1"></div>
+
+            {/* Receipt Image Block */}
+            <div className="w-full h-[220px] bg-gray-50 flex items-center justify-center relative overflow-hidden group">
+                <img 
+                    src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&fit=crop" 
+                    className="w-full h-full object-cover grayscale-[0.2] group-active:scale-105 transition-transform duration-500" 
+                    alt="Receipt source"
+                />
+                <div className="absolute inset-0 bg-black/5"></div>
             </div>
 
-            <div className="px-6 pb-12">
-                {/* Meta Row: Created / Due */}
-                <div className="flex justify-between items-baseline mb-6">
-                    <p className="text-[15px] text-[#111111]">Created on</p>
-                    <p className="text-[15px] font-medium text-[#111111]">{invoice.createdDate}</p>
-                </div>
-                <div className="flex justify-end items-baseline mb-6 -mt-4">
-                    <p className={`text-[15px] mr-2 ${statusConfig.label === 'OVERDUE' ? 'text-red-600 font-medium' : 'text-[#111111]'}`}>Due on</p>
-                    <p className={`text-[15px] ${statusConfig.label === 'OVERDUE' ? 'text-red-600 font-medium' : 'text-[#111111]'}`}>{invoice.dueDate}</p>
-                </div>
-
-                {/* Thin Divider */}
-                <div className="h-px w-full bg-[#E5E5E5] mb-8"></div>
-
-                {/* Items Section */}
-                <div className="mb-6">
-                    <h3 className="text-[16px] font-medium text-[#111111] mb-5">Service</h3>
-                    
-                    <div className="flex items-start justify-between">
-                        <span className="text-[15px] text-[#111111] flex-1">25,5 palvelu</span>
-                        <span className="text-[15px] text-[#111111] opacity-40 mx-6">x1</span>
-                        <span className="text-[15px] font-medium text-[#111111] whitespace-nowrap">
-                            €{invoice.amount.replace('€', '')} <span className="text-[15px] font-normal text-[#111111]">(VAT 0%)</span>
-                        </span>
+            {/* Detail Rows */}
+            <div className="px-6 py-4">
+                
+                {/* Supplier Row */}
+                <div className="py-4 border-b border-gray-50/50 flex items-center gap-5">
+                    <div className="shrink-0 text-kletta-dark opacity-40">
+                        <IconShoppingCart size={24} weight="regular" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-[13px] text-gray-400 font-light uppercase tracking-wide mb-1">Supplier</p>
+                        <p className="text-[15px] font-medium text-kletta-dark truncate">{invoice.name}</p>
                     </div>
                 </div>
 
-                {/* Dotted Divider */}
-                <div className="w-full border-t border-dotted border-gray-300 my-6"></div>
-
-                {/* Summary Rows */}
-                <div className="space-y-3 mb-6">
-                    <div className="flex justify-between">
-                        <span className="text-[15px] text-[#111111]">Subtotal</span>
-                        <span className="text-[15px] font-medium text-[#111111]">{invoice.amount}</span>
+                {/* Date Row */}
+                <button className="w-full py-4 border-b border-gray-50/50 flex items-center gap-5 group hover:bg-gray-50 transition-colors text-left">
+                    <div className="shrink-0 text-kletta-dark opacity-40">
+                        <IconCalendarBlank size={24} weight="regular" />
                     </div>
-                    <div className="flex justify-between">
-                        <span className="text-[15px] text-[#111111]">VAT</span>
-                        <span className="text-[15px] font-bomediumld text-[#111111]">€0.00</span>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-[13px] text-gray-400 font-light uppercase tracking-wide mb-1">Date</p>
+                        <p className="text-[15px] font-medium text-kletta-dark">{invoice.createdDate}</p>
                     </div>
-                    <div className="flex justify-between">
-                        <span className="text-[15px] text-[#111111]">Discount</span>
-                        <span className="text-[15px] font-medium text-[#111111]">0%</span>
+                    <div className="shrink-0 text-gray-300">
+                        <IconChevronDown size={20} weight="bold" />
                     </div>
-                    <div className="flex justify-between mt-1 pt-1">
-                        <span className="text-[16px] font-medium text-[#111111]">Total</span>
-                        <span className="text-[16px] font-medium text-[#111111]">{invoice.amount}</span>
-                    </div>
-                </div>
-
-                {/* Thin Divider */}
-                <div className="h-px w-full bg-[#E5E5E5] mb-8 mt-6"></div>
-
-                {/* Additional Note */}
-                <div className="mb-10">
-                    <h3 className="text-[16px] font-medium text-[#111111] mb-3">Additional note</h3>
-                    <p className="text-[15px] text-[#111111] leading-relaxed">
-                        Lorem ipsum dolor sit amet, conse tetur adipiscing elit.
-                    </p>
-                </div>
-
-                {/* Bottom Actions Button */}
-                <button className="w-full py-4 bg-[#F5F5F5] rounded-[12px] font-medium text-[16px] text-[#111111] hover:bg-gray-200 transition-colors active:scale-[0.99]">
-                    Actions
                 </button>
 
-                {/* Bottom Safe Area Spacer */}
-                <div className="h-6"></div>
+                {/* Category Row */}
+                <button className="w-full py-4 border-b border-gray-50/50 flex items-center gap-5 group hover:bg-gray-50 transition-colors text-left">
+                    <div className="shrink-0 text-kletta-dark opacity-40">
+                        <IconFolder size={24} weight="regular" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-[13px] text-gray-400 font-light uppercase tracking-wide mb-1">Category</p>
+                        <p className="text-[15px] font-medium text-kletta-dark truncate">{invoice.category}</p>
+                    </div>
+                    <div className="shrink-0 text-gray-300">
+                        <IconChevronDown size={20} weight="bold" />
+                    </div>
+                </button>
+
+                {/* Description Row */}
+                <button className="w-full py-4 flex items-center gap-5 group hover:bg-gray-50 transition-colors text-left">
+                    <div className="shrink-0 text-kletta-dark opacity-40">
+                        <IconFileText size={24} weight="regular" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-[13px] text-gray-400 font-light uppercase tracking-wide mb-1">Description</p>
+                        <p className="text-[15px] font-medium text-kletta-dark leading-snug">{invoice.description}</p>
+                    </div>
+                    <div className="shrink-0 text-gray-300">
+                        <IconChevronDown size={20} weight="bold" />
+                    </div>
+                </button>
+
             </div>
+
+            {/* Delete Button */}
+            <div className="px-6 py-6">
+                <button 
+                    onClick={() => navigate('home', { tab: 'expenses' })}
+                    className="w-full h-[60px] bg-[#F5F5F5] rounded-[14px] flex items-center justify-center active:scale-[0.98] transition-all"
+                >
+                    <span className="text-[17px] font-bold text-[#A03416]">Delete Expense</span>
+                </button>
+            </div>
+
+            <div className="h-10"></div>
         </div>
     </div>
   );
