@@ -10,7 +10,7 @@ import {
 interface Message {
   id: string;
   text: string;
-  sender: 'user' | 'support';
+  sender: 'user' | 'support' | 'ai';
   time: string;
   isLink?: boolean;
   showTranslate?: boolean;
@@ -26,6 +26,10 @@ const MOCK_CONVERSATION: Message[] = [
   { id: '6', text: "It looks like one receipt from March 15th is missing a category.", sender: 'support', time: '10:09' },
   { id: '7', text: "Please categorize it and the report will update automatically.", sender: 'support', time: '10:09', showTranslate: true },
   { id: '8', text: "Ah, I see it now. Thanks!", sender: 'user', time: '10:12' },
+];
+
+const MOCK_AI_CONVERSATION: Message[] = [
+  { id: 'ai1', text: "Hi Tim! I'm David, your AI assistant. How can I help you manage your business today? 🚀", sender: 'ai', time: 'Just now' },
 ];
 
 const ChatRow = ({ name, message, time, unread, onClick }: { name: string, message: string, time: string, unread?: boolean, onClick: () => void }) => (
@@ -58,6 +62,7 @@ interface MessageBubbleProps {
 
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isNextSame, isPrevSame }) => {
     const isUser = message.sender === 'user';
+    const isAi = message.sender === 'ai';
     
     let borderRadius = 'rounded-[18px]';
     if (isUser) {
@@ -76,7 +81,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isNextSame, isPr
         <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} ${isNextSame ? 'mb-1' : 'mb-4'}`}>
             <div className={`max-w-[80%] flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
                 <div 
-                    className={`px-4 py-3 text-[15px] leading-relaxed shadow-sm ${borderRadius} ${isUser ? 'bg-kletta-teal text-white font-normal' : 'bg-[#F2F4F5] text-kletta-dark font-normal'}`}
+                    className={`px-4 py-3 text-[15px] leading-relaxed shadow-sm ${borderRadius} ${isUser ? 'bg-kletta-teal text-white font-normal' : isAi ? 'bg-white border border-kletta-yellow/30 text-kletta-dark font-normal' : 'bg-[#F2F4F5] text-kletta-dark font-normal'}`}
                 >
                     {message.text}
                 </div>
@@ -97,8 +102,9 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isNextSame, isPr
     );
 };
 
-const ChatConversation = ({ onBack }: { onBack: () => void }) => {
-    const [messages, setMessages] = useState<Message[]>(MOCK_CONVERSATION);
+const ChatConversation = ({ type, onBack }: { type: 'support' | 'ai' | 'other', onBack: () => void }) => {
+    const isAiType = type === 'ai';
+    const [messages, setMessages] = useState<Message[]>(isAiType ? MOCK_AI_CONVERSATION : MOCK_CONVERSATION);
     const [inputValue, setInputValue] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -120,6 +126,19 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
         };
         setMessages([...messages, newMsg]);
         setInputValue('');
+        
+        // Mock AI reply
+        if (isAiType) {
+          setTimeout(() => {
+            const aiReply: Message = {
+              id: (Date.now() + 1).toString(),
+              text: "I'm processing that for you. Let me check your dashboard data...",
+              sender: 'ai',
+              time: 'Now'
+            };
+            setMessages(prev => [...prev, aiReply]);
+          }, 1500);
+        }
     };
 
     return (
@@ -145,16 +164,20 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
                     
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                            <h1 className="text-[17px] font-medium text-kletta-dark truncate">Kletta Tuki Support</h1>
+                            <h1 className="text-[17px] font-medium text-kletta-dark truncate">
+                              {isAiType ? 'David Kletta AI' : 'Kletta Tuki Support'}
+                            </h1>
                             <div className="w-3.5 h-3.5 bg-kletta-teal rounded-full flex items-center justify-center">
                                 <IconCheck size={10} color="white" weight="bold" />
                             </div>
                         </div>
-                        <p className="text-[12px] text-kletta-secondary font-light truncate">Typically replies in two business days</p>
+                        <p className="text-[12px] text-kletta-secondary font-light truncate">
+                          {isAiType ? 'Always active' : 'Typically replies in two business days'}
+                        </p>
                     </div>
 
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-kletta-secondary shrink-0">
-                        <IconUserCircle size={24} weight="fill" />
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${isAiType ? 'bg-kletta-yellow/10 text-kletta-yellow' : 'bg-gray-50 text-kletta-secondary'}`}>
+                        {isAiType ? <IconSparkle size={20} weight="fill" /> : <IconUserCircle size={24} weight="fill" />}
                     </div>
                 </div>
              </div>
@@ -214,10 +237,19 @@ const ChatConversation = ({ onBack }: { onBack: () => void }) => {
 
 interface ChatScreenProps {
   onChatActive?: (active: boolean) => void;
+  autoOpenAi?: boolean;
+  onAutoOpenHandled?: () => void;
 }
 
-const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive }) => {
-  const [activeChat, setActiveChat] = useState<string | null>(null);
+const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive, autoOpenAi, onAutoOpenHandled }) => {
+  const [activeChat, setActiveChat] = useState<'support' | 'ai' | 'other' | null>(null);
+
+  useEffect(() => {
+    if (autoOpenAi) {
+      setActiveChat('ai');
+      if (onAutoOpenHandled) onAutoOpenHandled();
+    }
+  }, [autoOpenAi, onAutoOpenHandled]);
 
   useEffect(() => {
     if (onChatActive) {
@@ -226,7 +258,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive }) => {
   }, [activeChat, onChatActive]);
 
   if (activeChat) {
-    return <ChatConversation onBack={() => setActiveChat(null)} />;
+    return <ChatConversation type={activeChat} onBack={() => setActiveChat(null)} />;
   }
 
   return (
@@ -253,7 +285,10 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive }) => {
       </div>
 
       <div className="flex-1 overflow-y-auto no-scrollbar pb-32">
-         <button className="w-full px-6 py-5 flex items-start gap-4 hover:bg-gray-50 transition-colors border-b border-gray-50 bg-[#F0FDFB]">
+         <button 
+            onClick={() => setActiveChat('ai')}
+            className="w-full px-6 py-5 flex items-start gap-4 hover:bg-gray-50 transition-colors border-b border-gray-50 bg-[#F0FDFB]"
+          >
             <div className="w-10 h-10 rounded-full bg-kletta-teal flex items-center justify-center text-kletta-yellow shrink-0 shadow-sm">
                <IconSparkle size={20} weight="fill" />
             </div>
@@ -278,19 +313,19 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive }) => {
                name="Accountant Pekka" 
                message="Can you upload the missing receipt for the lunch meeting on Tuesday?" 
                time="Yesterday" 
-               onClick={() => setActiveChat('pekka')}
+               onClick={() => setActiveChat('other')}
             />
              <ChatRow 
                name="System Notification" 
                message="Bank connection refreshed successfully." 
                time="Mon" 
-               onClick={() => setActiveChat('system')}
+               onClick={() => setActiveChat('other')}
             />
             <ChatRow 
                name="Tax Administration" 
                message="New tax card received for 2026." 
                time="Last Week" 
-               onClick={() => setActiveChat('tax')}
+               onClick={() => setActiveChat('other')}
             />
          </div>
       </div>

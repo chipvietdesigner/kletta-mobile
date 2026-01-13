@@ -47,9 +47,9 @@ export const ProductTypeSelectionSheet = ({
                 <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mt-3 mb-2" />
                 
                 <div className="px-6 pt-6 pb-4 flex items-center justify-between">
-                    <h2 className="text-[20px] font-medium text-kletta-dark tracking-tight leading-tight">What do you want to add?</h2>
+                    <h2 className="text-[18px] font-medium text-kletta-dark tracking-tight leading-tight">What do you want to add?</h2>
                     <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-kletta-dark">
-                        <IconClose size={20} weight="regular" />
+                      
                     </button>
                 </div>
 
@@ -81,7 +81,7 @@ export const ProductSelectTypeScreen: React.FC<NavigationProps> = ({ navigate, g
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
             <ProductFlowHeader title="" goBack={goBack} white />
             <div className="flex-1 px-6 pt-8 space-y-2">
-                <h2 className="text-[28px] font-medium text-kletta-dark tracking-tight leading-tight mb-10">What do you want to add?</h2>
+                <h2 className="text-[24px] font-medium text-kletta-dark tracking-tight leading-tight mb-10">What do you want to add?</h2>
                 <div className="divide-y divide-gray-50 border-t border-gray-50">
                     <TypeButton 
                         title="Product" 
@@ -110,7 +110,7 @@ const TypeButton = ({ title, desc, icon, onClick }: any) => (
             {icon}
         </div>
         <div className="flex-1">
-            <h3 className="text-[17px] font-medium text-kletta-dark mb-0.5">{title}</h3>
+            <h3 className="text-[16px] font-medium text-kletta-dark mb-0.5">{title}</h3>
             <p className="text-[14px] text-gray-500 font-light">{desc}</p>
         </div>
         <IconChevronRight size={18} className="text-gray-500" weight="bold" />
@@ -145,24 +145,24 @@ export const ProductAddDetailsScreen: React.FC<NavigationProps> = ({ navigate, g
             <ProductFlowHeader title="" goBack={goBack} white />
             
             <div className="flex-1 overflow-y-auto px-6 pt-2 pb-32">
-                <h1 className="text-[28px] font-medium text-kletta-dark tracking-tight mb-8">Add new {itemType.toLowerCase()}</h1>
+                <h1 className="text-[24px] font-medium text-kletta-dark tracking-tight mb-8">Add new {itemType.toLowerCase()}</h1>
                 
                 <div className="space-y-10">
                     {/* Name Section */}
                     <div>
-                        <h2 className="text-[18px] font-medium text-kletta-dark mb-4">What would you like to call it?</h2>
+                        <h2 className="text-[16px] font-medium text-kletta-dark mb-4">What would you like to call it?</h2>
                         <KlettaInput 
                             label="NAME" 
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="e.g. Design Consulting" 
                         />
-                        <p className="text-[13px] text-gray-400 font-light mt-2 ml-1">Max 50 characters</p>
+                        <p className="text-[13px] text-gray-500 font-light mt-2 ml-1">Max 50 characters</p>
                     </div>
 
                     {/* Price Section */}
                     <div>
-                        <h2 className="text-[18px] font-medium text-kletta-dark mb-4">Enter the price</h2>
+                        <h2 className="text-[16px] font-medium text-kletta-dark mb-4">Enter the price</h2>
                         
                         <div className="space-y-6">
                             <KlettaInput 

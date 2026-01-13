@@ -5,7 +5,7 @@ import {
   IconHome, IconSales, IconExpenses, IconChat, IconPieChart, IconBank,
   IconNewInvoice, IconAddEntry, IconNewProduct, IconStartTrip, IconScanReceipt, IconUploadReceipt,
   IconCheck, IconRun, IconSparkle, IconVerified, IconInvoice, IconAddTrip,
-  KlettaLogo
+  KlettaLogo, IconSend
 } from '../components/Icons';
 import { TabName, ScreenName, NavigationProps } from '../types';
 import SalesScreen from './SalesScreen';
@@ -259,11 +259,23 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   const [showProductTypeSheet, setShowProductTypeSheet] = useState(false);
   const [dateRange, setDateRange] = useState("Year to date");
   
+  // AI Assistant Bar States
+  const [isAiInputActive, setIsAiInputActive] = useState(false);
+  const [aiInputValue, setAiInputValue] = useState('');
+  const [openAiChatDirectly, setOpenAiChatDirectly] = useState(false);
+  const aiInputRef = useRef<HTMLInputElement>(null);
+  
   useEffect(() => {
     if (params?.tab) {
         setActiveTab(params.tab);
     }
   }, [params?.tab]);
+
+  useEffect(() => {
+    if (isAiInputActive) {
+      aiInputRef.current?.focus();
+    }
+  }, [isAiInputActive]);
 
   const handleBankClick = () => {
     setActiveTab('bank');
@@ -283,6 +295,15 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     navigate('product-add-details', { type });
   };
 
+  const handleAiSend = () => {
+    if (!aiInputValue.trim()) return;
+    // Logic: clear input, hide bar, switch to chat tab and open AI chat details
+    setAiInputValue('');
+    setIsAiInputActive(false);
+    setOpenAiChatDirectly(true);
+    setActiveTab('chat');
+  };
+
   return (
     <div className="h-full w-full pt-5 bg-[#F5F5F5] relative font-aktifo overflow-hidden">
       
@@ -299,9 +320,23 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
           />
         )}
         {activeTab === 'bank' && <BankScreen />}
-        {activeTab === 'sales' && <SalesScreen navigate={navigate} goBack={goBack} dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
+        {activeTab === 'sales' && (
+          <SalesScreen 
+            navigate={navigate} 
+            goBack={goBack} 
+            dateRange={dateRange} 
+            onOpenFilter={() => setShowFilter(true)} 
+            onModalToggle={setIsTabBarHidden}
+          />
+        )}
         {activeTab === 'expenses' && <ExpensesScreen dateRange={dateRange} onOpenFilter={() => setShowFilter(true)} />}
-        {activeTab === 'chat' && <ChatScreen onChatActive={setIsTabBarHidden} />}
+        {activeTab === 'chat' && (
+          <ChatScreen 
+            onChatActive={setIsTabBarHidden} 
+            autoOpenAi={openAiChatDirectly} 
+            onAutoOpenHandled={() => setOpenAiChatDirectly(false)}
+          />
+        )}
         {activeTab === 'assets' && <AssetsScreen />}
       </div>
 
@@ -310,15 +345,43 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
         <div className="absolute bottom-0 left-0 right-0 z-50 animate-fade-in">
             {/* AI Assistant Bar - Fixed above Nav Bar */}
             {activeTab === 'home' && (
-              <button className="w-full bg-white/95 backdrop-blur-md px-6 py-4 flex justify-between items-center border-t border-gray-100 active:bg-gray-50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <IconSparkle size={20} className="text-kletta-yellow" weight="fill" />
-                  <span className="text-[14px] font-medium text-kletta-secondary">Ask from David Kletta AI Assistant</span>
-                </div>
-                <div className="text-kletta-secondary opacity-60">
-                  <IconArrowRight size={18} weight="bold" />
-                </div>
-              </button>
+              <div className="w-full bg-white/95 backdrop-blur-md px-6 py-4 flex flex-col border-t border-gray-100 transition-all">
+                {isAiInputActive ? (
+                  <div className="flex items-center gap-3 animate-fade-in">
+                    <IconSparkle size={20} className="text-kletta-yellow shrink-0" weight="fill" />
+                    <input 
+                      ref={aiInputRef}
+                      type="text" 
+                      value={aiInputValue}
+                      onChange={(e) => setAiInputValue(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleAiSend()}
+                      onBlur={() => !aiInputValue && setIsAiInputActive(false)}
+                      placeholder="Type your question..."
+                      className="flex-1 bg-transparent border-none outline-none text-[14px] font-medium text-kletta-dark placeholder:text-kletta-secondary/50"
+                    />
+                    <button 
+                      onClick={handleAiSend}
+                      disabled={!aiInputValue.trim()}
+                      className={`transition-all ${aiInputValue.trim() ? 'text-kletta-teal opacity-100' : 'text-gray-300 opacity-50'}`}
+                    >
+                      <IconSend size={20} weight="fill" />
+                    </button>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => setIsAiInputActive(true)}
+                    className="flex justify-between items-center w-full group active:opacity-70 transition-all"
+                  >
+                    <div className="flex items-center gap-3">
+                      <IconSparkle size={20} className="text-kletta-yellow" weight="fill" />
+                      <span className="text-[14px] font-medium text-kletta-secondary">Ask from David Kletta AI Assistant</span>
+                    </div>
+                    <div className="text-kletta-secondary opacity-60">
+                      <IconArrowRight size={18} weight="bold" />
+                    </div>
+                  </button>
+                )}
+              </div>
             )}
 
             {/* Fixed Bottom Tab Bar */}
@@ -351,7 +414,10 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
                 active={activeTab === 'chat'} 
                 icon={IconChat} 
                 label="Chat" 
-                onClick={() => setActiveTab('chat')} 
+                onClick={() => {
+                  setActiveTab('chat');
+                  setOpenAiChatDirectly(false);
+                }} 
                 />
                 <TabItem 
                 active={activeTab === 'assets'} 

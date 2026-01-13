@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationProps } from '../types';
 import { 
   IconCellSignalFull, IconWifiHigh, IconBatteryFull, 
@@ -96,11 +96,19 @@ const ALL_SALES: Invoice[] = [
 interface SalesScreenProps extends NavigationProps {
   dateRange: string;
   onOpenFilter: () => void;
+  onModalToggle?: (open: boolean) => void;
 }
 
-const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFilter }) => {
+const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFilter, onModalToggle }) => {
   const [showPaidModal, setShowPaidModal] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+
+  // Sync modal state with parent to hide tab bar
+  useEffect(() => {
+    if (onModalToggle) {
+      onModalToggle(showPaidModal);
+    }
+  }, [showPaidModal, onModalToggle]);
 
   const handleInvoiceClick = (inv: Invoice) => {
     navigate('invoice-detail', {
@@ -117,6 +125,10 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
     e.stopPropagation();
     setSelectedInvoice(inv);
     setShowPaidModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowPaidModal(false);
   };
 
   return (
@@ -257,30 +269,26 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
         </div>
       </div>
 
-      {/* Confirmation Modal */}
+      {/* Confirmation Modal - Optimized for Premium Look with reduced radius/padding and absolute positioning to fit frame */}
       {showPaidModal && (
-        <div className="absolute inset-0 z-[100] flex items-center justify-center p-6 animate-fade-in">
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowPaidModal(false)} />
-            <div className="bg-white w-full max-w-[320px] rounded-[24px] p-8 relative z-10 animate-slide-up shadow-2xl text-center">
-                <div className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-6 text-kletta-teal">
-                    <IconCheckCircle size={44} weight="fill" />
-                </div>
-                
-                <h3 className="text-[22px] font-bold text-kletta-dark mb-2 tracking-tight">Register as paid?</h3>
-                <p className="text-[15px] text-gray-500 font-normal mb-8 leading-relaxed">
-                    Mark invoice <span className="font-bold text-kletta-dark">{selectedInvoice?.invoiceNumber}</span> for <span className="font-bold text-kletta-dark">{selectedInvoice?.amount}</span> as paid?
+        <div className="absolute inset-0 z-[100] flex items-center justify-center p-6 animate-fade-in overflow-hidden">
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-md" onClick={handleCloseModal} />
+            <div className="bg-white w-full max-w-[300px] rounded-[16px] p-6 relative z-10 animate-slide-up shadow-xl text-center">
+                <h3 className="text-[19px] font-bold text-kletta-dark mb-3 tracking-tight leading-none">Register as paid?</h3>
+                <p className="text-[15px] text-kletta-dark font-normal mb-6 leading-normal">
+                    Mark invoice <span className="font-bold">{selectedInvoice?.invoiceNumber}</span> for <span className="font-bold">{selectedInvoice?.amount}</span> as paid?
                 </p>
 
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2">
                     <button 
-                        onClick={() => setShowPaidModal(false)}
-                        className="w-full h-[60px] bg-kletta-yellow rounded-[16px] font-bold text-[17px] text-kletta-dark active:scale-[0.98] transition-all"
+                        onClick={handleCloseModal}
+                        className="w-full h-[52px] bg-kletta-yellow rounded-[14px] font-bold text-[15px] text-kletta-dark active:scale-[0.98] transition-all shadow-sm"
                     >
                         Register as paid
                     </button>
                     <button 
-                        onClick={() => setShowPaidModal(false)}
-                        className="w-full h-[60px] bg-white border border-gray-100 rounded-[16px] font-medium text-[16px] text-gray-400 active:bg-gray-50 transition-colors"
+                        onClick={handleCloseModal}
+                        className="w-full py-4 font-bold text-[15px] text-kletta-dark active:opacity-60 transition-opacity"
                     >
                         Cancel
                     </button>

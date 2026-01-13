@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { NavigationProps } from '../types';
 import { 
@@ -13,7 +14,11 @@ import {
   IconBike,
   IconInfo,
   IconBack,
-  IconHandWaving
+  IconHandWaving,
+  IconCheckCircle,
+  IconFileArrowUp,
+  IconScan,
+  IconPencilSimple
 } from '../components/Icons';
 import { KlettaInput, KlettaSelect } from '../components/Inputs';
 
@@ -34,7 +39,7 @@ const OnboardingHeader = ({ icon }: { icon: React.ReactNode }) => {
     return (
         <div className="relative w-full shrink-0 z-20 bg-white">
             {/* Teal background with rounded bottom corners */}
-            <div className="bg-kletta-teal w-full h-[160px] pt-14 flex items-start justify-center shadow-sm">
+            <div className="bg-kletta-teal w-full h-[130px] pt-14 flex items-start justify-center shadow-sm">
                 {/* Optional: Add a subtle texture or keep plain teal */}
             </div>
 
@@ -47,7 +52,9 @@ const OnboardingHeader = ({ icon }: { icon: React.ReactNode }) => {
                         {/* Icon */}
                         {React.cloneElement(icon as React.ReactElement<any>, { 
                             color: '#00343B', 
-                            size: 32 
+                            size: 32,
+                            // Ensure weight is passed through if provided on the element
+                            ...(icon as React.ReactElement<any>).props
                         })}
                     </div>
                 </div>
@@ -77,9 +84,9 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
 
             {/* Scrollable Content Body */}
             <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-[60px] pb-40 bg-white">
-                <h1 className="text-[24px] font-medium text-kletta-dark text-center mb-4 leading-tight">{title}</h1>
+                <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-5 leading-tight tracking-tight">{title}</h1>
                 {subtitle && (
-                    <p className="text-center text-gray-700 font-light text-[15px] leading-relaxed mb-8 max-w-[320px] mx-auto">
+                    <p className="text-center text-kletta-dark font-normal text-[17px] leading-relaxed mb-10 max-w-[340px] mx-auto">
                         {subtitle}
                     </p>
                 )}
@@ -115,7 +122,7 @@ export const OnboardingWelcome: React.FC<NavigationProps> = ({ navigate, goBack 
     return (
         <OnboardingLayout
             title="Welcome, sole proprietor!"
-            icon={<IconHandWaving />}
+            icon={<IconHandWaving weight="fill" />}
             primaryLabel="Transfer my accounting to Kletta"
             secondaryLabel="I am a new sole proprietor"
             onPrimary={() => navigate('onboarding-1')}
@@ -138,7 +145,7 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate, goBack })
     return (
         <OnboardingLayout
             title="Tax return authorizations"
-            icon={<IconShield />}
+            icon={<IconShield weight="fill" />}
             primaryLabel="Proceed to authorize"
             onPrimary={() => navigate('onboarding-2')}
             onSecondary={() => navigate('onboarding-2')}
@@ -163,7 +170,7 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
         <OnboardingLayout
             title="Add your tax information"
             subtitle="Support will verify your Business ID (Y-tunnus) and tax period. After verification, tax reports will be sent automatically."
-            icon={<IconFile />}
+            icon={<IconFile weight="fill" />}
             onPrimary={() => navigate('onboarding-3')}
             onSecondary={() => navigate('onboarding-3')}
             onBack={goBack}
@@ -185,40 +192,64 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
 
 // --- Step 3: Bookkeeping ---
 export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack }) => {
-    const [selected, setSelected] = useState<number | null>(null);
+    const [selected, setSelected] = useState<number | null>(1);
 
     return (
         <OnboardingLayout
             title="Opening bookkeeping"
             subtitle="How would you like to import this season’s bookkeeping?"
-            icon={<IconFile />}
+            icon={<IconFile weight="fill" />}
             onPrimary={() => navigate('onboarding-4')}
             onSecondary={() => navigate('onboarding-4')}
             disablePrimary={selected === null}
             onBack={goBack}
         >
             <div className="space-y-4">
-               <SelectionCard 
-                  icon={<IconUpload size={24} />} 
-                  title="Upload statement" 
-                  desc="Kletta will automatically read the necessary data."
-                  selected={selected === 1}
+               {/* Card 1: Upload (Centered, Dashed) */}
+               <button 
                   onClick={() => setSelected(1)}
-               />
-               <SelectionCard 
-                  icon={<IconCamera size={24} />} 
-                  title="Take a photo" 
-                  desc="Kletta will automatically read the necessary data."
-                  selected={selected === 2}
+                  className={`w-full flex flex-col items-center justify-center p-8 rounded-[20px] border-2 transition-all group ${selected === 1 ? 'border-gray-300 border-dashed bg-white' : 'border-gray-100 bg-white active:border-gray-300'}`}
+               >
+                  <div className="text-kletta-teal mb-4 group-active:scale-95 transition-transform">
+                     <IconFileArrowUp size={32} weight="regular" />
+                  </div>
+                  <h3 className="text-[15px] font-medium text-kletta-dark mb-1">Upload statement</h3>
+                  <p className="text-[14px] text-gray-500 font-normal leading-tight text-center max-w-[240px]">
+                     Kletta will automatically read the necessary data.
+                  </p>
+               </button>
+
+               {/* Card 2: Take Photo (Left Aligned) */}
+               <button 
                   onClick={() => setSelected(2)}
-               />
-               <SelectionCard 
-                  icon={<IconFile size={24} />} 
-                  title="Enter manually" 
-                  desc="Note! We still need a photo of your income statement."
-                  selected={selected === 3}
+                  className={`w-full flex items-start gap-5 p-6 rounded-[20px] border-2 text-left transition-all group ${selected === 2 ? 'border-gray-300 bg-white' : 'border-gray-100 bg-white active:border-gray-300'}`}
+               >
+                  <div className="text-kletta-dark mt-1 shrink-0 group-active:scale-95 transition-transform">
+                     <IconScan size={30} weight="regular" />
+                  </div>
+                  <div className="flex-1">
+                     <h3 className="text-[15px] font-medium text-kletta-dark mb-1 leading-snug">Take a photo of the statement</h3>
+                     <p className="text-[14px] text-gray-500 font-normal leading-tight">
+                        Kletta will automatically read the necessary data.
+                     </p>
+                  </div>
+               </button>
+
+               {/* Card 3: Manual Entry (Left Aligned) */}
+               <button 
                   onClick={() => setSelected(3)}
-               />
+                  className={`w-full flex items-start gap-5 p-6 rounded-[20px] border-2 text-left transition-all group ${selected === 3 ? 'border-gray-300 bg-white' : 'border-gray-100 bg-white active:border-gray-300'}`}
+               >
+                  <div className="text-kletta-dark mt-1 shrink-0 group-active:scale-95 transition-transform">
+                     <IconPencilSimple size={30} weight="regular" />
+                  </div>
+                  <div className="flex-1">
+                     <h3 className="text-[15px] font-medium text-kletta-dark mb-1">Enter the data manually</h3>
+                     <p className="text-[14px] text-gray-500 font-normal leading-tight">
+                        Note! We still need a photo of your income statement to verify the information.
+                     </p>
+                  </div>
+               </button>
             </div>
         </OnboardingLayout>
     );
@@ -230,7 +261,7 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack })
         <OnboardingLayout
             title="Confirm your tax return"
             subtitle="Which is the first tax return you want Kletta to submit?"
-            icon={<IconFile />}
+            icon={<IconFile weight="fill" />}
             primaryLabel="Confirm and continue"
             onPrimary={() => navigate('onboarding-5')}
             onSecondary={() => navigate('onboarding-5')}
@@ -244,7 +275,7 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack })
                 </KlettaSelect>
             </div>
 
-            <div className="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-orange-800 text-[13px] font-normal">
+            <div className="bg-[#F7F6EE] p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed">
                 Please note that you cannot change this selection later.
             </div>
         </OnboardingLayout>
@@ -257,7 +288,7 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate, goBack })
         <OnboardingLayout
             title="Phone number"
             subtitle="Add your phone number. You will receive a verification code via SMS."
-            icon={<IconPhone />}
+            icon={<IconPhone weight="fill" />}
             onPrimary={() => navigate('onboarding-6')}
             onSecondary={() => navigate('onboarding-6')}
             onBack={goBack}
@@ -283,30 +314,35 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate, goBack })
     return (
         <OnboardingLayout
             title="YEL insurance"
-            icon={<IconGift />}
+            subtitle="You are required to take entrepreneur’s pension insurance (YEL) if:"
+            icon={<IconGift weight="fill" />}
             primaryLabel="Confirm and continue"
             onPrimary={() => navigate('onboarding-7')}
             onSecondary={() => navigate('onboarding-7')}
             onBack={goBack}
         >
-             <div className="space-y-5 mb-8 text-gray-700 font-light text-[15px] leading-relaxed">
-                <p>An entrepreneur must take YEL insurance when:</p>
-                <ul className="list-none space-y-3">
-                    <li className="flex gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-kletta-teal mt-2 shrink-0"></div>
-                        <span>Your entrepreneurial income is over €767/month.</span>
-                    </li>
-                    <li className="flex gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-kletta-teal mt-2 shrink-0"></div>
-                        <span>You operate as an entrepreneur continuously for at least four months.</span>
-                    </li>
-                </ul>
+             <div className="space-y-6 mb-10 px-2">
+                <div className="flex items-start gap-4">
+                    <IconCheckCircle size={22} className="text-[#005c66] mt-0.5 shrink-0" weight="regular" />
+                    <p className="text-[17px] text-kletta-dark font-normal leading-snug">
+                        Your entrepreneurial income is over <span className="font-bold">€767/month.</span>
+                    </p>
+                </div>
+                <div className="flex items-start gap-4">
+                    <IconCheckCircle size={22} className="text-[#005c66] mt-0.5 shrink-0" weight="regular" />
+                    <p className="text-[17px] text-kletta-dark font-normal leading-snug">
+                        You operate as an entrepreneur continuously for at least <span className="font-bold">four months.</span>
+                    </p>
+                </div>
              </div>
 
-             <div className="bg-[#FFF9E6] border border-kletta-yellow rounded-2xl p-6 text-center shadow-[0_4px_20px_rgba(255,217,59,0.15)]">
-                <h3 className="font-medium text-[16px] text-kletta-dark mb-2">Make use of your benefit now!</h3>
-                <p className="text-[13px] text-kletta-dark leading-relaxed font-light">
-                    When you take YEL insurance with Ilmarinen, you will receive one free month of Kletta. The value of your benefit is €29–69.
+             <div className="bg-[#FFEE99] rounded-[24px] py-6 px-6 text-center shadow-none flex flex-col items-center">
+                <h3 className="font-bold text-[18px] text-kletta-dark mb-2">Make use of your benefit now!</h3>
+                <p className="text-[15px] text-kletta-dark leading-snug font-normal mb-2 max-w-[280px]">
+                    When you take YEL insurance with Ilmarinen, you will receive one free month of Kletta.
+                </p>
+                <p className="text-[15px] text-kletta-dark font-normal">
+                    The value of your benefit is €29–69.
                 </p>
              </div>
         </OnboardingLayout>
@@ -329,7 +365,7 @@ export const OnboardingStep7: React.FC<NavigationProps> = ({ navigate, goBack })
         <OnboardingLayout
             title="Vehicle for work use"
             subtitle="Do you own a vehicle that you use for work purposes?"
-            icon={<IconCar />}
+            icon={<IconCar weight="fill" />}
             onPrimary={handleContinue}
             onSecondary={() => navigate('home')}
             disablePrimary={selected === null}
@@ -368,7 +404,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
         <OnboardingLayout
             title="Add a vehicle"
             subtitle="The name helps you distinguish between vehicles. It will not be visible to others."
-            icon={<IconCar />}
+            icon={<IconCar weight="fill" />}
             primaryLabel="Confirm and continue"
             onPrimary={() => navigate('home')}
             onSecondary={() => navigate('home')}
