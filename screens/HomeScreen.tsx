@@ -337,7 +337,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
             onAutoOpenHandled={() => setOpenAiChatDirectly(false)}
           />
         )}
-        {activeTab === 'assets' && <AssetsScreen />}
+        {activeTab === 'assets' && <AssetsScreen navigate={navigate} onModalToggle={setIsTabBarHidden} />}
       </div>
 
       {/* Fixed Bottom Action Group */}
@@ -488,7 +488,7 @@ const ChecklistItem = ({ text }: { text: string }) => (
       <div className="w-5 h-5 border-[1.5px] border-gray-300 rounded-[6px] group-hover:border-kletta-teal transition-colors"></div>
       <span className="text-[14px] font-medium text-gray-700">{text}</span>
     </div>
-    <IconChevronRight size={16} className="text-gray-300 group-hover:text-kletta-teal" weight="bold" />
+    <IconChevronRight size={16} text-gray-300 group-hover:text-kletta-teal" weight="bold" />
   </button>
 );
 

@@ -69,7 +69,10 @@ import {
   Folder,
   FileArrowUp,
   Scan,
-  PencilSimple
+  PencilSimple,
+  Motorcycle,
+  Taxi,
+  Truck
 } from '@phosphor-icons/react';
 import { IconProps } from '../types';
 
@@ -190,11 +193,16 @@ export const IconFileArrowUp = ({ className, size = 24, color = "currentColor", 
 export const IconScan = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Scan className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconPencilSimple = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <PencilSimple className={className} size={size} color={color} weight={weight || "bold"} />;
 
+// Asset icons
+export const IconMotorcycle = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Motorcycle className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconTaxi = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Taxi className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconVan = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Truck className={className} size={size} color={color} weight={weight || "bold"} />;
+
 // Custom Logo Component
 export const KlettaLogo = ({ className, color = 'black' }: { className?: string; color?: 'black' | 'white' }) => {
   const fill = color === 'black' ? '#111111' : '#FFFFFF';
   return (
-     <svg width="100" height="28" viewBox="0 0 196 55" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+   <svg width="100" height="28" viewBox="0 0 196 55" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
     <g clipPath="url(#clip0_4069_53076)">
     <path d="M160.379 43.5621C160.379 40.2493 161.556 37.6089 163.914 35.6363C166.268 33.6661 169.628 32.458 173.991 32.0144L185.468 30.8252V29.6714C185.468 27.6893 184.855 26.1674 183.63 25.1056C182.405 24.0438 180.721 23.5129 178.573 23.5129C176.311 23.5129 174.532 24.0037 173.238 24.9829C171.943 25.9622 171.308 27.3047 171.332 29.006H161.464C161.535 24.8083 163.189 21.4648 166.434 18.9826C169.676 16.498 174.015 15.2568 179.449 15.2568C184.277 15.2568 188.243 16.5994 191.346 19.2799C194.449 21.9627 195.999 26.0447 195.999 31.526V53.7436H186.832L186.308 47.7951C185.374 49.7087 183.59 51.3062 180.954 52.5898C178.271 53.8262 175.473 54.4444 172.557 54.4444C168.918 54.4444 165.978 53.4463 163.739 51.4525C161.5 49.4586 160.379 46.8277 160.379 43.5621ZM185.466 38.0337V36.9129L176.438 37.9629C172.8 38.3829 170.98 39.8647 170.98 42.4059C170.98 43.6895 171.424 44.6805 172.309 45.379C173.196 46.0797 174.465 46.429 176.122 46.429C178.71 46.429 180.898 45.5724 182.681 43.857C184.465 42.1416 185.393 40.1997 185.463 38.0313L185.466 38.0337Z" fill={fill}/>
     <path d="M149.617 24.5631V39.8531C149.617 41.9531 150.002 43.4349 150.771 44.2961C151.54 45.1597 153.022 45.5915 155.214 45.5915C155.424 45.5915 155.67 45.5797 155.948 45.5561C156.229 45.5325 156.566 45.5089 156.963 45.4853C157.359 45.4617 157.696 45.4381 157.977 45.4145V53.673C155.434 54.1402 153.102 54.3738 150.979 54.3738C147.34 54.3738 144.634 53.6636 142.862 52.2407C141.135 50.7943 140.064 49.2205 139.644 47.5169C139.271 45.6033 139.084 43.6685 139.084 41.7077V24.5631H124.67V39.8531C124.67 41.9295 125.059 43.4042 125.842 44.2796C126.623 45.155 128.075 45.5915 130.198 45.5915C130.385 45.5915 130.618 45.5797 130.899 45.5561C131.18 45.5325 131.534 45.5089 131.966 45.4853C132.397 45.4617 132.765 45.4381 133.067 45.4145V53.673C130.524 54.1402 128.181 54.3738 126.034 54.3738C122.674 54.3738 120.057 53.7155 118.179 52.3965C116.3 51.0798 115.116 49.4517 114.627 47.5145C114.255 45.6009 114.068 43.6661 114.068 41.7053V24.5608H106.126V15.9885H114.068V4.30396H124.67V15.9908H139.084V4.30396H149.615V15.9908H158.572V24.5631H149.615H149.617Z" fill={fill}/>

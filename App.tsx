@@ -30,6 +30,7 @@ import { AddEntryScreen } from './screens/AddEntryScreen';
 import { 
   ProductSelectTypeScreen, ProductAddDetailsScreen, ProductCoverArtScreen, ProductSuccessScreen 
 } from './screens/ProductFlowScreens';
+import { AddVehicleScreen } from './screens/AddVehicleScreen';
 import { ScreenName } from './types';
 
 const App = () => {
@@ -86,6 +87,7 @@ const App = () => {
         case 'product-add-details': navigate('home'); break;
         case 'product-cover-art': navigate('product-add-details'); break;
         case 'product-success': navigate('home'); break;
+        case 'add-vehicle': navigate('home', { tab: 'assets' }); break;
         default: break;
     }
   };
@@ -136,6 +138,7 @@ const App = () => {
       case 'product-add-details': return <ProductAddDetailsScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'product-cover-art': return <ProductCoverArtScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'product-success': return <ProductSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'add-vehicle': return <AddVehicleScreen navigate={navigate} goBack={goBack} />;
       case 'home': return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;
       default: return <SplashScreen onFinish={() => navigate('welcome')} />;
     }

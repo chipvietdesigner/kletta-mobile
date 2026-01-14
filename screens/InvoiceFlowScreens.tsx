@@ -555,8 +555,18 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
 // --- SCREEN 8: SUCCESS ---
 export const InvoiceSuccessScreen: React.FC<NavigationProps> = ({ navigate, params }) => {
     const isExpense = params?.type === 'expense';
-    const title = isExpense ? 'Your receipt has been recorded' : 'Your invoice has been sent';
-    const subActionText = isExpense ? 'View expense details' : 'View invoice details';
+    const isVehicle = params?.type === 'vehicle';
+    
+    let title = 'Your invoice has been sent';
+    let subActionText = 'View invoice details';
+
+    if (isExpense) {
+        title = 'Your receipt has been recorded';
+        subActionText = 'View expense details';
+    } else if (isVehicle) {
+        title = 'Your vehicle has been added';
+        subActionText = 'View vehicle details';
+    }
 
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden items-center justify-center p-8">

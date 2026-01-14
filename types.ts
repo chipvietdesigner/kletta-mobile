@@ -23,7 +23,8 @@ export type ScreenName =
   | 'scan-receipt-camera' | 'scan-receipt-preview' | 'scan-receipt-analyzing' | 'scan-receipt-review'
   | 'tax-return'
   | 'add-entry'
-  | 'product-select-type' | 'product-add-details' | 'product-cover-art' | 'product-success';
+  | 'product-select-type' | 'product-add-details' | 'product-cover-art' | 'product-success'
+  | 'add-vehicle';
 
 export interface NavigationProps {
   navigate: (screen: ScreenName, params?: any) => void;

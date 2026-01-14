@@ -18,7 +18,9 @@ import {
   IconCheckCircle,
   IconFileArrowUp,
   IconScan,
-  IconPencilSimple
+  IconPencilSimple,
+  IconCalendarBlank,
+  IconSparkle
 } from '../components/Icons';
 import { KlettaInput, KlettaSelect } from '../components/Inputs';
 
@@ -82,8 +84,8 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
             {/* Custom Header */}
             <OnboardingHeader icon={icon} />
 
-            {/* Scrollable Content Body */}
-            <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-[60px] pb-40 bg-white">
+            {/* Scrollable Content Body - Increased padding-bottom to clear fixed buttons */}
+            <div className="flex-1 overflow-y-auto no-scrollbar px-6 pt-[60px] pb-60 bg-white">
                 <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-5 leading-tight tracking-tight">{title}</h1>
                 {subtitle && (
                     <p className="text-center text-kletta-dark font-normal text-[17px] leading-relaxed mb-10 max-w-[340px] mx-auto">
@@ -400,6 +402,11 @@ export const OnboardingStep7: React.FC<NavigationProps> = ({ navigate, goBack })
 
 // --- Step 8: Add Vehicle ---
 export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+    const [vehicleType, setVehicleType] = useState('Passenger car');
+    const [acquisitionType, setAcquisitionType] = useState('Transfer from personal ownership');
+    const [proportion, setProportion] = useState('Less than 50%');
+    const [taxRate, setTaxRate] = useState('10%');
+
     return (
         <OnboardingLayout
             title="Add a vehicle"
@@ -410,30 +417,166 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
             onSecondary={() => navigate('home')}
             onBack={goBack}
         >
-            <div className="space-y-8">
-                <KlettaInput label="Vehicle Name" placeholder="e.g. Van or ABC-123" />
+            <div className="space-y-10">
+                {/* Vehicle Name Input */}
+                <KlettaInput label="VEHICLE NAME" placeholder="e.g. Van or ABC-123" />
 
+                {/* Vehicle Type Section */}
                 <div>
-                    <label className="text-[11px] font-medium text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Vehicle Type</label>
-                    <div className="flex flex-wrap gap-2">
-                        <ChipOption label="Passenger car" active />
-                        <ChipOption label="Van / Taxi" />
-                        <ChipOption label="Motorcycle" />
+                    <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-6 block">VEHICLE TYPE</label>
+                    <div className="space-y-5">
+                        <SimpleRadioItem 
+                            label="Passenger car" 
+                            active={vehicleType === 'Passenger car'} 
+                            onClick={() => setVehicleType('Passenger car')} 
+                        />
+                        <SimpleRadioItem 
+                            label="Taxi or van" 
+                            active={vehicleType === 'Taxi or van'} 
+                            onClick={() => setVehicleType('Taxi or van')} 
+                        />
+                        <SimpleRadioItem 
+                            label="Motorcycle" 
+                            active={vehicleType === 'Motorcycle'} 
+                            onClick={() => setVehicleType('Motorcycle')} 
+                        />
+                        <SimpleRadioItem 
+                            label="Bicycle" 
+                            active={vehicleType === 'Bicycle'} 
+                            onClick={() => setVehicleType('Bicycle')} 
+                        />
                     </div>
                 </div>
 
-                <KlettaSelect label="Business Use">
-                     <option>Less than 50%</option>
-                     <option>More than 50%</option>
-                     <option>100%</option>
-                </KlettaSelect>
-                
-                 <div>
-                    <label className="text-[11px] font-medium text-kletta-dark uppercase tracking-wider ml-1 mb-2 block">Acquisition Type</label>
-                    <div className="space-y-3">
-                        <RadioOption label="Transfer from personal ownership" active />
-                        <RadioOption label="Transfer from previous bookkeeping" />
-                        <RadioOption label="New acquisition" />
+                {/* Proportion Section */}
+                <div className="bg-[#F8F9FA] py-8 px-6 -mx-6 flex items-center justify-between">
+                    <span className="text-[13px] font-medium text-kletta-dark uppercase tracking-wider">BUSINESS USE</span>
+                    <div className="relative">
+                        <select 
+                            value={proportion}
+                            onChange={(e) => setProportion(e.target.value)}
+                            className="bg-white border border-gray-200 rounded-[10px] pl-4 pr-10 py-2.5 text-[15px] font-medium text-kletta-dark appearance-none shadow-sm outline-none"
+                        >
+                            <option>Less than 50%</option>
+                            <option>More than 50%</option>
+                            <option>100%</option>
+                        </select>
+                        <IconChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" weight="bold" />
+                    </div>
+                </div>
+
+                {/* Acquisition Type Section */}
+                <div>
+                    <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-6 block leading-relaxed">
+                        Is this a transfer of personal property to the business name or a new acquisition?
+                    </label>
+                    <div className="space-y-4">
+                        <CardRadioItem 
+                            label="Transfer from personal ownership" 
+                            active={acquisitionType === 'Transfer from personal ownership'} 
+                            onClick={() => setAcquisitionType('Transfer from personal ownership')} 
+                        />
+                        <CardRadioItem 
+                            label="Transfer from previous bookkeeping" 
+                            active={acquisitionType === 'Transfer from previous bookkeeping'} 
+                            onClick={() => setAcquisitionType('Transfer from previous bookkeeping')} 
+                        />
+                        <CardRadioItem 
+                            label="New acquisition" 
+                            active={acquisitionType === 'New acquisition'} 
+                            onClick={() => setAcquisitionType('New acquisition')} 
+                        />
+                    </div>
+                </div>
+
+                {/* Provide relevant information - Conditional */}
+                <div className="pt-2">
+                    <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-6 block">PROVIDE RELEVANT INFORMATION</label>
+                    
+                    <div className="space-y-5">
+                        {acquisitionType === 'Transfer from personal ownership' && (
+                            <>
+                                <KlettaInput placeholder="Value start of the year" />
+                                <div className="relative">
+                                    <div className="w-full h-[60px] bg-white rounded-[12px] border border-[#E6E8EC] px-4 pt-5 pb-1 relative">
+                                        <span className="absolute top-2 left-4 text-[11px] text-gray-500 font-medium uppercase tracking-wider">Transfer date</span>
+                                        <span className="text-[15px] font-medium text-kletta-dark">2025</span>
+                                    </div>
+                                    <IconCalendarBlank size={20} className="absolute right-4 top-1/2 -translate-y-1 mt-1 text-gray-400" />
+                                </div>
+                            </>
+                        )}
+
+                        {acquisitionType === 'Transfer from previous bookkeeping' && (
+                            <>
+                                <KlettaInput placeholder="Value in old bookkeeping" />
+                                <div className="space-y-5">
+                                    <div className="relative">
+                                        <div className="w-full h-[60px] bg-white rounded-[12px] border border-[#E6E8EC] px-4 pt-5 pb-1 relative">
+                                            <span className="absolute top-2 left-4 text-[11px] text-gray-500 font-medium uppercase tracking-wider">Latest year of oldbooking value</span>
+                                            <span className="text-[15px] font-medium text-kletta-dark">2025</span>
+                                        </div>
+                                        <IconChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1 mt-1 text-gray-500" />
+                                    </div>
+                                    <div className="relative">
+                                        <div className="w-full h-[60px] bg-white rounded-[12px] border border-[#E6E8EC] px-4 pt-5 pb-1 relative">
+                                            <span className="absolute top-2 left-4 text-[11px] text-gray-500 font-medium uppercase tracking-wider">Purchase year</span>
+                                            <span className="text-[15px] font-medium text-kletta-dark">2025</span>
+                                        </div>
+                                        <IconChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1 mt-1 text-gray-500" />
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        {acquisitionType === 'New acquisition' && (
+                            <>
+                                <KlettaInput placeholder="Purchase value (excl. VAT)" />
+                                <div className="relative">
+                                    <div className="w-full h-[60px] bg-white rounded-[12px] border border-[#E6E8EC] px-4 pt-5 pb-1 relative">
+                                        <span className="absolute top-2 left-4 text-[11px] text-gray-500 font-medium uppercase tracking-wider">Purchase date</span>
+                                        <span className="text-[15px] font-medium text-kletta-dark">2025</span>
+                                    </div>
+                                    <IconCalendarBlank size={20} className="absolute right-4 top-1/2 -translate-y-1 mt-1 text-gray-400" />
+                                </div>
+
+                                {/* Tax Rate Grid */}
+                                <div className="pt-4">
+                                    <h4 className="text-[15px] font-medium text-kletta-dark text-center mb-6">Choose a tax rate</h4>
+                                    <div className="space-y-3">
+                                        <div className="grid grid-cols-4 gap-3">
+                                            {['0%', '10%', '14%', '24%'].map(rate => (
+                                                <button 
+                                                    key={rate}
+                                                    onClick={() => setTaxRate(rate)}
+                                                    className={`h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === rate ? 'bg-kletta-teal text-white border-kletta-teal shadow-sm' : 'bg-white text-kletta-dark border-gray-200'}`}
+                                                >
+                                                    {rate}
+                                                </button>
+                                            ))}
+                                        </div>
+                                        <button 
+                                            onClick={() => setTaxRate('Construction services - 0%')}
+                                            className={`w-full h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === 'Construction services - 0%' ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-kletta-dark border-gray-200'}`}
+                                        >
+                                            Construction services - 0%
+                                        </button>
+                                        <div className="flex gap-3">
+                                            <button onClick={() => setTaxRate('Exempted from VAT')} className={`flex-1 h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === 'Exempted from VAT' ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-kletta-dark border-gray-200'}`}>Exempted from VAT</button>
+                                            <button onClick={() => setTaxRate('Goods EU - 0%')} className={`flex-1 h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === 'Goods EU - 0%' ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-kletta-dark border-gray-200'}`}>Goods EU - 0%</button>
+                                        </div>
+                                        <div className="flex gap-3">
+                                            <button onClick={() => setTaxRate('Goods outside EU - 0%')} className={`flex-1 h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === 'Goods outside EU - 0%' ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-kletta-dark border-gray-200'}`}>Goods outside EU - 0%</button>
+                                            <button onClick={() => setTaxRate('Services EU - 0%')} className={`flex-1 h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === 'Services EU - 0%' ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-kletta-dark border-gray-200'}`}>Services EU - 0%</button>
+                                        </div>
+                                        <div className="flex gap-3">
+                                            <button onClick={() => setTaxRate('Services outside EU - 0%')} className={`flex-[2.5] h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === 'Services outside EU - 0%' ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-kletta-dark border-gray-200'}`}>Services outside EU - 0%</button>
+                                            <button onClick={() => setTaxRate('25.5%')} className={`flex-1 h-[44px] rounded-full border flex items-center justify-center text-[13px] font-medium transition-all ${taxRate === '25.5%' ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-kletta-dark border-gray-200'}`}>25.5%</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
@@ -473,5 +616,30 @@ const RadioOption = ({ label, active }: any) => (
             {active && <div className="w-2.5 h-2.5 bg-kletta-teal rounded-full"></div>}
         </div>
         <span className={`text-[14px] font-medium ${active ? 'text-kletta-dark' : 'text-gray-600'}`}>{label}</span>
+    </button>
+);
+
+const SimpleRadioItem = ({ label, active, onClick }: { label: string, active: boolean, onClick: () => void }) => (
+    <button onClick={onClick} className="flex items-center gap-4 w-full group">
+        <div className={`w-[26px] h-[26px] rounded-full border-[2px] flex items-center justify-center shrink-0 transition-colors ${active ? 'border-[#005c66]' : 'border-kletta-dark'}`}>
+            {active && <div className="w-[14px] h-[14px] bg-[#005c66] rounded-full" />}
+        </div>
+        <span className={`text-[16px] font-normal ${active ? 'text-kletta-dark font-medium' : 'text-gray-600'}`}>
+            {label}
+        </span>
+    </button>
+);
+
+const CardRadioItem = ({ label, active, onClick }: { label: string, active: boolean, onClick: () => void }) => (
+    <button 
+        onClick={onClick} 
+        className={`w-full p-5 rounded-[14px] border-[1.5px] transition-all flex items-center gap-4 text-left ${active ? 'border-kletta-teal bg-[#F0FBFC] shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'}`}
+    >
+        <div className={`w-[26px] h-[26px] rounded-full border-[2px] flex items-center justify-center shrink-0 transition-colors ${active ? 'border-[#005c66]' : 'border-kletta-dark'}`}>
+            {active && <div className="w-[14px] h-[14px] bg-[#005c66] rounded-full" />}
+        </div>
+        <span className={`text-[15px] font-medium ${active ? 'text-kletta-dark' : 'text-kletta-dark/80'}`}>
+            {label}
+        </span>
     </button>
 );
