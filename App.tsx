@@ -9,6 +9,13 @@ import {
     OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, OnboardingStep4, 
     OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8 
 } from './screens/OnboardingScreens';
+import { 
+  IncompleteOnboardingEntry, 
+  IncompleteTaxInfo, 
+  IncompleteTaxConfirm, 
+  IncompletePhone,
+  IncompleteVerifyPhoneCode
+} from './screens/IncompleteOnboarding';
 import { AddToInvoiceScreen, InvoiceCreateDetailsScreen } from './screens/NewInvoiceScreens';
 import { 
   InvoicePaymentMethodScreen, InvoiceCustomerSelectScreen, InvoiceNewCustomerScreen, 
@@ -57,6 +64,10 @@ const App = () => {
         case 'onboarding-6': navigate('onboarding-5'); break;
         case 'onboarding-7': navigate('onboarding-6'); break;
         case 'onboarding-8': navigate('onboarding-7'); break;
+        case 'incomplete-onboarding-tax-info': navigate('home', { showIncompleteOnboarding: true }); break;
+        case 'incomplete-onboarding-tax-confirm': navigate('home', { showIncompleteOnboarding: true }); break;
+        case 'incomplete-onboarding-phone': navigate('home', { showIncompleteOnboarding: true }); break;
+        case 'incomplete-onboarding-verify-code': navigate('incomplete-onboarding-phone'); break;
         case 'new-invoice': navigate('home'); break;
         case 'invoice-create-details': navigate('new-invoice'); break;
         case 'invoice-payment-method': navigate('invoice-create-details'); break;
@@ -108,6 +119,11 @@ const App = () => {
       case 'onboarding-6': return <OnboardingStep6 navigate={navigate} goBack={goBack} />;
       case 'onboarding-7': return <OnboardingStep7 navigate={navigate} goBack={goBack} />;
       case 'onboarding-8': return <OnboardingStep8 navigate={navigate} goBack={goBack} />;
+      case 'incomplete-onboarding-entry': return <HomeScreen navigate={navigate} goBack={goBack} params={{ showIncompleteOnboarding: true }} />;
+      case 'incomplete-onboarding-tax-info': return <IncompleteTaxInfo navigate={navigate} goBack={() => navigate('home', { showIncompleteOnboarding: true })} />;
+      case 'incomplete-onboarding-tax-confirm': return <IncompleteTaxConfirm navigate={navigate} goBack={() => navigate('home', { showIncompleteOnboarding: true })} />;
+      case 'incomplete-onboarding-phone': return <IncompletePhone navigate={navigate} goBack={() => navigate('home', { showIncompleteOnboarding: true })} />;
+      case 'incomplete-onboarding-verify-code': return <IncompleteVerifyPhoneCode navigate={navigate} goBack={() => navigate('incomplete-onboarding-phone')} params={navParams} />;
       case 'new-invoice': return <AddToInvoiceScreen navigate={navigate} goBack={goBack} />;
       case 'invoice-create-details': return <InvoiceCreateDetailsScreen navigate={navigate} goBack={goBack} />;
       case 'invoice-payment-method': return <InvoicePaymentMethodScreen navigate={navigate} goBack={goBack} />;

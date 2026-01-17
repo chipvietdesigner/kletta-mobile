@@ -12,7 +12,7 @@ import {
   Receipt, 
   ChatCircle,
   FileText,
-  Plus,
+  Plus, 
   Minus,
   Package,
   NavigationArrow,
@@ -72,7 +72,9 @@ import {
   PencilSimple,
   Motorcycle,
   Taxi,
-  Truck
+  Truck,
+  IdentificationCard,
+  Scales
 } from '@phosphor-icons/react';
 import { IconProps } from '../types';
 
@@ -197,6 +199,12 @@ export const IconPencilSimple = ({ className, size = 24, color = "currentColor",
 export const IconMotorcycle = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Motorcycle className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconTaxi = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Taxi className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconVan = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Truck className={className} size={size} color={color} weight={weight || "bold"} />;
+
+// Fix for IncompleteOnboardingScreen missing icons
+export const IconIdentificationCard = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <IdentificationCard className={className} size={size} color={color} weight={weight || "bold"} />;
+
+// New: Scales icon for CARE banner
+export const IconScales = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Scales className={className} size={size} color={color} weight={weight || "bold"} />;
 
 // Custom Logo Component
 export const KlettaLogo = ({ className, color = 'black' }: { className?: string; color?: 'black' | 'white' }) => {

@@ -5,6 +5,11 @@ export type ScreenName =
   | 'onboarding-welcome'
   | 'onboarding-1' | 'onboarding-2' | 'onboarding-3' | 'onboarding-4' 
   | 'onboarding-5' | 'onboarding-6' | 'onboarding-7' | 'onboarding-8'
+  | 'incomplete-onboarding-entry'
+  | 'incomplete-onboarding-tax-info'
+  | 'incomplete-onboarding-tax-confirm'
+  | 'incomplete-onboarding-phone'
+  | 'incomplete-onboarding-verify-code'
   | 'new-invoice' | 'invoice-create-details'
   | 'invoice-payment-method'
   | 'invoice-customer-select'
@@ -32,7 +37,7 @@ export interface NavigationProps {
   params?: any;
 }
 
-export type TabName = 'home' | 'bank' | 'sales' | 'expenses' | 'chat' | 'assets';
+export type TabName = 'home' | 'summary' | 'bank' | 'sales' | 'expenses' | 'chat' | 'assets';
 
 export interface IconProps {
   className?: string;

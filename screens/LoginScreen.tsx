@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { IconBack, IconCheckCircle, IconWarningCircle } from '../components/Icons';
 import { NavigationProps } from '../types';
@@ -19,7 +20,8 @@ const LoginScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
 
   const onPasscodeSuccess = () => {
     setShowPasscode(false);
-    navigate('home');
+    // Navigate to Home screen and trigger the onboarding checklist modal as an overlay
+    navigate('home', { showIncompleteOnboarding: true });
   };
 
   const onPasscodeClose = () => {

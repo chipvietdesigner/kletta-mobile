@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   IconBack, IconPlus, IconCheck, IconTag, IconCalendarBlank, IconPaperclip, 
@@ -6,6 +7,7 @@ import {
 } from '../components/Icons';
 import { NavigationProps } from '../types';
 import { KlettaInput, KlettaSelect, KlettaTextarea } from '../components/Inputs';
+import { ProductTypeSelectionSheet } from './ProductFlowScreens';
 
 interface Product {
     id: string;
@@ -69,7 +71,7 @@ const RECENT_PRODUCTS: Product[] = [
 const ALL_PRODUCTS: Product[] = [
     { id: "prod-4", title: "Internal Audit Service - Q1", basePrice: 1200.00, vat: 24, description: "Internal audit", type: "Service", imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=100&h=100&fit=crop" },
     { id: "prod-5", title: "Statutory Audit - Year End 2024 Compliance Check", basePrice: 2500.00, vat: 24, description: "Yearly statutory audit", type: "Service", imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop" },
-    { id: "prod-6", title: "Basic Bookkeeping", basePrice: 65.00, vat: 24, description: "Hourly rate", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=100&h=100&fit=crop" },
+    { id: "prod-6", title: "Basic Bookkeeping", basePrice: 65.00, vat: 24, description: "Hourly rate", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6f?w=100&h=100&fit=crop" },
     { id: "prod-7", title: "Senior Accountant Consultation", basePrice: 85.00, vat: 24, description: "Senior rate", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop" },
     { id: "prod-8", title: "Corporate Tax Advisory", basePrice: 150.00, vat: 24, description: "Tax consultation", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=100&h=100&fit=crop" },
     { id: "prod-9", title: "Legal Framework Setup for New Subsidiary", basePrice: 200.00, vat: 24, description: "Legal setup", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=100&h=100&fit=crop" },
@@ -122,6 +124,7 @@ const ProductImage = ({ src, alt }: { src?: string, alt?: string }) => {
 export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
   const [cart, setCart] = useState<Array<Product & { quantity: number; total: number }>>([]);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
+  const [showTypeSheet, setShowTypeSheet] = useState(false);
 
   const cartTotal = cart.reduce((acc, item) => acc + item.total, 0);
 
@@ -132,6 +135,11 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
   const handleAddToCart = (item: Product & { quantity: number; total: number }) => {
     setCart([...cart, item]);
     setActiveProduct(null);
+  };
+
+  const handleTypeSelect = (type: 'Product' | 'Service') => {
+    setShowTypeSheet(false);
+    navigate('product-add-details', { type });
   };
 
   return (
@@ -175,7 +183,10 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
              </div>
 
              {/* Create New Product */}
-             <button className="w-full py-4 px-6 bg-white border-b border-gray-100 flex items-center gap-4 group hover:bg-gray-50 transition-colors">
+             <button 
+                onClick={() => setShowTypeSheet(true)}
+                className="w-full py-4 px-6 bg-white border-b border-gray-100 flex items-center gap-4 group hover:bg-gray-50 transition-colors"
+             >
                 <div className="w-11 h-11 rounded-full bg-kletta-yellow flex items-center justify-center text-kletta-dark shadow-sm shrink-0 group-active:scale-95 transition-transform">
                    <IconPlus size={20} weight="bold" />
                 </div>
@@ -241,6 +252,14 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
                 product={activeProduct} 
                 onClose={() => setActiveProduct(null)}
                 onAdd={handleAddToCart}
+            />
+         )}
+
+         {/* --- TYPE SELECTION MODAL --- */}
+         {showTypeSheet && (
+            <ProductTypeSelectionSheet 
+                onClose={() => setShowTypeSheet(false)}
+                onSelect={handleTypeSelect}
             />
          )}
     </div>

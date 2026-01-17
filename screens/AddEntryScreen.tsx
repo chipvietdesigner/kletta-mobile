@@ -358,7 +358,8 @@ const VatSpecialBtn = ({ label, className = '' }: { label: string, className?: s
     </button>
 );
 
-const CategoryItem = ({ title, desc }: { title: string, desc: string }) => (
+// Explicitly define as React.FC to inherit intrinsic props like 'key' when mapped
+const CategoryItem: React.FC<{ title: string, desc: string }> = ({ title, desc }) => (
     <button className="w-full flex items-start gap-4 py-4 px-2 hover:bg-gray-50 active:bg-gray-100 transition-colors text-left border-b border-gray-50 last:border-none">
         <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
             <IconSparkle size={20} weight="fill" className="text-white" />

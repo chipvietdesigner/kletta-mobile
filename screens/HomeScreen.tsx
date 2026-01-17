@@ -5,7 +5,7 @@ import {
   IconHome, IconSales, IconExpenses, IconChat, IconPieChart, IconBank,
   IconNewInvoice, IconAddEntry, IconNewProduct, IconStartTrip, IconScanReceipt, IconUploadReceipt,
   IconCheck, IconRun, IconSparkle, IconVerified, IconInvoice, IconAddTrip,
-  KlettaLogo, IconSend
+  KlettaLogo, IconSend, IconScan, IconFileText, IconFileArrowUp, IconCalendarBlank, IconFile, IconPhone, IconScales
 } from '../components/Icons';
 import { TabName, ScreenName, NavigationProps } from '../types';
 import SalesScreen from './SalesScreen';
@@ -13,8 +13,11 @@ import ExpensesScreen from './ExpensesScreen';
 import ChatScreen from './ChatScreen';
 import AssetsScreen from './AssetsScreen';
 import BankScreen from './BankScreen';
+import { SummaryScreen } from './SummaryScreen';
 import DateFilterSheet from '../components/DateFilterSheet';
 import { ProductTypeSelectionSheet } from './ProductFlowScreens';
+import { KlettaInput, KlettaTextarea } from '../components/Inputs';
+import { IncompleteOnboardingEntry } from './IncompleteOnboarding';
 
 // Mock Gallery Data
 const MOCK_GALLERY_IMAGES = [
@@ -70,19 +73,141 @@ const VirtualGallerySheet = ({ onClose, onSelect }: { onClose: () => void, onSel
   );
 };
 
+// New Scan Sales Report Sheet
+const ScanSalesReportSheet = ({ onClose, onContinue }: { onClose: () => void, onContinue: () => void }) => {
+  return (
+    <div className="absolute inset-0 z-[100] flex flex-col justify-end font-aktifo">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/60 animate-fade-in" onClick={onClose} />
+
+      {/* Sheet Content */}
+      <div className="w-full bg-white z-10 animate-slide-up shadow-2xl rounded-t-[32px] overflow-hidden flex flex-col max-h-[95%]">
+        
+        {/* Header */}
+        <div className="px-6 pt-10 pb-4 flex items-center justify-between sticky top-0 bg-white z-20">
+          <div className="w-10 h-10" />
+          <h2 className="text-[19px] font-bold text-kletta-dark tracking-tight">Scan sales report</h2>
+          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 active:bg-gray-100 transition-colors">
+            <IconClose size={26} weight="bold" className="text-gray-400" />
+          </button>
+        </div>
+
+        {/* Scrollable Form */}
+        <div className="flex-1 overflow-y-auto no-scrollbar px-6 pb-32">
+          
+          {/* Action Cards (Opening Bookkeeping Style) */}
+          <div className="space-y-3 mb-8">
+               <button 
+                  className="w-full flex flex-col items-center justify-center py-6 rounded-[20px] border-2 border-gray-100 border-dashed bg-white active:bg-gray-50 transition-colors"
+               >
+                  <IconFileArrowUp size={30} className="text-kletta-teal mb-2" weight="regular" />
+                  <span className="text-[14px] font-medium text-kletta-dark">Upload report</span>
+               </button>
+
+               <button 
+                  className="w-full flex items-center gap-4 p-5 rounded-[20px] border-2 border-gray-100 bg-white active:bg-gray-50 transition-colors text-left"
+               >
+                  <IconScan size={28} className="text-kletta-dark shrink-0" weight="regular" />
+                  <div className="flex-1">
+                     <h3 className="text-[14px] font-medium text-kletta-dark">Take a photo of the report</h3>
+                  </div>
+               </button>
+          </div>
+
+          <p className="text-[13px] text-gray-500 font-light text-center mb-8 px-4">
+            Amount should include VAT. Fill only necessary fields.
+          </p>
+
+          {/* Form Fields */}
+          <div className="space-y-8">
+            
+            {/* Date Section */}
+            <div>
+              <KlettaInput 
+                label="Date" 
+                defaultValue="17.01.2026" 
+                readOnly
+                icon={<IconCalendarBlank size={18} className="text-gray-400" />}
+                className="text-center font-bold"
+              />
+            </div>
+
+            {/* Sales Grid */}
+            <div className="space-y-4">
+              <SalesReportInputRow label="Sale Exempted from VAT" />
+              <SalesReportInputRow label="Sale 0%" />
+              <SalesReportInputRow label="Sale 10%" />
+              <SalesReportInputRow label="Sale 13.5%" />
+              <SalesReportInputRow label="Sale 14%" />
+              <SalesReportInputRow label="Sale 25.5%" />
+              <SalesReportInputRow 
+                label="Tips (Exempted from VAT)" 
+                sublabel="Other business income category" 
+              />
+              <SalesReportInputRow 
+                label="Commission expense 25.5%" 
+                sublabel="Other deductible expense category" 
+              />
+            </div>
+
+            {/* Description Section */}
+            <div>
+              <KlettaTextarea 
+                label="Description" 
+                placeholder="Write description" 
+                className="h-24"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Fixed Footer */}
+        <div className="absolute bottom-0 left-0 right-0 bg-white p-6 border-t border-gray-100">
+           <button 
+             onClick={onContinue}
+             className="w-full h-[56px] bg-kletta-yellow rounded-[14px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all shadow-sm"
+           >
+             Continue
+           </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const SalesReportInputRow = ({ label, sublabel }: { label: string, sublabel?: string }) => (
+  <div className="flex items-start justify-between py-1">
+    <div className="flex-1 pr-4 pt-2">
+      <p className="text-[15px] font-bold text-kletta-teal leading-tight">{label}</p>
+      {sublabel && <p className="text-[12px] text-gray-500 font-light mt-1">{sublabel}</p>}
+    </div>
+    <div className="w-[130px] shrink-0">
+       <input 
+          type="text" 
+          placeholder="VAT Included" 
+          className="w-full h-[48px] bg-white border border-gray-200 rounded-[14px] px-4 text-right text-[14px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all placeholder:text-gray-300 shadow-sm"
+       />
+    </div>
+  </div>
+);
+
 // Dashboard (Original Home Content)
 const DashboardContent = ({ 
   navigate, 
   onBankClick, 
   onUploadClick, 
-  onNewProductClick,
+  onScanSalesReportClick,
+  onViewSummary,
+  onOpenIncompleteOnboarding,
   dateRange, 
   onOpenFilter 
 }: { 
   navigate: (screen: ScreenName) => void, 
   onBankClick: () => void, 
   onUploadClick: () => void,
-  onNewProductClick: () => void,
+  onScanSalesReportClick: () => void,
+  onViewSummary: () => void,
+  onOpenIncompleteOnboarding: () => void,
   dateRange: string, 
   onOpenFilter: () => void 
 }) => {
@@ -118,7 +243,7 @@ const DashboardContent = ({
             {/* Main Profit */}
             <div className="flex flex-col items-center mb-4">
               <span className="text-[11px] font-medium opacity-70 mb-1 uppercase tracking-widest text-white">Operating profit</span>
-              <span className="text-[40px] font-bold mb-2 tracking-tight leading-none text-white">+€1,456.90</span>
+              <span className="text-[40px] font-bold mb-2 tracking-tight leading-none text-white">+€2,361.43</span>
               
               <div className="flex items-center gap-1.5 opacity-90">
                 <span className="text-[13px] font-medium text-white">Tim Sole Trader (1234567890)</span>
@@ -131,30 +256,30 @@ const DashboardContent = ({
           <div className="px-5 -mt-12 relative z-10 mb-6">
               <div className="bg-white rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col overflow-hidden">
                  
-                 {/* Stats Row */}
+                 {/* Stats Row - Refined Typography weight */}
                  <div className="flex justify-between py-5 px-1">
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[13px] font-light text-kletta-dark mb-1 opacity-80">Income</p>
+                       <p className="text-[13px] font-normal text-kletta-dark mb-1 opacity-60">Income</p>
                        <p className="font-medium text-[16px] text-kletta-dark leading-tight">€2,986.30</p>
                     </div>
                     <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[13px] font-light text-kletta-dark mb-1 opacity-80">Expenses</p>
+                       <p className="text-[13px] font-normal text-kletta-dark mb-1 opacity-60">Expenses</p>
                        <p className="font-medium text-[16px] text-kletta-dark leading-tight">€523.46</p>
                     </div>
                      <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[13px] font-light text-kletta-dark mb-1 opacity-80">VAT</p>
+                       <p className="text-[13px] font-normal text-kletta-dark mb-1 opacity-60">VAT</p>
                        <p className="font-medium text-[16px] text-kletta-dark leading-tight">€145.90</p>
                     </div>
                  </div>
 
-                 {/* Button */}
+                 {/* Button - Refined weight */}
                  <button 
-                   onClick={() => navigate('summary')}
-                   className="w-full py-4 bg-kletta-yellow flex items-center justify-center gap-1 font-medium text-[14px] text-kletta-dark active:bg-[#FCD32A] transition-colors"
+                   onClick={onViewSummary}
+                   className="w-full py-4 bg-kletta-yellow flex items-center justify-center gap-1 font-normal text-[14px] text-kletta-dark active:bg-[#FCD32A] transition-colors"
                  >
-                    View summary <IconChevronRight size={16} weight="bold" />
+                    View summary <IconChevronRight size={14} weight="bold" />
                  </button>
               </div>
           </div>
@@ -162,11 +287,11 @@ const DashboardContent = ({
           {/* Main Body Content */}
           <div className="px-5 space-y-6">
             
-            {/* Action Grid (2 rows x 4 cols) */}
+            {/* 1. Action Grid */}
             <div className="grid grid-cols-4 gap-y-6 gap-x-2 py-2">
               <ActionIcon icon={IconNewInvoice} label="New invoice" onClick={() => navigate('new-invoice')} />
               <ActionIcon icon={IconAddEntry} label="Add entry" onClick={() => navigate('add-entry')} />
-              <ActionIcon icon={IconNewProduct} label="New product" onClick={onNewProductClick} />
+              <ActionIcon icon={IconScan} label="Scan sales report" onClick={onScanSalesReportClick} />
               <ActionIcon icon={IconStartTrip} label="Start trip" />
               
               <ActionIcon icon={IconAddTrip} label="Add trip" /> 
@@ -175,10 +300,10 @@ const DashboardContent = ({
               <ActionIcon icon={IconUploadReceipt} label="Upload receipt" highlight onClick={onUploadClick} />
             </div>
 
-            {/* Add new Section */}
+            {/* 2. Upcoming Section */}
             <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
               <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-medium text-[16px] text-kletta-dark">Add new</h3>
+                  <h3 className="font-medium text-[16px] text-kletta-dark">Upcoming</h3>
               </div>
               <div className="space-y-0">
                 <UpcomingItem 
@@ -197,7 +322,7 @@ const DashboardContent = ({
               </div>
             </div>
 
-            {/* Banner */}
+            {/* 3. Banner */}
             <div className="bg-kletta-yellow rounded-[20px] p-5 flex items-start justify-between relative shadow-sm">
               <div className="flex gap-3.5 items-center">
                  <div className="w-10 h-10 flex items-center justify-center">
@@ -211,28 +336,75 @@ const DashboardContent = ({
                  <IconClose size={20} weight="bold" />
               </button>
             </div>
-
-            {/* Setup Account */}
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
+            
+            {/* 4. Setup Account */}
+            <div className="bg-white rounded-[20px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100/50">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="font-medium text-[16px] text-kletta-dark">Set up your account</h3>
-                <span className="text-[11px] font-medium text-[#008c9e]">55% complete</span>
+                <span className="text-[11px] font-medium text-[#008c9e]">50% complete</span>
               </div>
               <div className="divide-y divide-gray-50">
-                <ChecklistItem text="Lisää yrityksesi tiedot" />
-                <ChecklistItem text="Vahvista Y-tunnus" />
-                <ChecklistItem text="Lisää edelliset ALV-verokaudet" />
+                <ChecklistItem 
+                  text="Add your tax information" 
+                  icon={<IconFile size={20} weight="regular" />}
+                  onClick={() => navigate('incomplete-onboarding-tax-info')}
+                />
+                <ChecklistItem 
+                  text="Confirm your tax return" 
+                  icon={<IconFile size={20} weight="regular" />}
+                  onClick={() => navigate('incomplete-onboarding-tax-confirm')}
+                />
+                <ChecklistItem 
+                  text="Add phone number" 
+                  icon={<IconPhone size={20} weight="regular" />}
+                  onClick={() => navigate('incomplete-onboarding-phone')}
+                />
               </div>
             </div>
-            
-             {/* Overdue */}
+
+             {/* 5. Overdue */}
              <button className="w-full py-4 bg-kletta-yellow rounded-[20px] flex flex-col items-center justify-center font-medium text-kletta-dark shadow-sm active:scale-[0.98] transition-transform gap-0.5">
               <span className="text-xl tracking-tight font-bold">27(28)</span>
               <span className="text-[11px] font-medium opacity-70 uppercase tracking-wide">Overdue invoices</span>
             </button>
 
+            {/* 6. Next Steps Section - Refined Styles */}
+            <div className="space-y-4 pt-2">
+              <h3 className="font-medium text-[17px] text-kletta-dark tracking-tight px-1">Next you could...</h3>
+              
+              {/* Care Promo Banner */}
+              <div className="bg-kletta-yellow rounded-[20px] p-4 flex items-center justify-between shadow-sm relative group overflow-hidden border border-kletta-yellow/40">
+                <div className="flex gap-4 items-center">
+                   <div className="w-11 h-11 bg-white/30 rounded-full flex items-center justify-center shrink-0">
+                      <IconScales size={26} className="text-kletta-dark" weight="bold" />
+                   </div>
+                  <p className="font-normal text-[14px] leading-tight text-kletta-dark max-w-[210px]">
+                    Upgrade to Kletta CARE where accounting expert verifies all entries <span className="font-bold">69€/month</span>
+                  </p>
+                </div>
+                <button className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white shrink-0 active:scale-90 transition-transform">
+                   <IconClose size={16} weight="bold" />
+                </button>
+              </div>
 
-            {/* YEL Insurance */}
+              {/* Step List Items - White background, normal weight */}
+              <div className="space-y-3">
+                <NextStepRow number={1} label="Setup Business Profile" />
+                <NextStepRow number={2} label="Create new product or service" />
+                <NextStepRow number={3} label="Setup bank information for invoicing" />
+                <NextStepRow number={4} label="Set up vehicles to track mileage" />
+                <NextStepRow number={5} label="Upload year-to-date book keeping" />
+                <NextStepRow number={7} label="Confirm Business ID" />
+                <NextStepRow number={8} label="Declare Advanced Taxes" />
+                <NextStepRow 
+                    icon={<IconCalendarBlank size={20} weight="bold" className="text-kletta-dark" />} 
+                    label="Reserve online meeting" 
+                />
+              </div>
+            </div>
+
+
+            {/* 7. YEL Insurance */}
             <div className="bg-[#00343B] rounded-[20px] p-6 text-white shadow-sm">
               <div className="flex justify-between items-start mb-2">
                 <h3 className="font-medium text-[16px] leading-tight max-w-[200px]">Get YEL insurance from Ilmarinen</h3>
@@ -250,13 +422,14 @@ const DashboardContent = ({
   );
 };
 
-// Main Component
+// --- MAIN COMPONENT ---
 const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
   const [activeTab, setActiveTab] = useState<TabName>(params?.tab || 'home');
   const [isTabBarHidden, setIsTabBarHidden] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
-  const [showProductTypeSheet, setShowProductTypeSheet] = useState(false);
+  const [showScanReportSheet, setShowScanReportSheet] = useState(false);
+  const [showIncompleteModal, setShowIncompleteModal] = useState(false);
   const [dateRange, setDateRange] = useState("Year to date");
   
   // AI Assistant Bar States
@@ -269,7 +442,11 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     if (params?.tab) {
         setActiveTab(params.tab);
     }
-  }, [params?.tab]);
+    // Logic for showing incomplete onboarding modal based on navigation parameters
+    if (params?.showIncompleteOnboarding) {
+        setShowIncompleteModal(true);
+    }
+  }, [params?.tab, params?.showIncompleteOnboarding]);
 
   useEffect(() => {
     if (isAiInputActive) {
@@ -288,11 +465,6 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   const handleGallerySelect = (url: string) => {
     setShowGallery(false);
     navigate('scan-receipt-preview', { imageUrl: url });
-  };
-
-  const handleProductTypeSelect = (type: 'Product' | 'Service') => {
-    setShowProductTypeSheet(false);
-    navigate('product-add-details', { type });
   };
 
   const handleAiSend = () => {
@@ -314,9 +486,17 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
             navigate={navigate} 
             onBankClick={handleBankClick} 
             onUploadClick={handleUploadClick}
-            onNewProductClick={() => setShowProductTypeSheet(true)}
+            onScanSalesReportClick={() => setShowScanReportSheet(true)}
+            onViewSummary={() => setActiveTab('summary')}
+            onOpenIncompleteOnboarding={() => setShowIncompleteModal(true)}
             dateRange={dateRange} 
             onOpenFilter={() => setShowFilter(true)} 
+          />
+        )}
+        {activeTab === 'summary' && (
+          <SummaryScreen 
+            navigate={navigate} 
+            goBack={() => setActiveTab('home')} 
           />
         )}
         {activeTab === 'bank' && <BankScreen />}
@@ -341,7 +521,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
       </div>
 
       {/* Fixed Bottom Action Group */}
-      {!isTabBarHidden && (
+      {!isTabBarHidden && !showIncompleteModal && (
         <div className="absolute bottom-0 left-0 right-0 z-50 animate-fade-in">
             {/* AI Assistant Bar - Fixed above Nav Bar */}
             {activeTab === 'home' && (
@@ -393,10 +573,10 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
                 onClick={() => setActiveTab('home')} 
                 />
                 <TabItem 
-                active={activeTab === 'bank'} 
-                icon={IconBank} 
-                label="Bank" 
-                onClick={() => setActiveTab('bank')} 
+                active={activeTab === 'summary'} 
+                icon={IconFileText} 
+                label="Summary" 
+                onClick={() => setActiveTab('summary')} 
                 />
                 <TabItem 
                 active={activeTab === 'sales'} 
@@ -429,6 +609,14 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
         </div>
       )}
 
+      {/* Incomplete Onboarding Modal Overlay */}
+      {showIncompleteModal && (
+        <IncompleteOnboardingEntry 
+          navigate={navigate} 
+          goBack={() => setShowIncompleteModal(false)} 
+        />
+      )}
+
       {/* Date Filter Sheet - Rendered here to cover the nav bar */}
       {showFilter && (
         <DateFilterSheet 
@@ -446,11 +634,11 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
         />
       )}
 
-      {/* Product Type Selection Sheet */}
-      {showProductTypeSheet && (
-        <ProductTypeSelectionSheet 
-          onClose={() => setShowProductTypeSheet(false)}
-          onSelect={handleProductTypeSelect}
+      {/* Scan Sales Report Sheet */}
+      {showScanReportSheet && (
+        <ScanSalesReportSheet 
+          onClose={() => setShowScanReportSheet(false)}
+          onContinue={() => setShowScanReportSheet(false)}
         />
       )}
     </div>
@@ -482,13 +670,43 @@ const UpcomingItem = ({ days, text, dotColor, onClick }: { days: number, text: s
   </button>
 );
 
-const ChecklistItem = ({ text }: { text: string }) => (
-  <button className="w-full flex items-center justify-between py-4 group hover:bg-gray-50 -mx-2 px-2 transition-colors">
+const ChecklistItem = ({ text, onClick, icon }: { text: string, onClick?: () => void, icon: React.ReactNode }) => (
+  <button 
+    onClick={onClick}
+    className="w-full flex items-center justify-between py-4 group hover:bg-gray-50 -mx-2 px-2 transition-colors"
+  >
     <div className="flex items-center gap-3">
-      <div className="w-5 h-5 border-[1.5px] border-gray-300 rounded-[6px] group-hover:border-kletta-teal transition-colors"></div>
-      <span className="text-[14px] font-medium text-gray-700">{text}</span>
+      <div className="w-6 h-6 flex items-center justify-center text-gray-400 shrink-0 transition-all">
+         {/* Fix: Cast icon to React.ReactElement<any> to allow passing 'size' prop in cloneElement */}
+         {React.cloneElement(icon as React.ReactElement<any>, { size: 20, weight: 'regular' })}
+      </div>
+      <span className="text-[14px] font-medium text-gray-600 group-hover:text-kletta-teal">{text}</span>
     </div>
-    <IconChevronRight size={16} text-gray-300 group-hover:text-kletta-teal weight="bold" />
+    <IconChevronRight size={16} className="text-gray-300 group-hover:text-kletta-teal" weight="bold" />
+  </button>
+);
+
+// New Helper for "Next you could..." section - Refined with white background and reduced weight
+const NextStepRow = ({ number, icon, label, onClick }: { number?: number, icon?: React.ReactNode, label: string, onClick?: () => void }) => (
+  <button 
+    onClick={onClick}
+    className={`w-full flex items-center justify-between p-4 bg-white rounded-[16px] border border-gray-100/50 active:scale-[0.99] transition-all group shadow-[0_2px_8px_rgba(0,0,0,0.03)]`}
+  >
+    <div className="flex items-center gap-4">
+      {number ? (
+        <div className="w-8 h-8 rounded-full bg-kletta-yellow flex items-center justify-center text-[13px] font-medium text-kletta-dark">
+          {number}
+        </div>
+      ) : (
+        <div className="w-8 h-8 flex items-center justify-center shrink-0">
+          {icon}
+        </div>
+      )}
+      <span className="text-[15px] font-normal text-kletta-dark tracking-tight text-left leading-tight">{label}</span>
+    </div>
+    <div className="w-7 h-7 rounded-full bg-gray-50/80 flex items-center justify-center text-gray-600 shrink-0 border border-gray-100">
+       <IconClose size={14} weight="bold" />
+    </div>
   </button>
 );
 

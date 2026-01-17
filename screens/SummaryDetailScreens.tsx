@@ -339,33 +339,24 @@ export const CashWithdrawalScreen: React.FC<NavigationProps> = ({ navigate, goBa
 
 // 7. Tax Prepayments (New)
 export const TaxPrepaymentsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
-    const data = [
-       { title: "Prepayment 2025 (4/4)", subtitle: "20.10.2025 • Tax Admin", amount: "€1,050.00" },
-       { title: "Prepayment 2025 (3/4)", subtitle: "20.07.2025 • Tax Admin", amount: "€1,050.00" },
-       { title: "Prepayment 2025 (2/4)", subtitle: "20.04.2025 • Tax Admin", amount: "€1,050.00" },
-       { title: "Prepayment 2025 (1/4)", subtitle: "20.01.2025 • Tax Admin", amount: "€1,050.00" },
-   ];
+    const data = [];
 
    return (
        <DetailScreenLayout 
            title="Tax prepayments" 
-           totalAmount="€4,200.00" 
+           totalAmount="€0.00" 
            totalLabel="Total Paid" 
            goBack={goBack}
        >
-           <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-               <p className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Prepayment History</p>
-           </div>
-           {data.map((item, i) => (
-               <DetailRow 
-                   key={i}
-                   title={item.title}
-                   subtitle={item.subtitle}
-                   amount={item.amount}
-                   icon={<IconCoins size={20} weight="fill" />}
-                   onClick={() => {}} 
-               />
-           ))}
+           <div className="px-6 py-12 flex flex-col items-center justify-center text-center opacity-60">
+                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-gray-300 mb-4">
+                    <IconCoins size={32} weight="fill" />
+                </div>
+                <p className="text-[15px] font-medium text-kletta-dark mb-1">No prepayments yet</p>
+                <p className="text-[13px] text-gray-500 font-light max-w-[240px]">
+                    Your advanced tax payments will appear here once recorded.
+                </p>
+            </div>
        </DetailScreenLayout>
    );
 };

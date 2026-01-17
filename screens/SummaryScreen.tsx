@@ -1,141 +1,155 @@
 
 import React, { useState } from 'react';
 import { 
-    IconBack, IconShare, IconChevronDown, IconChevronRight,
-    IconTrendUp, IconTrendDown, IconMoney, IconCar,
-    IconCellSignalFull, IconWifiHigh, IconBatteryFull, IconCoins
+    IconBack, IconChevronDown, IconChevronRight,
+    IconTrendUp, IconTrendDown, IconCar,
+    IconCellSignalFull, IconWifiHigh, IconBatteryFull, IconFileText,
+    IconMoney, IconShare
 } from '../components/Icons';
 import { NavigationProps } from '../types';
 import DateFilterSheet from '../components/DateFilterSheet';
 
 export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     const [showFilter, setShowFilter] = useState(false);
-    const [dateRange, setDateRange] = useState("All time");
+    const [dateRange, setDateRange] = useState("1 Year");
 
     return (
-        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-kletta-dark">
+        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
              
-            {/* Header Section - Dark Teal */}
-            <div className="w-full bg-kletta-teal flex flex-col z-20 pb-5 pt-0 border-b border-white/5">
+            {/* Fixed Header Section: Title and Profit */}
+            <div className="w-full bg-kletta-teal flex flex-col z-20 pb-8 pt-10 shrink-0 shadow-sm relative">
                 
-                {/* Status Bar */}
-                <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
-                    <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
-                    <div className="flex gap-1.5 items-center mr-1">
-                        <IconCellSignalFull size={16} weight="fill" />
-                        <IconWifiHigh size={16} weight="bold" />
-                        <IconBatteryFull size={24} weight="fill" className="rotate-0" />
-                    </div>
-                </div>
-
-                {/* Navigation Row */}
-                <div className="px-6 pt-2 pb-2">
+                {/* Navigation Bar Row */}
+                <div className="flex justify-end items-center px-6 pt-2 mb-2">
                     <button 
-                        onClick={goBack} 
-                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white"
+                        className="w-10 h-10 -mr-2 rounded-full flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all"
+                        onClick={() => console.log('Share summary')}
                     >
-                        <IconBack size={26} weight="bold" />
+                        <IconShare size={26} weight="bold" />
                     </button>
                 </div>
 
-                {/* Header Content */}
-                <div className="px-6 pt-0 flex flex-col">
-                    <div className="flex justify-between items-center mb-6">
-                        <div className="flex flex-col">
-                            <h1 className="text-[26px] font-medium text-white tracking-tight mb-1">Summary</h1>
-                            <div 
-                              onClick={() => setShowFilter(true)}
-                              className="flex items-center gap-1 opacity-70 transition-opacity hover:opacity-100 cursor-pointer text-white"
-                            >
-                                <span className="text-[13px] font-medium">{dateRange}</span>
-                                <IconChevronDown size={12} weight="bold" />
-                            </div>
-                        </div>
-                        <button className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors text-white">
-                            <IconShare size={24} weight="bold" />
-                        </button>
-                    </div>
+                {/* Centered Title, Filter, and Profit Area */}
+                <div className="px-6 flex flex-col items-center -mt-12">
+                    <h1 className="text-[24px] font-bold text-white tracking-tight">Summary</h1>
+                    <button 
+                      onClick={() => setShowFilter(true)}
+                      className="flex items-center gap-1.5 text-white transition-opacity hover:opacity-80 active:opacity-60 mt-0.5 mb-4"
+                    >
+                        <span className="text-[14px] font-medium opacity-80">{dateRange}</span>
+                        <IconChevronDown size={14} weight="bold" className="opacity-80" />
+                    </button>
 
-                    <div className="flex flex-col gap-1">
-                        <p className="text-[12px] font-medium text-white/70 uppercase tracking-widest">Total Profit</p>
-                        <p className="text-[34px] font-light text-white tracking-tight leading-none">€135,433.10</p>
+                    {/* Centered Profit Amount */}
+                    <div className="flex items-baseline text-white">
+                        <span className="text-[38px] font-bold tracking-tighter">€2,361</span>
+                        <span className="text-[26px] font-bold tracking-tighter opacity-80">.43</span>
                     </div>
                 </div>
             </div>
 
-            {/* Scrollable Content - Flat List */}
-            <div className="flex-1 overflow-y-auto no-scrollbar pb-36 pt-0 bg-white">
+            {/* Scrollable Content: Chart + Seamless List */}
+            <div className="flex-1 overflow-y-auto no-scrollbar bg-white">
                 
-                {/* Income Section */}
-                <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50">
-                    <p className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest">Income</p>
-                </div>
-                
-                <SummaryRow 
-                    title="Business income" 
-                    amount="€232,436.00" 
-                    type="income"
-                    icon={<IconTrendUp size={20} weight="bold" />}
-                    onClick={() => navigate('summary-business-income')}
-                />
-                <SummaryRow 
-                    title="Other income (grants, subsidies, refunds, etc.)" 
-                    amount="€0.00" 
-                    type="income"
-                    icon={<IconTrendUp size={20} weight="bold" />}
-                    onClick={() => navigate('summary-other-income')}
-                />
+                {/* Line Chart Section - Remains Teal */}
+                <div className="w-full bg-kletta-teal pb-8 px-4 relative">
+                    <div className="w-full h-32 relative">
+                        <svg viewBox="0 0 400 120" className="w-full h-full" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="white" stopOpacity="0.3" />
+                                    <stop offset="100%" stopColor="white" stopOpacity="0" />
+                                </linearGradient>
+                            </defs>
+                            
+                            {/* Grid Lines (Dashed) */}
+                            <line x1="55" y1="20" x2="400" y2="20" stroke="white" strokeWidth="1" strokeDasharray="4 4" opacity="0.15" />
+                            <line x1="55" y1="60" x2="400" y2="60" stroke="white" strokeWidth="1" strokeDasharray="4 4" opacity="0.15" />
+                            <line x1="55" y1="100" x2="400" y2="100" stroke="white" strokeWidth="1" strokeDasharray="4 4" opacity="0.15" />
 
-                {/* Expenses Section */}
-                <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50 mt-2">
-                    <p className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest">Expenses</p>
-                </div>
+                            {/* Y-Axis Labels */}
+                            <text x="0" y="24" fill="white" fontSize="10" fontWeight="600" opacity="0.6">€2,500</text>
+                            <text x="0" y="64" fill="white" fontSize="10" fontWeight="600" opacity="0.6">€1,250</text>
+                            <text x="0" y="104" fill="white" fontSize="10" fontWeight="600" opacity="0.6">€0</text>
 
-                <SummaryRow 
-                    title="Business expenses" 
-                    amount="€91,649.00" 
-                    type="expense"
-                    icon={<IconTrendDown size={20} weight="bold" />}
-                    onClick={() => navigate('summary-business-expenses')}
-                />
-                <SummaryRow 
-                    title="Non-allowable expenses" 
-                    amount="€2,120.50" 
-                    type="expense"
-                    icon={<IconTrendDown size={20} weight="bold" />}
-                    onClick={() => navigate('summary-nonallowable-expenses')}
-                />
+                            {/* Updated Path geometry */}
+                            <path 
+                                d="M55,100 L160,100 C190,100 200,65 230,65 L330,60 C360,60 380,50 395,20" 
+                                fill="none" 
+                                stroke="white" 
+                                strokeWidth="3" 
+                                strokeLinecap="round"
+                            />
+                            
+                            {/* Gradient Fill under the line */}
+                            <path 
+                                d="M55,100 L160,100 C190,100 200,65 230,65 L330,60 C360,60 380,50 395,20 V120 H55 Z" 
+                                fill="url(#chartGradient)"
+                            />
 
-                {/* Other Section */}
-                <div className="px-6 py-3 bg-white/95 sticky top-0 backdrop-blur-sm z-10 border-b border-gray-50 mt-2">
-                    <p className="text-[11px] font-medium text-kletta-secondary uppercase tracking-widest">Other</p>
+                            {/* Final Data Point Circle */}
+                            <circle cx="395" cy="20" r="5" fill="white" />
+                        </svg>
+                    </div>
                 </div>
 
-                <SummaryRow 
-                    title="Tax prepayments / Estimated tax prepayments" 
-                    amount="€4,200.00" 
-                    type="neutral"
-                    icon={<IconCoins size={20} weight="fill" />}
-                    onClick={() => navigate('summary-tax-prepayments')}
-                />
-                <SummaryRow 
-                    title="Claimed kilometers" 
-                    amount="€328.79" 
-                    type="neutral"
-                    icon={<IconCar size={20} weight="bold" />}
-                    onClick={() => navigate('summary-claimed-kilometers')}
-                />
-                <SummaryRow 
-                    title="Cash withdrawal" 
-                    amount="€5,353.50" 
-                    type="neutral"
-                    icon={<IconMoney size={20} weight="bold" />}
-                    onClick={() => navigate('summary-cash-withdrawal')}
-                />
-
+                {/* Seamless List Section */}
+                <div className="pb-36 bg-white">
+                    <div className="w-full flex flex-col">
+                        <SummaryCardRow 
+                            title="Business Income" 
+                            amount="€2,383.08" 
+                            icon={<IconTrendUp size={22} weight="bold" />}
+                            onClick={() => navigate('summary-business-income')}
+                        />
+                        <SummaryCardRow 
+                            title="Other income" 
+                            amount="€0.00" 
+                            icon={<IconTrendUp size={22} weight="bold" />}
+                            onClick={() => navigate('summary-other-income')}
+                        />
+                        <SummaryCardRow 
+                            title="Business expenses" 
+                            amount="€0.00" 
+                            icon={<IconTrendDown size={22} weight="bold" />}
+                            onClick={() => navigate('summary-business-expenses')}
+                        />
+                        <SummaryCardRow 
+                            title="Non-allowable expenses" 
+                            amount="€0.00" 
+                            icon={<IconTrendDown size={22} weight="bold" />}
+                            onClick={() => navigate('summary-nonallowable-expenses')}
+                        />
+                        <SummaryCardRow 
+                            title="Claimed kilometers" 
+                            amount="€385.51" 
+                            icon={<IconCar size={22} weight="bold" />}
+                            onClick={() => navigate('summary-claimed-kilometers')}
+                        />
+                        <SummaryCardRow 
+                            title="VAT" 
+                            amount="€81.60" 
+                            icon={<IconFileText size={22} weight="regular" />}
+                            onClick={() => {}}
+                        />
+                        <SummaryCardRow 
+                            title="Tax prepayments / Estimated tax prepayments" 
+                            amount="€0.00" 
+                            icon={<IconFileText size={22} weight="regular" />}
+                            onClick={() => navigate('summary-tax-prepayments')}
+                        />
+                        <SummaryCardRow 
+                            title="Cash withdrawal" 
+                            amount="€0.00" 
+                            icon={<IconMoney size={22} weight="regular" />}
+                            onClick={() => navigate('summary-cash-withdrawal')}
+                            isLast
+                        />
+                    </div>
+                </div>
             </div>
 
-            {/* Date Filter Sheet - Fixed to overlap everything */}
+            {/* Date Filter Sheet */}
             {showFilter && (
                 <DateFilterSheet 
                     currentValue={dateRange}
@@ -147,38 +161,36 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
     );
 };
 
-interface SummaryRowProps {
+interface SummaryCardRowProps {
     title: string;
     amount: string;
-    type: 'income' | 'expense' | 'neutral';
     icon: React.ReactNode;
+    isLast?: boolean;
     onClick?: () => void;
 }
 
-const SummaryRow: React.FC<SummaryRowProps> = ({ title, amount, type, icon, onClick }) => {
+const SummaryCardRow: React.FC<SummaryCardRowProps> = ({ 
+    title, amount, icon, isLast, onClick 
+}) => {
     return (
         <button 
             onClick={onClick}
-            className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 active:bg-gray-100 transition-colors border-b border-gray-50 group text-left"
+            className={`w-full px-5 py-4 flex items-center justify-between bg-white active:bg-gray-50 transition-colors group text-left ${!isLast ? 'border-b border-gray-100' : ''}`}
         >
             <div className="flex items-center gap-4 flex-1 min-w-0 pr-2">
-                {/* Subtle Icon Container */}
-                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-kletta-secondary shrink-0">
+                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-kletta-teal shrink-0 group-active:scale-95 transition-transform">
                     {icon}
                 </div>
-                
-                <div className="flex-1 min-w-0">
-                    <p className="text-[15px] font-medium text-kletta-dark line-clamp-2 leading-tight">{title}</p>
+                <div className="flex-1 min-w-0 flex flex-col">
+                    <p className="text-[14px] font-medium leading-[20px] text-[#616A6B] mb-0.5">{title}</p>
+                    <p className="text-[16px] font-semibold leading-[24px] text-[#0C0D0D] tracking-tight whitespace-nowrap">
+                        {amount}
+                    </p>
                 </div>
             </div>
             
-            <div className="text-right flex items-center gap-3 shrink-0 pl-2">
-                <p className={`text-[15px] font-medium tracking-normal whitespace-nowrap ${type === 'income' ? 'text-green-600' : 'text-kletta-dark'}`}>
-                    {amount}
-                </p>
-                {onClick && (
-                    <IconChevronRight size={14} weight="bold" className="text-gray-300 group-hover:text-kletta-teal transition-colors" />
-                )}
+            <div className="shrink-0 pl-2">
+                <IconChevronRight size={20} weight="bold" className="text-gray-300 transition-colors" />
             </div>
         </button>
     );
