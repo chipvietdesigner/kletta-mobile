@@ -4,7 +4,7 @@ import SplashScreen from './screens/SplashScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
-import { SignUpEmailScreen, VerifyEmailCodeScreen } from './screens/SignUpScreens';
+import { SignUpEmailScreen, VerifyEmailCodeScreen, SignUpCreatePasscodeScreen, SignUpBusinessLocationScreen } from './screens/SignUpScreens';
 import { 
     OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, OnboardingStep4, 
     OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8 
@@ -35,7 +35,12 @@ import {
 import { TaxReturnScreen } from './screens/TaxReturnScreen';
 import { AddEntryScreen } from './screens/AddEntryScreen';
 import { 
-  ProductSelectTypeScreen, ProductAddDetailsScreen, ProductCoverArtScreen, ProductSuccessScreen 
+  ProductSelectTypeScreen, 
+  ProductStepName, 
+  ProductStepTax, 
+  ProductStepPrice, 
+  ProductStepArt, 
+  ProductSuccessScreen 
 } from './screens/ProductFlowScreens';
 import { AddVehicleScreen } from './screens/AddVehicleScreen';
 import { ScreenName } from './types';
@@ -54,8 +59,10 @@ const App = () => {
         case 'login': navigate('welcome'); break;
         case 'signup-email': navigate('welcome'); break;
         case 'signup-verify': navigate('signup-email'); break;
+        case 'signup-create-passcode': navigate('signup-verify'); break;
+        case 'signup-business-location': navigate('signup-create-passcode'); break;
         case 'welcome': navigate('splash'); break;
-        case 'onboarding-welcome': navigate('signup-verify'); break;
+        case 'onboarding-welcome': navigate('signup-business-location'); break; 
         case 'onboarding-1': navigate('onboarding-welcome'); break; 
         case 'onboarding-2': navigate('onboarding-1'); break;
         case 'onboarding-3': navigate('onboarding-2'); break;
@@ -80,13 +87,13 @@ const App = () => {
         case 'invoice-success': navigate('home'); break;
         case 'invoice-detail': navigate('home', { tab: 'sales' }); break; 
         case 'summary': navigate('home'); break;
-        case 'summary-business-income': navigate('summary'); break;
-        case 'summary-other-income': navigate('summary'); break;
-        case 'summary-business-expenses': navigate('summary'); break;
-        case 'summary-nonallowable-expenses': navigate('summary'); break;
-        case 'summary-claimed-kilometers': navigate('summary'); break;
-        case 'summary-cash-withdrawal': navigate('summary'); break;
-        case 'summary-tax-prepayments': navigate('summary'); break;
+        case 'summary-business-income': navigate('home', { tab: 'summary' }); break;
+        case 'summary-other-income': navigate('home', { tab: 'summary' }); break;
+        case 'summary-business-expenses': navigate('home', { tab: 'summary' }); break;
+        case 'summary-nonallowable-expenses': navigate('home', { tab: 'summary' }); break;
+        case 'summary-claimed-kilometers': navigate('home', { tab: 'summary' }); break;
+        case 'summary-cash-withdrawal': navigate('home', { tab: 'summary' }); break;
+        case 'summary-tax-prepayments': navigate('home', { tab: 'summary' }); break;
         case 'settings': navigate('home'); break;
         case 'scan-receipt-camera': navigate('home'); break;
         case 'scan-receipt-preview': navigate('scan-receipt-camera'); break;
@@ -95,8 +102,10 @@ const App = () => {
         case 'tax-return': navigate('home'); break;
         case 'add-entry': navigate('home'); break;
         case 'product-select-type': navigate('home'); break;
-        case 'product-add-details': navigate('home'); break;
-        case 'product-cover-art': navigate('product-add-details'); break;
+        case 'product-step-name': navigate('home'); break;
+        case 'product-step-tax': navigate('product-step-name', navParams); break;
+        case 'product-step-price': navigate('product-step-tax', navParams); break;
+        case 'product-step-art': navigate('product-step-price', navParams); break;
         case 'product-success': navigate('home'); break;
         case 'add-vehicle': navigate('home', { tab: 'assets' }); break;
         default: break;
@@ -110,6 +119,8 @@ const App = () => {
       case 'login': return <LoginScreen navigate={navigate} goBack={goBack} />;
       case 'signup-email': return <SignUpEmailScreen navigate={navigate} goBack={goBack} />;
       case 'signup-verify': return <VerifyEmailCodeScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'signup-create-passcode': return <SignUpCreatePasscodeScreen navigate={navigate} goBack={goBack} />;
+      case 'signup-business-location': return <SignUpBusinessLocationScreen navigate={navigate} goBack={goBack} />;
       case 'onboarding-welcome': return <OnboardingWelcome navigate={navigate} goBack={goBack} />;
       case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
       case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
@@ -151,8 +162,10 @@ const App = () => {
       case 'tax-return': return <TaxReturnScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'add-entry': return <AddEntryScreen navigate={navigate} goBack={goBack} />;
       case 'product-select-type': return <ProductSelectTypeScreen navigate={navigate} goBack={goBack} />;
-      case 'product-add-details': return <ProductAddDetailsScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'product-cover-art': return <ProductCoverArtScreen navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'product-step-name': return <ProductStepName navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'product-step-tax': return <ProductStepTax navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'product-step-price': return <ProductStepPrice navigate={navigate} goBack={goBack} params={navParams} />;
+      case 'product-step-art': return <ProductStepArt navigate={navigate} goBack={goBack} params={navParams} />;
       case 'product-success': return <ProductSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
       case 'add-vehicle': return <AddVehicleScreen navigate={navigate} goBack={goBack} />;
       case 'home': return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;

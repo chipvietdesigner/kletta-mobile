@@ -6,94 +6,131 @@ import {
   IconCellSignalFull, IconWifiHigh, IconBatteryFull, IconCheck, IconSparkle
 } from '../components/Icons';
 import { NavigationProps, ScreenName } from '../types';
-import { KlettaInput, KlettaSelect } from '../components/Inputs';
 
-// --- SHARED HEADER ---
-const ProductFlowHeader = ({ title, goBack, white = false }: { title: string, goBack: () => void, white?: boolean }) => (
-    <div className={`${white ? 'bg-white' : 'bg-kletta-teal'} w-full z-20 shrink-0`}>
-        <div className={`w-full h-[50px] flex justify-between items-end px-6 pb-2 ${white ? 'text-kletta-dark' : 'text-white'} pointer-events-none`}>
-            <span className="text-[15px] font-medium ml-2">9:41</span>
-            <div className="flex gap-1.5 items-center mr-1">
-                <IconCellSignalFull size={16} weight="fill" />
-                <IconWifiHigh size={16} weight="bold" />
-                <IconBatteryFull size={24} weight="fill" />
-            </div>
-        </div>
-        <div className="pt-2 pb-2 px-6 flex items-center gap-4">
-            <button onClick={goBack} className={`w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-black/5 active:scale-95 transition-all ${white ? 'text-kletta-dark' : 'text-white'}`}>
-                <IconBack size={26} weight="bold" />
-            </button>
-            {title && <h1 className={`text-[17px] font-medium tracking-wide ${white ? 'text-kletta-dark' : 'text-white'}`}>{title}</h1>}
-        </div>
+// --- SHARED UI COMPONENTS ---
+
+const StepIndicator = ({ current, total = 5 }: { current: number; total?: number }) => {
+  return (
+    <div className="flex flex-col gap-1.5 w-6">
+      {Array.from({ length: total }).map((_, i) => (
+        <div 
+          key={i} 
+          className={`h-[1px] w-full transition-all duration-300 ${i < current ? 'bg-kletta-teal opacity-100 w-full' : 'bg-gray-200 opacity-40 w-3/4'}`}
+        />
+      ))}
     </div>
-);
-
-// --- STEP 1: SELECT TYPE (NOW A BOTTOM SHEET) ---
-export const ProductTypeSelectionSheet = ({ 
-    onClose, 
-    onSelect 
-}: { 
-    onClose: () => void, 
-    onSelect: (type: 'Product' | 'Service') => void 
-}) => {
-    return (
-        <div className="absolute inset-0 z-[100] flex flex-col justify-end">
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] animate-fade-in" onClick={onClose} />
-
-            {/* Sheet Content */}
-            <div className="w-full bg-white z-10 animate-slide-up shadow-[0_-8px_40px_rgba(0,0,0,0.12)] rounded-t-[32px] overflow-hidden flex flex-col max-h-[90%] pb-12">
-                {/* Drag Handle */}
-                <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mt-3 mb-2" />
-                
-                <div className="px-6 pt-6 pb-4 flex items-center justify-between">
-                    <h2 className="text-[18px] font-medium text-kletta-dark tracking-tight leading-tight">What do you want to add?</h2>
-                    <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-kletta-dark">
-                      
-                    </button>
-                </div>
-
-                <div className="px-6 space-y-2 mt-4">
-                    <div className="divide-y divide-gray-100 border-t border-gray-100">
-                        <TypeButton 
-                            title="Product" 
-                            desc="Physical item or inventory" 
-                            icon={<IconTag size={24} weight="regular" />} 
-                            onClick={() => onSelect('Product')} 
-                        />
-                        
-                        <TypeButton 
-                            title="Service" 
-                            desc="Work or time-based service" 
-                            icon={<IconBriefcase size={24} weight="regular" />} 
-                            onClick={() => onSelect('Service')} 
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+  );
 };
 
-// Kept for type safety and App routing compatibility, though triggered as sheet from Home
+const ProductFlowLayout = ({ 
+  step, 
+  title, 
+  headerValue, 
+  goBack, 
+  children 
+}: { 
+  step: number; 
+  title: string; 
+  headerValue?: string; 
+  goBack: () => void; 
+  children: React.ReactNode 
+}) => {
+  return (
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+      {/* Header Row */}
+      <div className="pt-14 px-6 flex items-center justify-between z-20">
+        <button onClick={goBack} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:scale-95 transition-all text-kletta-dark">
+          <IconBack size={26} weight="bold" />
+        </button>
+        {headerValue && (
+          <div className="bg-gray-100 rounded-full px-4 py-1.5 shadow-sm border border-gray-100">
+             <span className="text-[13px] font-medium text-gray-500">{headerValue}</span>
+          </div>
+        )}
+      </div>
+
+      <div className="flex-1 flex pt-20 px-6">
+        {/* Left Side: Step Indicator */}
+        <div className="w-10 shrink-0 pt-2">
+           <p className="text-[12px] font-medium text-gray-300 mb-4">{step} / 5</p>
+           <StepIndicator current={step} />
+        </div>
+
+        {/* Right Side: Content Area */}
+        <div className="flex-1 pl-4 pb-20">
+          <h1 className="text-[24px] font-bold text-kletta-dark leading-tight tracking-tight mb-12">
+            {title}
+          </h1>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CircleCheckBtn = ({ onClick, disabled = false }: { onClick: () => void; disabled?: boolean }) => (
+  <button 
+    onClick={onClick}
+    disabled={disabled}
+    className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all active:scale-90 ${disabled ? 'bg-gray-100 text-gray-300' : 'bg-kletta-teal text-white'}`}
+  >
+    <IconCheck size={28} weight="bold" />
+  </button>
+);
+
+// --- PRODUCT TYPE SELECTION SHEET ---
+export const ProductTypeSelectionSheet = ({ onClose, onSelect }: { onClose: () => void, onSelect: (type: 'Product' | 'Service') => void }) => {
+  return (
+    <div className="absolute inset-0 z-[100] flex flex-col justify-end">
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose} />
+      <div className="w-full bg-white z-10 animate-slide-up shadow-[0_-8px_40px_rgba(0,0,0,0.12)] rounded-t-[32px] overflow-hidden flex flex-col pb-12">
+        <div className="px-6 pt-10 pb-4 flex items-center justify-between">
+          <h2 className="text-[19px] font-bold text-kletta-dark tracking-tight">What would you like to add?</h2>
+          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 active:bg-gray-100 transition-colors">
+            <IconClose size={26} weight="bold" className="text-gray-400" />
+          </button>
+        </div>
+        <div className="px-6 space-y-3">
+          <TypeButton 
+              title="Product" 
+              desc="Physical item or inventory" 
+              icon={<IconTag size={24} weight="regular" />} 
+              onClick={() => onSelect('Product')} 
+          />
+          <TypeButton 
+              title="Service" 
+              desc="Work or time-based service" 
+              icon={<IconBriefcase size={24} weight="regular" />} 
+              onClick={() => onSelect('Service')} 
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const ProductSelectTypeScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
-            <ProductFlowHeader title="" goBack={goBack} white />
-            <div className="flex-1 px-6 pt-8 space-y-2">
-                <h2 className="text-[24px] font-medium text-kletta-dark tracking-tight leading-tight mb-10">What do you want to add?</h2>
+            <div className="pt-14 px-6 flex items-center z-20">
+              <button onClick={goBack} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 text-kletta-dark">
+                <IconBack size={26} weight="bold" />
+              </button>
+            </div>
+            <div className="flex-1 px-8 pt-12 space-y-2">
+                <h2 className="text-[28px] font-bold text-kletta-dark tracking-tight leading-tight mb-10">What do you want to add?</h2>
                 <div className="divide-y divide-gray-50 border-t border-gray-50">
                     <TypeButton 
                         title="Product" 
                         desc="Physical item or inventory" 
                         icon={<IconTag size={24} weight="regular" />} 
-                        onClick={() => navigate('product-add-details', { type: 'Product' })} 
+                        onClick={() => navigate('product-step-name', { type: 'Product' })} 
                     />
                     <TypeButton 
                         title="Service" 
                         desc="Work or time-based service" 
                         icon={<IconBriefcase size={24} weight="regular" />} 
-                        onClick={() => navigate('product-add-details', { type: 'Service' })} 
+                        onClick={() => navigate('product-step-name', { type: 'Service' })} 
                     />
                 </div>
             </div>
@@ -117,157 +154,206 @@ const TypeButton = ({ title, desc, icon, onClick }: any) => (
     </button>
 );
 
-// --- STEP 2: ADD DETAILS ---
-export const ProductAddDetailsScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
-    const itemType = params?.type || 'product';
-    const [name, setName] = useState('Customer work');
-    const [priceExcl, setPriceExcl] = useState('100.00');
-    const [priceIncl, setPriceIncl] = useState('100.00');
-    const [vat, setVat] = useState(0);
-    const [pricingType, setPricingType] = useState('Fixed');
+// Step 1: Name
+export const ProductStepName: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+  const [name, setName] = useState(params?.name || '');
+  
+  const handleNext = () => {
+    if (!name.trim()) return;
+    navigate('product-step-tax', { ...params, name });
+  };
 
-    useEffect(() => {
-        const val = parseFloat(priceExcl) || 0;
-        const total = val * (1 + vat / 100);
-        setPriceIncl(total.toFixed(2));
-    }, [priceExcl, vat]);
-
-    const handlePriceInclChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-        setPriceIncl(val);
-        const numeric = parseFloat(val) || 0;
-        const excl = numeric / (1 + vat / 100);
-        setPriceExcl(excl.toFixed(2));
-    };
-
-    return (
-        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
-            <ProductFlowHeader title="" goBack={goBack} white />
-            
-            <div className="flex-1 overflow-y-auto px-6 pt-2 pb-32">
-                <h1 className="text-[24px] font-medium text-kletta-dark tracking-tight mb-8">Add new {itemType.toLowerCase()}</h1>
-                
-                <div className="space-y-10">
-                    {/* Name Section */}
-                    <div>
-                        <h2 className="text-[16px] font-medium text-kletta-dark mb-4">What would you like to call it?</h2>
-                        <KlettaInput 
-                            label="NAME" 
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="e.g. Design Consulting" 
-                        />
-                        <p className="text-[13px] text-gray-500 font-light mt-2 ml-1">Max 50 characters</p>
-                    </div>
-
-                    {/* Price Section */}
-                    <div>
-                        <h2 className="text-[16px] font-medium text-kletta-dark mb-4">Enter the price</h2>
-                        
-                        <div className="space-y-6">
-                            <KlettaInput 
-                                label="AMOUNT EXCL. VAT (€)" 
-                                type="number"
-                                value={priceExcl}
-                                onChange={(e) => setPriceExcl(e.target.value)}
-                            />
-
-                            <KlettaSelect label="SELECT TAX RATE" value={vat} onChange={(e) => setVat(Number(e.target.value))}>
-                                <option value={0}>0%</option>
-                                <option value={10}>10%</option>
-                                <option value={14}>14%</option>
-                                <option value={24}>24%</option>
-                                <option value={25.5}>25.5%</option>
-                            </KlettaSelect>
-
-                            <KlettaInput 
-                                label="AMOUNT INCL. VAT (€)" 
-                                type="number"
-                                value={priceIncl}
-                                onChange={handlePriceInclChange}
-                            />
-
-                            <div className="flex gap-3 pt-2">
-                                <PricingToggle active={pricingType === 'Fixed'} label="Fixed" onClick={() => setPricingType('Fixed')} />
-                                <PricingToggle active={pricingType === '/Hour'} label="/Hour" onClick={() => setPricingType('/Hour')} />
-                                <PricingToggle active={pricingType === '/Day'} label="/Day" onClick={() => setPricingType('/Day')} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-gray-50">
-                <button 
-                    onClick={() => navigate('product-cover-art', { itemType, name, priceExcl, vat })}
-                    className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all shadow-sm"
-                >
-                    Next
-                </button>
-            </div>
-        </div>
-    );
-};
-
-const PricingToggle = ({ active, label, onClick }: any) => (
-    <button 
-        onClick={onClick}
-        className={`h-[44px] px-6 rounded-full border transition-all text-[14px] font-medium ${active ? 'bg-kletta-teal text-white border-kletta-teal shadow-sm' : 'bg-white text-kletta-dark border-gray-200'}`}
+  return (
+    <ProductFlowLayout 
+      step={1} 
+      title="Now, let's add a name and a price. What would you like to call it?" 
+      goBack={goBack}
     >
-        {label}
-    </button>
-);
-
-// --- STEP 3: COVER ART ---
-export const ProductCoverArtScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
-    return (
-        <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
-            <ProductFlowHeader title="" goBack={goBack} white />
-            
-            <div className="flex-1 flex flex-col items-center pt-12 px-10 text-center">
-                <div className="w-48 h-48 bg-gray-50 border-2 border-dashed border-gray-200 rounded-[32px] flex items-center justify-center text-gray-300 mb-8">
-                    <IconPlus size={48} weight="bold" />
-                </div>
-                
-                <h2 className="text-[20px] font-medium text-kletta-dark tracking-tight mb-3">Add a cover image</h2>
-                <p className="text-[14px] text-gray-500 font-light leading-relaxed mb-10">
-                    This will help you recognize the item later. You can skip this and add it later.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 w-full max-w-[320px]">
-                    <ArtActionBtn icon={<IconCamera size={24} weight="bold" />} label="Take photo" />
-                    <ArtActionBtn icon={<IconUpload size={24} weight="bold" />} label="Upload" />
-                </div>
-            </div>
-
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-white flex flex-col gap-3">
-                <button 
-                    onClick={() => navigate('product-success', { itemType: params?.itemType })}
-                    className="w-full h-[56px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] shadow-sm active:scale-[0.98] transition-all"
-                >
-                    Continue
-                </button>
-                <button 
-                    onClick={() => navigate('product-success', { itemType: params?.itemType })}
-                    className="w-full py-4 text-kletta-dark font-medium text-[16px]"
-                >
-                    Skip for now
-                </button>
-            </div>
+      <div className="relative mt-20">
+        <input 
+          autoFocus
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Eg: Customer work"
+          className="w-full bg-transparent border-b border-gray-200 py-4 text-[24px] font-medium text-kletta-dark placeholder:text-gray-200 outline-none focus:border-kletta-teal transition-colors"
+        />
+        <p className="text-[12px] text-gray-400 mt-2 text-right">max. 50 characters</p>
+        
+        <div className="absolute right-0 -bottom-24">
+          <CircleCheckBtn onClick={handleNext} disabled={!name.trim()} />
         </div>
-    );
+      </div>
+    </ProductFlowLayout>
+  );
 };
 
-const ArtActionBtn = ({ icon, label }: any) => (
-    <button className="flex flex-col items-center justify-center p-5 bg-white border border-gray-100 rounded-[12px] shadow-sm active:bg-gray-50 transition-colors gap-3">
-        <div className="text-kletta-teal">{icon}</div>
-        <span className="text-[13px] font-medium text-kletta-dark">{label}</span>
-    </button>
-);
+// Step 2: Tax Rate
+export const ProductStepTax: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+  const rates = [
+    { label: '0%', value: 0 },
+    { label: '10%', value: 10 },
+    { label: '14%', value: 14 },
+    { label: '24%', value: 24 },
+    { label: '25,5%', value: 25.5 },
+  ];
 
-// --- STEP 4: SUCCESS ---
+  const handleSelect = (rate: number, label: string) => {
+    navigate('product-step-price', { ...params, vat: rate, vatLabel: label });
+  };
+
+  return (
+    <ProductFlowLayout 
+      step={2} 
+      title="Select tax rate" 
+      headerValue={params?.name}
+      goBack={goBack}
+    >
+      <div className="flex flex-col items-end gap-3 mt-10">
+        {rates.map((r) => (
+          <button 
+            key={r.label}
+            onClick={() => handleSelect(r.value, r.label)}
+            className="px-6 py-2.5 rounded-xl border border-gray-100 bg-white text-[15px] font-medium text-kletta-dark shadow-sm hover:bg-gray-50 active:scale-95 transition-all"
+          >
+            {r.label}
+          </button>
+        ))}
+        <button 
+          onClick={() => handleSelect(0, 'Exempted from VAT')}
+          className="px-6 py-2.5 rounded-xl border border-gray-100 bg-white text-[15px] font-medium text-kletta-dark shadow-sm active:scale-95 transition-all"
+        >
+          Exempted from VAT
+        </button>
+        <button 
+          onClick={() => handleSelect(0, 'Construction services - 0%')}
+          className="px-6 py-2.5 rounded-xl border border-gray-100 bg-white text-[14px] font-medium text-kletta-dark shadow-sm active:scale-95 transition-all text-right leading-tight max-w-[240px]"
+        >
+          Construction services and scrap metal - 0%
+        </button>
+      </div>
+    </ProductFlowLayout>
+  );
+};
+
+// Step 3: Pricing
+export const ProductStepPrice: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+  const [priceExcl, setPriceExcl] = useState('');
+  const [priceIncl, setPriceIncl] = useState('');
+  const [unit, setUnit] = useState('Fixed');
+  const vat = params?.vat || 0;
+
+  const handleExclChange = (val: string) => {
+    setPriceExcl(val);
+    const num = parseFloat(val) || 0;
+    setPriceIncl((num * (1 + vat / 100)).toFixed(2));
+  };
+
+  const handleInclChange = (val: string) => {
+    setPriceIncl(val);
+    const num = parseFloat(val) || 0;
+    setPriceExcl((num / (1 + vat / 100)).toFixed(2));
+  };
+
+  const handleNext = () => {
+    navigate('product-step-art', { ...params, priceExcl, priceIncl, unit });
+  };
+
+  return (
+    <ProductFlowLayout 
+      step={3} 
+      title="Choose the pricing (provide price and unit)" 
+      headerValue={params?.vatLabel}
+      goBack={goBack}
+    >
+      <div className="space-y-12 mt-10 relative">
+        <div className="space-y-10">
+          <div className="relative">
+            <span className="absolute left-0 top-1.5 text-[20px] text-gray-300">€</span>
+            <input 
+              autoFocus
+              type="number"
+              value={priceIncl}
+              onChange={(e) => handleInclChange(e.target.value)}
+              placeholder="Enter amount incl. VAT"
+              className="w-full bg-transparent border-b border-gray-200 py-2 pl-6 text-[20px] font-medium text-kletta-dark placeholder:text-gray-200 outline-none focus:border-kletta-teal"
+            />
+          </div>
+          
+          <div className="relative">
+            <span className="absolute left-0 top-1.5 text-[20px] text-gray-300">€</span>
+            <input 
+              type="number"
+              value={priceExcl}
+              onChange={(e) => handleExclChange(e.target.value)}
+              placeholder="Enter amount excl. VAT"
+              className="w-full bg-transparent border-b border-gray-200 py-2 pl-6 text-[20px] font-medium text-kletta-dark placeholder:text-gray-200 outline-none focus:border-kletta-teal"
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          {['Fixed', '/Hour', '/Day'].map(u => (
+            <button 
+              key={u}
+              onClick={() => setUnit(u)}
+              className={`px-6 py-2.5 rounded-xl border transition-all text-[14px] font-medium ${unit === u ? 'bg-kletta-teal text-white border-kletta-teal' : 'bg-white text-gray-500 border-gray-200'}`}
+            >
+              {u}
+            </button>
+          ))}
+        </div>
+
+        <div className="absolute right-0 -bottom-24">
+          <CircleCheckBtn onClick={handleNext} disabled={!priceIncl} />
+        </div>
+      </div>
+    </ProductFlowLayout>
+  );
+};
+
+// Step 4: Cover Art
+export const ProductStepArt: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+  const headerValue = `€${params?.priceIncl}${params?.unit !== 'Fixed' ? params?.unit : ''}`;
+
+  const handleFinish = () => {
+    navigate('product-success', params);
+  };
+
+  return (
+    <ProductFlowLayout 
+      step={4} 
+      title="Assign a piece of cover art to go" 
+      headerValue={headerValue}
+      goBack={goBack}
+    >
+      <div className="flex flex-col items-end gap-6 mt-32">
+        <button 
+          onClick={handleFinish}
+          className="text-[15px] font-medium text-kletta-dark hover:text-kletta-teal transition-colors"
+        >
+          Pick a cover art
+        </button>
+        <button 
+          onClick={handleFinish}
+          className="text-[15px] font-medium text-kletta-dark hover:text-kletta-teal transition-colors"
+        >
+          Search from Unsplash
+        </button>
+        <button 
+          onClick={handleFinish}
+          className="text-[15px] font-medium text-gray-500 hover:text-kletta-dark transition-colors"
+        >
+          Skip - I don't want to use image
+        </button>
+      </div>
+    </ProductFlowLayout>
+  );
+};
+
+// Step 5: Success
 export const ProductSuccessScreen: React.FC<NavigationProps> = ({ navigate, params }) => {
-    const isService = params?.itemType === 'Service';
+    const isService = params?.type === 'Service';
     const title = isService ? 'Service added!' : 'Product added!';
     
     return (
@@ -285,7 +371,6 @@ export const ProductSuccessScreen: React.FC<NavigationProps> = ({ navigate, para
                 Your new {isService ? 'service' : 'product'} has been saved to your inventory.
              </p>
 
-             {/* Feedback Card */}
              <div className="w-full bg-[#FAFAFA] rounded-[20px] p-5 flex items-center gap-4 border border-gray-100 mb-20">
                  <div className="w-12 h-12 bg-kletta-yellow rounded-full flex items-center justify-center text-2xl shadow-sm">
                      😉
@@ -304,7 +389,7 @@ export const ProductSuccessScreen: React.FC<NavigationProps> = ({ navigate, para
                     Done
                  </button>
                  <button 
-                    onClick={() => navigate('home')}
+                    onClick={() => navigate('product-select-type')}
                     className="w-full py-4 text-[15px] font-medium text-kletta-dark active:opacity-60 transition-opacity"
                  >
                     Add another

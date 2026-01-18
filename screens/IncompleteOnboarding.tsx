@@ -183,12 +183,6 @@ export const IncompleteTaxInfo: React.FC<NavigationProps> = ({ navigate, goBack 
          >
            Save and continue
          </button>
-         <button 
-           onClick={() => navigate('home', { showIncompleteOnboarding: true })}
-           className="w-full py-6 mt-2 text-kletta-dark font-medium text-[14px]"
-         >
-           Do this later
-         </button>
       </div>
     </div>
   );
@@ -225,12 +219,6 @@ export const IncompleteTaxConfirm: React.FC<NavigationProps> = ({ navigate, goBa
            className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-medium text-[16px] shadow-sm active:scale-[0.98] transition-all"
          >
            Confirm and continue
-         </button>
-         <button 
-           onClick={() => navigate('home', { showIncompleteOnboarding: true })}
-           className="w-full py-6 mt-2 text-kletta-dark font-medium text-[14px]"
-         >
-           Review details
          </button>
       </div>
     </div>
@@ -282,12 +270,6 @@ export const IncompletePhone: React.FC<NavigationProps> = ({ navigate, goBack })
            className={`w-full py-4 rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${phone.length >= 5 ? 'bg-kletta-yellow text-kletta-dark' : 'bg-gray-100 text-gray-400'}`}
          >
            Verify
-         </button>
-         <button 
-           onClick={() => navigate('home')}
-           className="w-full py-6 mt-2 text-kletta-dark font-medium text-[14px]"
-         >
-           Remind me later
          </button>
       </div>
     </div>

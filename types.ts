@@ -1,7 +1,7 @@
 
 export type ScreenName = 
   | 'splash' | 'welcome' | 'login' | 'home'
-  | 'signup-email' | 'signup-verify'
+  | 'signup-email' | 'signup-verify' | 'signup-create-passcode' | 'signup-business-location'
   | 'onboarding-welcome'
   | 'onboarding-1' | 'onboarding-2' | 'onboarding-3' | 'onboarding-4' 
   | 'onboarding-5' | 'onboarding-6' | 'onboarding-7' | 'onboarding-8'
@@ -28,7 +28,9 @@ export type ScreenName =
   | 'scan-receipt-camera' | 'scan-receipt-preview' | 'scan-receipt-analyzing' | 'scan-receipt-review'
   | 'tax-return'
   | 'add-entry'
-  | 'product-select-type' | 'product-add-details' | 'product-cover-art' | 'product-success'
+  | 'product-select-type' 
+  | 'product-step-name' | 'product-step-tax' | 'product-step-price' | 'product-step-art'
+  | 'product-success'
   | 'add-vehicle';
 
 export interface NavigationProps {

@@ -28,7 +28,7 @@ const RECENT_PRODUCTS: Product[] = [
         vat: 24, 
         description: "Strategic planning", 
         type: "Service",
-        imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=100&h=100&fit=crop"
+        imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&fit=crop"
     },
     { 
         id: "prod-2", 
@@ -88,7 +88,7 @@ const ALL_PRODUCTS: Product[] = [
     { id: "prod-20", title: "Travel Reimbursement - Flight HEL-LHR", basePrice: 230.00, vat: 0, description: "Reimbursement", type: "Expense", imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=100&h=100&fit=crop" },
     { id: "prod-21", title: "Accommodation - London Hotel 3 Nights", basePrice: 450.00, vat: 10, description: "Accommodation", type: "Expense", imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=100&h=100&fit=crop" },
     { id: "prod-22", title: "Full Day Team Workshop Facilitation", basePrice: 1500.00, vat: 24, description: "Team training", type: "Service", imageUrl: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=100&h=100&fit=crop" },
-    { id: "prod-23", title: "Printed Training Materials", basePrice: 150.00, vat: 24, description: "Materials", type: "Goods", imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=100&h=100&fit=crop" },
+    { id: "prod-23", title: "Printed Training Materials", basePrice: 150.00, vat: 24, description: "Materials", type: "Goods", imageUrl: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&fit=crop" },
     { id: "prod-24", title: "Emergency IT Support - Weekend Rate", basePrice: 180.00, vat: 24, description: "Emergency support", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=100&h=100&fit=crop" },
     { id: "prod-25", title: "Office Supplies - Bulk Order", basePrice: 85.50, vat: 24, description: "Stationery", type: "Goods", imageUrl: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=100&h=100&fit=crop" },
     { id: "prod-26", title: "Coffee Machine Rental - April", basePrice: 45.00, vat: 24, description: "Rental", type: "Expense", imageUrl: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=100&h=100&fit=crop" },
@@ -137,9 +137,10 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
     setActiveProduct(null);
   };
 
+  // Fix: use product-step-name instead of non-existent product-add-details
   const handleTypeSelect = (type: 'Product' | 'Service') => {
     setShowTypeSheet(false);
-    navigate('product-add-details', { type });
+    navigate('product-step-name', { type });
   };
 
   return (

@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { KlettaLogo, IconBack } from '../components/Icons';
+import { KlettaLogo, IconBack, IconBackspace, IconChevronRight } from '../components/Icons';
 import { NavigationProps } from '../types';
 import { KlettaInput } from '../components/Inputs';
 
@@ -84,7 +85,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
 
   const handleSignUp = () => {
     if (code.every(c => c !== '')) {
-      navigate('onboarding-welcome');
+      navigate('signup-create-passcode');
     } else {
       alert('Please enter the 6-digit code');
     }
@@ -100,7 +101,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
 
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-32">
         <div className="max-w-[420px] mx-auto">
-            <h2 className="text-[32px] font-meidum text-kletta-dark mb-2 traking-tight">Check your inbox</h2>
+            <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Check your inbox</h2>
             <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">
                 We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{email}</span>.
             </p>
@@ -126,8 +127,10 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             </div>
 
             <div className="mb-6">
+                <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-2 block">
+                  PROMOTION CODE (OPTIONAL)
+                </label>
                 <KlettaInput 
-                    label="Promotion Code (Optional)"
                     type="text" 
                     placeholder="Type your code" 
                 />
@@ -147,6 +150,161 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
          <p className="text-[13px] text-gray-700 text-center mt-6 leading-relaxed px-2 font-light">
             By continuing, you accept to our <button className="underline font-medium hover:text-kletta-dark">Terms of Service</button> and <button className="underline font-medium hover:text-kletta-dark">Privacy Policy</button>.
          </p>
+      </div>
+    </div>
+  );
+};
+
+// Screen 3: New Create Passcode Screen
+export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+  const [passcode, setPasscode] = useState('');
+  const [confirmCode, setConfirmCode] = useState('');
+  const [isConfirming, setIsConfirming] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handlePress = (num: string) => {
+    setError(false);
+    const current = isConfirming ? confirmCode : passcode;
+    if (current.length < 4) {
+      const next = current + num;
+      if (isConfirming) {
+        setConfirmCode(next);
+        if (next.length === 4) {
+          if (next === passcode) {
+            // Updated to navigate to business location selection
+            setTimeout(() => navigate('signup-business-location'), 300);
+          } else {
+            setTimeout(() => {
+              setError(true);
+              setConfirmCode('');
+            }, 300);
+          }
+        }
+      } else {
+        setPasscode(next);
+        if (next.length === 4) {
+          setTimeout(() => setIsConfirming(true), 300);
+        }
+      }
+    }
+  };
+
+  const handleDelete = () => {
+    if (isConfirming) {
+      setConfirmCode(prev => prev.slice(0, -1));
+    } else {
+      setPasscode(prev => prev.slice(0, -1));
+    }
+  };
+
+  const currentDisplay = isConfirming ? confirmCode : passcode;
+
+  return (
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in overflow-hidden">
+      <div className="px-6 pt-16 pb-4 flex items-center bg-white z-10">
+        <button 
+          onClick={isConfirming ? () => { setIsConfirming(false); setConfirmCode(''); } : goBack} 
+          className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors"
+        >
+          <IconBack size={26} />
+        </button>
+      </div>
+
+      <div className="flex-1 flex flex-col items-center px-8 pt-4">
+        <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight text-center">
+          {isConfirming ? 'Confirm passcode' : 'Create passcode'}
+        </h2>
+        <p className="text-kletta-secondary font-light text-[16px] text-center mb-12 max-w-[280px]">
+          {isConfirming 
+            ? 'Please re-enter your 4-digit passcode to confirm.' 
+            : 'Choose a 4-digit code to protect your account and data.'}
+        </p>
+
+        {/* Visual Dots */}
+        <div className="flex gap-6 mb-8">
+          {[0, 1, 2, 3].map((i) => (
+            <div 
+              key={i} 
+              className={`w-4 h-4 rounded-full transition-all duration-200 ${
+                error ? 'bg-red-500 animate-pulse' : (i < currentDisplay.length ? 'bg-kletta-dark' : 'bg-gray-200')
+              }`}
+            />
+          ))}
+        </div>
+
+        {error && <p className="text-red-500 text-[14px] font-medium mb-8 animate-fade-in">Passcodes don't match. Try again.</p>}
+      </div>
+
+      {/* Numeric Keypad */}
+      <div className="bg-white w-full pb-12 pt-6 flex flex-col items-center border-t border-gray-50">
+        <div className="w-full max-w-[320px] grid grid-cols-3 gap-y-1">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+            <button
+              key={num}
+              onClick={() => handlePress(num.toString())}
+              className="h-20 w-full flex items-center justify-center text-[28px] font-medium text-kletta-dark active:bg-gray-100 rounded-full transition-colors"
+            >
+              {num}
+            </button>
+          ))}
+          <div className="h-20" />
+          <button
+            onClick={() => handlePress('0')}
+            className="h-20 flex items-center justify-center text-[28px] font-medium text-kletta-dark active:bg-gray-50 rounded-full transition-colors"
+          >
+            0
+          </button>
+          <button
+            onClick={handleDelete}
+            className="h-20 flex items-center justify-center text-kletta-dark active:bg-gray-100 rounded-full transition-colors"
+          >
+            <IconBackspace size={28} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Screen 4: Business Location Selection
+export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+  return (
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in overflow-hidden">
+      <div className="px-6 pt-16 pb-4 flex items-center bg-white z-10">
+        <button onClick={goBack} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors">
+          <IconBack size={26} />
+        </button>
+      </div>
+
+      <div className="flex-1 px-8 pt-4">
+        <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Choose your business location</h2>
+        <p className="text-gray-500 font-light text-[16px] mb-12">
+          Choose the location of your business to get started.
+        </p>
+
+        <div className="space-y-4">
+          <button 
+            onClick={() => navigate('onboarding-welcome')}
+            className="w-full p-6 bg-white rounded-[24px] border border-gray-100 shadow-sm flex items-center justify-between group active:scale-[0.98] active:bg-gray-50 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <span className="text-3xl">🇫🇮</span>
+              <span className="text-[17px] font-medium text-kletta-dark">Finland</span>
+            </div>
+            <IconChevronRight size={20} className="text-gray-300" weight="bold" />
+          </button>
+
+          <button 
+            onClick={() => navigate('onboarding-welcome')}
+            className="w-full p-6 bg-white rounded-[24px] border border-gray-100 shadow-sm flex items-center justify-between group active:scale-[0.98] active:bg-gray-50 transition-all"
+          >
+            <div className="flex items-center gap-4">
+              <span className="text-3xl">🇬🇧</span>
+              <span className="text-[17px] font-medium text-kletta-dark">United Kingdom</span>
+            </div>
+            <IconChevronRight size={20} className="text-gray-300" weight="bold" />
+          </button>
+        </div>
       </div>
     </div>
   );
