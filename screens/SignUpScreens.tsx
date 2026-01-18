@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { KlettaLogo, IconBack, IconBackspace, IconChevronRight } from '../components/Icons';
+import { KlettaLogo, IconBack, IconBackspace, IconChevronRight, IconSpinner } from '../components/Icons';
 import { NavigationProps } from '../types';
 import { KlettaInput } from '../components/Inputs';
 
@@ -18,56 +18,35 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
 
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in overflow-hidden">
-      {/* Native Header */}
       <div className="px-6 pt-16 pb-4 flex items-center justify-between z-10 bg-white">
         <button onClick={goBack} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors">
           <IconBack size={26} />
         </button>
-        <div className="w-8"></div> {/* Spacer */}
+        <div className="w-8"></div>
       </div>
-
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-6 pb-32">
          <div className="mb-12 max-w-[420px]">
             <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome to Kletta!</h2>
-            <p className="text-kletta-secondary font-light text-[15px]">
-              Let's start by entering your e-mail address.
-            </p>
+            <p className="text-kletta-secondary font-light text-[15px]">Let's start by entering your e-mail address.</p>
         </div>
-
         <div className="space-y-6 max-w-[420px] mx-auto">
            <div>
-              <KlettaInput 
-                label="Email Address"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
-                autoFocus
-              />
-              <p className="text-[13px] text-gray-400 font-light ml-1 mt-2 flex items-start gap-1">
-                <span className="text-kletta-teal">ℹ</span> We will send a 6-digit code to this email
-              </p>
+              <KlettaInput label="Email Address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" autoFocus />
+              <p className="text-[13px] text-gray-400 font-light ml-1 mt-2 flex items-start gap-1"><span className="text-kletta-teal">ℹ</span> We will send a 6-digit code to this email</p>
            </div>
         </div>
       </div>
-
-      {/* Fixed Bottom Action Area */}
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
-         <button 
-           onClick={handleContinue}
-           className="w-full h-[60px] bg-kletta-yellow rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
-         >
-           Continue
-         </button>
+         <button onClick={handleContinue} className="w-full h-[60px] bg-kletta-yellow rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all">Continue</button>
       </div>
     </div>
   );
 };
 
-
 // Screen 2: Verify Code
 export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
   const [code, setCode] = useState(['', '', '', '', '', '']);
+  const [accepted, setAccepted] = useState(false);
   const email = params?.email || 'your email';
 
   const handleChange = (index: number, value: string) => {
@@ -75,8 +54,6 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
     const newCode = [...code];
     newCode[index] = value;
     setCode(newCode);
-
-    // Auto-focus next input
     if (value && index < 5) {
       const nextInput = document.getElementById(`code-${index + 1}`);
       nextInput?.focus();
@@ -84,12 +61,16 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
   };
 
   const handleSignUp = () => {
-    if (code.every(c => c !== '')) {
+    if (code.every(c => c !== '') && accepted) {
       navigate('signup-create-passcode');
+    } else if (!accepted) {
+      alert('Please accept the Terms of Service and Privacy Policy');
     } else {
       alert('Please enter the 6-digit code');
     }
   };
+
+  const isFormValid = code.every(c => c !== '') && accepted;
 
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-slide-up overflow-hidden">
@@ -98,64 +79,38 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
           <IconBack size={26} />
         </button>
       </div>
-
-      <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-32">
+      <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-48">
         <div className="max-w-[420px] mx-auto">
             <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Check your inbox</h2>
-            <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">
-                We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{email}</span>.
-            </p>
-
+            <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{email}</span>.</p>
             <div className="flex gap-3 justify-center mb-10">
                 {code.map((digit, i) => (
-                    <input
-                        key={i}
-                        id={`code-${i}`}
-                        type="tel"
-                        maxLength={1}
-                        value={digit}
-                        onChange={(e) => handleChange(i, e.target.value)}
-                        className="w-[16%] h-14 bg-white border border-[#E6E8EC] rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all shadow-sm"
-                    />
+                    <input key={i} id={`code-${i}`} type="tel" maxLength={1} value={digit} onChange={(e) => handleChange(i, e.target.value)} className="w-[16%] h-14 bg-white border border-[#E6E8EC] rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all shadow-sm" />
                 ))}
             </div>
-
             <div className="flex justify-center mb-12">
-                <button className="text-gray-700 font-medium text-[13px] hover:opacity-80 transition-opacity">
-                    Didn't receive code? Resend
-                </button>
+                <button className="text-gray-700 font-medium text-[13px] hover:opacity-80 transition-opacity">Didn't receive code? Resend</button>
             </div>
-
             <div className="mb-6">
-                <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-2 block">
-                  PROMOTION CODE (OPTIONAL)
-                </label>
-                <KlettaInput 
-                    type="text" 
-                    placeholder="Type your code" 
-                />
+                <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-2 block">PROMOTION CODE (OPTIONAL)</label>
+                <KlettaInput type="text" placeholder="Type your code" />
             </div>
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-8 border-t border-gray-50 z-20">
-         <button 
-            onClick={handleSignUp}
-            disabled={!code.every(c => c !== '')}
-            className={`w-full h-[60px] rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
-         >
-            Sign up
-         </button>
-
-         <p className="text-[13px] text-gray-700 text-center mt-6 leading-relaxed px-2 font-light">
-            By continuing, you accept to our <button className="underline font-medium hover:text-kletta-dark">Terms of Service</button> and <button className="underline font-medium hover:text-kletta-dark">Privacy Policy</button>.
-         </p>
+      <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
+         <div className="flex items-start gap-3 mb-6 px-1">
+            <div className="flex items-center h-5">
+              <input type="checkbox" checked={accepted} onChange={(e) => setAccepted(e.target.checked)} className="w-5 h-5 rounded border-gray-300 text-kletta-teal focus:ring-kletta-teal cursor-pointer transition-all" />
+            </div>
+            <p className="text-[14px] text-kletta-dark font-light leading-snug">I accept the <button className="underline font-medium hover:text-kletta-teal transition-colors">Term of service</button> and <button className="underline font-medium hover:text-kletta-teal transition-colors">Privacy Policy</button></p>
+         </div>
+         <button onClick={handleSignUp} disabled={!isFormValid} className={`w-full h-[60px] rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${isFormValid ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>Sign up</button>
       </div>
     </div>
   );
 };
 
-// Screen 3: New Create Passcode Screen
+// Screen 3: Create Passcode
 export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
   const [passcode, setPasscode] = useState('');
   const [confirmCode, setConfirmCode] = useState('');
@@ -171,13 +126,9 @@ export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate
         setConfirmCode(next);
         if (next.length === 4) {
           if (next === passcode) {
-            // Updated to navigate to business location selection
             setTimeout(() => navigate('signup-business-location'), 300);
           } else {
-            setTimeout(() => {
-              setError(true);
-              setConfirmCode('');
-            }, 300);
+            setTimeout(() => { setError(true); setConfirmCode(''); }, 300);
           }
         }
       } else {
@@ -190,17 +141,15 @@ export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate
   };
 
   const handleDelete = () => {
-    if (isConfirming) {
-      setConfirmCode(prev => prev.slice(0, -1));
-    } else {
-      setPasscode(prev => prev.slice(0, -1));
-    }
+    if (isConfirming) setConfirmCode(prev => prev.slice(0, -1));
+    else setPasscode(prev => prev.slice(0, -1));
   };
 
   const currentDisplay = isConfirming ? confirmCode : passcode;
 
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in overflow-hidden">
+      {/* Header */}
       <div className="px-6 pt-16 pb-4 flex items-center bg-white z-10">
         <button 
           onClick={isConfirming ? () => { setIsConfirming(false); setConfirmCode(''); } : goBack} 
@@ -210,39 +159,44 @@ export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col items-center px-8 pt-4">
-        <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight text-center">
-          {isConfirming ? 'Confirm passcode' : 'Create passcode'}
+      {/* Title Section */}
+      <div className="flex-1 flex flex-col px-10 pt-4 items-center text-center">
+        <h2 className="text-[24px] font-medium text-[#0C0D0D] mb-3 tracking-tight leading-[40px]">
+          {isConfirming ? 'Confirm passcode' : 'Create a passcode'}
         </h2>
-        <p className="text-kletta-secondary font-light text-[16px] text-center mb-12 max-w-[280px]">
+        <p className="text-[#333333] font-normal text-[17px] leading-snug mb-16 max-w-[320px] mx-auto">
           {isConfirming 
             ? 'Please re-enter your 4-digit passcode to confirm.' 
             : 'Choose a 4-digit code to protect your account and data.'}
         </p>
 
-        {/* Visual Dots */}
-        <div className="flex gap-6 mb-8">
+        {/* Visual Dots (Centered) */}
+        <div className="flex gap-8 justify-center mb-12">
           {[0, 1, 2, 3].map((i) => (
             <div 
               key={i} 
-              className={`w-4 h-4 rounded-full transition-all duration-200 ${
-                error ? 'bg-red-500 animate-pulse' : (i < currentDisplay.length ? 'bg-kletta-dark' : 'bg-gray-200')
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                error ? 'bg-red-500 animate-pulse' : (i < currentDisplay.length ? 'bg-kletta-dark' : 'bg-[#D9D9D9]')
               }`}
             />
           ))}
         </div>
 
-        {error && <p className="text-red-500 text-[14px] font-medium mb-8 animate-fade-in">Passcodes don't match. Try again.</p>}
+        {error && (
+            <p className="text-red-500 text-[14px] font-medium text-center animate-fade-in">
+                Passcodes don't match. Try again.
+            </p>
+        )}
       </div>
 
       {/* Numeric Keypad */}
-      <div className="bg-white w-full pb-12 pt-6 flex flex-col items-center border-t border-gray-50">
-        <div className="w-full max-w-[320px] grid grid-cols-3 gap-y-1">
+      <div className="bg-white w-full pb-16 pt-6 flex flex-col items-center">
+        <div className="w-full max-w-[340px] grid grid-cols-3 gap-y-4">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
             <button
               key={num}
               onClick={() => handlePress(num.toString())}
-              className="h-20 w-full flex items-center justify-center text-[28px] font-medium text-kletta-dark active:bg-gray-100 rounded-full transition-colors"
+              className="h-20 w-full flex items-center justify-center text-[34px] font-normal text-kletta-dark active:bg-gray-50 rounded-full transition-all"
             >
               {num}
             </button>
@@ -250,15 +204,15 @@ export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate
           <div className="h-20" />
           <button
             onClick={() => handlePress('0')}
-            className="h-20 flex items-center justify-center text-[28px] font-medium text-kletta-dark active:bg-gray-50 rounded-full transition-colors"
+            className="h-20 flex items-center justify-center text-[34px] font-normal text-kletta-dark active:bg-gray-50 rounded-full transition-all"
           >
             0
           </button>
           <button
             onClick={handleDelete}
-            className="h-20 flex items-center justify-center text-kletta-dark active:bg-gray-100 rounded-full transition-colors"
+            className="h-20 flex items-center justify-center text-kletta-dark active:bg-gray-50 rounded-full transition-all"
           >
-            <IconBackspace size={28} />
+            <IconBackspace size={34} weight="regular" />
           </button>
         </div>
       </div>
@@ -268,44 +222,87 @@ export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate
 
 // Screen 4: Business Location Selection
 export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+  const [selected, setSelected] = useState<'FI' | 'UK' | null>('FI');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = () => {
+    if (!selected) return;
+    setIsLoading(true);
+    setTimeout(() => {
+      // After selecting location, navigate directly to onboarding welcome step
+      navigate('onboarding-welcome');
+    }, 1800);
+  };
+
   return (
-    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in overflow-hidden">
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in overflow-hidden relative">
+      {/* Header - Back button removed */}
       <div className="px-6 pt-16 pb-4 flex items-center bg-white z-10">
-        <button onClick={goBack} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors">
-          <IconBack size={26} />
-        </button>
+        <div className="w-10 h-10 -ml-2" />
       </div>
 
-      <div className="flex-1 px-8 pt-4">
-        <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Choose your business location</h2>
-        <p className="text-gray-500 font-light text-[16px] mb-12">
-          Choose the location of your business to get started.
-        </p>
+      <div className="flex-1 px-10 pt-4 flex flex-col items-center">
+        {/* Title (Centered) */}
+        <h2 className="text-[20px] font-medium text-[#0C0D0D] mb-16 tracking-tight leading-tight text-center">
+          Choose your business location
+        </h2>
 
-        <div className="space-y-4">
-          <button 
-            onClick={() => navigate('onboarding-welcome')}
-            className="w-full p-6 bg-white rounded-[24px] border border-gray-100 shadow-sm flex items-center justify-between group active:scale-[0.98] active:bg-gray-50 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <span className="text-3xl">🇫🇮</span>
-              <span className="text-[17px] font-medium text-kletta-dark">Finland</span>
-            </div>
-            <IconChevronRight size={20} className="text-gray-300" weight="bold" />
-          </button>
-
-          <button 
-            onClick={() => navigate('onboarding-welcome')}
-            className="w-full p-6 bg-white rounded-[24px] border border-gray-100 shadow-sm flex items-center justify-between group active:scale-[0.98] active:bg-gray-50 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <span className="text-3xl">🇬🇧</span>
-              <span className="text-[17px] font-medium text-kletta-dark">United Kingdom</span>
-            </div>
-            <IconChevronRight size={20} className="text-gray-300" weight="bold" />
-          </button>
+        {/* Location List */}
+        <div className="w-full max-w-[280px]">
+          <LocationItem 
+            label="Finland" 
+            flag="🇫🇮"
+            selected={selected === 'FI'} 
+            onClick={() => setSelected('FI')} 
+            isFirst
+          />
+          <div className="h-px bg-kletta-teal/10 w-full" />
+          <LocationItem 
+            label="United Kingdom" 
+            flag="🇬🇧"
+            selected={selected === 'UK'} 
+            onClick={() => setSelected('UK')} 
+          />
         </div>
       </div>
+
+      {/* Bottom Button (Continue) */}
+      <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-12 border-t border-gray-50 z-20">
+         <button 
+            onClick={handleSubmit} 
+            disabled={!selected || isLoading} 
+            className={`w-full h-[60px] rounded-2xl font-semibold text-[16px] shadow-sm transition-all ${
+              selected && !isLoading ? 'bg-kletta-yellow text-kletta-dark hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            Continue
+          </button>
+      </div>
+
+      {isLoading && (
+        <div className="absolute inset-0 bg-white z-[100] flex flex-col items-center justify-center animate-fade-in">
+           <div className="flex flex-col items-center">
+              <IconSpinner size={48} className="text-kletta-teal mb-6" weight="bold" />
+              <p className="text-[17px] font-medium text-kletta-dark tracking-tight">Setting up your profile...</p>
+              <p className="text-[14px] text-gray-400 font-light mt-1">Just a moment</p>
+           </div>
+        </div>
+      )}
     </div>
   );
 };
+
+// Helper component for location items
+const LocationItem = ({ label, flag, selected, onClick, isFirst }: { label: string, flag: string, selected: boolean, onClick: () => void, isFirst?: boolean }) => (
+  <button 
+    onClick={onClick} 
+    className={`w-full py-6 flex items-center justify-start transition-all group active:opacity-70`}
+  >
+    <div className="flex items-center gap-4">
+      <span className="text-[24px] shrink-0 leading-none">{flag}</span>
+      <span className={`text-[18px] font-medium ${selected ? 'text-kletta-yellow' : 'text-kletta-teal'}`}>
+        {label}
+      </span>
+    </div>
+  </button>
+);

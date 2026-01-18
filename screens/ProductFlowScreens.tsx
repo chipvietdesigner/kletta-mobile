@@ -22,6 +22,7 @@ const StepIndicator = ({ current, total = 5 }: { current: number; total?: number
   );
 };
 
+// Fix: Made children optional to resolve TS prop missing errors in JSX usage
 const ProductFlowLayout = ({ 
   step, 
   title, 
@@ -33,7 +34,7 @@ const ProductFlowLayout = ({
   title: string; 
   headerValue?: string; 
   goBack: () => void; 
-  children: React.ReactNode 
+  children?: React.ReactNode 
 }) => {
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">

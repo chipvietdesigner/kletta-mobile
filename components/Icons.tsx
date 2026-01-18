@@ -75,7 +75,9 @@ import {
   Taxi,
   Truck,
   IdentificationCard,
-  Scales
+  Scales,
+  CircleNotch,
+  ArrowSquareOut
 } from '@phosphor-icons/react';
 import { IconProps } from '../types';
 
@@ -208,6 +210,12 @@ export const IconIdentificationCard = ({ className, size = 24, color = "currentC
 
 // New: Scales icon for CARE banner
 export const IconScales = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <Scales className={className} size={size} color={color} weight={weight || "bold"} />;
+
+// New: Spinner icon for loading states
+export const IconSpinner = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <CircleNotch className={`${className} animate-spin`} size={size} color={color} weight={weight || "bold"} />;
+
+// New: ArrowSquareOut for external links
+export const IconArrowSquareOut = ({ className, size = 24, color = "currentColor", weight }: IconProps) => <ArrowSquareOut className={className} size={size} color={color} weight={weight || "bold"} />;
 
 // Custom Logo Component
 export const KlettaLogo = ({ className, color = 'black' }: { className?: string; color?: 'black' | 'white' }) => {

@@ -72,8 +72,8 @@ const App = () => {
         case 'onboarding-7': navigate('onboarding-6'); break;
         case 'onboarding-8': navigate('onboarding-7'); break;
         case 'incomplete-onboarding-tax-info': navigate('home', { showIncompleteOnboarding: true }); break;
-        case 'incomplete-onboarding-tax-confirm': navigate('home', { showIncompleteOnboarding: true }); break;
-        case 'incomplete-onboarding-phone': navigate('home', { showIncompleteOnboarding: true }); break;
+        case 'incomplete-onboarding-tax-confirm': navigate('incomplete-onboarding-tax-info'); break;
+        case 'incomplete-onboarding-phone': navigate('incomplete-onboarding-tax-confirm'); break;
         case 'incomplete-onboarding-verify-code': navigate('incomplete-onboarding-phone'); break;
         case 'new-invoice': navigate('home'); break;
         case 'invoice-create-details': navigate('new-invoice'); break;
@@ -113,64 +113,81 @@ const App = () => {
   };
 
   const renderScreen = () => {
-    switch (currentScreen) {
-      case 'splash': return <SplashScreen onFinish={() => navigate('welcome')} />;
-      case 'welcome': return <WelcomeScreen navigate={navigate} goBack={goBack} />;
-      case 'login': return <LoginScreen navigate={navigate} goBack={goBack} />;
-      case 'signup-email': return <SignUpEmailScreen navigate={navigate} goBack={goBack} />;
-      case 'signup-verify': return <VerifyEmailCodeScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'signup-create-passcode': return <SignUpCreatePasscodeScreen navigate={navigate} goBack={goBack} />;
-      case 'signup-business-location': return <SignUpBusinessLocationScreen navigate={navigate} goBack={goBack} />;
-      case 'onboarding-welcome': return <OnboardingWelcome navigate={navigate} goBack={goBack} />;
-      case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
-      case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
-      case 'onboarding-3': return <OnboardingStep3 navigate={navigate} goBack={goBack} />;
-      case 'onboarding-4': return <OnboardingStep4 navigate={navigate} goBack={goBack} />;
-      case 'onboarding-5': return <OnboardingStep5 navigate={navigate} goBack={goBack} />;
-      case 'onboarding-6': return <OnboardingStep6 navigate={navigate} goBack={goBack} />;
-      case 'onboarding-7': return <OnboardingStep7 navigate={navigate} goBack={goBack} />;
-      case 'onboarding-8': return <OnboardingStep8 navigate={navigate} goBack={goBack} />;
-      case 'incomplete-onboarding-entry': return <HomeScreen navigate={navigate} goBack={goBack} params={{ showIncompleteOnboarding: true }} />;
-      case 'incomplete-onboarding-tax-info': return <IncompleteTaxInfo navigate={navigate} goBack={() => navigate('home', { showIncompleteOnboarding: true })} />;
-      case 'incomplete-onboarding-tax-confirm': return <IncompleteTaxConfirm navigate={navigate} goBack={() => navigate('home', { showIncompleteOnboarding: true })} />;
-      case 'incomplete-onboarding-phone': return <IncompletePhone navigate={navigate} goBack={() => navigate('home', { showIncompleteOnboarding: true })} />;
-      case 'incomplete-onboarding-verify-code': return <IncompleteVerifyPhoneCode navigate={navigate} goBack={() => navigate('incomplete-onboarding-phone')} params={navParams} />;
-      case 'new-invoice': return <AddToInvoiceScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-create-details': return <InvoiceCreateDetailsScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-payment-method': return <InvoicePaymentMethodScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-customer-select': return <InvoiceCustomerSelectScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-customer-new': return <InvoiceNewCustomerScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-customer-confirm': return <InvoiceConfirmCustomerScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'invoice-due-date': return <InvoiceDueDateScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-notes': return <InvoiceNotesScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-preview': return <InvoicePreviewScreen navigate={navigate} goBack={goBack} />;
-      case 'invoice-success': return <InvoiceSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'invoice-detail': return <InvoiceDetailScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'summary': return <SummaryScreen navigate={navigate} goBack={goBack} />;
-      case 'summary-business-income': return <BusinessIncomeScreen navigate={navigate} goBack={goBack} />;
-      case 'summary-other-income': return <OtherIncomeScreen navigate={navigate} goBack={goBack} />;
-      case 'summary-business-expenses': return <BusinessExpensesScreen navigate={navigate} goBack={goBack} />;
-      case 'summary-nonallowable-expenses': return <NonAllowableExpensesScreen navigate={navigate} goBack={goBack} />;
-      case 'summary-claimed-kilometers': return <ClaimedKilometersScreen navigate={navigate} goBack={goBack} />;
-      case 'summary-cash-withdrawal': return <CashWithdrawalScreen navigate={navigate} goBack={goBack} />;
-      case 'summary-tax-prepayments': return <TaxPrepaymentsScreen navigate={navigate} goBack={goBack} />;
-      case 'settings': return <SettingsScreen navigate={navigate} goBack={goBack} />;
-      case 'scan-receipt-camera': return <ScanReceiptCamera navigate={navigate} goBack={goBack} />;
-      case 'scan-receipt-preview': return <ScanReceiptPreview navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'scan-receipt-analyzing': return <ScanReceiptAnalyzing navigate={navigate} goBack={goBack} />;
-      case 'scan-receipt-review': return <ScanReceiptReview navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'tax-return': return <TaxReturnScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'add-entry': return <AddEntryScreen navigate={navigate} goBack={goBack} />;
-      case 'product-select-type': return <ProductSelectTypeScreen navigate={navigate} goBack={goBack} />;
-      case 'product-step-name': return <ProductStepName navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'product-step-tax': return <ProductStepTax navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'product-step-price': return <ProductStepPrice navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'product-step-art': return <ProductStepArt navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'product-success': return <ProductSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      case 'add-vehicle': return <AddVehicleScreen navigate={navigate} goBack={goBack} />;
-      case 'home': return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;
-      default: return <SplashScreen onFinish={() => navigate('welcome')} />;
+    // Determine if the current screen is a setup/onboarding flow that should overlay the dashboard
+    const isSetupOverlay = currentScreen.startsWith('onboarding-') || 
+                         (currentScreen.startsWith('incomplete-onboarding-') && currentScreen !== 'incomplete-onboarding-entry');
+
+    const screenComponent = (() => {
+      switch (currentScreen) {
+        case 'splash': return <SplashScreen onFinish={() => navigate('welcome')} />;
+        case 'welcome': return <WelcomeScreen navigate={navigate} goBack={goBack} />;
+        case 'login': return <LoginScreen navigate={navigate} goBack={goBack} />;
+        case 'signup-email': return <SignUpEmailScreen navigate={navigate} goBack={goBack} />;
+        case 'signup-verify': return <VerifyEmailCodeScreen navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'signup-create-passcode': return <SignUpCreatePasscodeScreen navigate={navigate} goBack={goBack} />;
+        case 'signup-business-location': return <SignUpBusinessLocationScreen navigate={navigate} goBack={goBack} />;
+        case 'onboarding-welcome': return <OnboardingWelcome navigate={navigate} goBack={goBack} />;
+        case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-3': return <OnboardingStep3 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-4': return <OnboardingStep4 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-5': return <OnboardingStep5 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-6': return <OnboardingStep6 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-7': return <OnboardingStep7 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-8': return <OnboardingStep8 navigate={navigate} goBack={goBack} />;
+        case 'incomplete-onboarding-entry': return <HomeScreen navigate={navigate} goBack={goBack} params={{ showIncompleteOnboarding: true }} />;
+        case 'incomplete-onboarding-tax-info': return <IncompleteTaxInfo navigate={navigate} goBack={goBack} />;
+        case 'incomplete-onboarding-tax-confirm': return <IncompleteTaxConfirm navigate={navigate} goBack={goBack} />;
+        case 'incomplete-onboarding-phone': return <IncompletePhone navigate={navigate} goBack={goBack} />;
+        case 'incomplete-onboarding-verify-code': return <IncompleteVerifyPhoneCode navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'new-invoice': return <AddToInvoiceScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-create-details': return <InvoiceCreateDetailsScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-payment-method': return <InvoicePaymentMethodScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-customer-select': return <InvoiceCustomerSelectScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-customer-new': return <InvoiceNewCustomerScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-customer-confirm': return <InvoiceConfirmCustomerScreen navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'invoice-due-date': return <InvoiceDueDateScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-notes': return <InvoiceNotesScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-preview': return <InvoicePreviewScreen navigate={navigate} goBack={goBack} />;
+        case 'invoice-success': return <InvoiceSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'invoice-detail': return <InvoiceDetailScreen navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'summary': return <SummaryScreen navigate={navigate} goBack={goBack} />;
+        case 'summary-business-income': return <BusinessIncomeScreen navigate={navigate} goBack={goBack} />;
+        case 'summary-other-income': return <OtherIncomeScreen navigate={navigate} goBack={goBack} />;
+        case 'summary-business-expenses': return <BusinessExpensesScreen navigate={navigate} goBack={goBack} />;
+        case 'summary-nonallowable-expenses': return <NonAllowableExpensesScreen navigate={navigate} goBack={goBack} />;
+        case 'summary-claimed-kilometers': return <ClaimedKilometersScreen navigate={navigate} goBack={goBack} />;
+        case 'summary-cash-withdrawal': return <CashWithdrawalScreen navigate={navigate} goBack={goBack} />;
+        case 'summary-tax-prepayments': return <TaxPrepaymentsScreen navigate={navigate} goBack={goBack} />;
+        case 'settings': return <SettingsScreen navigate={navigate} goBack={goBack} />;
+        case 'scan-receipt-camera': return <ScanReceiptCamera navigate={navigate} goBack={goBack} />;
+        case 'scan-receipt-preview': return <ScanReceiptPreview navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'scan-receipt-analyzing': return <ScanReceiptAnalyzing navigate={navigate} goBack={goBack} />;
+        case 'scan-receipt-review': return <ScanReceiptReview navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'tax-return': return <TaxReturnScreen navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'add-entry': return <AddEntryScreen navigate={navigate} goBack={goBack} />;
+        case 'product-select-type': return <ProductSelectTypeScreen navigate={navigate} goBack={goBack} />;
+        case 'product-step-name': return <ProductStepName navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'product-step-tax': return <ProductStepTax navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'product-step-price': return <ProductStepPrice navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'product-step-art': return <ProductStepArt navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'product-success': return <ProductSuccessScreen navigate={navigate} goBack={goBack} params={navParams} />;
+        case 'add-vehicle': return <AddVehicleScreen navigate={navigate} goBack={goBack} />;
+        case 'home': return <HomeScreen navigate={navigate} goBack={goBack} params={navParams} />;
+        default: return <SplashScreen onFinish={() => navigate('welcome')} />;
+      }
+    })();
+
+    if (isSetupOverlay) {
+        return (
+            <>
+                <HomeScreen navigate={navigate} goBack={goBack} params={{ tab: 'home' }} />
+                {screenComponent}
+            </>
+        );
     }
+
+    return screenComponent;
   };
 
   return (

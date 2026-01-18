@@ -5,7 +5,7 @@ import {
   IconHome, IconSales, IconExpenses, IconChat, IconPieChart, IconBank,
   IconNewInvoice, IconAddEntry, IconNewProduct, IconStartTrip, IconScanReceipt, IconUploadReceipt,
   IconCheck, IconRun, IconSparkle, IconVerified, IconInvoice, IconAddTrip,
-  KlettaLogo, IconSend, IconScan, IconFileText, IconFileArrowUp, IconCalendarBlank, IconFile, IconPhone, IconScales
+  KlettaLogo, IconSend, IconScan, IconFileText, IconFileArrowUp, IconCalendarBlank, IconFile, IconPhone, IconScales, IconHandWaving
 } from '../components/Icons';
 import { TabName, ScreenName, NavigationProps } from '../types';
 import SalesScreen from './SalesScreen';
@@ -295,8 +295,10 @@ const DashboardContent = ({
               <ActionIcon icon={IconStartTrip} label="Start trip" />
               
               <ActionIcon icon={IconAddTrip} label="Add trip" /> 
+              {/* Fix: use onBankClick prop instead of non-existent handleBankClick */}
               <ActionIcon icon={IconBank} label="Bank" onClick={onBankClick} />
               <ActionIcon icon={IconScanReceipt} label="Scan receipt" highlight onClick={() => navigate('scan-receipt-camera')} />
+              {/* Fix: use onUploadClick prop instead of non-existent handleUploadClick */}
               <ActionIcon icon={IconUploadReceipt} label="Upload receipt" highlight onClick={onUploadClick} />
             </div>
 
@@ -442,7 +444,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     if (params?.tab) {
         setActiveTab(params.tab);
     }
-    // Logic for showing incomplete onboarding modal based on navigation parameters
+    // Logic for showing incomplete checklist if flag is set
     if (params?.showIncompleteOnboarding) {
         setShowIncompleteModal(true);
     }
@@ -462,11 +464,6 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     setShowGallery(true);
   };
 
-  const handleGallerySelect = (url: string) => {
-    setShowGallery(false);
-    navigate('scan-receipt-preview', { imageUrl: url });
-  };
-
   const handleAiSend = () => {
     if (!aiInputValue.trim()) return;
     // Logic: clear input, hide bar, switch to chat tab and open AI chat details
@@ -474,6 +471,12 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     setIsAiInputActive(false);
     setOpenAiChatDirectly(true);
     setActiveTab('chat');
+  };
+
+  // Fix: Added missing handleGallerySelect to fix compilation error
+  const handleGallerySelect = (url: string) => {
+    setShowGallery(false);
+    navigate('scan-receipt-preview', { imageUrl: url });
   };
 
   return (
