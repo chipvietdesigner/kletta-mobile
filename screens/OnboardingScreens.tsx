@@ -118,25 +118,17 @@ interface OnboardingLayoutProps extends React.PropsWithChildren {
     tertiaryLabel?: string;
     disablePrimary?: boolean;
     secondaryNavigates?: boolean;
+    noScroll?: boolean;
 }
 
 const OnboardingHeader = ({ icon, onBack }: { icon: React.ReactNode, onBack?: () => void }) => {
     return (
         <div className="relative w-full shrink-0 z-20 bg-white">
-            {/* Teal background with smooth vector curve - Reduced height */}
             <div className="w-full h-[120px] relative overflow-hidden bg-white">
                 <svg viewBox="0 0 400 120" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-                    <path d="M0 0 H400 V85 Q200 120 0 85 Z" fill="#00343B" />
+                    <path d="M0 0 H400 V85 Q200 120 0 85 Z" fill="#002D33" />
                 </svg>
 
-                {/* Decorative Stars in Header */}
-                <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-                    <div className="absolute top-6 left-[15%] w-1.5 h-1.5 bg-kletta-yellow rounded-full animate-pulse" />
-                    <div className="absolute top-12 left-[40%] w-1 h-1 bg-white rounded-full opacity-60" />
-                    <div className="absolute top-8 right-[20%] w-2 h-2 bg-kletta-yellow rotate-45 animate-pulse" />
-                    <div className="absolute top-16 right-[35%] w-1 h-1 bg-white rounded-full opacity-40" />
-                </div>
-                
                 {onBack && (
                     <button 
                         onClick={onBack}
@@ -147,7 +139,6 @@ const OnboardingHeader = ({ icon, onBack }: { icon: React.ReactNode, onBack?: ()
                 )}
             </div>
 
-            {/* Icon Wrapper overlapping vector arc */}
             <div className="absolute bottom-[-36px] left-0 right-0 flex justify-center items-center pointer-events-none">
                 <div className="w-[92px] h-[92px] rounded-full bg-white flex items-center justify-center shadow-md">
                     <div className="w-[84px] h-[84px] rounded-full bg-white border-[4px] border-kletta-teal flex items-center justify-center">
@@ -165,7 +156,7 @@ const OnboardingHeader = ({ icon, onBack }: { icon: React.ReactNode, onBack?: ()
 
 const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ 
     title, subtitle, icon, children, onPrimary, onSecondary, onTertiary, onBack,
-    primaryLabel = "Continue", secondaryLabel, tertiaryLabel, disablePrimary = false, secondaryNavigates = false
+    primaryLabel = "Continue", secondaryLabel, tertiaryLabel, disablePrimary = false, secondaryNavigates = false, noScroll = false
 }) => {
     const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -199,7 +190,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                     onBack={onBack} 
                 />
 
-                <div className={`flex-1 overflow-y-auto no-scrollbar px-6 pt-[50px] pb-60 bg-white transition-opacity duration-600 ${isTransitioning ? 'opacity-0' : 'opacity-100 animate-slide-in-right'}`}>
+                <div className={`flex-1 ${noScroll ? 'overflow-hidden' : 'overflow-y-auto no-scrollbar'} px-6 pt-[50px] pb-60 bg-white transition-opacity duration-600 ${isTransitioning ? 'opacity-0' : 'opacity-100 animate-slide-in-right'}`}>
                     <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-4 leading-tight tracking-tight">{title}</h1>
                     {subtitle && (
                         <div className="text-center text-kletta-dark font-normal text-[16px] leading-relaxed mb-6 max-w-[340px] mx-auto">
@@ -311,6 +302,8 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate, goBack })
 
 // --- Step 2: Tax Info ---
 export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+    const [vatPeriod, setVatPeriod] = useState('No VAT liability');
+
     return (
         <OnboardingLayout
             title="Add your tax information"
@@ -325,12 +318,44 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
                 <KlettaInput label="Business name" placeholder="Company ABC" />
                 <KlettaInput label="Finnish business ID" placeholder="1234567-8" />
                 
-                <KlettaSelect label="VAT return period">
+                <KlettaSelect 
+                    label="VAT return period" 
+                    value={vatPeriod} 
+                    onChange={(e) => setVatPeriod(e.target.value)}
+                >
                      <option>No VAT liability</option>
                      <option>Monthly</option>
                      <option>Quarterly</option>
                      <option>Yearly</option>
                 </KlettaSelect>
+
+                {/* Conditional reporting period selection embedded here for Monthly selection */}
+                {vatPeriod === 'Monthly' && (
+                    <div className="space-y-6 animate-fade-in pt-2">
+                        <div className="bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
+                             <p className="text-[14px] font-medium text-kletta-dark mb-4 text-center">What is the first VAT return that Kletta will send for you?</p>
+                            <KlettaSelect label="Year">
+                                <option>2026</option>
+                                <option>2025</option>
+                            </KlettaSelect>
+                            <div className="h-4" />
+                            <KlettaSelect label="Month">
+                                <option>January</option>
+                                <option>February</option>
+                                <option>March</option>
+                                <option>April</option>
+                                <option>May</option>
+                                <option>June</option>
+                                <option>July</option>
+                                <option>August</option>
+                                <option>September</option>
+                                <option>October</option>
+                                <option>November</option>
+                                <option>December</option>
+                            </KlettaSelect>
+                        </div>
+                    </div>
+                )}
 
                 <div className="bg-[#F7F6EE] p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed mt-4">
                     Please note that you cannot change this selection later.
@@ -349,8 +374,8 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
             title="Opening bookkeeping"
             subtitle="How would you like to import this season’s bookkeeping?"
             icon={<IconFile weight="fill" />}
-            onPrimary={() => navigate('onboarding-4')}
-            onSecondary={() => navigate('onboarding-4')}
+            onPrimary={() => navigate('onboarding-5')}
+            onSecondary={() => navigate('onboarding-5')}
             secondaryLabel="Later"
             disablePrimary={selected === null}
             onBack={goBack}
@@ -372,7 +397,10 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
 
                {/* Card 2: Take Photo */}
                <button 
-                  onClick={() => setSelected(2)}
+                  onClick={() => {
+                    setSelected(2);
+                    navigate('scan-receipt-camera', { type: 'statement' });
+                  }}
                   className={`w-full flex items-start gap-4 p-4 rounded-[20px] border-2 text-left transition-all group ${selected === 2 ? 'border-gray-300 bg-white' : 'border-gray-100 bg-white active:border-gray-300'}`}
                >
                   <div className="text-kletta-dark mt-1 shrink-0 group-active:scale-95 transition-transform">
@@ -388,7 +416,10 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
 
                {/* Card 3: Manual Entry */}
                <button 
-                  onClick={() => setSelected(3)}
+                  onClick={() => {
+                    setSelected(3);
+                    navigate('onboarding-manual-entry');
+                  }}
                   className={`w-full flex items-start gap-4 p-4 rounded-[20px] border-2 text-left transition-all group ${selected === 3 ? 'border-gray-300 bg-white' : 'border-gray-100 bg-white active:border-gray-300'}`}
                >
                   <div className="text-kletta-dark mt-1 shrink-0 group-active:scale-95 transition-transform">
@@ -406,31 +437,105 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
     );
 };
 
-// --- Step 4: Tax Return Details ---
-export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+// --- ONBOARDING MANUAL ENTRY FORM ---
+export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     return (
         <OnboardingLayout
-            title="Confirm your tax return"
-            subtitle="Which is the first tax return you want Kletta to submit?"
-            icon={<IconFile weight="fill" />}
-            primaryLabel="Confirm and continue"
+            title="Year-to-date entry"
+            subtitle="Input the amounts from your income statement. Amounts should not include value-added taxes (Excl. VAT)."
+            icon={<IconPencilSimple weight="fill" />}
             onPrimary={() => navigate('onboarding-5')}
             onBack={goBack}
         >
-            <div className="mb-8">
-                <KlettaSelect label="Select Period">
-                    <option>2025</option>
-                    <option>Quarter I, 2025</option>
-                    <option>Quarter II, 2025</option>
-                </KlettaSelect>
-            </div>
+            <div className="space-y-10">
+                {/* Year Dropdown */}
+                <div className="flex justify-between items-center px-2">
+                    <span className="text-[17px] font-bold text-kletta-dark">Year</span>
+                    <div className="flex items-center gap-2">
+                        <span className="text-[17px] font-medium text-kletta-dark">2026</span>
+                        <IconChevronDown size={20} className="text-kletta-dark" />
+                    </div>
+                </div>
 
-            <div className="bg-[#F7F6EE] p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed">
-                Please note that you cannot change this selection later.
+                {/* Income Section */}
+                <div className="space-y-6">
+                    <div>
+                        <h3 className="text-[18px] font-bold text-kletta-dark mb-1">Income</h3>
+                        <p className="text-[14px] text-gray-500 font-normal">Early year / Year-to-date</p>
+                    </div>
+                    <div className="space-y-4">
+                        <FinancialInputRow label="Sales" sub="Year-to-date revenue" />
+                        <FinancialInputRow label="Grants and subsidies" sub="Government support or additional income" />
+                        <FinancialInputRow label="Other income" sub="e.g. capital gains from fixed assets or compensation" />
+                        <FinancialInputRow label="Interest and other financial income" />
+                    </div>
+                </div>
+
+                {/* Expenses Section */}
+                <div className="space-y-6">
+                    <div>
+                        <h3 className="text-[18px] font-bold text-kletta-dark mb-1">Expenses</h3>
+                        <p className="text-[14px] text-gray-500 font-normal">Early year / Year-to-date</p>
+                        <p className="text-[12px] text-gray-400 mt-2 leading-relaxed">Fill only necessary fields. If there isn't a specific field for a cost on the income statement, include it in "Other deductible expenses".</p>
+                    </div>
+                    <div className="space-y-4">
+                        <FinancialInputRow label="Purchases and inventory changes" sub="Goods and materials for customers" />
+                        <FinancialInputRow label="External services" sub="Subcontracting" />
+                        <FinancialInputRow label="Representation expenses" sub="Only 50% are deductible. Enter full amount here, Kletta will calculate the half." />
+                        <FinancialInputRow label="Rents" sub="e.g. office space or parking spot rental" />
+                        <FinancialInputRow label="Other deductible expenses" sub="e.g. accounting, phone, internet, travel, public transport and marketing costs" />
+                        <FinancialInputRow label="Interest expenses" sub="e.g. interest on loans" />
+                        <FinancialInputRow label="Other financial expenses" sub="e.g. loan handling or reminder fees" />
+                        <FinancialInputRow label="Personnel costs" sub="e.g. YEL and personal insurances" />
+                        <FinancialInputRow label="Vehicle costs" sub="Fuel, maintenance, parts. Deductible if business use > 50%" />
+                    </div>
+                </div>
+
+                {/* Others Section */}
+                <div className="space-y-6">
+                    <div>
+                        <h3 className="text-[18px] font-bold text-kletta-dark mb-1">Others</h3>
+                        <p className="text-[14px] text-gray-500 font-normal">To date</p>
+                        <p className="text-[12px] text-gray-400 mt-2 leading-relaxed">Fill only necessary fields.</p>
+                    </div>
+                    <div className="space-y-4">
+                        <FinancialInputRow label="Tax prepayment" sub="How much you have already paid in advanced taxes?" isOthers />
+                        <FinancialInputRow label="Private withdrawals" sub="How much money have you taken for yourself?" isOthers />
+                        
+                        {/* Highlighted card for Total Paid VATs */}
+                        <div className="bg-[#F7F6EE] p-5 rounded-2xl space-y-4 border border-gray-100/50">
+                            <div>
+                                <p className="text-[15px] font-bold text-kletta-dark leading-tight">Total of paid VATs</p>
+                                <p className="text-[13px] text-gray-500 font-light mt-1">Enter total amount of already paid VATs.</p>
+                            </div>
+                            <input 
+                                type="text"
+                                placeholder="0"
+                                className="w-full h-12 bg-white rounded-xl border border-gray-200 px-4 text-right text-[17px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all"
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </OnboardingLayout>
     );
 };
+
+const FinancialInputRow = ({ label, sub, isOthers }: { label: string, sub?: string, isOthers?: boolean }) => (
+    <div className="flex items-start justify-between py-2 group">
+        <div className="flex-1 pr-4">
+            <p className="text-[15px] font-bold text-kletta-dark leading-tight">{label}</p>
+            {sub && <p className="text-[12px] text-gray-500 font-light mt-1 leading-snug">{sub}</p>}
+        </div>
+        <div className="w-[120px] shrink-0">
+            <input 
+                type="text" 
+                placeholder={isOthers ? "0" : "Excl. VAT"} 
+                className="w-full h-12 bg-white border border-gray-200 rounded-[14px] px-4 text-right text-[15px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all placeholder:text-gray-300"
+            />
+        </div>
+    </div>
+);
 
 // --- Step 5: Phone Number ---
 export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate, goBack }) => {
@@ -501,7 +606,8 @@ export const OnboardingStep6: React.FC<NavigationProps> = ({ navigate, goBack })
 
 // --- Step 7: Vehicle Use ---
 export const OnboardingStep7: React.FC<NavigationProps> = ({ navigate, goBack }) => {
-    const [selected, setSelected] = useState<number | null>(null);
+    // Option 1 is select default as per request
+    const [selected, setSelected] = useState<number | null>(1);
 
     const handleContinue = () => {
         if (selected === 1 || selected === 2) {
@@ -637,7 +743,7 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
 const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
     <button 
         onClick={onClick}
-        className={`w-full text-left p-5 rounded-[20px] border-[1.5px] transition-all duration-200 flex items-center gap-5 active:scale-[0.98] ${selected ? 'border-kletta-teal bg-[#F0FBFC]' : 'border-gray-200 bg-white'}`}
+        className={`w-full text-left p-5 rounded-[16px] border-[1.5px] transition-all duration-200 flex items-center gap-5 active:scale-[0.98] ${selected ? 'border-kletta-teal bg-[#F0FBFC]' : 'border-gray-200 bg-white'}`}
     >
         <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${selected ? 'bg-kletta-teal text-white shadow-sm' : 'text-kletta-teal'}`}>
             {React.cloneElement(icon as React.ReactElement<any>, { 

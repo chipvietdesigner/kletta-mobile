@@ -32,7 +32,8 @@ const OnboardingHeader = ({ icon, onBack, onClose }: { icon: React.ReactNode, on
             {/* Teal background with smooth vector curve as requested - Reduced height */}
             <div className="w-full h-[120px] relative overflow-hidden bg-white">
                 <svg viewBox="0 0 400 120" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-                    <path d="M0 0 H400 V85 Q200 120 0 85 Z" fill="#00343B" />
+                    {/* Background color changed to #002D33 */}
+                    <path d="M0 0 H400 V85 Q200 120 0 85 Z" fill="#002D33" />
                 </svg>
                 
                 {onBack && (
@@ -337,7 +338,8 @@ export const IncompleteVerifyPhoneCode: React.FC<NavigationProps> = ({ navigate,
 
             <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-32 animate-slide-in-right">
                 <div className="max-w-[420px] mx-auto text-center md:text-left">
-                    <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Check your phone</h2>
+                    {/* Heading size increased as per request */}
+                    <h2 className="text-[36px] font-medium text-kletta-dark mb-2 tracking-tight">Check your phone</h2>
                     <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">
                         We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{phone}</span>.
                     </p>
@@ -357,7 +359,8 @@ export const IncompleteVerifyPhoneCode: React.FC<NavigationProps> = ({ navigate,
                     </div>
 
                     <div className="flex justify-center mb-12">
-                        <button className="text-gray-700 font-medium text-[13px] hover:opacity-80 transition-opacity">
+                        {/* Text color changed to dark teal */}
+                        <button className="text-kletta-teal font-medium text-[13px] hover:opacity-80 transition-opacity">
                             Didn't receive code? Resend
                         </button>
                     </div>

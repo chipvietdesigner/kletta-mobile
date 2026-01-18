@@ -8,7 +8,11 @@ import {
 import { NavigationProps } from '../types';
 
 // --- CAMERA SCREEN ---
-export const ScanReceiptCamera: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+export const ScanReceiptCamera: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+    const isStatement = params?.type === 'statement';
+    const title = isStatement ? 'Scan statement' : 'Scan receipt';
+    const guideText = isStatement ? 'Place the statement' : 'Place the receipt inside the frame';
+
     return (
         <div className="h-full w-full bg-black flex flex-col font-aktifo relative animate-fade-in overflow-hidden">
             {/* Header */}
@@ -19,7 +23,7 @@ export const ScanReceiptCamera: React.FC<NavigationProps> = ({ navigate, goBack 
                 >
                     <IconBack size={26} weight="bold" />
                 </button>
-                <h1 className="text-[17px] font-medium text-white tracking-wide">Scan receipt</h1>
+                <h1 className="text-[17px] font-medium text-white tracking-wide">{title}</h1>
                 <div className="w-10"></div>
             </div>
 
@@ -43,7 +47,7 @@ export const ScanReceiptCamera: React.FC<NavigationProps> = ({ navigate, goBack 
                 </div>
 
                 <div className="absolute bottom-1/4 left-0 right-0 flex justify-center">
-                    <p className="text-white/80 text-[14px] font-medium tracking-wide">Place the receipt inside the frame</p>
+                    <p className="text-white/80 text-[14px] font-medium tracking-wide">{guideText}</p>
                 </div>
             </div>
 
@@ -54,7 +58,10 @@ export const ScanReceiptCamera: React.FC<NavigationProps> = ({ navigate, goBack 
                 </button>
                 
                 <button 
-                    onClick={() => navigate('scan-receipt-preview', { imageUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&fit=crop' })}
+                    onClick={() => navigate('scan-receipt-preview', { 
+                        imageUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&fit=crop',
+                        type: params?.type 
+                    })}
                     className="w-[82px] h-[82px] rounded-full bg-white p-1 shadow-lg active:scale-95 transition-transform"
                 >
                     <div className="w-full h-full rounded-full bg-kletta-yellow flex items-center justify-center" />
@@ -97,7 +104,7 @@ export const ScanReceiptPreview: React.FC<NavigationProps> = ({ navigate, goBack
             {/* Dark Bottom Action Bar */}
             <div className="bg-black/80 backdrop-blur-md px-6 pt-6 pb-14 flex flex-col gap-4 border-t border-white/10">
                 <button 
-                    onClick={() => navigate('scan-receipt-analyzing')}
+                    onClick={() => navigate('scan-receipt-analyzing', { type: params?.type })}
                     className="w-full h-[52px] bg-kletta-yellow rounded-[14px] text-kletta-dark font-bold text-[16px] shadow-lg active:scale-[0.98] transition-all"
                 >
                     Use photo
@@ -114,14 +121,15 @@ export const ScanReceiptPreview: React.FC<NavigationProps> = ({ navigate, goBack
 };
 
 // --- ANALYZING SCREEN ---
-export const ScanReceiptAnalyzing: React.FC<NavigationProps> = ({ navigate }) => {
+export const ScanReceiptAnalyzing: React.FC<NavigationProps> = ({ navigate, params }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate('scan-receipt-review', { 
                 supplier: 'Nur taxi Service Oy',
                 date: '5.9.2025',
                 amount: '€114.00',
-                imageUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&fit=crop'
+                imageUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&fit=crop',
+                type: params?.type
             });
         }, 3000);
         return () => clearTimeout(timer);
@@ -327,10 +335,16 @@ export const ScanReceiptReview: React.FC<NavigationProps> = ({ navigate, goBack,
             {/* Bottom Button */}
             <div className="absolute bottom-0 left-0 right-0 px-6 pt-4 pb-10 bg-white/95 backdrop-blur-sm border-t border-gray-100 z-30">
                 <button 
-                    onClick={() => navigate('invoice-success', { type: 'expense' })}
+                    onClick={() => {
+                        if (params?.type === 'statement') {
+                            navigate('onboarding-3');
+                        } else {
+                            navigate('invoice-success', { type: 'expense' });
+                        }
+                    }}
                     className="w-full h-[52px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] shadow-sm active:scale-[0.98] transition-all"
                 >
-                    Record expense
+                    {params?.type === 'statement' ? 'Save statement' : 'Record expense'}
                 </button>
             </div>
         </div>

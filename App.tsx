@@ -6,8 +6,8 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import { SignUpEmailScreen, VerifyEmailCodeScreen, SignUpCreatePasscodeScreen, SignUpBusinessLocationScreen } from './screens/SignUpScreens';
 import { 
-    OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, OnboardingStep4, 
-    OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8 
+    OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, 
+    OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8, OnboardingManualEntry
 } from './screens/OnboardingScreens';
 import { 
   IncompleteOnboardingEntry, 
@@ -26,6 +26,7 @@ import { InvoiceDetailScreen } from './screens/InvoiceDetailScreen';
 import { SummaryScreen } from './screens/SummaryScreen';
 import { 
   BusinessIncomeScreen, OtherIncomeScreen, BusinessExpensesScreen, 
+  BusinessExpensesScreen as IncompleteBusinessExpensesScreen,
   NonAllowableExpensesScreen, ClaimedKilometersScreen, CashWithdrawalScreen, TaxPrepaymentsScreen 
 } from './screens/SummaryDetailScreens';
 import { SettingsScreen } from './screens/SettingsScreen';
@@ -66,8 +67,8 @@ const App = () => {
         case 'onboarding-1': navigate('onboarding-welcome'); break; 
         case 'onboarding-2': navigate('onboarding-1'); break;
         case 'onboarding-3': navigate('onboarding-2'); break;
-        case 'onboarding-4': navigate('onboarding-3'); break;
-        case 'onboarding-5': navigate('onboarding-4'); break;
+        case 'onboarding-manual-entry': navigate('onboarding-3'); break;
+        case 'onboarding-5': navigate('onboarding-3'); break;
         case 'onboarding-6': navigate('onboarding-5'); break;
         case 'onboarding-7': navigate('onboarding-6'); break;
         case 'onboarding-8': navigate('onboarding-7'); break;
@@ -95,10 +96,16 @@ const App = () => {
         case 'summary-cash-withdrawal': navigate('home', { tab: 'summary' }); break;
         case 'summary-tax-prepayments': navigate('home', { tab: 'summary' }); break;
         case 'settings': navigate('home'); break;
-        case 'scan-receipt-camera': navigate('home'); break;
-        case 'scan-receipt-preview': navigate('scan-receipt-camera'); break;
-        case 'scan-receipt-analyzing': navigate('scan-receipt-camera'); break;
-        case 'scan-receipt-review': navigate('home', { tab: 'expenses' }); break;
+        case 'scan-receipt-camera': 
+          if (navParams?.type === 'statement') navigate('onboarding-3');
+          else navigate('home'); 
+          break;
+        case 'scan-receipt-preview': navigate('scan-receipt-camera', navParams); break;
+        case 'scan-receipt-analyzing': navigate('scan-receipt-camera', navParams); break;
+        case 'scan-receipt-review': 
+          if (navParams?.type === 'statement') navigate('onboarding-3');
+          else navigate('home', { tab: 'expenses' }); 
+          break;
         case 'tax-return': navigate('home'); break;
         case 'add-entry': navigate('home'); break;
         case 'product-select-type': navigate('home'); break;
@@ -130,7 +137,7 @@ const App = () => {
         case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
         case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
         case 'onboarding-3': return <OnboardingStep3 navigate={navigate} goBack={goBack} />;
-        case 'onboarding-4': return <OnboardingStep4 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-manual-entry': return <OnboardingManualEntry navigate={navigate} goBack={goBack} />;
         case 'onboarding-5': return <OnboardingStep5 navigate={navigate} goBack={goBack} />;
         case 'onboarding-6': return <OnboardingStep6 navigate={navigate} goBack={goBack} />;
         case 'onboarding-7': return <OnboardingStep7 navigate={navigate} goBack={goBack} />;
@@ -160,9 +167,9 @@ const App = () => {
         case 'summary-cash-withdrawal': return <CashWithdrawalScreen navigate={navigate} goBack={goBack} />;
         case 'summary-tax-prepayments': return <TaxPrepaymentsScreen navigate={navigate} goBack={goBack} />;
         case 'settings': return <SettingsScreen navigate={navigate} goBack={goBack} />;
-        case 'scan-receipt-camera': return <ScanReceiptCamera navigate={navigate} goBack={goBack} />;
+        case 'scan-receipt-camera': return <ScanReceiptCamera navigate={navigate} goBack={goBack} params={navParams} />;
         case 'scan-receipt-preview': return <ScanReceiptPreview navigate={navigate} goBack={goBack} params={navParams} />;
-        case 'scan-receipt-analyzing': return <ScanReceiptAnalyzing navigate={navigate} goBack={goBack} />;
+        case 'scan-receipt-analyzing': return <ScanReceiptAnalyzing navigate={navigate} goBack={goBack} params={navParams} />;
         case 'scan-receipt-review': return <ScanReceiptReview navigate={navigate} goBack={goBack} params={navParams} />;
         case 'tax-return': return <TaxReturnScreen navigate={navigate} goBack={goBack} params={navParams} />;
         case 'add-entry': return <AddEntryScreen navigate={navigate} goBack={goBack} />;

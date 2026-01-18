@@ -81,7 +81,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
       </div>
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-48">
         <div className="max-w-[420px] mx-auto">
-            <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Check your inbox</h2>
+            <h2 className="text-[36px] font-medium text-kletta-dark mb-2 tracking-tight">Check your inbox</h2>
             <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{email}</span>.</p>
             <div className="flex gap-3 justify-center mb-10">
                 {code.map((digit, i) => (
@@ -89,7 +89,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
                 ))}
             </div>
             <div className="flex justify-center mb-12">
-                <button className="text-gray-700 font-medium text-[13px] hover:opacity-80 transition-opacity">Didn't receive code? Resend</button>
+                <button className="text-kletta-teal font-medium text-[13px] hover:opacity-80 transition-opacity">Didn't receive code? Resend</button>
             </div>
             <div className="mb-6">
                 <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-2 block">PROMOTION CODE (OPTIONAL)</label>
@@ -100,7 +100,13 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
          <div className="flex items-start gap-3 mb-6 px-1">
             <div className="flex items-center h-5">
-              <input type="checkbox" checked={accepted} onChange={(e) => setAccepted(e.target.checked)} className="w-5 h-5 rounded border-gray-300 text-kletta-teal focus:ring-kletta-teal cursor-pointer transition-all" />
+              {/* Custom black checkbox */}
+              <div 
+                onClick={() => setAccepted(!accepted)}
+                className={`w-5 h-5 rounded border-[1.5px] transition-all cursor-pointer flex items-center justify-center ${accepted ? 'bg-kletta-dark border-kletta-dark' : 'border-gray-300 bg-white'}`}
+              >
+                {accepted && <div className="w-[10px] h-[10px] bg-kletta-yellow rounded-[1px]" />}
+              </div>
             </div>
             <p className="text-[14px] text-kletta-dark font-light leading-snug">I accept the <button className="underline font-medium hover:text-kletta-teal transition-colors">Term of service</button> and <button className="underline font-medium hover:text-kletta-teal transition-colors">Privacy Policy</button></p>
          </div>
@@ -170,12 +176,12 @@ export const SignUpCreatePasscodeScreen: React.FC<NavigationProps> = ({ navigate
             : 'Choose a 4-digit code to protect your account and data.'}
         </p>
 
-        {/* Visual Dots (Centered) */}
+        {/* Visual Dots (Centered) - size increased as per request */}
         <div className="flex gap-8 justify-center mb-12">
           {[0, 1, 2, 3].map((i) => (
             <div 
               key={i} 
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+              className={`w-5 h-5 rounded-full transition-all duration-200 ${
                 error ? 'bg-red-500 animate-pulse' : (i < currentDisplay.length ? 'bg-kletta-dark' : 'bg-[#D9D9D9]')
               }`}
             />
@@ -236,18 +242,15 @@ export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ naviga
 
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in overflow-hidden relative">
-      {/* Header - Back button removed */}
       <div className="px-6 pt-16 pb-4 flex items-center bg-white z-10">
         <div className="w-10 h-10 -ml-2" />
       </div>
 
       <div className="flex-1 px-10 pt-4 flex flex-col items-center">
-        {/* Title (Centered) */}
-        <h2 className="text-[20px] font-medium text-[#0C0D0D] mb-16 tracking-tight leading-tight text-center">
+        <h2 className="text-[24px] font-medium text-[#0C0D0D] mb-16 tracking-tight leading-tight text-center">
           Choose your business location
         </h2>
 
-        {/* Location List */}
         <div className="w-full max-w-[280px]">
           <LocationItem 
             label="Finland" 
@@ -266,7 +269,6 @@ export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ naviga
         </div>
       </div>
 
-      {/* Bottom Button (Continue) */}
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-12 border-t border-gray-50 z-20">
          <button 
             onClick={handleSubmit} 
@@ -275,7 +277,7 @@ export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ naviga
               selected && !isLoading ? 'bg-kletta-yellow text-kletta-dark hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Continue
+            Submit
           </button>
       </div>
 
