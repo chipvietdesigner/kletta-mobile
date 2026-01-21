@@ -7,7 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import { SignUpEmailScreen, VerifyEmailCodeScreen, SignUpCreatePasscodeScreen, SignUpBusinessLocationScreen } from './screens/SignUpScreens';
 import { 
     OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, 
-    OnboardingStep5, OnboardingStep6, OnboardingStep7, OnboardingStep8, OnboardingManualEntry
+    OnboardingStep5, OnboardingPhoneVerify, OnboardingStep6, OnboardingStep7, OnboardingStep8, OnboardingManualEntry
 } from './screens/OnboardingScreens';
 import { 
   IncompleteOnboardingEntry, 
@@ -69,7 +69,8 @@ const App = () => {
         case 'onboarding-3': navigate('onboarding-2'); break;
         case 'onboarding-manual-entry': navigate('onboarding-3'); break;
         case 'onboarding-5': navigate('onboarding-3'); break;
-        case 'onboarding-6': navigate('onboarding-5'); break;
+        case 'onboarding-phone-verify': navigate('onboarding-5'); break;
+        case 'onboarding-6': navigate('onboarding-phone-verify'); break;
         case 'onboarding-7': navigate('onboarding-6'); break;
         case 'onboarding-8': navigate('onboarding-7'); break;
         case 'incomplete-onboarding-tax-info': navigate('home', { showIncompleteOnboarding: true }); break;
@@ -137,8 +138,9 @@ const App = () => {
         case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
         case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
         case 'onboarding-3': return <OnboardingStep3 navigate={navigate} goBack={goBack} />;
-        case 'onboarding-manual-entry': return <OnboardingManualEntry navigate={navigate} goBack={goBack} />;
+        case 'onboarding-manual-entry': return <OnboardingManualEntry navigate={navigate} goBack={goBack} params={navParams} />;
         case 'onboarding-5': return <OnboardingStep5 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-phone-verify': return <OnboardingPhoneVerify navigate={navigate} goBack={goBack} params={navParams} />;
         case 'onboarding-6': return <OnboardingStep6 navigate={navigate} goBack={goBack} />;
         case 'onboarding-7': return <OnboardingStep7 navigate={navigate} goBack={goBack} />;
         case 'onboarding-8': return <OnboardingStep8 navigate={navigate} goBack={goBack} />;

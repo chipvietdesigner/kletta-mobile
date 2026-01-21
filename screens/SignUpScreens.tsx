@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { KlettaLogo, IconBack, IconBackspace, IconChevronRight, IconSpinner } from '../components/Icons';
+import { KlettaLogo, IconBack, IconBackspace, IconChevronRight, IconSpinner, IconCheck } from '../components/Icons';
 import { NavigationProps } from '../types';
 import { KlettaInput } from '../components/Inputs';
 
@@ -85,7 +85,15 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{email}</span>.</p>
             <div className="flex gap-3 justify-center mb-10">
                 {code.map((digit, i) => (
-                    <input key={i} id={`code-${i}`} type="tel" maxLength={1} value={digit} onChange={(e) => handleChange(i, e.target.value)} className="w-[16%] h-14 bg-white border border-[#E6E8EC] rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all shadow-sm" />
+                    <input 
+                      key={i} 
+                      id={`code-${i}`} 
+                      type="tel" 
+                      maxLength={1} 
+                      value={digit} 
+                      onChange={(e) => handleChange(i, e.target.value)} 
+                      className="w-[16%] h-14 bg-white border border-gray-200 rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal transition-all" 
+                    />
                 ))}
             </div>
             <div className="flex justify-center mb-12">
@@ -100,12 +108,12 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
          <div className="flex items-start gap-3 mb-6 px-1">
             <div className="flex items-center h-5">
-              {/* Custom black checkbox */}
+              {/* Custom checkbox with icon */}
               <div 
                 onClick={() => setAccepted(!accepted)}
-                className={`w-5 h-5 rounded border-[1.5px] transition-all cursor-pointer flex items-center justify-center ${accepted ? 'bg-kletta-dark border-kletta-dark' : 'border-gray-300 bg-white'}`}
+                className={`w-5 h-5 rounded border-[1.5px] transition-all cursor-pointer flex items-center justify-center ${accepted ? 'bg-kletta-teal border-kletta-teal' : 'border-gray-300 bg-white'}`}
               >
-                {accepted && <div className="w-[10px] h-[10px] bg-kletta-yellow rounded-[1px]" />}
+                {accepted && <IconCheck size={12} weight="bold" color="white" />}
               </div>
             </div>
             <p className="text-[14px] text-kletta-dark font-light leading-snug">I accept the <button className="underline font-medium hover:text-kletta-teal transition-colors">Term of service</button> and <button className="underline font-medium hover:text-kletta-teal transition-colors">Privacy Policy</button></p>

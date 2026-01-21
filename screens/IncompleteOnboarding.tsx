@@ -160,15 +160,8 @@ export const IncompleteOnboardingEntry: React.FC<NavigationProps> = ({ navigate,
 };
 
 // --- SHARED WRAPPER FOR INCOMPLETE STEPS (SHEET STYLE) ---
-const IncompleteStepLayout = ({ icon, title, subtitle, children, onPrimary, onSecondary, onClose, onBack }: any) => {
+const IncompleteStepLayout = ({ icon, title, subtitle, children, onPrimary, primaryLabel = "Save and continue", disablePrimary = false, onClose, onBack }: any) => {
     const [isTransitioning, setIsTransitioning] = useState(false);
-
-    useEffect(() => {
-        return () => {
-            // reset state when leaving the entire flow? 
-            // In a real app we'd handle this via route change detection
-        };
-    }, []);
 
     const handlePrimaryClick = () => {
         setIsTransitioning(true);
@@ -179,7 +172,6 @@ const IncompleteStepLayout = ({ icon, title, subtitle, children, onPrimary, onSe
 
     return (
         <div className="absolute inset-0 z-[105] flex flex-col justify-end font-aktifo overflow-hidden">
-            {/* Backdrop fix: Only animate if the flow is just starting to prevent nhấp nháy/flicker */}
             <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm ${incompleteFlowActive ? '' : 'animate-fade-in'}`} />
             
             <div className={`h-[92%] w-full bg-white rounded-t-[32px] shadow-2xl relative z-10 overflow-hidden flex flex-col ${incompleteFlowActive ? '' : 'animate-slide-up'}`}>
@@ -198,9 +190,10 @@ const IncompleteStepLayout = ({ icon, title, subtitle, children, onPrimary, onSe
                 <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm px-6 pt-4 pb-10 border-t border-gray-100 z-30">
                     <button 
                         onClick={handlePrimaryClick}
-                        className="w-full py-4 bg-kletta-yellow rounded-2xl text-kletta-dark font-medium text-[16px] shadow-sm active:scale-[0.98] transition-all"
+                        disabled={disablePrimary}
+                        className={`w-full py-4 rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
                     >
-                        Save and continue
+                        {primaryLabel}
                     </button>
                 </div>
             </div>
@@ -327,56 +320,41 @@ export const IncompleteVerifyPhoneCode: React.FC<NavigationProps> = ({ navigate,
   };
 
   return (
-    <div className="absolute inset-0 z-[110] flex flex-col justify-end font-aktifo overflow-hidden">
-        <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm ${incompleteFlowActive ? '' : 'animate-fade-in'}`} />
-        <div className={`h-[92%] w-full bg-white rounded-t-[32px] shadow-2xl relative z-10 overflow-hidden flex flex-col ${incompleteFlowActive ? '' : 'animate-slide-up'}`}>
-            <div className="px-6 pt-16 pb-4 flex items-center bg-white z-10">
-                <button onClick={goBack} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors">
-                    <IconBack size={26} weight="bold" />
-                </button>
+    <IncompleteStepLayout
+        icon={<IconPhone />}
+        title="Check your phone"
+        subtitle={
+            <div className="text-gray-700 text-[16px] font-light leading-relaxed">
+                We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{phone}</span>.
+            </div>
+        }
+        primaryLabel="Finish setup"
+        disablePrimary={!code.every(c => c !== '')}
+        onPrimary={handleFinish}
+        onClose={() => { resetIncompleteFlowState(); navigate('home', { showIncompleteOnboarding: true }); }}
+        onBack={goBack}
+    >
+        <div className="max-w-[420px] mx-auto">
+            <div className="flex gap-3 justify-center mb-10">
+                {code.map((digit, i) => (
+                    <input
+                        key={i}
+                        id={`phone-code-${i}`}
+                        type="tel"
+                        maxLength={1}
+                        value={digit}
+                        onChange={(e) => handleChange(i, e.target.value)}
+                        className="w-[16%] h-14 bg-white border border-gray-200 rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal transition-all"
+                    />
+                ))}
             </div>
 
-            <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-32 animate-slide-in-right">
-                <div className="max-w-[420px] mx-auto text-center md:text-left">
-                    {/* Heading size increased as per request */}
-                    <h2 className="text-[36px] font-medium text-kletta-dark mb-2 tracking-tight">Check your phone</h2>
-                    <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">
-                        We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{phone}</span>.
-                    </p>
-
-                    <div className="flex gap-3 justify-center mb-10">
-                        {code.map((digit, i) => (
-                            <input
-                                key={i}
-                                id={`phone-code-${i}`}
-                                type="tel"
-                                maxLength={1}
-                                value={digit}
-                                onChange={(e) => handleChange(i, e.target.value)}
-                                className="w-[16%] h-14 bg-white border border-[#E6E8EC] rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal focus:ring-4 focus:ring-kletta-teal/5 transition-all shadow-sm"
-                            />
-                        ))}
-                    </div>
-
-                    <div className="flex justify-center mb-12">
-                        {/* Text color changed to dark teal */}
-                        <button className="text-kletta-teal font-medium text-[13px] hover:opacity-80 transition-opacity">
-                            Didn't receive code? Resend
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-12 border-t border-gray-100 z-20">
-                <button 
-                    onClick={handleFinish}
-                    disabled={!code.every(c => c !== '')}
-                    className={`w-full h-[60px] rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${code.every(c => c !== '') ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400'}`}
-                >
-                    Finish setup
+            <div className="flex justify-center mb-8">
+                <button className="text-kletta-teal font-medium text-[13px] hover:opacity-80 transition-opacity">
+                    Didn't receive code? Resend
                 </button>
             </div>
         </div>
-    </div>
+    </IncompleteStepLayout>
   );
 };

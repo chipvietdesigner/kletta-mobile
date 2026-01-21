@@ -438,7 +438,29 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
 };
 
 // --- ONBOARDING MANUAL ENTRY FORM ---
-export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+    const scanned = params?.scannedData || {};
+    const [data, setData] = useState({
+        sales: scanned.sales || '',
+        grants: scanned.grants || '',
+        otherIncome: scanned.otherIncome || '',
+        interestIncome: scanned.interestIncome || '',
+        purchases: scanned.purchases || '',
+        externalServices: scanned.externalServices || '',
+        representation: scanned.representation || '',
+        rents: scanned.rents || '',
+        otherExpenses: scanned.otherExpenses || '',
+        interestExpenses: scanned.interestExpenses || '',
+        otherFinancial: scanned.otherFinancial || '',
+        personnel: scanned.personnel || '',
+        vehicle: scanned.vehicle || '',
+        taxPrepayment: scanned.taxPrepayment || '',
+        withdrawals: scanned.withdrawals || '',
+        totalVat: scanned.totalVat || ''
+    });
+
+    const update = (key: keyof typeof data, val: string) => setData(prev => ({ ...prev, [key]: val }));
+
     return (
         <OnboardingLayout
             title="Year-to-date entry"
@@ -464,10 +486,10 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                         <p className="text-[14px] text-gray-500 font-normal">Early year / Year-to-date</p>
                     </div>
                     <div className="space-y-4">
-                        <FinancialInputRow label="Sales" sub="Year-to-date revenue" />
-                        <FinancialInputRow label="Grants and subsidies" sub="Government support or additional income" />
-                        <FinancialInputRow label="Other income" sub="e.g. capital gains from fixed assets or compensation" />
-                        <FinancialInputRow label="Interest and other financial income" />
+                        <FinancialInputRow label="Sales" sub="Year-to-date revenue" value={data.sales} onChange={v => update('sales', v)} />
+                        <FinancialInputRow label="Grants and subsidies" sub="Government support or additional income" value={data.grants} onChange={v => update('grants', v)} />
+                        <FinancialInputRow label="Other income" sub="e.g. capital gains from fixed assets or compensation" value={data.otherIncome} onChange={v => update('otherIncome', v)} />
+                        <FinancialInputRow label="Interest and other financial income" value={data.interestIncome} onChange={v => update('interestIncome', v)} />
                     </div>
                 </div>
 
@@ -479,15 +501,15 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                         <p className="text-[12px] text-gray-400 mt-2 leading-relaxed">Fill only necessary fields. If there isn't a specific field for a cost on the income statement, include it in "Other deductible expenses".</p>
                     </div>
                     <div className="space-y-4">
-                        <FinancialInputRow label="Purchases and inventory changes" sub="Goods and materials for customers" />
-                        <FinancialInputRow label="External services" sub="Subcontracting" />
-                        <FinancialInputRow label="Representation expenses" sub="Only 50% are deductible. Enter full amount here, Kletta will calculate the half." />
-                        <FinancialInputRow label="Rents" sub="e.g. office space or parking spot rental" />
-                        <FinancialInputRow label="Other deductible expenses" sub="e.g. accounting, phone, internet, travel, public transport and marketing costs" />
-                        <FinancialInputRow label="Interest expenses" sub="e.g. interest on loans" />
-                        <FinancialInputRow label="Other financial expenses" sub="e.g. loan handling or reminder fees" />
-                        <FinancialInputRow label="Personnel costs" sub="e.g. YEL and personal insurances" />
-                        <FinancialInputRow label="Vehicle costs" sub="Fuel, maintenance, parts. Deductible if business use > 50%" />
+                        <FinancialInputRow label="Purchases and inventory changes" sub="Goods and materials for customers" value={data.purchases} onChange={v => update('purchases', v)} />
+                        <FinancialInputRow label="External services" sub="Subcontracting" value={data.externalServices} onChange={v => update('externalServices', v)} />
+                        <FinancialInputRow label="Representation expenses" sub="Only 50% are deductible. Enter full amount here, Kletta will calculate the half." value={data.representation} onChange={v => update('representation', v)} />
+                        <FinancialInputRow label="Rents" sub="e.g. office space or parking spot rental" value={data.rents} onChange={v => update('rents', v)} />
+                        <FinancialInputRow label="Other deductible expenses" sub="e.g. accounting, phone, internet, travel, public transport and marketing costs" value={data.otherExpenses} onChange={v => update('otherExpenses', v)} />
+                        <FinancialInputRow label="Interest expenses" sub="e.g. interest on loans" value={data.interestExpenses} onChange={v => update('interestExpenses', v)} />
+                        <FinancialInputRow label="Other financial expenses" sub="e.g. loan handling or reminder fees" value={data.otherFinancial} onChange={v => update('otherFinancial', v)} />
+                        <FinancialInputRow label="Personnel costs" sub="e.g. YEL and personal insurances" value={data.personnel} onChange={v => update('personnel', v)} />
+                        <FinancialInputRow label="Vehicle costs" sub="Fuel, maintenance, parts. Deductible if business use > 50%" value={data.vehicle} onChange={v => update('vehicle', v)} />
                     </div>
                 </div>
 
@@ -499,8 +521,8 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                         <p className="text-[12px] text-gray-400 mt-2 leading-relaxed">Fill only necessary fields.</p>
                     </div>
                     <div className="space-y-4">
-                        <FinancialInputRow label="Tax prepayment" sub="How much you have already paid in advanced taxes?" isOthers />
-                        <FinancialInputRow label="Private withdrawals" sub="How much money have you taken for yourself?" isOthers />
+                        <FinancialInputRow label="Tax prepayment" sub="How much you have already paid in advanced taxes?" isOthers value={data.taxPrepayment} onChange={v => update('taxPrepayment', v)} />
+                        <FinancialInputRow label="Private withdrawals" sub="How much money have you taken for yourself?" isOthers value={data.withdrawals} onChange={v => update('withdrawals', v)} />
                         
                         {/* Highlighted card for Total Paid VATs */}
                         <div className="bg-[#F7F6EE] p-5 rounded-2xl space-y-4 border border-gray-100/50">
@@ -510,6 +532,8 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                             </div>
                             <input 
                                 type="text"
+                                value={data.totalVat}
+                                onChange={e => update('totalVat', e.target.value)}
                                 placeholder="0"
                                 className="w-full h-12 bg-white rounded-xl border border-gray-200 px-4 text-right text-[17px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all"
                             />
@@ -521,7 +545,7 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
     );
 };
 
-const FinancialInputRow = ({ label, sub, isOthers }: { label: string, sub?: string, isOthers?: boolean }) => (
+const FinancialInputRow = ({ label, sub, isOthers, value, onChange }: { label: string, sub?: string, isOthers?: boolean, value?: string, onChange?: (v: string) => void }) => (
     <div className="flex items-start justify-between py-2 group">
         <div className="flex-1 pr-4">
             <p className="text-[15px] font-bold text-kletta-dark leading-tight">{label}</p>
@@ -530,6 +554,8 @@ const FinancialInputRow = ({ label, sub, isOthers }: { label: string, sub?: stri
         <div className="w-[120px] shrink-0">
             <input 
                 type="text" 
+                value={value}
+                onChange={e => onChange?.(e.target.value)}
                 placeholder={isOthers ? "0" : "Excl. VAT"} 
                 className="w-full h-12 bg-white border border-gray-200 rounded-[14px] px-4 text-right text-[15px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all placeholder:text-gray-300"
             />
@@ -539,30 +565,99 @@ const FinancialInputRow = ({ label, sub, isOthers }: { label: string, sub?: stri
 
 // --- Step 5: Phone Number ---
 export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+    const [phone, setPhone] = useState('');
+    const [prefix, setPrefix] = useState('+358');
+
     return (
         <OnboardingLayout
             title="Phone number"
             subtitle="Add your phone number. You will receive a verification code via SMS."
             icon={<IconPhone weight="fill" />}
-            onPrimary={() => navigate('onboarding-6')}
+            onPrimary={() => navigate('onboarding-phone-verify', { phone: `${prefix} ${phone}` })}
             onSecondary={() => navigate('onboarding-6')}
             secondaryLabel="Later"
             onBack={goBack}
         >
             <div className="flex gap-3">
                 <div className="relative w-28 shrink-0">
-                    <KlettaSelect>
+                    <KlettaSelect value={prefix} onChange={(e) => setPrefix(e.target.value)}>
                         <option>+358</option>
                         <option>+46</option>
                         <option>+1</option>
                     </KlettaSelect>
                 </div>
                 <div className="flex-1">
-                    <KlettaInput type="tel" placeholder="40 123 4567" autoFocus />
+                    <KlettaInput 
+                        type="tel" 
+                        placeholder="40 123 4567" 
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        autoFocus 
+                    />
                 </div>
             </div>
         </OnboardingLayout>
     );
+};
+
+// --- NEW: ONBOARDING PHONE VERIFICATION SCREEN ---
+export const OnboardingPhoneVerify: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
+  const [code, setCode] = useState(['', '', '', '', '', '']);
+  const phone = params?.phone || 'your phone number';
+
+  const handleChange = (index: number, value: string) => {
+    if (value.length > 1) return;
+    const newCode = [...code];
+    newCode[index] = value;
+    setCode(newCode);
+
+    if (value && index < 5) {
+      const nextInput = document.getElementById(`onboarding-phone-code-${index + 1}`);
+      nextInput?.focus();
+    }
+  };
+
+  const handleFinish = () => {
+    navigate('onboarding-6');
+  };
+
+  return (
+    <OnboardingLayout
+        title="Check your phone"
+        subtitle={
+            <div className="text-gray-700 text-[16px] font-light leading-relaxed">
+                We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{phone}</span>.
+            </div>
+        }
+        icon={<IconPhone weight="fill" />}
+        primaryLabel="Confirm and continue"
+        onPrimary={handleFinish}
+        disablePrimary={!code.every(c => c !== '')}
+        onBack={goBack}
+    >
+        <div className="max-w-[420px] mx-auto">
+            <div className="flex gap-3 justify-center mb-10">
+                {code.map((digit, i) => (
+                    <input
+                        key={i}
+                        id={`onboarding-phone-code-${i}`}
+                        type="tel"
+                        maxLength={1}
+                        value={digit}
+                        onChange={(e) => handleChange(i, e.target.value)}
+                        className="w-[16%] h-14 bg-white border border-gray-200 rounded-[12px] text-center text-3xl font-bold text-kletta-dark outline-none focus:border-kletta-teal transition-all"
+                    />
+                ))}
+            </div>
+
+            <div className="flex justify-center mb-8">
+                <button className="text-kletta-teal font-medium text-[13px] hover:opacity-80 transition-opacity">
+                    Didn't receive code? Resend
+                </button>
+            </div>
+        </div>
+    </OnboardingLayout>
+  );
 };
 
 // --- Step 6: YEL Insurance ---
