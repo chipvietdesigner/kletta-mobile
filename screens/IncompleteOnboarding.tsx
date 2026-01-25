@@ -96,20 +96,29 @@ export const IncompleteOnboardingEntry: React.FC<NavigationProps> = ({ navigate,
 
   return (
     <div className="absolute inset-0 z-[100] flex flex-col justify-end">
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] animate-fade-in" onClick={goBack} />
+      {/* Changed backdrop from black to a soft grey and increased blur as requested */}
+      <div className="absolute inset-0 bg-[#9CA3AF]/30 backdrop-blur-[4px] animate-fade-in" onClick={goBack} />
       
-      <div className="mt-auto w-full bg-white rounded-t-[32px] animate-slide-up shadow-2xl relative z-10 pb-12">
-        <div className="px-8 pt-10 pb-8">
-          <div className="flex justify-between items-start mb-6">
-            <div className="flex-1">
-              <h1 className="text-[24px] font-medium text-kletta-dark tracking-tight leading-tight mb-2">Set up your account</h1>
-              <p className="text-[15px] text-gray-500 font-light leading-relaxed">You still have a few steps to complete.</p>
-            </div>
-            <button onClick={goBack} className="w-10 h-10 -mr-2 -mt-2 flex items-center justify-center rounded-full hover:bg-gray-50">
-              <IconClose size={24} weight="bold" className="text-gray-400" />
-            </button>
-          </div>
+      <div className="mt-auto w-full bg-white rounded-t-[32px] animate-slide-up shadow-2xl relative z-10 pb-12 overflow-hidden">
+        {/* UPDATED DARK TEAL HEADER WITH CURVE */}
+        <div className="relative w-full h-[150px] overflow-hidden shrink-0">
+           <svg viewBox="0 0 400 150" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+              <path d="M0 0 H400 V110 Q200 150 0 110 Z" fill="#002D33" />
+           </svg>
+           
+           <div className="absolute inset-0 px-8 pt-10 flex justify-between items-start z-10">
+              <div className="flex-1">
+                <h1 className="text-[20px] font-bold text-white tracking-tight leading-tight mb-2">Set up your account</h1>
+                <p className="text-[14px] text-white/70 font-normal leading-relaxed">You still have a few steps to complete.</p>
+              </div>
+              <button onClick={goBack} className="w-10 h-10 -mr-2 -mt-1.5 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">
+                <IconClose size={24} weight="bold" className="text-white" />
+              </button>
+           </div>
+        </div>
 
+        {/* CONTENT BELOW HEADER */}
+        <div className="px-8 pt-2">
           <div className="mb-8">
             <div className="flex justify-between items-end mb-2.5">
                <span className="text-[12px] font-medium text-kletta-teal uppercase tracking-widest">Setup Progress</span>
@@ -172,7 +181,8 @@ const IncompleteStepLayout = ({ icon, title, subtitle, children, onPrimary, prim
 
     return (
         <div className="absolute inset-0 z-[105] flex flex-col justify-end font-aktifo overflow-hidden">
-            <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm ${incompleteFlowActive ? '' : 'animate-fade-in'}`} />
+            {/* Unified grey backdrop for all setup steps */}
+            <div className={`absolute inset-0 bg-[#9CA3AF]/30 backdrop-blur-[4px] ${incompleteFlowActive ? '' : 'animate-fade-in'}`} />
             
             <div className={`h-[92%] w-full bg-white rounded-t-[32px] shadow-2xl relative z-10 overflow-hidden flex flex-col ${incompleteFlowActive ? '' : 'animate-slide-up'}`}>
                 <OnboardingHeader icon={icon} onBack={onBack} onClose={onClose} />

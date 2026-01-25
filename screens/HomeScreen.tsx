@@ -242,7 +242,7 @@ const DashboardContent = ({
 
             {/* Main Profit */}
             <div className="flex flex-col items-center mb-4">
-              <span className="text-[11px] font-medium opacity-70 mb-1 uppercase tracking-widest text-white">Operating profit</span>
+              <span className="text-[15px] font-semibold mb-1 tracking-normal text-kletta-yellow">Operating profit</span>
               <span className="text-[40px] font-bold mb-2 tracking-tight leading-none text-white">+€2,361.43</span>
               
               <div className="flex items-center gap-1.5 opacity-90">
@@ -254,33 +254,25 @@ const DashboardContent = ({
 
           {/* Unified Summary Card - Overlapping Header */}
           <div className="px-5 -mt-12 relative z-10 mb-6">
-              <div className="bg-white rounded-[20px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col overflow-hidden">
+              <div className="bg-white rounded-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden border border-gray-100">
                  
-                 {/* Stats Row - Refined Typography weight */}
+                 {/* Stats Row - REVERTED TO WHITE BACKGROUND WITH DARK TEXT */}
                  <div className="flex justify-between py-5 px-1">
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[13px] font-normal text-kletta-dark mb-1 opacity-60">Income</p>
-                       <p className="font-medium text-[16px] text-kletta-dark leading-tight">€2,986.30</p>
+                       <p className="text-[12px] font-normal text-gray-500 mb-1">Income</p>
+                       <p className="font-medium text-[17px] text-kletta-dark leading-tight">€2,986.30</p>
                     </div>
                     <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[13px] font-normal text-kletta-dark mb-1 opacity-60">Expenses</p>
-                       <p className="font-medium text-[16px] text-kletta-dark leading-tight">€523.46</p>
+                       <p className="text-[12px] font-normal text-gray-500 mb-1">Expenses</p>
+                       <p className="font-medium text-[17px] text-kletta-dark leading-tight">€523.46</p>
                     </div>
                      <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[13px] font-normal text-kletta-dark mb-1 opacity-60">VAT</p>
-                       <p className="font-medium text-[16px] text-kletta-dark leading-tight">€145.90</p>
+                       <p className="text-[12px] font-normal text-gray-500 mb-1">VAT</p>
+                       <p className="font-medium text-[17px] text-kletta-dark leading-tight">€145.90</p>
                     </div>
                  </div>
-
-                 {/* Button - Refined weight */}
-                 <button 
-                   onClick={onViewSummary}
-                   className="w-full py-4 bg-kletta-yellow flex items-center justify-center gap-1 font-normal text-[14px] text-kletta-dark active:bg-[#FCD32A] transition-colors"
-                 >
-                    View summary <IconChevronRight size={14} weight="bold" />
-                 </button>
               </div>
           </div>
 
@@ -295,10 +287,8 @@ const DashboardContent = ({
               <ActionIcon icon={IconStartTrip} label="Start trip" />
               
               <ActionIcon icon={IconAddTrip} label="Add trip" /> 
-              {/* Fix: use onBankClick prop instead of non-existent handleBankClick */}
               <ActionIcon icon={IconBank} label="Bank" onClick={onBankClick} />
               <ActionIcon icon={IconScanReceipt} label="Scan receipt" highlight onClick={() => navigate('scan-receipt-camera')} />
-              {/* Fix: use onUploadClick prop instead of non-existent handleUploadClick */}
               <ActionIcon icon={IconUploadReceipt} label="Upload receipt" highlight onClick={onUploadClick} />
             </div>
 
@@ -312,6 +302,7 @@ const DashboardContent = ({
                   days={45} 
                   text="VAT return 06/2025 not ready" 
                   dotColor="bg-gray-300" 
+                  label="Review"
                   onClick={() => navigate('tax-return')}
                 />
                 <div className="h-px bg-gray-50 my-1 ml-0"></div>
@@ -319,7 +310,18 @@ const DashboardContent = ({
                   days={76} 
                   text="VAT return 06/2025 not ready" 
                   dotColor="bg-orange-400" 
+                  label="Review"
                   onClick={() => navigate('tax-return')}
+                />
+                 <div className="h-px bg-gray-50 my-1 ml-0"></div>
+                <UpcomingItem 
+                  days={102} 
+                  text="Confirm your tax return" 
+                  dotColor="bg-kletta-yellow" 
+                  label="Review"
+                  secondaryLabel="Confirm"
+                  onClick={() => navigate('tax-return')}
+                  onSecondaryClick={() => navigate('tax-return')}
                 />
               </div>
             </div>
@@ -341,7 +343,7 @@ const DashboardContent = ({
             
             {/* 4. Setup Account */}
             <div className="bg-white rounded-[20px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100/50">
-              <div className="flex justify-between items-center mb-2">
+              <div className="flex justify-between items-center mb-4 px-1">
                 <h3 className="font-medium text-[16px] text-kletta-dark">Set up your account</h3>
                 <span className="text-[11px] font-medium text-[#008c9e]">50% complete</span>
               </div>
@@ -370,7 +372,7 @@ const DashboardContent = ({
               <span className="text-[11px] font-medium opacity-70 uppercase tracking-wide">Overdue invoices</span>
             </button>
 
-            {/* 6. Next Steps Section - Refined Styles */}
+            {/* 6. Next Steps Section */}
             <div className="space-y-4 pt-2">
               <h3 className="font-medium text-[17px] text-kletta-dark tracking-tight px-1">Next you could...</h3>
               
@@ -389,7 +391,7 @@ const DashboardContent = ({
                 </button>
               </div>
 
-              {/* Step List Items - White background, normal weight */}
+              {/* Step List Items */}
               <div className="space-y-3">
                 <NextStepRow number={1} label="Setup Business Profile" />
                 <NextStepRow number={2} label="Create new product or service" />
@@ -444,7 +446,6 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
     if (params?.tab) {
         setActiveTab(params.tab);
     }
-    // Logic for showing incomplete checklist if flag is set
     if (params?.showIncompleteOnboarding) {
         setShowIncompleteModal(true);
     }
@@ -466,14 +467,12 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
 
   const handleAiSend = () => {
     if (!aiInputValue.trim()) return;
-    // Logic: clear input, hide bar, switch to chat tab and open AI chat details
     setAiInputValue('');
     setIsAiInputActive(false);
     setOpenAiChatDirectly(true);
     setActiveTab('chat');
   };
 
-  // Fix: Added missing handleGallerySelect to fix compilation error
   const handleGallerySelect = (url: string) => {
     setShowGallery(false);
     navigate('scan-receipt-preview', { imageUrl: url });
@@ -526,7 +525,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
       {/* Fixed Bottom Action Group */}
       {!isTabBarHidden && !showIncompleteModal && (
         <div className="absolute bottom-0 left-0 right-0 z-50 animate-fade-in">
-            {/* AI Assistant Bar - Fixed above Nav Bar */}
+            {/* AI Assistant Bar */}
             {activeTab === 'home' && (
               <div className="w-full bg-white/95 backdrop-blur-md px-6 py-4 flex flex-col border-t border-gray-100 transition-all">
                 {isAiInputActive ? (
@@ -612,15 +611,13 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
         </div>
       )}
 
-      {/* Incomplete Onboarding Modal Overlay */}
+      {/* Modals & Sheets */}
       {showIncompleteModal && (
         <IncompleteOnboardingEntry 
           navigate={navigate} 
           goBack={() => setShowIncompleteModal(false)} 
         />
       )}
-
-      {/* Date Filter Sheet - Rendered here to cover the nav bar */}
       {showFilter && (
         <DateFilterSheet 
           currentValue={dateRange}
@@ -628,16 +625,12 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
           onApply={(val) => setDateRange(val)}
         />
       )}
-
-      {/* Virtual Gallery Sheet */}
       {showGallery && (
         <VirtualGallerySheet 
           onClose={() => setShowGallery(false)}
           onSelect={handleGallerySelect}
         />
       )}
-
-      {/* Scan Sales Report Sheet */}
       {showScanReportSheet && (
         <ScanSalesReportSheet 
           onClose={() => setShowScanReportSheet(false)}
@@ -658,38 +651,55 @@ const ActionIcon = ({ icon: Icon, label, highlight, onClick }: { icon: any, labe
   </button>
 );
 
-const UpcomingItem = ({ days, text, dotColor, onClick }: { days: number, text: string, dotColor: string, onClick?: () => void }) => (
-  <button onClick={onClick} className="w-full flex justify-between items-center py-3 group active:bg-gray-50 transition-colors">
-    <div className="flex-1 text-left">
+const UpcomingItem = ({ days, text, dotColor, label = "Review", onClick, secondaryLabel, onSecondaryClick }: { days: number, text: string, dotColor: string, label?: string, onClick?: () => void, secondaryLabel?: string, onSecondaryClick?: () => void }) => (
+  <div className="w-full flex justify-between items-center py-3">
+    <div className="flex-1 text-left pr-2">
         <p className="font-medium text-[14px] text-kletta-dark mb-1">{days} days</p>
         <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${dotColor}`}></div>
             <p className="text-[13px] text-kletta-secondary font-light">{text}</p>
         </div>
     </div>
-    <div className="w-8 h-8 flex items-center justify-end">
-        <IconChevronRight size={16} className="text-gray-300" weight="bold" />
+    <div className="flex flex-col gap-2 shrink-0">
+        <button 
+          onClick={onClick}
+          className="px-4 py-2 bg-white border border-gray-200 rounded-[10px] text-[13px] font-medium text-kletta-dark active:bg-gray-50 transition-colors shadow-sm min-w-[84px] text-center"
+        >
+          {label}
+        </button>
+        {secondaryLabel && (
+          <button 
+            onClick={onSecondaryClick}
+            className="px-4 py-2 bg-white border border-gray-200 rounded-[10px] text-[13px] font-medium text-kletta-dark active:bg-gray-50 transition-colors shadow-sm min-w-[84px] text-center"
+          >
+            {secondaryLabel}
+          </button>
+        )}
     </div>
-  </button>
+  </div>
 );
 
 const ChecklistItem = ({ text, onClick, icon }: { text: string, onClick?: () => void, icon: React.ReactNode }) => (
   <button 
     onClick={onClick}
-    className="w-full flex items-center justify-between py-4 group hover:bg-gray-50 -mx-2 px-2 transition-colors"
+    className="w-full flex items-center justify-between py-4 group -mx-2 px-2 hover:bg-gray-50 transition-colors"
   >
-    <div className="flex items-center gap-3">
+    <div className="flex-1 items-center gap-3 pr-2 hidden sm:flex">
       <div className="w-6 h-6 flex items-center justify-center text-gray-400 shrink-0 transition-all">
-         {/* Fix: Cast icon to React.ReactElement<any> to allow passing 'size' prop in cloneElement */}
          {React.cloneElement(icon as React.ReactElement<any>, { size: 20, weight: 'regular' })}
       </div>
-      <span className="text-[14px] font-medium text-gray-600 group-hover:text-kletta-teal">{text}</span>
+      <span className="text-[14px] font-medium text-gray-600 leading-tight">{text}</span>
     </div>
-    <IconChevronRight size={16} className="text-gray-300 group-hover:text-kletta-teal" weight="bold" />
+    <div className="flex-1 flex items-center gap-3 pr-2 sm:hidden">
+      <div className="w-6 h-6 flex items-center justify-center text-gray-400 shrink-0 transition-all">
+         {React.cloneElement(icon as React.ReactElement<any>, { size: 20, weight: 'regular' })}
+      </div>
+      <span className="text-[14px] font-medium text-gray-600 leading-tight">{text}</span>
+    </div>
+    <IconChevronRight size={18} className="text-gray-300 group-hover:text-kletta-teal transition-colors" weight="bold" />
   </button>
 );
 
-// New Helper for "Next you could..." section - Refined with white background and reduced weight
 const NextStepRow = ({ number, icon, label, onClick }: { number?: number, icon?: React.ReactNode, label: string, onClick?: () => void }) => (
   <button 
     onClick={onClick}
@@ -716,7 +726,6 @@ const NextStepRow = ({ number, icon, label, onClick }: { number?: number, icon?:
 const TabItem = ({ active, icon: Icon, label, onClick }: { active: boolean, icon: any, label: string, onClick: () => void }) => (
   <button onClick={onClick} className="flex flex-col items-center gap-1 w-14 group">
     <div className={`transition-all duration-200`}>
-        {/* Active: Filled Teal, Inactive: Outlined Grey */}
         <Icon 
            size={26} 
            color={active ? '#00343B' : '#9ca3af'} 

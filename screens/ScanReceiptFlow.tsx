@@ -337,14 +337,24 @@ export const ScanReceiptReview: React.FC<NavigationProps> = ({ navigate, goBack,
                 <button 
                     onClick={() => {
                         if (params?.type === 'statement') {
-                            navigate('onboarding-3');
+                            // After scanning statement, navigate to manual entry with simulated "extracted" data
+                            navigate('onboarding-manual-entry', { 
+                                scannedData: {
+                                    sales: '2450.00',
+                                    grants: '0.00',
+                                    purchases: '840.50',
+                                    rents: '1200.00',
+                                    otherExpenses: '154.20',
+                                    totalVat: '342.80'
+                                }
+                            });
                         } else {
                             navigate('invoice-success', { type: 'expense' });
                         }
                     }}
                     className="w-full h-[52px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] shadow-sm active:scale-[0.98] transition-all"
                 >
-                    {params?.type === 'statement' ? 'Save statement' : 'Record expense'}
+                    {params?.type === 'statement' ? 'Verify and save statement' : 'Record expense'}
                 </button>
             </div>
         </div>

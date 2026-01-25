@@ -71,7 +71,7 @@ const RECENT_PRODUCTS: Product[] = [
 const ALL_PRODUCTS: Product[] = [
     { id: "prod-4", title: "Internal Audit Service - Q1", basePrice: 1200.00, vat: 24, description: "Internal audit", type: "Service", imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=100&h=100&fit=crop" },
     { id: "prod-5", title: "Statutory Audit - Year End 2024 Compliance Check", basePrice: 2500.00, vat: 24, description: "Yearly statutory audit", type: "Service", imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop" },
-    { id: "prod-6", title: "Basic Bookkeeping", basePrice: 65.00, vat: 24, description: "Hourly rate", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6f?w=100&h=100&fit=crop" },
+    { id: "prod-6", title: "Basic Bookkeeping", basePrice: 65.00, vat: 24, description: "Hourly rate", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=100&h=100&fit=crop" },
     { id: "prod-7", title: "Senior Accountant Consultation", basePrice: 85.00, vat: 24, description: "Senior rate", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop" },
     { id: "prod-8", title: "Corporate Tax Advisory", basePrice: 150.00, vat: 24, description: "Tax consultation", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=100&h=100&fit=crop" },
     { id: "prod-9", title: "Legal Framework Setup for New Subsidiary", basePrice: 200.00, vat: 24, description: "Legal setup", type: "Hourly", imageUrl: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=100&h=100&fit=crop" },
@@ -137,7 +137,6 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
     setActiveProduct(null);
   };
 
-  // Fix: use product-step-name instead of non-existent product-add-details
   const handleTypeSelect = (type: 'Product' | 'Service') => {
     setShowTypeSheet(false);
     navigate('product-step-name', { type });
@@ -146,41 +145,21 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
          
-         {/* --- FIXED TOP SECTION --- */}
-         <div className="w-full bg-white z-20 shadow-[0_1px_2px_rgba(0,0,0,0.03)] shrink-0">
-             
-             {/* Header */}
-             <div className="w-full bg-kletta-teal flex flex-col pb-5 pt-0">
-                 {/* Status Bar */}
-                 <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
-                     <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
-                     <div className="flex gap-1.5 items-center mr-1">
-                         <IconCellSignalFull size={16} weight="fill" />
-                         <IconWifiHigh size={16} weight="bold" />
-                         <IconBatteryFull size={24} weight="fill" className="rotate-0" />
-                     </div>
-                 </div>
-
-                 {/* Navigation & Title */}
-                 <div className="px-6 pt-2 flex flex-col">
-                    <div className="flex justify-between items-center mb-6">
-                        <div className="flex flex-col">
-                            <button 
-                                onClick={goBack} 
-                                className="w-10 h-10 -ml-2 mb-2 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors text-white"
-                            >
-                                <IconBack size={26} weight="bold" />
-                            </button>
-                            <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Add to invoice</h1>
-                            <p className="text-[13px] font-medium text-white/60">Select products or services</p>
-                        </div>
-                        
-                        {/* Search Icon */}
-                        <button className="w-10 h-10 -mr-2 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors text-white self-end mb-1">
-                            <IconSearch size={24} weight="bold" />
-                        </button>
-                    </div>
-                 </div>
+         {/* --- CLEAN HEADER (Replaces large teal header) --- */}
+         <div className="w-full bg-white z-20 shrink-0 pt-12">
+             <div className="px-6 pb-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <button 
+                        onClick={goBack} 
+                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors text-kletta-dark"
+                    >
+                        <IconBack size={26} weight="bold" />
+                    </button>
+                    <h1 className="text-[19px] font-bold text-kletta-dark tracking-tight">Add to invoice</h1>
+                </div>
+                <button className="w-10 h-10 flex items-center justify-center hover:bg-gray-50 rounded-full transition-colors text-kletta-dark">
+                    <IconSearch size={22} weight="bold" />
+                </button>
              </div>
 
              {/* Create New Product */}
