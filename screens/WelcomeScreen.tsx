@@ -44,9 +44,9 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
           
           <button 
              onClick={() => navigate('login')}
-             className="w-full py-4 text-kletta-dark font-semibold text-[16px] active:opacity-60 transition-opacity"
+             className="w-full py-4 text-kletta-dark font-normal text-[16px] active:opacity-60 transition-opacity"
           >
-             Login
+             Have an account? <span className="underline font-semibold">Login</span>
           </button>
       </div>
 

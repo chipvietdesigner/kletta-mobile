@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   IconBack, IconCellSignalFull, IconWifiHigh, IconBatteryFull,
@@ -10,18 +11,8 @@ export const SettingsScreen: React.FC<NavigationProps> = ({ navigate, goBack }) 
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden text-kletta-dark">
              
-            {/* Status Bar */}
-            <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20 bg-white">
-                <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
-                <div className="flex gap-1.5 items-center mr-1">
-                    <IconCellSignalFull size={16} weight="fill" />
-                    <IconWifiHigh size={16} weight="bold" />
-                    <IconBatteryFull size={24} weight="fill" className="rotate-0" />
-                </div>
-            </div>
-
             {/* Header */}
-            <div className="px-6 pt-2 pb-4 flex items-center justify-between z-10 bg-white shrink-0 border-b border-gray-50">
+            <div className="px-6 pt-12 pb-4 flex items-center justify-between z-10 bg-white shrink-0 border-b border-gray-50">
                 <button 
                     onClick={goBack} 
                     className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors"

@@ -256,20 +256,20 @@ const DashboardContent = ({
           <div className="px-5 -mt-12 relative z-10 mb-6">
               <div className="bg-white rounded-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden border border-gray-100">
                  
-                 {/* Stats Row - REVERTED TO WHITE BACKGROUND WITH DARK TEXT */}
+                 {/* Stats Row - TEXT SIZES INCREASED BY 1PX */}
                  <div className="flex justify-between py-5 px-1">
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[12px] font-normal text-gray-500 mb-1">Income</p>
+                       <p className="text-[14px] font-normal text-gray-500 mb-1">Income</p>
                        <p className="font-medium text-[17px] text-kletta-dark leading-tight">€2,986.30</p>
                     </div>
                     <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[12px] font-normal text-gray-500 mb-1">Expenses</p>
+                       <p className="text-[14px] font-normal text-gray-500 mb-1">Expenses</p>
                        <p className="font-medium text-[17px] text-kletta-dark leading-tight">€523.46</p>
                     </div>
                      <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[12px] font-normal text-gray-500 mb-1">VAT</p>
+                       <p className="text-[14px] font-normal text-gray-500 mb-1">VAT</p>
                        <p className="font-medium text-[17px] text-kletta-dark leading-tight">€145.90</p>
                     </div>
                  </div>
@@ -376,8 +376,8 @@ const DashboardContent = ({
             <div className="space-y-4 pt-2">
               <h3 className="font-medium text-[17px] text-kletta-dark tracking-tight px-1">Next you could...</h3>
               
-              {/* Care Promo Banner */}
-              <div className="bg-kletta-yellow rounded-[20px] p-4 flex items-center justify-between shadow-sm relative group overflow-hidden border border-kletta-yellow/40">
+              {/* Care Promo Banner - Close Icon consistent with top banner */}
+              <div className="bg-kletta-yellow rounded-[20px] p-5 flex items-start justify-between shadow-sm relative group overflow-hidden border border-kletta-yellow/40">
                 <div className="flex gap-4 items-center">
                    <div className="w-11 h-11 bg-white/30 rounded-full flex items-center justify-center shrink-0">
                       <IconScales size={26} className="text-kletta-dark" weight="bold" />
@@ -386,8 +386,8 @@ const DashboardContent = ({
                     Upgrade to Kletta CARE where accounting expert verifies all entries <span className="font-bold">69€/month</span>
                   </p>
                 </div>
-                <button className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white shrink-0 active:scale-90 transition-transform">
-                   <IconClose size={16} weight="bold" />
+                <button className="opacity-60 hover:opacity-100 p-1 -mt-1 -mr-1 shrink-0">
+                   <IconClose size={20} weight="bold" />
                 </button>
               </div>
 

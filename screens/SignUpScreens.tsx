@@ -26,7 +26,7 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
       </div>
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-6 pb-32">
          <div className="mb-12 max-w-[420px]">
-            <h2 className="text-[32px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome to Kletta!</h2>
+            <h2 className="text-[26px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome to Kletta!</h2>
             <p className="text-kletta-secondary font-light text-[15px]">Let's start by entering your e-mail address.</p>
         </div>
         <div className="space-y-6 max-w-[420px] mx-auto">
@@ -81,7 +81,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
       </div>
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-4 pb-48">
         <div className="max-w-[420px] mx-auto">
-            <h2 className="text-[36px] font-medium text-kletta-dark mb-2 tracking-tight">Check your inbox</h2>
+            <h2 className="text-[26px] font-medium text-kletta-dark mb-2 tracking-tight">Check your inbox</h2>
             <p className="text-gray-700 text-[16px] font-light mb-10 leading-relaxed">We have sent a 6 digit code to <br/><span className="text-kletta-dark font-medium">{email}</span>.</p>
             <div className="flex gap-3 justify-center mb-10">
                 {code.map((digit, i) => (
