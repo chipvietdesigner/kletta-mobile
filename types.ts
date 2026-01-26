@@ -3,7 +3,7 @@ export type ScreenName =
   | 'splash' | 'welcome' | 'login' | 'home'
   | 'signup-email' | 'signup-verify' | 'signup-create-passcode' | 'signup-business-location'
   | 'onboarding-welcome'
-  | 'onboarding-1' | 'onboarding-2' | 'onboarding-3' 
+  | 'onboarding-1' | 'onboarding-2' | 'onboarding-3' | 'onboarding-4'
   | 'onboarding-5' | 'onboarding-phone-verify' | 'onboarding-6' | 'onboarding-7' | 'onboarding-8'
   | 'onboarding-manual-entry'
   | 'incomplete-onboarding-entry'

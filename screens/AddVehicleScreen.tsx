@@ -69,12 +69,13 @@ export const AddVehicleScreen: React.FC<NavigationProps> = ({ navigate, goBack }
 
                 {/* Vehicle Name Input */}
                 <div className="px-8 mb-10">
+                    <h3 className="text-[16px] font-bold text-kletta-dark ml-1 mb-2 block">Vehicle name</h3>
                     <KlettaInput placeholder="Vehicle name" />
                 </div>
 
                 {/* Vehicle Type Section */}
                 <div className="px-8 mb-10">
-                    <h3 className="text-[16px] font-medium text-kletta-dark mb-6">Vehicle type</h3>
+                    <h3 className="text-[16px] font-bold text-kletta-dark mb-6">Vehicle type</h3>
                     <div className="space-y-5">
                         <SimpleRadioItem 
                             label="Passenger car" 
@@ -101,7 +102,7 @@ export const AddVehicleScreen: React.FC<NavigationProps> = ({ navigate, goBack }
 
                 {/* Proportion Section */}
                 <div className="bg-[#F8F9FA] py-8 px-8 mb-10 flex items-center justify-between">
-                    <h3 className="text-[16px] font-medium text-kletta-dark">Proportion of business use</h3>
+                    <h3 className="text-[16px] font-bold text-kletta-dark">Proportion of business use</h3>
                     <div className="relative">
                         <select 
                             value={proportion}
@@ -118,7 +119,7 @@ export const AddVehicleScreen: React.FC<NavigationProps> = ({ navigate, goBack }
 
                 {/* Transfer Section */}
                 <div className="px-8 mb-10">
-                    <h3 className="text-[16px] font-medium text-kletta-dark mb-6 leading-tight">
+                    <h3 className="text-[16px] font-bold text-kletta-dark mb-6 leading-tight">
                         Is this a transfer of personal property to the business name or a new acquisition?
                     </h3>
                     <div className="space-y-4">
@@ -142,7 +143,7 @@ export const AddVehicleScreen: React.FC<NavigationProps> = ({ navigate, goBack }
 
                 {/* Provide relevant information - Conditional based on acquisitionType */}
                 <div className="px-8 mb-12">
-                    <h3 className="text-[16px] font-medium text-kletta-dark mb-6">Provide relevant information</h3>
+                    <h3 className="text-[16px] font-bold text-kletta-dark mb-6">Provide relevant information</h3>
                     
                     <div className="space-y-5">
                         {acquisitionType === 'Transfer from personal' && (

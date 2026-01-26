@@ -218,6 +218,9 @@ const resetIncompleteFlowState = () => {
 
 // --- 2. STEP: TAX INFO ---
 export const IncompleteTaxInfo: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+  const [businessName, setBusinessName] = useState('');
+  const [businessId, setBusinessId] = useState('');
+
   return (
     <IncompleteStepLayout
         icon={<IconFile />}
@@ -226,10 +229,21 @@ export const IncompleteTaxInfo: React.FC<NavigationProps> = ({ navigate, goBack 
         onPrimary={() => navigate('incomplete-onboarding-tax-confirm')}
         onClose={() => { resetIncompleteFlowState(); navigate('home', { showIncompleteOnboarding: true }); }}
         onBack={() => { resetIncompleteFlowState(); navigate('home', { showIncompleteOnboarding: true }); }}
+        disablePrimary={!businessName.trim() || !businessId.trim()}
     >
         <div className="space-y-6">
-            <KlettaInput label="Business name" placeholder="Company ABC" />
-            <KlettaInput label="Finnish business ID" placeholder="1234567-8" />
+            <KlettaInput 
+                label="Business name" 
+                placeholder="Company ABC" 
+                value={businessName}
+                onChange={(e) => setBusinessName(e.target.value)}
+            />
+            <KlettaInput 
+                label="Finnish business ID" 
+                placeholder="1234567-8" 
+                value={businessId}
+                onChange={(e) => setBusinessId(e.target.value)}
+            />
             <KlettaSelect label="VAT return period">
                  <option>No VAT liability</option>
                  <option>Monthly</option>
@@ -283,6 +297,7 @@ export const IncompletePhone: React.FC<NavigationProps> = ({ navigate, goBack })
         onPrimary={() => navigate('incomplete-onboarding-verify-code', { phone: `${prefix} ${phone}` })}
         onClose={() => { resetIncompleteFlowState(); navigate('home', { showIncompleteOnboarding: true }); }}
         onBack={() => navigate('incomplete-onboarding-tax-confirm')}
+        disablePrimary={phone.replace(/\s/g, '').length < 8}
     >
         <div className="flex gap-3">
             <div className="w-28 shrink-0">

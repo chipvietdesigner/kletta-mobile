@@ -6,7 +6,7 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import { SignUpEmailScreen, VerifyEmailCodeScreen, SignUpCreatePasscodeScreen, SignUpBusinessLocationScreen } from './screens/SignUpScreens';
 import { 
-    OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, 
+    OnboardingWelcome, OnboardingStep1, OnboardingStep2, OnboardingStep3, OnboardingStep4,
     OnboardingStep5, OnboardingPhoneVerify, OnboardingStep6, OnboardingStep7, OnboardingStep8, OnboardingManualEntry
 } from './screens/OnboardingScreens';
 import { 
@@ -68,7 +68,8 @@ const App = () => {
         case 'onboarding-2': navigate('onboarding-1'); break;
         case 'onboarding-3': navigate('onboarding-2'); break;
         case 'onboarding-manual-entry': navigate('onboarding-3'); break;
-        case 'onboarding-5': navigate('onboarding-3'); break;
+        case 'onboarding-4': navigate('onboarding-3'); break;
+        case 'onboarding-5': navigate('onboarding-4'); break;
         case 'onboarding-phone-verify': navigate('onboarding-5'); break;
         case 'onboarding-6': navigate('onboarding-phone-verify'); break;
         case 'onboarding-7': navigate('onboarding-6'); break;
@@ -138,6 +139,7 @@ const App = () => {
         case 'onboarding-1': return <OnboardingStep1 navigate={navigate} goBack={goBack} />;
         case 'onboarding-2': return <OnboardingStep2 navigate={navigate} goBack={goBack} />;
         case 'onboarding-3': return <OnboardingStep3 navigate={navigate} goBack={goBack} />;
+        case 'onboarding-4': return <OnboardingStep4 navigate={navigate} goBack={goBack} />;
         case 'onboarding-manual-entry': return <OnboardingManualEntry navigate={navigate} goBack={goBack} params={navParams} />;
         case 'onboarding-5': return <OnboardingStep5 navigate={navigate} goBack={goBack} />;
         case 'onboarding-phone-verify': return <OnboardingPhoneVerify navigate={navigate} goBack={goBack} params={navParams} />;

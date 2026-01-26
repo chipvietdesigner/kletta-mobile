@@ -24,7 +24,8 @@ import {
   IconClose,
   IconChevronRight,
   IconArrowSquareOut,
-  IconMotorcycle
+  IconMotorcycle,
+  IconCoins
 } from '../components/Icons';
 import { KlettaInput, KlettaSelect } from '../components/Inputs';
 
@@ -303,6 +304,8 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate, goBack })
 // --- Step 2: Tax Info ---
 export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     const [vatPeriod, setVatPeriod] = useState('No VAT liability');
+    const [businessName, setBusinessName] = useState('');
+    const [businessId, setBusinessId] = useState('');
 
     return (
         <OnboardingLayout
@@ -313,10 +316,21 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
             onSecondary={() => navigate('onboarding-3')}
             secondaryLabel="Later"
             onBack={goBack}
+            disablePrimary={!businessName.trim() || !businessId.trim()}
         >
             <div className="space-y-6 mb-8">
-                <KlettaInput label="Business name" placeholder="Company ABC" />
-                <KlettaInput label="Finnish business ID" placeholder="1234567-8" />
+                <KlettaInput 
+                    label="Business name" 
+                    placeholder="Company ABC" 
+                    value={businessName}
+                    onChange={(e) => setBusinessName(e.target.value)}
+                />
+                <KlettaInput 
+                    label="Finnish business ID" 
+                    placeholder="1234567-8" 
+                    value={businessId}
+                    onChange={(e) => setBusinessId(e.target.value)}
+                />
                 
                 <KlettaSelect 
                     label="VAT return period" 
@@ -374,8 +388,8 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
             title="Opening bookkeeping"
             subtitle="How would you like to import this season’s bookkeeping?"
             icon={<IconFile weight="fill" />}
-            onPrimary={() => navigate('onboarding-5')}
-            onSecondary={() => navigate('onboarding-5')}
+            onPrimary={() => navigate('onboarding-4')}
+            onSecondary={() => navigate('onboarding-4')}
             secondaryLabel="Later"
             disablePrimary={selected === null}
             onBack={goBack}
@@ -437,6 +451,80 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
     );
 };
 
+// --- Step 4: VAT Accumulation (NEW) ---
+export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack }) => {
+    return (
+        <OnboardingLayout
+            title="Add VAT accumulation amounts"
+            icon={<IconCoins weight="fill" />}
+            onPrimary={() => navigate('onboarding-5')}
+            onBack={goBack}
+        >
+            <div className="space-y-8 pb-10">
+                {/* Period Info */}
+                <div className="space-y-2 mb-6 px-1">
+                    <div className="flex justify-between items-center">
+                        <span className="text-[14px] text-gray-500 font-normal">Tax period</span>
+                        <span className="text-[14px] text-kletta-dark font-medium">01.01.2026–31.01.2026</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <span className="text-[14px] text-gray-500 font-normal">Status</span>
+                        <span className="text-[14px] text-gray-400 font-medium">Not sent</span>
+                    </div>
+                </div>
+
+                {/* Section 1 */}
+                <div className="space-y-4">
+                    <h3 className="text-[16px] font-bold text-kletta-dark">Tax on domestic sales by tax rate</h3>
+                    <div className="space-y-4">
+                        <VatInputRow label="25.5%" />
+                        <VatInputRow label="13.5%" />
+                        <VatInputRow label="10%" />
+                    </div>
+                </div>
+
+                {/* Section 2 */}
+                <div className="space-y-4">
+                    <h3 className="text-[16px] font-bold text-kletta-dark">VAT on purchases and imports</h3>
+                    <div className="space-y-4">
+                        <VatInputRow label="Tax on imports of goods from outside the EU" />
+                        <VatInputRow label="Tax on goods purchased from other EU Member States" />
+                        <VatInputRow label="Tax on services purchased from other EU Member States" />
+                        <VatInputRow label="Tax on purchases of construction services and Scrap metal (reverse charge)" />
+                    </div>
+                </div>
+
+                {/* Section 3 */}
+                <div className="space-y-4">
+                    <h3 className="text-[16px] font-bold text-kletta-dark">Deductible tax</h3>
+                    <div className="space-y-4">
+                        <VatInputRow label="VAT deductible for the period" />
+                    </div>
+                </div>
+
+                {/* Section 4 Footer Header */}
+                <div className="pt-2">
+                    <h3 className="text-[16px] font-bold text-kletta-dark">Sales, purchases and imports</h3>
+                </div>
+            </div>
+        </OnboardingLayout>
+    );
+};
+
+const VatInputRow = ({ label }: { label: string }) => (
+    <div className="flex items-center justify-between py-1.5 gap-4">
+        <span className="text-[14px] font-light text-kletta-dark flex-1 leading-tight">{label}</span>
+        <div className="flex items-center gap-2 shrink-0">
+            <span className="text-[15px] text-gray-300">€</span>
+            <input 
+                type="text" 
+                defaultValue="0"
+                className="w-16 bg-transparent border-b border-gray-200 py-0.5 text-right text-[15px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all placeholder:text-gray-200"
+            />
+        </div>
+    </div>
+);
+
 // --- ONBOARDING MANUAL ENTRY FORM ---
 export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goBack, params }) => {
     const scanned = params?.scannedData || {};
@@ -466,24 +554,24 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
             title="Year-to-date entry"
             subtitle="Input the amounts from your income statement. Amounts should not include value-added taxes (Excl. VAT)."
             icon={<IconPencilSimple weight="fill" />}
-            onPrimary={() => navigate('onboarding-5')}
+            onPrimary={() => navigate('onboarding-4')}
             onBack={goBack}
         >
-            <div className="space-y-10">
+            <div className="space-y-8">
                 {/* Year Dropdown */}
-                <div className="flex justify-between items-center px-2">
-                    <span className="text-[17px] font-bold text-kletta-dark">Year</span>
+                <div className="flex justify-between items-center px-2 py-2 border-b border-gray-100 mb-2">
+                    <span className="text-[16px] font-medium text-kletta-dark">Year</span>
                     <div className="flex items-center gap-2">
-                        <span className="text-[17px] font-medium text-kletta-dark">2026</span>
+                        <span className="text-[16px] font-medium text-kletta-dark">2026</span>
                         <IconChevronDown size={20} className="text-kletta-dark" />
                     </div>
                 </div>
 
                 {/* Income Section */}
-                <div className="space-y-6">
+                <div className="space-y-5">
                     <div>
-                        <h3 className="text-[18px] font-bold text-kletta-dark mb-1">Income</h3>
-                        <p className="text-[14px] text-gray-500 font-normal">Early year / Year-to-date</p>
+                        <h3 className="text-[17px] font-medium text-kletta-dark mb-1">Income</h3>
+                        <p className="text-[13px] text-gray-500 font-normal">Early year / Year-to-date</p>
                     </div>
                     <div className="space-y-4">
                         <FinancialInputRow label="Sales" sub="Year-to-date revenue" value={data.sales} onChange={v => update('sales', v)} />
@@ -494,11 +582,11 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                 </div>
 
                 {/* Expenses Section */}
-                <div className="space-y-6">
+                <div className="space-y-5">
                     <div>
-                        <h3 className="text-[18px] font-bold text-kletta-dark mb-1">Expenses</h3>
-                        <p className="text-[14px] text-gray-500 font-normal">Early year / Year-to-date</p>
-                        <p className="text-[12px] text-gray-400 mt-2 leading-relaxed">Fill only necessary fields. If there isn't a specific field for a cost on the income statement, include it in "Other deductible expenses".</p>
+                        <h3 className="text-[17px] font-medium text-kletta-dark mb-1">Expenses</h3>
+                        <p className="text-[13px] text-gray-500 font-normal">Early year / Year-to-date</p>
+                        <p className="text-[13px] text-gray-600 mt-2 leading-relaxed">Fill only necessary fields. If there isn't a specific field for a cost on the income statement, include it in "Other deductible expenses".</p>
                     </div>
                     <div className="space-y-4">
                         <FinancialInputRow label="Purchases and inventory changes" sub="Goods and materials for customers" value={data.purchases} onChange={v => update('purchases', v)} />
@@ -514,11 +602,11 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                 </div>
 
                 {/* Others Section */}
-                <div className="space-y-6">
+                <div className="space-y-5">
                     <div>
-                        <h3 className="text-[18px] font-bold text-kletta-dark mb-1">Others</h3>
-                        <p className="text-[14px] text-gray-500 font-normal">To date</p>
-                        <p className="text-[12px] text-gray-400 mt-2 leading-relaxed">Fill only necessary fields.</p>
+                        <h3 className="text-[17px] font-medium text-kletta-dark mb-1">Others</h3>
+                        <p className="text-[13px] text-gray-500 font-normal">To date</p>
+                        <p className="text-[13px] text-gray-600 mt-2 leading-relaxed">Fill only necessary fields.</p>
                     </div>
                     <div className="space-y-4">
                         <FinancialInputRow label="Tax prepayment" sub="How much you have already paid in advanced taxes?" isOthers value={data.taxPrepayment} onChange={v => update('taxPrepayment', v)} />
@@ -527,7 +615,7 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                         {/* Highlighted card for Total Paid VATs */}
                         <div className="bg-[#F7F6EE] p-5 rounded-2xl space-y-4 border border-gray-100/50">
                             <div>
-                                <p className="text-[15px] font-bold text-kletta-dark leading-tight">Total of paid VATs</p>
+                                <p className="text-[15px] font-medium text-kletta-dark leading-tight">Total of paid VATs</p>
                                 <p className="text-[13px] text-gray-500 font-light mt-1">Enter total amount of already paid VATs.</p>
                             </div>
                             <input 
@@ -535,7 +623,7 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                                 value={data.totalVat}
                                 onChange={e => update('totalVat', e.target.value)}
                                 placeholder="0"
-                                className="w-full h-12 bg-white rounded-xl border border-gray-200 px-4 text-right text-[17px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all"
+                                className="w-full h-12 bg-white rounded-xl border border-gray-300 px-4 text-right text-[17px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all placeholder:text-gray-400 shadow-sm"
                             />
                         </div>
                     </div>
@@ -548,7 +636,7 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
 const FinancialInputRow = ({ label, sub, isOthers, value, onChange }: { label: string, sub?: string, isOthers?: boolean, value?: string, onChange?: (v: string) => void }) => (
     <div className="flex items-start justify-between py-2 group">
         <div className="flex-1 pr-4">
-            <p className="text-[15px] font-bold text-kletta-dark leading-tight">{label}</p>
+            <p className="text-[14px] font-medium text-kletta-dark leading-tight">{label}</p>
             {sub && <p className="text-[12px] text-gray-500 font-light mt-1 leading-snug">{sub}</p>}
         </div>
         <div className="w-[120px] shrink-0">
@@ -557,7 +645,7 @@ const FinancialInputRow = ({ label, sub, isOthers, value, onChange }: { label: s
                 value={value}
                 onChange={e => onChange?.(e.target.value)}
                 placeholder={isOthers ? "0" : "Excl. VAT"} 
-                className="w-full h-12 bg-white border border-gray-200 rounded-[14px] px-4 text-right text-[15px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all placeholder:text-gray-300"
+                className="w-full h-12 bg-white border border-gray-300 rounded-[14px] px-4 text-right text-[15px] font-medium text-kletta-dark outline-none focus:border-kletta-teal transition-all placeholder:text-gray-400"
             />
         </div>
     </div>
@@ -577,6 +665,7 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate, goBack })
             onSecondary={() => navigate('onboarding-6')}
             secondaryLabel="Later"
             onBack={goBack}
+            disablePrimary={phone.replace(/\s/g, '').length < 8}
         >
             <div className="flex gap-3">
                 <div className="relative w-28 shrink-0">
@@ -766,9 +855,12 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
             onBack={goBack}
         >
             <div className="space-y-10">
-                <KlettaInput label="VEHICLE NAME" placeholder="e.g. Van or ABC-123" />
+                <div className="mb-2">
+                    <h3 className="text-[16px] font-bold text-kletta-dark ml-1 mb-2 block">Vehicle name</h3>
+                    <KlettaInput placeholder="e.g. Van or ABC-123" />
+                </div>
                 <div>
-                    <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-6 block">VEHICLE TYPE</label>
+                    <h3 className="text-[16px] font-bold text-kletta-dark ml-1 mb-6 block">Vehicle type</h3>
                     <div className="space-y-5">
                         <SimpleRadioItem 
                             label="Passenger car" 
@@ -808,9 +900,9 @@ export const OnboardingStep8: React.FC<NavigationProps> = ({ navigate, goBack })
                     </div>
                 </div>
                 <div>
-                    <label className="text-[11px] font-medium text-kletta-secondary uppercase tracking-wider ml-1 mb-6 block leading-relaxed">
+                    <h3 className="text-[16px] font-bold text-kletta-dark ml-1 mb-6 block leading-tight">
                         Is this a transfer of personal property to the business name or a new acquisition?
-                    </label>
+                    </h3>
                     <div className="space-y-4">
                         <CardRadioItem 
                             label="Transfer from personal ownership" 
@@ -847,8 +939,8 @@ const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
             })}
         </div>
         <div className="flex-1 pt-0.5">
-            <h3 className="font-bold text-[18px] text-kletta-dark leading-tight mb-1">{title}</h3>
-            <p className="text-[15px] text-gray-500 leading-snug font-normal">{desc}</p>
+            <h3 className="font-medium text-[16px] text-kletta-dark leading-tight mb-1">{title}</h3>
+            <p className="text-[14px] text-gray-500 leading-snug font-normal">{desc}</p>
         </div>
     </button>
 );
