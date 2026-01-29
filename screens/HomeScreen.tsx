@@ -273,13 +273,24 @@ const DashboardContent = ({
                        <p className="font-medium text-[17px] text-kletta-dark leading-tight">€145.90</p>
                     </div>
                  </div>
+
+                 {/* Integrated View Summary Link - INSIDE THE CARD NOW WITH LIGHT GREY BG */}
+                 <div className="border-t border-gray-50 py-3.5 flex justify-center bg-gray-50">
+                    <button 
+                      onClick={onViewSummary}
+                      className="flex items-center gap-1 text-[13px] font-medium text-kletta-secondary hover:text-kletta-teal transition-colors active:opacity-60"
+                    >
+                      View summary
+                      <IconChevronRight size={14} weight="bold" />
+                    </button>
+                 </div>
               </div>
           </div>
 
           {/* Main Body Content */}
           <div className="px-5 space-y-6">
             
-            {/* 1. Action Grid */}
+            {/* 1. Action Grid - Updated Action Icons to use custom squircle shape */}
             <div className="grid grid-cols-4 gap-y-6 gap-x-2 py-2">
               <ActionIcon icon={IconNewInvoice} label="New invoice" onClick={() => navigate('new-invoice')} />
               <ActionIcon icon={IconAddEntry} label="Add entry" onClick={() => navigate('add-entry')} />
@@ -495,12 +506,6 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
             onOpenFilter={() => setShowFilter(true)} 
           />
         )}
-        {activeTab === 'summary' && (
-          <SummaryScreen 
-            navigate={navigate} 
-            goBack={() => setActiveTab('home')} 
-          />
-        )}
         {activeTab === 'bank' && <BankScreen />}
         {activeTab === 'sales' && (
           <SalesScreen 
@@ -575,10 +580,10 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
                 onClick={() => setActiveTab('home')} 
                 />
                 <TabItem 
-                active={activeTab === 'summary'} 
-                icon={IconFileText} 
-                label="Summary" 
-                onClick={() => setActiveTab('summary')} 
+                active={activeTab === 'bank'} 
+                icon={IconBank} 
+                label="Bank" 
+                onClick={() => setActiveTab('bank')} 
                 />
                 <TabItem 
                 active={activeTab === 'sales'} 
@@ -641,11 +646,17 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   );
 };
 
+// ActionIcon Component - Updated to use the custom squircle shape path and remove shadow as requested
 const ActionIcon = ({ icon: Icon, label, highlight, onClick }: { icon: any, label: string, highlight?: boolean, onClick?: () => void }) => (
   <button onClick={onClick} className="flex flex-col items-center gap-2 group w-full">
-    <div className={`w-[56px] h-[56px] rounded-full flex items-center justify-center shadow-sm relative transition-all duration-200 group-active:scale-95 ${highlight ? 'bg-[#005c66] text-white' : 'bg-kletta-teal text-white'}`}>
-      <Icon size={24} weight="bold" />
-      {highlight && <IconSparkle size={12} weight="fill" className="absolute top-0 right-0 text-kletta-yellow" />}
+    <div className="w-[56px] h-[56px] flex items-center justify-center relative transition-all duration-200 group-active:scale-95">
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M52 26C52 43.3333 43.3333 52 26 52C8.66667 52 0 43.3333 0 26C0 8.66667 8.66667 0 26 0C43.3333 0 52 8.66667 52 26Z" fill={highlight ? "#005c66" : "#00343B"} />
+      </svg>
+      <div className="relative z-10 text-white">
+        <Icon size={24} weight="bold" />
+      </div>
+      {highlight && <IconSparkle size={12} weight="fill" className="absolute top-0 right-0 text-kletta-yellow z-20" />}
     </div>
     <span className="text-[11px] font-medium text-center leading-tight text-kletta-dark max-w-[70px]">{label}</span>
   </button>
