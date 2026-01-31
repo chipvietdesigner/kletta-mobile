@@ -277,6 +277,9 @@ export const OnboardingStep1: React.FC<NavigationProps> = ({ navigate, goBack })
             icon={<IconShield weight="fill" />}
             primaryLabel="Continue"
             onPrimary={() => navigate('onboarding-2')}
+            onSecondary={() => navigate('onboarding-2')}
+            secondaryLabel="Later"
+            secondaryNavigates={true}
             onBack={goBack}
         >
             <div className="flex flex-col items-center space-y-6">
@@ -315,6 +318,7 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
             onPrimary={() => navigate('onboarding-3')}
             onSecondary={() => navigate('onboarding-3')}
             secondaryLabel="Later"
+            secondaryNavigates={true}
             onBack={goBack}
             disablePrimary={!businessName.trim() || !businessId.trim()}
         >
@@ -391,6 +395,7 @@ export const OnboardingStep3: React.FC<NavigationProps> = ({ navigate, goBack })
             onPrimary={() => navigate('onboarding-4')}
             onSecondary={() => navigate('onboarding-4')}
             secondaryLabel="Later"
+            secondaryNavigates={true}
             disablePrimary={selected === null}
             onBack={goBack}
         >
@@ -458,6 +463,9 @@ export const OnboardingStep4: React.FC<NavigationProps> = ({ navigate, goBack })
             title="Add VAT accumulation amounts"
             icon={<IconCoins weight="fill" />}
             onPrimary={() => navigate('onboarding-5')}
+            onSecondary={() => navigate('onboarding-5')}
+            secondaryLabel="Later"
+            secondaryNavigates={true}
             onBack={goBack}
         >
             <div className="space-y-8 pb-10">
@@ -664,6 +672,7 @@ export const OnboardingStep5: React.FC<NavigationProps> = ({ navigate, goBack })
             onPrimary={() => navigate('onboarding-phone-verify', { phone: `${prefix} ${phone}` })}
             onSecondary={() => navigate('onboarding-6')}
             secondaryLabel="Later"
+            secondaryNavigates={true}
             onBack={goBack}
             disablePrimary={phone.replace(/\s/g, '').length < 8}
         >

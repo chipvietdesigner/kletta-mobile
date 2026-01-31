@@ -27,12 +27,12 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-6 pb-32">
          <div className="mb-12 max-w-[420px]">
             <h2 className="text-[26px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome to Kletta!</h2>
-            <p className="text-kletta-secondary font-light text-[15px]">Let's start by entering your e-mail address.</p>
+            <p className="text-kletta-dark font-light text-[15px]">Let's start by entering your e-mail address.</p>
         </div>
         <div className="space-y-6 max-w-[420px] mx-auto">
            <div>
               <KlettaInput label="Email Address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" autoFocus />
-              <p className="text-[13px] text-gray-400 font-light ml-1 mt-2 flex items-start gap-1"><span className="text-kletta-teal">ℹ</span> We will send a 6-digit code to this email</p>
+              <p className="text-[13px] text-gray-700 font-normal ml-1 mt-2 flex items-start gap-1"><span className="text-kletta-teal">ℹ</span> We will send a 6-digit code to this email</p>
            </div>
         </div>
       </div>

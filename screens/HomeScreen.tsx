@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   IconSettings, IconGear, IconChevronDown, IconChevronRight, IconClose, IconArrowRight,
@@ -256,29 +255,29 @@ const DashboardContent = ({
           <div className="px-5 -mt-12 relative z-10 mb-6">
               <div className="bg-white rounded-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden border border-gray-100">
                  
-                 {/* Stats Row - TEXT SIZES INCREASED BY 1PX */}
+                 {/* Stats Row */}
                  <div className="flex justify-between py-5 px-1">
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[14px] font-normal text-gray-500 mb-1">Income</p>
-                       <p className="font-medium text-[17px] text-kletta-dark leading-tight">€2,986.30</p>
+                       <p className="text-[14px] font-medium text-kletta-dark mb-1 opacity-80">Income</p>
+                       <p className="font-semibold text-[17px] text-kletta-dark leading-tight">€2,986.30</p>
                     </div>
                     <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[14px] font-normal text-gray-500 mb-1">Expenses</p>
-                       <p className="font-medium text-[17px] text-kletta-dark leading-tight">€523.46</p>
+                       <p className="text-[14px] font-medium text-kletta-dark mb-1 opacity-80">Expenses</p>
+                       <p className="font-semibold text-[17px] text-kletta-dark leading-tight">€523.46</p>
                     </div>
                      <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
-                       <p className="text-[14px] font-normal text-gray-500 mb-1">VAT</p>
-                       <p className="font-medium text-[17px] text-kletta-dark leading-tight">€145.90</p>
+                       <p className="text-[14px] font-medium text-kletta-dark mb-1 opacity-80">VAT</p>
+                       <p className="font-semibold text-[17px] text-kletta-dark leading-tight">€145.90</p>
                     </div>
                  </div>
 
-                 {/* Integrated View Summary Link - INSIDE THE CARD NOW WITH LIGHT GREY BG */}
-                 <div className="border-t border-gray-50 py-3.5 flex justify-center bg-gray-50">
+                 {/* Integrated View Summary Link */}
+                 <div className="border-t border-gray-50 py-3.5 flex justify-center bg-[#F7F6EE]">
                     <button 
                       onClick={onViewSummary}
-                      className="flex items-center gap-1 text-[13px] font-medium text-kletta-secondary hover:text-kletta-teal transition-colors active:opacity-60"
+                      className="flex items-center gap-1 text-[13px] font-medium text-kletta-dark hover:text-kletta-teal transition-colors active:opacity-60"
                     >
                       View summary
                       <IconChevronRight size={14} weight="bold" />
@@ -290,7 +289,7 @@ const DashboardContent = ({
           {/* Main Body Content */}
           <div className="px-5 space-y-6">
             
-            {/* 1. Action Grid - Updated Action Icons to use custom squircle shape */}
+            {/* 1. Action Grid */}
             <div className="grid grid-cols-4 gap-y-6 gap-x-2 py-2">
               <ActionIcon icon={IconNewInvoice} label="New invoice" onClick={() => navigate('new-invoice')} />
               <ActionIcon icon={IconAddEntry} label="Add entry" onClick={() => navigate('add-entry')} />
@@ -387,7 +386,7 @@ const DashboardContent = ({
             <div className="space-y-4 pt-2">
               <h3 className="font-medium text-[17px] text-kletta-dark tracking-tight px-1">Next you could...</h3>
               
-              {/* Care Promo Banner - Close Icon consistent with top banner */}
+              {/* Care Promo Banner */}
               <div className="bg-kletta-yellow rounded-[20px] p-5 flex items-start justify-between shadow-sm relative group overflow-hidden border border-kletta-yellow/40">
                 <div className="flex gap-4 items-center">
                    <div className="w-11 h-11 bg-white/30 rounded-full flex items-center justify-center shrink-0">
@@ -646,7 +645,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   );
 };
 
-// ActionIcon Component - Updated to use the custom squircle shape path and remove shadow as requested
+// ActionIcon Component
 const ActionIcon = ({ icon: Icon, label, highlight, onClick }: { icon: any, label: string, highlight?: boolean, onClick?: () => void }) => (
   <button onClick={onClick} className="flex flex-col items-center gap-2 group w-full">
     <div className="w-[56px] h-[56px] flex items-center justify-center relative transition-all duration-200 group-active:scale-95">
@@ -656,7 +655,12 @@ const ActionIcon = ({ icon: Icon, label, highlight, onClick }: { icon: any, labe
       <div className="relative z-10 text-white">
         <Icon size={24} weight="bold" />
       </div>
-      {highlight && <IconSparkle size={12} weight="fill" className="absolute top-0 right-0 text-kletta-yellow z-20" />}
+      {highlight && (
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" className="absolute top-0 right-0 z-20">
+          <rect width="12" height="12" rx="4.71429" fill="#FFDD33"/>
+          <path d="M5.5 0C5.84047 4.02442 7.1141 5.17082 11 5.5C7.19221 6.24229 6.08717 7.53008 5.5 11C4.84226 7.1831 3.5889 6.03407 -4.43946e-07 5.5C3.62252 5.04374 4.86781 3.89581 5.5 0Z" fill="#005A66"/>
+        </svg>
+      )}
     </div>
     <span className="text-[11px] font-medium text-center leading-tight text-kletta-dark max-w-[70px]">{label}</span>
   </button>
