@@ -187,12 +187,14 @@ const SaleListItem = ({ amount, date, id, customer, status, imageUrl }: any) => 
               )}
            </div>
            {status === 'Overdue' || status === 'Unpaid' ? (
-              <button className="px-4 h-[36px] bg-kletta-teal rounded-[8px] text-[13px] font-medium text-white active:scale-95 whitespace-nowrap flex items-center justify-center">
+              /* Decreased size and increased font-weight to semibold as requested */
+              <button className="px-3 h-[32px] bg-kletta-teal rounded-[8px] text-[12px] font-semibold text-white active:scale-95 whitespace-nowrap flex items-center justify-center">
                 Register as paid
               </button>
            ) : (
-              <div className="px-3.5 h-[36px] bg-kletta-yellow rounded-[8px] flex items-center justify-center">
-                <span className="text-[12px] font-bold text-kletta-dark tracking-wide">Paid</span>
+              /* Adjusted height to 32px for consistency and reduced font size */
+              <div className="px-3 h-[32px] bg-kletta-yellow rounded-[8px] flex items-center justify-center">
+                <span className="text-[11px] font-bold text-kletta-dark tracking-wide">Paid</span>
               </div>
            )}
         </div>

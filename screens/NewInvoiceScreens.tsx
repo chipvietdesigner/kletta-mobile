@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   IconBack, IconPlus, IconCheck, IconTag, IconCalendarBlank, IconPaperclip, 
@@ -96,20 +95,20 @@ const ALL_PRODUCTS: Product[] = [
     { id: "prod-28", title: "Courier Service - Express", basePrice: 35.00, vat: 24, description: "Delivery", type: "Service", imageUrl: "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=100&h=100&fit=crop" }
 ];
 
-// --- COMPONENT: Safe Image Loader ---
+// --- COMPONENT: Safe Image Loader (Increased by 15%) ---
 const ProductImage = ({ src, alt }: { src?: string, alt?: string }) => {
   const [error, setError] = useState(false);
   
   if (!src || error) {
     return (
-      <div className="w-11 h-11 rounded-[12px] bg-gray-50 flex items-center justify-center border border-gray-100 shrink-0">
-         <IconTag size={20} className="text-gray-300" weight="fill" />
+      <div className="w-[51px] h-[51px] rounded-[12px] bg-gray-50 flex items-center justify-center border border-gray-100 shrink-0">
+         <IconTag size={24} className="text-gray-300" weight="fill" />
       </div>
     );
   }
 
   return (
-    <div className="w-11 h-11 rounded-[12px] bg-gray-50 overflow-hidden border border-gray-100 shrink-0 relative">
+    <div className="w-[51px] h-[51px] rounded-[12px] bg-gray-50 overflow-hidden border border-gray-100 shrink-0 relative">
       <img 
         src={src} 
         alt={alt} 
@@ -145,21 +144,17 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
   return (
     <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
          
-         {/* --- CLEAN HEADER (Replaces large teal header) --- */}
+         {/* --- HEADER: Centered and Clean --- */}
          <div className="w-full bg-white z-20 shrink-0 pt-12">
-             <div className="px-6 pb-4 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <button 
-                        onClick={goBack} 
-                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors text-kletta-dark"
-                    >
-                        <IconBack size={26} weight="bold" />
-                    </button>
-                    <h1 className="text-[19px] font-bold text-kletta-dark tracking-tight">Add to invoice</h1>
-                </div>
-                <button className="w-10 h-10 flex items-center justify-center hover:bg-gray-50 rounded-full transition-colors text-kletta-dark">
-                    <IconSearch size={22} weight="bold" />
+             <div className="px-6 pb-4 flex items-center justify-center relative min-h-[40px]">
+                <button 
+                    onClick={goBack} 
+                    className="absolute left-4 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors text-kletta-dark z-30"
+                >
+                    <IconBack size={26} weight="bold" />
                 </button>
+                {/* Title font size increased to 19px and weight changed to semibold */}
+                <h1 className="text-[19px] font-semibold text-kletta-dark tracking-tight">Add to invoice</h1>
              </div>
 
              {/* Create New Product */}
@@ -246,7 +241,7 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
   );
 };
 
-// --- Helper: Product Row ---
+// --- Helper: Product Row (Action changed to solid teal button, Meta text contrast increased) ---
 interface ProductRowProps {
     product: Product;
     onTap: (product: Product) => void;
@@ -255,7 +250,6 @@ interface ProductRowProps {
 const ProductRow: React.FC<ProductRowProps> = ({ product, onTap }) => {
     // Calculate total for display
     const total = product.basePrice * (1 + product.vat / 100);
-    // Format: €380.70 • VAT 14% • €434.00 • Service
     const metaString = `€${product.basePrice.toFixed(2)} • VAT ${product.vat}% • €${total.toFixed(2)} • ${product.type}`;
 
     return (
@@ -272,16 +266,16 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, onTap }) => {
                <p className="text-[14px] font-medium text-[#111111] leading-snug mb-1 whitespace-normal text-left">
                    {product.title}
                </p>
-               {/* Meta */}
-               <p className="text-[12px] font-light text-[#8A8F9A] leading-tight text-left truncate">
+               {/* Meta: Contrast increased to #616A6B */}
+               <p className="text-[12px] font-light text-[#616A6B] leading-tight text-left truncate">
                    {metaString}
                </p>
            </div>
      
-           {/* Right Action */}
+           {/* Right Action: Solid teal button with white text */}
            <div className="shrink-0 pl-2">
-              <div className="w-9 h-9 rounded-full bg-kletta-yellow flex items-center justify-center text-kletta-dark shadow-sm group-hover:shadow-md transition-all active:scale-95">
-                  <IconPlus size={18} weight="bold" />
+              <div className="px-4 py-1.5 bg-kletta-teal rounded-[8px] flex items-center justify-center active:scale-95 transition-transform shadow-sm">
+                 <span className="text-[12px] font-bold text-white uppercase tracking-wider">Add</span>
               </div>
            </div>
         </button>
