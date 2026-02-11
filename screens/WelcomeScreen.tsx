@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { NavigationProps } from '../types';
 import { KlettaLogo, IconCellSignalFull, IconWifiHigh, IconBatteryFull } from '../components/Icons';
@@ -25,11 +24,11 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
 
           {/* Main Illustration: Smartphone Mockup */}
           <div className="relative w-full flex-1 flex items-center justify-center max-h-[450px]">
-                  {/* Inner Phone Content (Dashboard Screenshot Integration) */}
+                  {/* Inner Phone Content (Updated Artwork) */}
                   <img 
-                    src="https://images.unsplash.com/vector-1768028475271-fdd8e79664f7?q=80&w=1284&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                    alt="App Dashboard"
-                    className="w-[full] max-h-[400px] object-cover opacity-100"
+                    src="https://images.unsplash.com/vector-1770800658917-09c30967df08?q=80&w=984&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                    alt="App Dashboard Illustration"
+                    className="w-full max-h-[420px] object-contain opacity-100"
                   />
      
               {/* Subtle Shadow beneath phone */}
