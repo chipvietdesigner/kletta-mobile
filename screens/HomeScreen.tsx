@@ -211,7 +211,7 @@ const DashboardContent = ({
   onOpenFilter: () => void 
 }) => {
   return (
-    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#F5F5F5] animate-fade-in">
+    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#FCFCFC] animate-fade-in">
         
         {/* Scrollable Content */}
         <div className="flex-1 w-full overflow-y-auto no-scrollbar pb-64">
@@ -253,7 +253,7 @@ const DashboardContent = ({
 
           {/* Unified Summary Card - Overlapping Header */}
           <div className="px-5 -mt-12 relative z-10 mb-6">
-              <div className="bg-white rounded-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden border border-gray-100">
+              <div className="bg-white rounded-[20px] flex flex-col overflow-hidden border border-gray-200">
                  
                  {/* Stats Row */}
                  <div className="flex justify-between py-5 px-1">
@@ -303,7 +303,7 @@ const DashboardContent = ({
             </div>
 
             {/* 2. Upcoming Section */}
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100/50">
+            <div className="bg-white rounded-[20px] p-5 border border-gray-200">
               <div className="flex justify-between items-center mb-4">
                   <h3 className="font-medium text-[16px] text-kletta-dark">Upcoming</h3>
               </div>
@@ -352,7 +352,7 @@ const DashboardContent = ({
             </div>
             
             {/* 4. Setup Account */}
-            <div className="bg-white rounded-[20px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-100/50">
+            <div className="bg-white rounded-[20px] p-5 border border-gray-200">
               <div className="flex justify-between items-center mb-4 px-1">
                 <h3 className="font-medium text-[16px] text-kletta-dark">Set up your account</h3>
                 <span className="text-[11px] font-medium text-[#008c9e]">50% complete</span>
@@ -489,7 +489,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   };
 
   return (
-    <div className="h-full w-full pt-5 bg-[#F5F5F5] relative font-aktifo overflow-hidden">
+    <div className="h-full w-full pt-5 bg-[#FCFCFC] relative font-aktifo overflow-hidden">
       
       {/* Content Area Based on Tab */}
       <div className="absolute inset-0 w-full h-full z-0">
@@ -666,33 +666,45 @@ const ActionIcon = ({ icon: Icon, label, highlight, onClick }: { icon: any, labe
   </button>
 );
 
-const UpcomingItem = ({ days, text, dotColor, label = "Review", onClick, secondaryLabel, onSecondaryClick }: { days: number, text: string, dotColor: string, label?: string, onClick?: () => void, secondaryLabel?: string, onSecondaryClick?: () => void }) => (
-  <div className="w-full flex justify-between items-center py-3">
-    <div className="flex-1 text-left pr-2">
-        <p className="font-medium text-[14px] text-kletta-dark mb-1">{days} days</p>
-        <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${dotColor}`}></div>
-            <p className="text-[13px] text-kletta-secondary font-light">{text}</p>
-        </div>
-    </div>
-    <div className="flex flex-col gap-2 shrink-0">
-        <button 
-          onClick={onClick}
-          className="px-4 py-2 bg-white border border-gray-200 rounded-[10px] text-[13px] font-medium text-kletta-dark active:bg-gray-50 transition-colors shadow-sm min-w-[84px] text-center"
-        >
-          {label}
-        </button>
-        {secondaryLabel && (
+const UpcomingItem = ({ days, text, dotColor, label = "Review", onClick, secondaryLabel, onSecondaryClick }: { days: number, text: string, dotColor: string, label?: string, onClick?: () => void, secondaryLabel?: string, onSecondaryClick?: () => void }) => {
+  const getButtonStyles = (btnLabel: string) => {
+    if (btnLabel === 'Review') {
+      return "bg-kletta-teal text-white border-kletta-teal";
+    }
+    if (btnLabel === 'Confirm') {
+      return "bg-kletta-yellow text-kletta-dark border-kletta-yellow";
+    }
+    return "bg-white text-kletta-dark border-gray-200";
+  };
+
+  return (
+    <div className="w-full flex justify-between items-center py-3">
+      <div className="flex-1 text-left pr-2">
+          <p className="font-medium text-[14px] text-kletta-dark mb-1">{days} days</p>
+          <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${dotColor}`}></div>
+              <p className="text-[13px] text-kletta-secondary font-light">{text}</p>
+          </div>
+      </div>
+      <div className="flex flex-col gap-2 shrink-0">
           <button 
-            onClick={onSecondaryClick}
-            className="px-4 py-2 bg-white border border-gray-200 rounded-[10px] text-[13px] font-medium text-kletta-dark active:bg-gray-50 transition-colors shadow-sm min-w-[84px] text-center"
+            onClick={onClick}
+            className={`px-4 py-2 border rounded-[10px] text-[13px] font-medium active:opacity-80 transition-all min-w-[84px] text-center ${getButtonStyles(label)}`}
           >
-            {secondaryLabel}
+            {label}
           </button>
-        )}
+          {secondaryLabel && (
+            <button 
+              onClick={onSecondaryClick}
+              className={`px-4 py-2 border rounded-[10px] text-[13px] font-medium active:opacity-80 transition-all min-w-[84px] text-center ${getButtonStyles(secondaryLabel)}`}
+            >
+              {secondaryLabel}
+            </button>
+          )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ChecklistItem = ({ text, onClick, icon }: { text: string, onClick?: () => void, icon: React.ReactNode }) => (
   <button 
@@ -718,7 +730,7 @@ const ChecklistItem = ({ text, onClick, icon }: { text: string, onClick?: () => 
 const NextStepRow = ({ number, icon, label, onClick }: { number?: number, icon?: React.ReactNode, label: string, onClick?: () => void }) => (
   <button 
     onClick={onClick}
-    className={`w-full flex items-center justify-between p-4 bg-white rounded-[16px] border border-gray-100/50 active:scale-[0.99] transition-all group shadow-[0_2px_8px_rgba(0,0,0,0.03)]`}
+    className={`w-full flex items-center justify-between p-4 bg-white rounded-[16px] border border-gray-200 active:scale-[0.99] transition-all group`}
   >
     <div className="flex items-center gap-4">
       {number ? (

@@ -132,7 +132,7 @@ export const IncompleteOnboardingEntry: React.FC<NavigationProps> = ({ navigate,
               <button 
                 key={step.id}
                 onClick={() => { incompleteFlowActive = true; navigate(step.screen); }}
-                className="w-full p-5 rounded-[16px] bg-white border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center justify-between group active:bg-gray-50 transition-all"
+                className="w-full p-5 rounded-[16px] bg-white border border-gray-200 flex items-center justify-between group active:bg-gray-50 transition-all"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 flex items-center justify-center text-gray-400 shrink-0">
@@ -151,7 +151,7 @@ export const IncompleteOnboardingEntry: React.FC<NavigationProps> = ({ navigate,
           <div className="flex flex-col gap-3">
              <button 
                onClick={() => { incompleteFlowActive = true; navigate(remainingSteps[0].screen); }}
-               className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all shadow-sm"
+               className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all"
              >
                Continue
              </button>

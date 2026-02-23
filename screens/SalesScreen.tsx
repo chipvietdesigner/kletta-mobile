@@ -73,7 +73,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
   }
 
   return (
-    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+    <div className="h-full w-full bg-[#FCFCFC] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
       {/* Status Bar */}
       <div className="w-full h-[44px] flex justify-between items-end px-6 pb-1 text-kletta-dark pointer-events-none z-20 shrink-0">
@@ -86,7 +86,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
       </div>
 
       {/* Fixed Header */}
-      <div className="px-6 pt-4 pb-0 bg-white flex flex-col shrink-0">
+      <div className="px-6 pt-4 pb-0 bg-[#FCFCFC] flex flex-col shrink-0">
           <div className="flex justify-between items-center mb-1">
               <h1 className="text-[28px] font-semibold text-kletta-dark tracking-tight">Sales</h1>
               <button 
@@ -125,7 +125,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
           {/* Carousel Body */}
           <div className="flex overflow-x-auto no-scrollbar px-6 gap-4 pb-10">
               {OUTSTANDING_INVOICES.map((item, idx) => (
-                <div key={idx} className="min-w-[187px] bg-white rounded-[16px] overflow-hidden shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col transition-all">
+                <div key={idx} className="min-w-[187px] bg-white rounded-[16px] overflow-hidden border border-gray-200 flex flex-col transition-all">
                     {/* Card Header area */}
                     <div className="bg-[#FFF1F1] p-4 pt-1 relative">
                         <div className="absolute top-0 left-0 bg-[#8C2E0B] text-white text-[10px] font-bold px-2 py-0.5 rounded-br-[8px] z-10">
@@ -158,7 +158,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
           </div>
 
           {/* All Sales Section */}
-          <div className="px-6 bg-white">
+          <div className="px-6 bg-[#FCFCFC]">
               <h2 className="text-[17px] font-semibold text-kletta-dark mb-6 mt-2">All sales</h2>
               <div className="space-y-4 pb-32">
                   {ALL_SALES.map((item, idx) => (
