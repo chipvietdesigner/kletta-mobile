@@ -211,7 +211,7 @@ const DashboardContent = ({
   onOpenFilter: () => void 
 }) => {
   return (
-    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#FCFCFC] animate-fade-in">
+    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#FAF8F5] animate-fade-in">
         
         {/* Scrollable Content */}
         <div className="flex-1 w-full overflow-y-auto no-scrollbar pb-64">
@@ -245,7 +245,7 @@ const DashboardContent = ({
               <span className="text-[40px] font-bold mb-2 tracking-tight leading-none text-white">+€2,361.43</span>
               
               <div className="flex items-center gap-1.5 opacity-90">
-                <span className="text-[13px] font-medium text-white">Tim Sole Trader (1234567890)</span>
+                <span className="text-[14px] font-semibold text-white">Tim Sole Trader (1234567890)</span>
                 <IconVerified size={18} className="text-kletta-yellow" weight="fill" />
               </div>
             </div>
@@ -256,17 +256,17 @@ const DashboardContent = ({
               <div className="bg-white rounded-[20px] flex flex-col overflow-hidden border border-gray-200">
                  
                  {/* Stats Row */}
-                 <div className="flex justify-between py-5 px-1">
+                 <div className="flex justify-between py-4 px-1">
                     <div className="flex-1 flex flex-col items-center text-center">
                        <p className="text-[14px] font-medium text-kletta-dark mb-1 opacity-80">Income</p>
                        <p className="font-semibold text-[17px] text-kletta-dark leading-tight">€2,986.30</p>
                     </div>
-                    <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
+                    <div className="w-[1px] bg-gray-200 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
                        <p className="text-[14px] font-medium text-kletta-dark mb-1 opacity-80">Expenses</p>
                        <p className="font-semibold text-[17px] text-kletta-dark leading-tight">€523.46</p>
                     </div>
-                     <div className="w-[1px] bg-gray-100 h-10 self-center"></div>
+                     <div className="w-[1px] bg-gray-200 h-10 self-center"></div>
                     <div className="flex-1 flex flex-col items-center text-center">
                        <p className="text-[14px] font-medium text-kletta-dark mb-1 opacity-80">VAT</p>
                        <p className="font-semibold text-[17px] text-kletta-dark leading-tight">€145.90</p>
@@ -274,13 +274,12 @@ const DashboardContent = ({
                  </div>
 
                  {/* Integrated View Summary Link */}
-                 <div className="border-t border-gray-50 py-3.5 flex justify-center bg-[#F7F6EE]">
+                 <div className="border-t border-gray-100 py-2 flex justify-center bg-white">
                     <button 
                       onClick={onViewSummary}
-                      className="flex items-center gap-1 text-[13px] font-medium text-kletta-dark hover:text-kletta-teal transition-colors active:opacity-60"
+                      className="flex items-center gap-1 text-[13px] font-semibold text-kletta-dark hover:opacity-70 transition-opacity active:opacity-60"
                     >
                       View summary
-                      <IconChevronRight size={14} weight="bold" />
                     </button>
                  </div>
               </div>
@@ -489,7 +488,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   };
 
   return (
-    <div className="h-full w-full pt-5 bg-[#FCFCFC] relative font-aktifo overflow-hidden">
+    <div className="h-full w-full pt-5 bg-[#FAF8F5] relative font-aktifo overflow-hidden">
       
       {/* Content Area Based on Tab */}
       <div className="absolute inset-0 w-full h-full z-0">
@@ -499,7 +498,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
             onBankClick={handleBankClick} 
             onUploadClick={handleUploadClick}
             onScanSalesReportClick={() => setShowScanReportSheet(true)}
-            onViewSummary={() => setActiveTab('summary')}
+            onViewSummary={() => navigate('summary')}
             onOpenIncompleteOnboarding={() => setShowIncompleteModal(true)}
             dateRange={dateRange} 
             onOpenFilter={() => setShowFilter(true)} 

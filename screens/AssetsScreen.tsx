@@ -30,68 +30,61 @@ const AssetsScreen: React.FC<AssetsScreenProps> = ({ navigate, onModalToggle }) 
   };
 
   return (
-    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+    <div className="h-full w-full bg-[#FAF8F5] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
       {/* Header Container - Fixed at Top */}
-      <div className="w-full z-20 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col shrink-0 bg-white">
+      <div className="w-full z-20 flex flex-col shrink-0 bg-[#FAF8F5]">
           
-          {/* Dark Header Part */}
-          <div className="bg-kletta-teal w-full pb-5 pt-0">
-              {/* Status Bar */}
-              <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-white pointer-events-none">
-                  <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
-                  <div className="flex gap-1.5 items-center mr-1">
-                     <IconCellSignalFull size={16} weight="fill" />
-                     <IconWifiHigh size={16} weight="bold" />
-                     <IconBatteryFull size={24} weight="fill" className="rotate-0" />
-                  </div>
-              </div>
-
-              {/* Title Row */}
-              <div className="px-6 pt-2">
-                  <div className="flex justify-between items-center">
-                     <div className="flex flex-col">
-                         <h1 className="text-[26px] font-medium text-white tracking-tight mb-0.5">Assets</h1>
-                         <div className="flex items-center gap-1 opacity-70 text-white transition-opacity hover:opacity-100 cursor-pointer">
-                             <span className="text-[13px] font-medium">All assets</span>
-                             <IconChevronDown size={12} weight="bold" />
-                         </div>
-                     </div>
-                     <button 
-                        onClick={() => navigate('add-vehicle')}
-                        className="w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors"
-                     >
-                        <IconPlus size={24} weight="regular" />
-                     </button>
-                  </div>
+          {/* Status Bar - Dark Text */}
+          <div className="w-full h-[44px] flex justify-between items-end px-6 pb-1 text-kletta-dark pointer-events-none">
+              <span className="text-[14px] font-semibold tracking-tight ml-2">9:41</span>
+              <div className="flex gap-1.5 items-center mr-1">
+                 <IconCellSignalFull size={16} weight="fill" />
+                 <IconWifiHigh size={16} weight="bold" />
+                 <IconBatteryFull size={22} weight="fill" className="rotate-0" />
               </div>
           </div>
 
-          {/* Light Tabs Part - Sticky below Header */}
-          <div className="bg-white w-full grid grid-cols-2 border-b border-gray-100">
-              <button 
-                onClick={() => setActiveTab('vehicles')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'vehicles' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
-              >
-                Vehicles
-                {activeTab === 'vehicles' && (
-                    <div className="absolute bottom-0 left-0 w-full h-[3px] bg-kletta-dark rounded-t-sm animate-fade-in"></div>
-                )}
-              </button>
-              <button 
-                onClick={() => setActiveTab('assets')}
-                className={`py-4 text-[15px] font-medium transition-colors relative w-full text-center ${activeTab === 'assets' ? 'text-kletta-dark' : 'text-kletta-secondary hover:text-gray-600'}`}
-              >
-                Assets
-                {activeTab === 'assets' && (
-                    <div className="absolute bottom-0 left-0 w-full h-[3px] bg-kletta-dark rounded-t-sm animate-fade-in"></div>
-                )}
-              </button>
+          {/* Title Row */}
+          <div className="px-6 pt-4 pb-2 relative">
+              <div className="flex justify-center items-center relative">
+                  <h1 className="text-[20px] font-bold text-kletta-dark tracking-tight">Assets</h1>
+                  <button 
+                    onClick={() => navigate('add-vehicle')}
+                    className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full text-kletta-dark hover:bg-gray-100 transition-colors"
+                  >
+                    <IconPlus size={28} weight="regular" />
+                  </button>
+              </div>
+              <div className="flex justify-center mt-1">
+                  <button className="flex items-center gap-1 text-kletta-dark hover:opacity-70 transition-opacity">
+                      <span className="text-[16px] font-medium">All assets</span>
+                      <IconChevronDown size={14} weight="bold" />
+                  </button>
+              </div>
+          </div>
+
+          {/* Segmented Control - Pill Style */}
+          <div className="px-6 py-2">
+              <div className="bg-[#F1F0E8] p-0.5 rounded-[10px] flex w-full h-[32px]">
+                  <button 
+                    onClick={() => setActiveTab('vehicles')}
+                    className={`flex-1 h-full rounded-[8px] text-[13px] transition-all flex items-center justify-center ${activeTab === 'vehicles' ? 'bg-white text-[#0C0D0D] font-medium shadow-sm' : 'text-[#0C0D0D] font-normal hover:opacity-70'}`}
+                  >
+                    Vehicles
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab('assets')}
+                    className={`flex-1 h-full rounded-[8px] text-[13px] transition-all flex items-center justify-center ${activeTab === 'assets' ? 'bg-white text-[#0C0D0D] font-medium shadow-sm' : 'text-[#0C0D0D] font-normal hover:opacity-70'}`}
+                  >
+                    Assets
+                  </button>
+              </div>
           </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-0 bg-white">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-2 bg-white">
          
          <div className="space-y-0">
             <VehicleRow 

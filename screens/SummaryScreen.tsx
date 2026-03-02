@@ -1,151 +1,163 @@
 
 import React, { useState } from 'react';
 import { 
-    IconBack, IconChevronDown, IconChevronRight,
-    IconTrendUp, IconTrendDown, IconCar,
-    IconCellSignalFull, IconWifiHigh, IconBatteryFull, IconFileText,
-    IconMoney, IconShare
+    IconChevronDown, IconChevronRight, IconMoney, IconBack
 } from '../components/Icons';
 import { NavigationProps } from '../types';
 import DateFilterSheet from '../components/DateFilterSheet';
 
+const ProfitChartIcon = () => (
+  <div className="relative w-[72px] h-[72px]">
+    <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
+      {/* Red segment (top right) */}
+      <circle
+        cx="50"
+        cy="50"
+        r="38"
+        fill="transparent"
+        stroke="#F87171"
+        strokeWidth="10"
+        strokeDasharray="59.7 238.8"
+        strokeDashoffset="0"
+        strokeLinecap="round"
+      />
+      {/* Orange segment (bottom right) */}
+      <circle
+        cx="50"
+        cy="50"
+        r="38"
+        fill="transparent"
+        stroke="#FB923C"
+        strokeWidth="10"
+        strokeDasharray="59.7 238.8"
+        strokeDashoffset="-59.7"
+        strokeLinecap="round"
+      />
+      {/* Blue segment (bottom left) */}
+      <circle
+        cx="50"
+        cy="50"
+        r="38"
+        fill="transparent"
+        stroke="#818CF8"
+        strokeWidth="10"
+        strokeDasharray="59.7 238.8"
+        strokeDashoffset="-119.4"
+        strokeLinecap="round"
+      />
+      {/* Teal segment (top left) */}
+      <circle
+        cx="50"
+        cy="50"
+        r="38"
+        fill="transparent"
+        stroke="#4FD1C5"
+        strokeWidth="10"
+        strokeDasharray="59.7 238.8"
+        strokeDashoffset="-179.1"
+        strokeLinecap="round"
+      />
+      
+      {/* Indicators on the left */}
+      <g className="transform rotate-90 origin-center">
+         <line x1="5" y1="35" x2="20" y2="35" stroke="#4FD1C5" strokeWidth="2.5" strokeLinecap="round" />
+         <line x1="5" y1="42" x2="16" y2="42" stroke="#4FD1C5" strokeWidth="2.5" strokeLinecap="round" />
+         <line x1="5" y1="49" x2="12" y2="49" stroke="#4FD1C5" strokeWidth="2.5" strokeLinecap="round" />
+      </g>
+    </svg>
+    <div className="absolute inset-0 flex items-center justify-center">
+       <div className="w-10 h-10 bg-[#FFD700] rounded-full flex items-center justify-center shadow-sm border-2 border-white">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path d="M12.65 10C11.83 10 11 10.46 11 11.25C11 12.87 15 12.62 15 15.25C15 16.5 13.75 17.25 12 17.25V19H10V17.25C8.25 17.25 7 16.5 7 15.25H9C9 15.75 9.83 16.25 11 16.25C12.17 16.25 13 15.75 13 15.25C13 13.62 9 13.87 9 11.25C9 10 10.25 9.25 12 9.25V7.5H14V9.25C15.75 9.25 17 10 17 11.25H15C15 10.75 14.17 10 13 10H12.65Z" />
+            <path d="M19,4H5C3.89,4 3,4.9 3,6V18C3,19.1 3.89,20 5,20H19C20.1,20 21,19.1 21,18V6C21,4.9 20.1,4 19,4M19,18H5V6H19V18Z" opacity="0.3" />
+          </svg>
+       </div>
+    </div>
+  </div>
+);
+
 export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     const [showFilter, setShowFilter] = useState(false);
-    const [dateRange, setDateRange] = useState("1 Year");
+    const [dateRange, setDateRange] = useState("All time");
 
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
-             
-            {/* Fixed Header Section: Title and Profit */}
-            <div className="w-full bg-kletta-teal flex flex-col z-20 pb-8 pt-10 shrink-0 shadow-sm relative">
-                
-                {/* Navigation Bar Row */}
-                <div className="flex justify-end items-center px-6 pt-2 mb-2">
+            {/* Header */}
+            <div className="pt-12 pb-4 px-6 flex flex-col items-center bg-[#FAF8F5] sticky top-0 z-20">
+                <div className="absolute left-6 top-[52px]">
                     <button 
-                        className="w-10 h-10 -mr-2 rounded-full flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-all"
-                        onClick={() => console.log('Share summary')}
+                        onClick={goBack}
+                        className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-kletta-dark hover:bg-white active:scale-95 transition-all"
                     >
-                        <IconShare size={26} weight="bold" />
+                        <IconBack size={24} weight="bold" />
                     </button>
                 </div>
-
-                {/* Centered Title, Filter, and Profit Area */}
-                <div className="px-6 flex flex-col items-center -mt-12">
-                    <h1 className="text-[24px] font-bold text-white tracking-tight">Summary</h1>
-                    <button 
-                      onClick={() => setShowFilter(true)}
-                      className="flex items-center gap-1.5 text-white transition-opacity hover:opacity-80 active:opacity-60 mt-0.5 mb-4"
-                    >
-                        <span className="text-[14px] font-medium opacity-80">{dateRange}</span>
-                        <IconChevronDown size={14} weight="bold" className="opacity-80" />
-                    </button>
-
-                    {/* Centered Profit Amount */}
-                    <div className="flex items-baseline text-white">
-                        <span className="text-[38px] font-bold tracking-tighter">€2,361</span>
-                        <span className="text-[26px] font-bold tracking-tighter opacity-80">.43</span>
-                    </div>
-                </div>
+                <h1 className="text-[22px] font-bold text-[#0C0D0D] mb-1">Summary</h1>
+                <button 
+                    onClick={() => setShowFilter(true)}
+                    className="flex items-center gap-1 text-[#0C0D0D] hover:opacity-70 transition-opacity"
+                >
+                    <span className="text-[15px] font-medium">{dateRange}</span>
+                    <IconChevronDown size={16} weight="bold" />
+                </button>
             </div>
 
-            {/* Scrollable Content: Chart + Seamless List */}
-            <div className="flex-1 overflow-y-auto no-scrollbar bg-white">
-                
-                {/* Line Chart Section - Remains Teal */}
-                <div className="w-full bg-kletta-teal pb-8 px-4 relative">
-                    <div className="w-full h-32 relative">
-                        <svg viewBox="0 0 400 120" className="w-full h-full" preserveAspectRatio="none">
-                            <defs>
-                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stopColor="white" stopOpacity="0.3" />
-                                    <stop offset="100%" stopColor="white" stopOpacity="0" />
-                                </linearGradient>
-                            </defs>
-                            
-                            {/* Grid Lines (Dashed) */}
-                            <line x1="55" y1="20" x2="400" y2="20" stroke="white" strokeWidth="1" strokeDasharray="4 4" opacity="0.15" />
-                            <line x1="55" y1="60" x2="400" y2="60" stroke="white" strokeWidth="1" strokeDasharray="4 4" opacity="0.15" />
-                            <line x1="55" y1="100" x2="400" y2="100" stroke="white" strokeWidth="1" strokeDasharray="4 4" opacity="0.15" />
-
-                            {/* Y-Axis Labels */}
-                            <text x="0" y="24" fill="white" fontSize="10" fontWeight="600" opacity="0.6">€2,500</text>
-                            <text x="0" y="64" fill="white" fontSize="10" fontWeight="600" opacity="0.6">€1,250</text>
-                            <text x="0" y="104" fill="white" fontSize="10" fontWeight="600" opacity="0.6">€0</text>
-
-                            {/* Updated Path geometry */}
-                            <path 
-                                d="M55,100 L160,100 C190,100 200,65 230,65 L330,60 C360,60 380,50 395,20" 
-                                fill="none" 
-                                stroke="white" 
-                                strokeWidth="3" 
-                                strokeLinecap="round"
-                            />
-                            
-                            {/* Gradient Fill under the line */}
-                            <path 
-                                d="M55,100 L160,100 C190,100 200,65 230,65 L330,60 C360,60 380,50 395,20 V120 H55 Z" 
-                                fill="url(#chartGradient)"
-                            />
-
-                            {/* Final Data Point Circle */}
-                            <circle cx="395" cy="20" r="5" fill="white" />
-                        </svg>
+            <div className="flex-1 overflow-y-auto no-scrollbar pb-24">
+                {/* Top Section with Profit Card */}
+                <div className="bg-[#FAF8F5] px-5 pt-2 pb-8">
+                    {/* Profit Card */}
+                    <div className="bg-white rounded-[24px] p-6 flex justify-between items-center shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-gray-50">
+                        <div className="flex flex-col">
+                            <p className="text-[15px] font-medium text-[#616A6B] mb-1.5">Profit</p>
+                            <p className="text-[30px] font-bold text-[#0C0D0D] tracking-tight leading-tight">€135,433.10</p>
+                        </div>
+                        <ProfitChartIcon />
                     </div>
                 </div>
 
-                {/* Seamless List Section */}
-                <div className="pb-36 bg-white">
-                    <div className="w-full flex flex-col">
-                        <SummaryCardRow 
-                            title="Business Income" 
-                            amount="€2,383.08" 
-                            icon={<IconTrendUp size={22} weight="bold" />}
-                            onClick={() => navigate('summary-business-income')}
-                        />
-                        <SummaryCardRow 
-                            title="Other income" 
-                            amount="€0.00" 
-                            icon={<IconTrendUp size={22} weight="bold" />}
-                            onClick={() => navigate('summary-other-income')}
-                        />
-                        <SummaryCardRow 
-                            title="Business expenses" 
-                            amount="€0.00" 
-                            icon={<IconTrendDown size={22} weight="bold" />}
-                            onClick={() => navigate('summary-business-expenses')}
-                        />
-                        <SummaryCardRow 
-                            title="Non-allowable expenses" 
-                            amount="€0.00" 
-                            icon={<IconTrendDown size={22} weight="bold" />}
-                            onClick={() => navigate('summary-nonallowable-expenses')}
-                        />
-                        <SummaryCardRow 
-                            title="Claimed kilometers" 
-                            amount="€385.51" 
-                            icon={<IconCar size={22} weight="bold" />}
-                            onClick={() => navigate('summary-claimed-kilometers')}
-                        />
-                        <SummaryCardRow 
-                            title="VAT" 
-                            amount="€81.60" 
-                            icon={<IconFileText size={22} weight="regular" />}
-                            onClick={() => {}}
-                        />
-                        <SummaryCardRow 
-                            title="Tax prepayments / Estimated tax prepayments" 
-                            amount="€0.00" 
-                            icon={<IconFileText size={22} weight="regular" />}
-                            onClick={() => navigate('summary-tax-prepayments')}
-                        />
-                        <SummaryCardRow 
-                            title="Cash withdrawal" 
-                            amount="€0.00" 
-                            icon={<IconMoney size={22} weight="regular" />}
-                            onClick={() => navigate('summary-cash-withdrawal')}
-                            isLast
-                        />
-                    </div>
+                {/* List Items */}
+                <div className="flex flex-col px-5 bg-white">
+                    <SummaryItem 
+                        title="Business Income" 
+                        value="€2,383.08" 
+                        onClick={() => navigate('summary-business-income')}
+                    />
+                    <SummaryItem 
+                        title="Other income" 
+                        value="€0.00" 
+                        onClick={() => navigate('summary-other-income')}
+                    />
+                    <SummaryItem 
+                        title="Business expenses" 
+                        value="€0.00" 
+                        onClick={() => navigate('summary-business-expenses')}
+                    />
+                    <SummaryItem 
+                        title="Non-allowable expenses" 
+                        value="€0.00" 
+                        onClick={() => navigate('summary-nonallowable-expenses')}
+                    />
+                    <SummaryItem 
+                        title="Claimed kilometers" 
+                        value="€385.51" 
+                        onClick={() => navigate('summary-claimed-kilometers')}
+                    />
+                    <SummaryItem 
+                        title="VAT" 
+                        value="€81.60" 
+                        onClick={() => {}}
+                    />
+                    <SummaryItem 
+                        title="Tax prepayments" 
+                        value="€0.00" 
+                        onClick={() => navigate('summary-tax-prepayments')}
+                    />
+                    <SummaryItem 
+                        title="Cash withdrawal" 
+                        value="€0.00" 
+                        onClick={() => navigate('summary-cash-withdrawal')}
+                        isLast 
+                    />
                 </div>
             </div>
 
@@ -161,37 +173,25 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
     );
 };
 
-interface SummaryCardRowProps {
-    title: string;
-    amount: string;
-    icon: React.ReactNode;
-    isLast?: boolean;
-    onClick?: () => void;
-}
-
-const SummaryCardRow: React.FC<SummaryCardRowProps> = ({ 
-    title, amount, icon, isLast, onClick 
-}) => {
-    return (
-        <button 
-            onClick={onClick}
-            className={`w-full px-5 py-4 flex items-center justify-between bg-white active:bg-gray-50 transition-colors group text-left ${!isLast ? 'border-b border-gray-100' : ''}`}
-        >
-            <div className="flex items-center gap-4 flex-1 min-w-0 pr-2">
-                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-kletta-teal shrink-0 group-active:scale-95 transition-transform">
-                    {icon}
-                </div>
-                <div className="flex-1 min-w-0 flex flex-col">
-                    <p className="text-[14px] font-medium leading-[20px] text-[#616A6B] mb-0.5">{title}</p>
-                    <p className="text-[16px] font-semibold leading-[24px] text-[#0C0D0D] tracking-tight whitespace-nowrap">
-                        {amount}
-                    </p>
-                </div>
+const SummaryItem = ({ title, value, isLast, onClick }: { title: string; value: string; isLast?: boolean; onClick?: () => void }) => (
+    <div 
+        onClick={onClick}
+        className="flex items-center justify-between py-4 group cursor-pointer active:opacity-70 transition-opacity relative"
+    >
+        <div className="flex items-center gap-4 flex-1">
+            <div className="w-[52px] h-[52px] rounded-[18px] bg-[#F2F4F5] flex items-center justify-center text-[#0C0D0D]">
+                <IconMoney size={26} weight="bold" />
             </div>
-            
-            <div className="shrink-0 pl-2">
-                <IconChevronRight size={20} weight="bold" className="text-gray-300 transition-colors" />
+            <div className="flex flex-col">
+                <p className="text-[15px] text-[#616A6B] mb-0.5">{title}</p>
+                <p className="text-[17px] font-bold text-[#0C0D0D]">{value}</p>
             </div>
-        </button>
-    );
-};
+        </div>
+        <div className="flex items-center">
+            <IconChevronRight size={18} weight="bold" className="text-gray-300" />
+        </div>
+        {!isLast && (
+            <div className="absolute left-[68px] right-0 bottom-0 h-[1px] bg-gray-50"></div>
+        )}
+    </div>
+);

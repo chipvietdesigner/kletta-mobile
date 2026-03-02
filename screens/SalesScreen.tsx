@@ -73,7 +73,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
   }
 
   return (
-    <div className="h-full w-full bg-[#FCFCFC] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+    <div className="h-full w-full bg-[#FAF8F5] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
       {/* Status Bar */}
       <div className="w-full h-[44px] flex justify-between items-end px-6 pb-1 text-kletta-dark pointer-events-none z-20 shrink-0">
@@ -86,30 +86,32 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
       </div>
 
       {/* Fixed Header */}
-      <div className="px-6 pt-4 pb-0 bg-[#FCFCFC] flex flex-col shrink-0">
-          <div className="flex justify-between items-center mb-1">
+      <div className="px-6 pt-4 pb-0 bg-[#FAF8F5] flex flex-col shrink-0">
+          <div className="flex justify-center items-center mb-1 relative">
               <h1 className="text-[28px] font-semibold text-kletta-dark tracking-tight">Sales</h1>
               <button 
                   onClick={() => navigate('new-invoice')}
-                  className="w-10 h-10 flex items-center justify-center text-kletta-dark active:scale-95 transition-all"
+                  className="absolute right-0 w-10 h-10 flex items-center justify-center text-kletta-dark active:scale-95 transition-all"
               >
                   <IconPlus size={30} weight="regular" />
               </button>
           </div>
-          <button 
-              onClick={onOpenFilter}
-              className="flex items-center gap-1.5 text-kletta-dark mb-6"
-          >
-              <span className="text-[16px] font-medium">All time</span>
-              <IconChevronDown size={14} weight="bold" />
-          </button>
+          <div className="flex justify-center mb-6">
+              <button 
+                  onClick={onOpenFilter}
+                  className="flex items-center gap-1.5 text-kletta-dark"
+              >
+                  <span className="text-[16px] font-medium">All time</span>
+                  <IconChevronDown size={14} weight="bold" />
+              </button>
+          </div>
 
           {/* Search Bar */}
           <div className="w-full relative mb-6">
               <input 
                 type="text" 
                 placeholder="Search" 
-                className="w-full h-[48px] bg-[#F1F3F4] rounded-[10px] pl-4 pr-10 text-[16px] text-kletta-dark outline-none placeholder:text-gray-500"
+                className="w-full h-[48px] bg-[#F2EEE8] rounded-[10px] pl-4 pr-10 text-[16px] text-kletta-dark outline-none placeholder:text-gray-500"
               />
           </div>
       </div>
@@ -158,7 +160,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
           </div>
 
           {/* All Sales Section */}
-          <div className="px-6 bg-[#FCFCFC]">
+          <div className="px-6 bg-[#FAF8F5]">
               <h2 className="text-[17px] font-semibold text-kletta-dark mb-6 mt-2">All sales</h2>
               <div className="space-y-4 pb-32">
                   {ALL_SALES.map((item, idx) => (
