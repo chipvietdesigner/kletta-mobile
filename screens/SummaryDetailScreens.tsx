@@ -52,7 +52,7 @@ const DetailScreenLayout: React.FC<DetailScreenLayoutProps> = ({
                         <div className="flex flex-col">
                             <h1 className="text-[26px] font-medium text-white tracking-tight mb-1 leading-tight">{title}</h1>
                             <div className="flex items-center gap-1 opacity-70 transition-opacity hover:opacity-100 cursor-pointer text-white">
-                                <span className="text-[13px] font-medium">All time</span>
+                                <span className="text-[14px] font-medium">All time</span>
                                 <IconChevronDown size={12} weight="bold" />
                             </div>
                         </div>

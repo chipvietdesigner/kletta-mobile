@@ -234,7 +234,7 @@ const DashboardContent = ({
                 onClick={onOpenFilter}
                 className="flex items-center gap-1 opacity-100 hover:opacity-80 transition-opacity cursor-pointer"
               >
-                <span className="text-[13px] font-medium tracking-wide">{dateRange}</span>
+                <span className="text-[14px] font-medium tracking-wide">{dateRange}</span>
                 <IconChevronDown size={14} weight="bold" />
               </div>
             </div>

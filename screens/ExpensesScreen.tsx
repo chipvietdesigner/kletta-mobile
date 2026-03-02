@@ -184,7 +184,7 @@ const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ dateRange, onOpenFilter
                     onClick={onOpenFilter}
                     className="flex items-center gap-1 text-kletta-dark hover:opacity-70 transition-opacity"
                   >
-                      <span className="text-[16px] font-medium">{dateRange}</span>
+                      <span className="text-[14px] font-medium">{dateRange}</span>
                       <IconChevronDown size={14} weight="bold" />
                   </button>
               </div>

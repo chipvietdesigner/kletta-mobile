@@ -202,7 +202,10 @@ const App = () => {
   };
 
   return (
-    <div className="relative w-full h-[100dvh] md:w-[402px] md:h-[874px] bg-white md:rounded-[24px] shadow-2xl overflow-hidden font-aktifo mx-auto selection:bg-kletta-yellow selection:text-kletta-dark">
+    <div className="relative w-full h-[100dvh] md:w-[402px] md:h-[874px] bg-white md:rounded-[55px] shadow-2xl overflow-hidden font-aktifo mx-auto selection:bg-kletta-yellow selection:text-kletta-dark md:border-[12px] md:border-black">
+      {/* Notch for iOS look */}
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[160px] h-[32px] bg-black rounded-b-[20px] z-[60] hidden md:block"></div>
+      
       <div className="w-full h-full relative z-0">
         {renderScreen()}
       </div>

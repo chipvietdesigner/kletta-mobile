@@ -86,38 +86,29 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
       </div>
 
       {/* Fixed Header */}
-      <div className="px-6 pt-4 pb-0 bg-[#FAF8F5] flex flex-col shrink-0">
-          <div className="flex justify-center items-center mb-1 relative">
-              <h1 className="text-[28px] font-semibold text-kletta-dark tracking-tight">Sales</h1>
+      <div className="px-6 pt-4 pb-6 bg-[#FAF8F5] flex flex-col shrink-0">
+          <div className="flex justify-center items-center relative">
+              <h1 className="text-[20px] font-bold text-kletta-dark tracking-tight">Sales</h1>
               <button 
                   onClick={() => navigate('new-invoice')}
                   className="absolute right-0 w-10 h-10 flex items-center justify-center text-kletta-dark active:scale-95 transition-all"
               >
-                  <IconPlus size={30} weight="regular" />
+                  <IconPlus size={28} weight="regular" />
               </button>
           </div>
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mt-1">
               <button 
                   onClick={onOpenFilter}
-                  className="flex items-center gap-1.5 text-kletta-dark"
+                  className="flex items-center gap-1 text-kletta-dark hover:opacity-70 transition-opacity"
               >
-                  <span className="text-[16px] font-medium">All time</span>
+                  <span className="text-[14px] font-medium">All time</span>
                   <IconChevronDown size={14} weight="bold" />
               </button>
-          </div>
-
-          {/* Search Bar */}
-          <div className="w-full relative mb-6">
-              <input 
-                type="text" 
-                placeholder="Search" 
-                className="w-full h-[48px] bg-[#F2EEE8] rounded-[10px] pl-4 pr-10 text-[16px] text-kletta-dark outline-none placeholder:text-gray-500"
-              />
           </div>
       </div>
 
       {/* Main Scrollable Content Area */}
-      <div className="flex-1 overflow-y-auto no-scrollbar">
+      <div className="flex-1 overflow-y-auto no-scrollbar bg-white pt-6">
           
           {/* Outstanding Section Header - Spacing increased and "View all" hidden */}
           <div className="px-6 flex items-center justify-between mb-3">
@@ -160,7 +151,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
           </div>
 
           {/* All Sales Section */}
-          <div className="px-6 bg-[#FAF8F5]">
+          <div className="px-6 bg-white">
               <h2 className="text-[17px] font-semibold text-kletta-dark mb-6 mt-2">All sales</h2>
               <div className="space-y-4 pb-32">
                   {ALL_SALES.map((item, idx) => (

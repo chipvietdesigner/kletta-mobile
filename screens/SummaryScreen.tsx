@@ -97,7 +97,7 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
                     onClick={() => setShowFilter(true)}
                     className="flex items-center gap-1 text-[#0C0D0D] hover:opacity-70 transition-opacity"
                 >
-                    <span className="text-[15px] font-medium">{dateRange}</span>
+                    <span className="text-[14px] font-medium">{dateRange}</span>
                     <IconChevronDown size={16} weight="bold" />
                 </button>
             </div>
