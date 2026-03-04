@@ -7,10 +7,10 @@ import {
 
 const BankScreen: React.FC = () => {
   return (
-    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+    <div className="h-full w-full bg-[#F7F6EE] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
       {/* Status Bar */}
-      <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20 bg-white">
+      <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20 bg-[#F7F6EE]">
           <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
           <div className="flex gap-1.5 items-center mr-1">
              <IconCellSignalFull size={16} weight="fill" />

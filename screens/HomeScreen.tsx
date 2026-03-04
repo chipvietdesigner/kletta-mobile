@@ -211,7 +211,7 @@ const DashboardContent = ({
   onOpenFilter: () => void 
 }) => {
   return (
-    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#FAF8F5] animate-fade-in">
+    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#F7F6EE] animate-fade-in">
         
         {/* Scrollable Content */}
         <div className="flex-1 w-full overflow-y-auto no-scrollbar pb-64">
@@ -277,7 +277,7 @@ const DashboardContent = ({
                  <div className="border-t border-gray-100 py-2 flex justify-center bg-white">
                     <button 
                       onClick={onViewSummary}
-                      className="flex items-center gap-1 text-[13px] font-semibold text-kletta-dark hover:opacity-70 transition-opacity active:opacity-60"
+                      className="flex items-center gap-1 text-[13px] font-semibold text-[#005A66] hover:opacity-70 transition-opacity active:opacity-60"
                     >
                       View summary
                     </button>
@@ -488,7 +488,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   };
 
   return (
-    <div className="h-full w-full pt-5 bg-[#FAF8F5] relative font-aktifo overflow-hidden">
+    <div className="h-full w-full pt-5 bg-[#F7F6EE] relative font-aktifo overflow-hidden">
       
       {/* Content Area Based on Tab */}
       <div className="absolute inset-0 w-full h-full z-0">

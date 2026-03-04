@@ -144,7 +144,7 @@ const ChatConversation = ({ type, onBack }: { type: 'support' | 'ai' | 'other', 
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-slide-in relative overflow-hidden z-[60]">
              {/* Sticky Header */}
-             <div className="w-full bg-white z-20 shrink-0 border-b border-gray-100 shadow-sm">
+             <div className="w-full bg-[#F7F6EE] z-20 shrink-0 border-b border-gray-100 shadow-sm">
                 <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
                     <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
                     <div className="flex gap-1.5 items-center mr-1">
@@ -262,7 +262,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive, autoOpenAi, onAut
   }
 
   return (
-    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+    <div className="h-full w-full bg-[#F7F6EE] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20">
           <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
           <div className="flex gap-1.5 items-center mr-1">
@@ -284,7 +284,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive, autoOpenAi, onAut
          </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-32">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-32 bg-white">
          <button 
             onClick={() => setActiveChat('ai')}
             className="w-full px-6 py-5 flex items-start gap-4 hover:bg-gray-50 transition-colors border-b border-gray-50 bg-[#F0FDFB]"
