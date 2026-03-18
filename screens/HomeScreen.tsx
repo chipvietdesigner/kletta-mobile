@@ -504,6 +504,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
             onOpenFilter={() => setShowFilter(true)} 
           />
         )}
+        {activeTab === 'summary' && <SummaryScreen navigate={navigate} goBack={() => setActiveTab('home')} />}
         {activeTab === 'bank' && <BankScreen />}
         {activeTab === 'sales' && (
           <SalesScreen 

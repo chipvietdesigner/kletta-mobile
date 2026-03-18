@@ -89,14 +89,14 @@ const App = () => {
         case 'invoice-preview': navigate('invoice-notes'); break;
         case 'invoice-success': navigate('home'); break;
         case 'invoice-detail': navigate('home', { tab: 'sales' }); break; 
-        case 'summary': navigate('home'); break;
-        case 'summary-business-income': navigate('home', { tab: 'summary' }); break;
-        case 'summary-other-income': navigate('home', { tab: 'summary' }); break;
-        case 'summary-business-expenses': navigate('home', { tab: 'summary' }); break;
-        case 'summary-nonallowable-expenses': navigate('home', { tab: 'summary' }); break;
-        case 'summary-claimed-kilometers': navigate('home', { tab: 'summary' }); break;
-        case 'summary-cash-withdrawal': navigate('home', { tab: 'summary' }); break;
-        case 'summary-tax-prepayments': navigate('home', { tab: 'summary' }); break;
+        case 'summary': navigate('home', { tab: 'home' }); break;
+        case 'summary-business-income': navigate('summary'); break;
+        case 'summary-other-income': navigate('summary'); break;
+        case 'summary-business-expenses': navigate('summary'); break;
+        case 'summary-nonallowable-expenses': navigate('summary'); break;
+        case 'summary-claimed-kilometers': navigate('summary'); break;
+        case 'summary-cash-withdrawal': navigate('summary'); break;
+        case 'summary-tax-prepayments': navigate('summary'); break;
         case 'settings': navigate('home'); break;
         case 'scan-receipt-camera': 
           if (navParams?.type === 'statement') navigate('onboarding-3');

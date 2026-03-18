@@ -73,7 +73,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
   }
 
   return (
-    <div className="h-full w-full bg-[#F7F6EE] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
       {/* Status Bar */}
       <div className="w-full h-[44px] flex justify-between items-end px-6 pb-1 text-kletta-dark pointer-events-none z-20 shrink-0">
@@ -86,7 +86,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
       </div>
 
       {/* Fixed Header */}
-      <div className="px-6 pt-4 pb-6 bg-[#F7F6EE] flex flex-col shrink-0">
+      <div className="px-6 pt-4 pb-6 bg-white flex flex-col shrink-0">
           <div className="flex justify-center items-center relative">
               <h1 className="text-[20px] font-bold text-kletta-dark tracking-tight">Sales</h1>
               <button 

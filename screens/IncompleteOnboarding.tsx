@@ -251,7 +251,7 @@ export const IncompleteTaxInfo: React.FC<NavigationProps> = ({ navigate, goBack 
                  <option>Yearly</option>
             </KlettaSelect>
 
-            <div className="bg-[#F7F6EE] p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed mt-4">
+            <div className="bg-white border border-gray-100 p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed mt-4">
                 Please note that you cannot change this selection later.
             </div>
         </div>
@@ -277,7 +277,7 @@ export const IncompleteTaxConfirm: React.FC<NavigationProps> = ({ navigate, goBa
                 <option>Quarter II, 2025</option>
             </KlettaSelect>
         </div>
-        <div className="bg-[#F7F6EE] p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed">
+        <div className="bg-white border border-gray-100 p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed">
             Please note that you cannot change this selection later.
         </div>
     </IncompleteStepLayout>

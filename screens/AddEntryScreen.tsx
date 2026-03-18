@@ -273,7 +273,7 @@ export const AddEntryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) 
 
             {/* Segmented Control Tabs */}
             <div className="px-6 mb-6">
-                <div className="bg-[#F2F4F5] p-1 rounded-[14px] flex w-full">
+                <div className="bg-[#F2F2F2] p-1 rounded-[14px] flex w-full">
                     {tabs.map((tab) => (
                         <button
                             key={tab}

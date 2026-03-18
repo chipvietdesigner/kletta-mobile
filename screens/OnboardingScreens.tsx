@@ -375,7 +375,7 @@ export const OnboardingStep2: React.FC<NavigationProps> = ({ navigate, goBack })
                     </div>
                 )}
 
-                <div className="bg-[#F7F6EE] p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed mt-4">
+                <div className="bg-white border border-gray-100 p-5 rounded-2xl text-kletta-dark text-[15px] font-normal leading-relaxed mt-4">
                     Please note that you cannot change this selection later.
                 </div>
             </div>
@@ -621,7 +621,7 @@ export const OnboardingManualEntry: React.FC<NavigationProps> = ({ navigate, goB
                         <FinancialInputRow label="Private withdrawals" sub="How much money have you taken for yourself?" isOthers value={data.withdrawals} onChange={v => update('withdrawals', v)} />
                         
                         {/* Highlighted card for Total Paid VATs */}
-                        <div className="bg-[#F7F6EE] p-5 rounded-2xl space-y-4 border border-gray-100/50">
+                        <div className="bg-white p-5 rounded-2xl space-y-4 border border-gray-100">
                             <div>
                                 <p className="text-[15px] font-medium text-kletta-dark leading-tight">Total of paid VATs</p>
                                 <p className="text-[13px] text-gray-500 font-light mt-1">Enter total amount of already paid VATs.</p>

@@ -144,7 +144,7 @@ const ChatConversation = ({ type, onBack }: { type: 'support' | 'ai' | 'other', 
     return (
         <div className="h-full w-full bg-white flex flex-col font-aktifo animate-slide-in relative overflow-hidden z-[60]">
              {/* Sticky Header */}
-             <div className="w-full bg-[#F7F6EE] z-20 shrink-0 border-b border-gray-100 shadow-sm">
+             <div className="w-full bg-white z-20 shrink-0 border-b border-gray-100 shadow-sm">
                 <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none">
                     <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
                     <div className="flex gap-1.5 items-center mr-1">
@@ -262,8 +262,8 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive, autoOpenAi, onAut
   }
 
   return (
-    <div className="h-full w-full bg-[#F7F6EE] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
-      <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20">
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+      <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20 bg-white">
           <span className="text-[15px] font-medium tracking-normal leading-none ml-2">9:41</span>
           <div className="flex gap-1.5 items-center mr-1">
              <IconCellSignalFull size={16} weight="fill" />
@@ -272,7 +272,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive, autoOpenAi, onAut
           </div>
       </div>
 
-      <div className="px-6 pt-4 pb-4 flex items-center justify-between z-10 border-b border-gray-50">
+      <div className="px-6 pt-4 pb-4 flex items-center justify-between z-10 border-b border-gray-50 bg-white">
          <h1 className="text-[26px] font-medium text-kletta-dark tracking-tight">Messages</h1>
          <div className="flex gap-2">
             <button className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors">

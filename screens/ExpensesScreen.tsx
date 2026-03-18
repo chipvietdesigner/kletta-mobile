@@ -156,10 +156,10 @@ const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ dateRange, onOpenFilter
   const [activeTab, setActiveTab] = useState<'receipts' | 'trips'>('receipts');
 
   return (
-    <div className="h-full w-full bg-[#F7F6EE] flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
+    <div className="h-full w-full bg-white flex flex-col font-aktifo animate-fade-in relative overflow-hidden">
       
       {/* Header Container - Fixed at Top */}
-      <div className="w-full z-20 flex flex-col shrink-0 bg-[#F7F6EE]">
+      <div className="w-full z-20 flex flex-col shrink-0 bg-white">
           
           {/* Status Bar - Dark Text */}
           <div className="w-full h-[44px] flex justify-between items-end px-6 pb-1 text-kletta-dark pointer-events-none">
@@ -192,7 +192,7 @@ const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ dateRange, onOpenFilter
 
           {/* Segmented Control - Pill Style */}
           <div className="px-6 py-2">
-              <div className="bg-[#F1EDDA] p-0.5 rounded-[10px] flex w-full h-[32px]">
+              <div className="bg-[#F2F2F2] p-0.5 rounded-[10px] flex w-full h-[32px]">
                   <button 
                     onClick={() => setActiveTab('receipts')}
                     className={`flex-1 h-full rounded-[8px] text-[13px] transition-all flex items-center justify-center ${activeTab === 'receipts' ? 'bg-white text-[#0C0D0D] font-medium shadow-sm' : 'text-[#0C0D0D] font-normal hover:opacity-70'}`}
@@ -210,7 +210,7 @@ const ExpensesScreen: React.FC<ExpensesScreenProps> = ({ dateRange, onOpenFilter
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-2 bg-[#F7F6EE]">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-32 pt-2 bg-white">
          {activeTab === 'receipts' ? (
              EXPENSE_DATA.map((item) => (
                 <ExpenseRow 
