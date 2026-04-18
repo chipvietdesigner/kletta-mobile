@@ -108,7 +108,7 @@ export const IncompleteOnboardingEntry: React.FC<NavigationProps> = ({ navigate,
            
            <div className="absolute inset-0 px-8 pt-10 flex justify-between items-start z-10">
               <div className="flex-1">
-                <h1 className="text-[20px] font-bold text-white tracking-tight leading-tight mb-2">Set up your account</h1>
+                <h1 className="text-[24px] font-bold text-white tracking-tight leading-tight mb-2">Set up your account</h1>
                 <p className="text-[14px] text-white/70 font-normal leading-relaxed">You still have a few steps to complete.</p>
               </div>
               <button onClick={goBack} className="w-10 h-10 -mr-2 -mt-1.5 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">
@@ -151,7 +151,7 @@ export const IncompleteOnboardingEntry: React.FC<NavigationProps> = ({ navigate,
           <div className="flex flex-col gap-3">
              <button 
                onClick={() => { incompleteFlowActive = true; navigate(remainingSteps[0].screen); }}
-               className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all"
+               className="w-full h-[48px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all"
              >
                Continue
              </button>
@@ -188,7 +188,7 @@ const IncompleteStepLayout = ({ icon, title, subtitle, children, onPrimary, prim
                 <OnboardingHeader icon={icon} onBack={onBack} onClose={onClose} />
                 
                 <div className={`flex-1 overflow-y-auto no-scrollbar px-6 pt-[50px] pb-60 transition-opacity duration-600 ${isTransitioning ? 'opacity-0' : 'opacity-100 animate-slide-in-right'}`}>
-                    <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-4 tracking-tight">{title}</h1>
+                    <h1 className="text-[28px] font-bold text-kletta-dark text-center mb-4 tracking-tight">{title}</h1>
                     <div className="text-center text-kletta-dark font-normal text-[16px] leading-relaxed mb-6 max-w-[340px] mx-auto">
                         {subtitle}
                     </div>
@@ -201,7 +201,7 @@ const IncompleteStepLayout = ({ icon, title, subtitle, children, onPrimary, prim
                     <button 
                         onClick={handlePrimaryClick}
                         disabled={disablePrimary}
-                        className={`w-full py-4 rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
+                        className={`w-full h-[48px] flex items-center justify-center rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
                     >
                         {primaryLabel}
                     </button>

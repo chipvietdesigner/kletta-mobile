@@ -37,7 +37,7 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
         </div>
       </div>
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
-         <button onClick={handleContinue} className="w-full h-[60px] bg-kletta-yellow rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all">Continue</button>
+         <button onClick={handleContinue} className="w-full h-[48px] bg-kletta-yellow rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all">Continue</button>
       </div>
     </div>
   );
@@ -118,7 +118,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             </div>
             <p className="text-[14px] text-kletta-dark font-light leading-snug">I accept the <button className="underline font-medium hover:text-kletta-teal transition-colors">Term of service</button> and <button className="underline font-medium hover:text-kletta-teal transition-colors">Privacy Policy</button></p>
          </div>
-         <button onClick={handleSignUp} disabled={!isFormValid} className={`w-full h-[60px] rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${isFormValid ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>Sign up</button>
+         <button onClick={handleSignUp} disabled={!isFormValid} className={`w-full h-[48px] rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${isFormValid ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>Sign up</button>
       </div>
     </div>
   );
@@ -281,7 +281,7 @@ export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ naviga
          <button 
             onClick={handleSubmit} 
             disabled={!selected || isLoading} 
-            className={`w-full h-[60px] rounded-2xl font-semibold text-[16px] shadow-sm transition-all ${
+            className={`w-full h-[48px] rounded-2xl font-semibold text-[16px] shadow-sm transition-all ${
               selected && !isLoading ? 'bg-kletta-yellow text-kletta-dark hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'
             }`}
           >

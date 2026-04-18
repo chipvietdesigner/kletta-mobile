@@ -23,10 +23,26 @@ const OUTSTANDING_INVOICES = [
 ];
 
 const ALL_SALES = [
-  { id: '12345', amount: '€250.00', date: '29.04.2025', customer: 'Jari', status: 'Overdue', imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&fit=crop" },
-  { id: '12345', amount: '€250.00', date: '29.04.2025', customer: 'Jari', status: 'Paid', imageUrl: "https://images.unsplash.com/photo-1544441893-675973e31985?w=200&fit=crop" },
-  { id: '12345', amount: '€250.00', date: '29.04.2025', customer: 'Jari', status: 'Unpaid', imageUrl: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=200&fit=crop" },
-  { id: '12345', amount: '€250.00', date: '29.04.2025', customer: 'Jari', status: 'Paid', imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&fit=crop" },
+  { id: '12345', amount: '€50,000.00', date: '29.04.2025', customer: 'Vanamo Group Oy', status: 'Unpaid' },
+  { id: '84721', amount: '€149.00', date: '29.04.2025', customer: 'No customer', status: 'Paid' },
+  { id: '56213', amount: '€50,000.00', date: '29.04.2025', customer: 'Vanamo Group Oy', status: 'Paid' },
+  { id: '99821', amount: '€50,000.00', date: '29.04.2025', customer: 'Noja Rahoitus Oy', status: 'Overdue' },
+  { id: '77102', amount: '€50,000.00', date: '29.04.2025', customer: 'Vanamo Group Oy', status: 'Paid' },
+  { id: '12346', amount: '€50,000.00', date: '29.04.2025', customer: 'Vanamo Group Oy', status: 'Paid' },
+  { id: '84722', amount: '€49.00', date: '02.05.2025', customer: 'TSUKI', status: 'Paid' },
+  { id: '56214', amount: '€980.00', date: '15.04.2025', customer: 'Nordic Solutions Ltd', status: 'Unpaid' },
+  { id: '99822', amount: '€120.00', date: '01.04.2025', customer: 'Helsinki Foods Oy', status: 'Paid' },
+  { id: '77103', amount: '€2,450.00', date: '21.03.2025', customer: 'Aurora Tech', status: 'Paid' },
+  { id: '12347', amount: '€350.00', date: '02.05.2025', customer: 'GreenLeaf Co.', status: 'Unpaid' },
+  { id: '84723', amount: '€5,600.00', date: '29.04.2025', customer: 'Polar Logistics', status: 'Paid' },
+  { id: '56215', amount: '€12,300.00', date: '15.04.2025', customer: 'Blue Ocean Ltd', status: 'Overdue' },
+  { id: '99823', amount: '€25,000.00', date: '01.04.2025', customer: 'Smart Retail Oy', status: 'Paid' },
+  { id: '77104', amount: '€49.00', date: '21.03.2025', customer: 'TSUKI', status: 'Paid' },
+  { id: '12348', amount: '€120.00', date: '02.05.2025', customer: 'Helsinki Foods Oy', status: 'Paid' },
+  { id: '84724', amount: '€980.00', date: '29.04.2025', customer: 'Nordic Solutions Ltd', status: 'Paid' },
+  { id: '56216', amount: '€350.00', date: '15.04.2025', customer: 'GreenLeaf Co.', status: 'Paid' },
+  { id: '99824', amount: '€2,450.00', date: '01.04.2025', customer: 'Aurora Tech', status: 'Unpaid' },
+  { id: '77105', amount: '€5,600.00', date: '21.03.2025', customer: 'Polar Logistics', status: 'Paid' },
 ];
 
 const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFilter, onModalToggle }) => {
@@ -60,7 +76,7 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
                 <IconBack size={24} weight="bold" />
               </button>
               <div>
-                 <h1 className="text-[20px] font-bold text-kletta-dark leading-tight">Outstanding invoices</h1>
+                 <h1 className="text-[24px] font-bold text-kletta-dark leading-tight">Outstanding invoices</h1>
                  <p className="text-[13px] text-gray-500 font-normal">7 invoices require action</p>
               </div>
            </div>
@@ -86,74 +102,52 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
       </div>
 
       {/* Fixed Header */}
-      <div className="px-6 pt-4 pb-6 bg-white flex flex-col shrink-0">
-          <div className="flex justify-center items-center relative">
+      <div className="px-6 pt-4 pb-4 bg-white flex flex-col shrink-0">
+          <div className="flex justify-between items-center relative">
               <h1 className="text-[20px] font-bold text-kletta-dark tracking-tight">Sales</h1>
-              <button 
-                  onClick={() => navigate('new-invoice')}
-                  className="absolute right-0 w-10 h-10 flex items-center justify-center text-kletta-dark active:scale-95 transition-all"
-              >
-                  <IconPlus size={28} weight="regular" />
-              </button>
+              <div className="flex items-center gap-2">
+                  <button className="w-10 h-10 flex items-center justify-center text-kletta-dark active:scale-95 transition-all">
+                      <IconSearch size={24} weight="regular" />
+                  </button>
+                  <button 
+                      onClick={() => navigate('new-invoice')}
+                      className="w-10 h-10 flex items-center justify-center text-kletta-dark active:scale-95 transition-all"
+                  >
+                      <IconPlus size={28} weight="regular" />
+                  </button>
+              </div>
           </div>
-          <div className="flex justify-center mt-1">
+          <div className="flex mt-1">
               <button 
                   onClick={onOpenFilter}
                   className="flex items-center gap-1 text-kletta-dark hover:opacity-70 transition-opacity"
               >
-                  <span className="text-[14px] font-medium">All time</span>
+                  <span className="text-[16px] font-medium">All time</span>
                   <IconChevronDown size={14} weight="bold" />
               </button>
           </div>
       </div>
 
-      {/* Main Scrollable Content Area */}
-      <div className="flex-1 overflow-y-auto no-scrollbar bg-white pt-6">
-          
-          {/* Outstanding Section Header - Spacing increased and "View all" hidden */}
-          <div className="px-6 flex items-center justify-between mb-3">
-              <h2 className="text-[17px] font-semibold text-kletta-dark">Outstanding invoices</h2>
-          </div>
-
-          {/* Carousel Body */}
-          <div className="flex overflow-x-auto no-scrollbar px-6 gap-4 pb-10">
-              {OUTSTANDING_INVOICES.map((item, idx) => (
-                <div key={idx} className="min-w-[187px] bg-white rounded-[16px] overflow-hidden border border-gray-200 flex flex-col transition-all">
-                    {/* Card Header area */}
-                    <div className="bg-[#FFF1F1] p-4 pt-1 relative">
-                        <div className="absolute top-0 left-0 bg-[#8C2E0B] text-white text-[10px] font-bold px-2 py-0.5 rounded-br-[8px] z-10">
-                            {item.label}
-                        </div>
-                        <div className="flex items-center gap-3 pt-6">
-                            <div className="w-[53px] h-[53px] bg-white rounded-[8px] flex items-center justify-center shadow-sm shrink-0 overflow-hidden border border-gray-50">
-                               <img src={item.imageUrl} className="w-full h-full object-cover" alt="invoice preview" />
-                            </div>
-                            <div className="flex flex-col min-w-0">
-                               <span className="text-[17px] font-semibold text-kletta-dark truncate">{item.amount}</span>
-                               <span className="text-[12px] font-medium text-[#C03500]">{item.status}</span>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Card Footer area */}
-                    <div className="p-4 pt-3 flex flex-col flex-1">
-                        <p className="text-[14px] font-medium text-kletta-dark leading-tight">{item.customer}</p>
-                        <p className="text-[12px] text-gray-600 font-light mb-4">Invoices #{item.id}</p>
-                        
-                        <button className="w-full h-[36px] bg-kletta-teal rounded-[8px] text-white font-medium text-[13px] mb-2 active:scale-[0.98] transition-all">
-                            Register as paid
-                        </button>
-                        <button className="w-full h-[36px] text-gray-500 font-medium text-[12px] active:bg-gray-50 rounded-[8px]">
-                            Send a reminder
-                        </button>
-                    </div>
-                </div>
+      {/* Segmented Control - Pill Style */}
+      <div className="px-6 py-2">
+          <div className="bg-[#F2F2F2] p-0.5 rounded-[10px] flex w-full h-[36px]">
+              {['All', 'Paid', 'Unpaid', 'Overdue'].map((tab) => (
+                <button 
+                  key={tab}
+                  className={`flex-1 h-full rounded-[8px] text-[13px] transition-all flex items-center justify-center ${tab === 'All' ? 'bg-white text-[#0C0D0D] font-medium shadow-sm' : 'text-[#0C0D0D] font-normal hover:opacity-70'}`}
+                >
+                  {tab}
+                </button>
               ))}
           </div>
+      </div>
 
+      {/* Main Scrollable Content Area */}
+      <div className="flex-1 overflow-y-auto no-scrollbar bg-white pt-2">
+          
           {/* All Sales Section */}
-          <div className="px-6 bg-white">
-              <h2 className="text-[17px] font-semibold text-kletta-dark mb-6 mt-2">All sales</h2>
-              <div className="space-y-4 pb-32">
+          <div className="bg-white">
+              <div className="space-y-0 pb-32">
                   {ALL_SALES.map((item, idx) => (
                      <SaleListItem key={idx} {...item} />
                   ))}
@@ -166,34 +160,30 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
 
 // --- Sub-components ---
 
-const SaleListItem = ({ amount, date, id, customer, status, imageUrl }: any) => (
-  <div className="w-full flex items-start gap-4 border-b border-gray-100 pb-5 group">
-     <div className={`w-[53px] h-[53px] rounded-[8px] bg-gray-50 flex items-center justify-center shrink-0 overflow-hidden border border-gray-50`}>
-        <img src={imageUrl} className="w-full h-full object-cover" alt="invoice thumbnail" />
-     </div>
+const SaleListItem = ({ amount, date, id, customer, status }: any) => (
+  <div className={`w-full px-6 py-4 flex items-start justify-between border-b border-gray-100 transition-colors ${status === 'Overdue' ? 'bg-[#FFF8F8]' : 'bg-white'}`}>
      <div className="flex-1 min-w-0">
-        <div className="flex justify-between items-center mb-1">
-           <div className="flex flex-col">
-              <span className="text-[18px] font-medium text-kletta-dark">{amount}</span>
-              {status === 'Overdue' && (
-                <span className="text-[12px] font-medium text-[#C03500] leading-none mt-0.5">Overdue</span>
-              )}
-           </div>
-           {status === 'Overdue' || status === 'Unpaid' ? (
-              /* Decreased size and increased font-weight to semibold as requested */
-              <button className="px-3 h-[32px] bg-kletta-teal rounded-[8px] text-[12px] font-semibold text-white active:scale-95 whitespace-nowrap flex items-center justify-center">
-                Register as paid
-              </button>
-           ) : (
-              /* Adjusted height to 32px for consistency and reduced font size */
-              <div className="px-3 h-[32px] bg-kletta-yellow rounded-[8px] flex items-center justify-center">
-                <span className="text-[11px] font-bold text-kletta-dark tracking-wide">Paid</span>
-              </div>
-           )}
+        <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-[14px] font-semibold text-kletta-dark truncate">{customer}</span>
+            {status === 'Overdue' && (
+                <span className="text-[14px] font-semibold text-[#E58B8B]">Overdue</span>
+            )}
         </div>
-        <p className="text-[13px] text-gray-500 font-light truncate">
-          {date} • Invoice #{id} • {customer}
+        <p className="text-[13px] text-gray-500 font-normal">
+          {date} • Invoice #{id}
         </p>
+     </div>
+     <div className="flex flex-col items-end gap-1.5">
+        <span className="text-[16px] font-semibold text-kletta-dark leading-none">{amount}</span>
+        {status === 'Paid' ? (
+            <div className="px-3 h-[26px] bg-[#E6F2F3] rounded-[13px] flex items-center justify-center">
+                <span className="text-[12px] font-semibold text-[#005A66]">Paid</span>
+            </div>
+        ) : (
+            <button className="px-3 h-[30px] bg-[#005A66] rounded-[6px] text-[12px] font-semibold text-white active:scale-95 whitespace-nowrap">
+                Register as paid
+            </button>
+        )}
      </div>
   </div>
 );

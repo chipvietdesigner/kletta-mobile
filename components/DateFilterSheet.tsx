@@ -117,7 +117,7 @@ const DateFilterSheet: React.FC<DateFilterSheetProps> = ({ onClose, onApply, cur
         <div className="px-7 pt-8 bg-white">
           <button 
             onClick={handleApply}
-            className="w-full h-[52px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-semibold text-[16px] shadow-sm active:scale-[0.98] transition-all"
+            className="w-full h-[48px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-semibold text-[16px] shadow-sm active:scale-[0.98] transition-all"
           >
             Apply
           </button>

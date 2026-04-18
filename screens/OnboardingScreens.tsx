@@ -192,7 +192,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                 />
 
                 <div className={`flex-1 ${noScroll ? 'overflow-hidden' : 'overflow-y-auto no-scrollbar'} px-6 pt-[50px] pb-60 bg-white transition-opacity duration-600 ${isTransitioning ? 'opacity-0' : 'opacity-100 animate-slide-in-right'}`}>
-                    <h1 className="text-[24px] font-bold text-kletta-dark text-center mb-4 leading-tight tracking-tight">{title}</h1>
+                    <h1 className="text-[28px] font-bold text-kletta-dark text-center mb-4 leading-tight tracking-tight">{title}</h1>
                     {subtitle && (
                         <div className="text-center text-kletta-dark font-normal text-[16px] leading-relaxed mb-6 max-w-[340px] mx-auto">
                             {subtitle}
@@ -207,7 +207,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                 <button 
                     onClick={handlePrimaryClick}
                     disabled={disablePrimary}
-                    className={`w-full py-4 rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
+                    className={`w-full h-[48px] flex items-center justify-center rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
                 >
                     {primaryLabel}
                 </button>

@@ -25,7 +25,7 @@ const BankScreen: React.FC = () => {
              <IconBank size={40} weight="fill" />
           </div>
           
-          <h1 className="text-[26px] font-medium text-kletta-dark tracking-tight mb-2">Coming soon</h1>
+          <h1 className="text-[24px] font-bold text-kletta-dark tracking-tight mb-2">Coming soon</h1>
           <p className="text-[15px] text-kletta-secondary font-light max-w-[240px] leading-relaxed">
              We are working hard to bring seamless banking integration to your fingertips.
           </p>

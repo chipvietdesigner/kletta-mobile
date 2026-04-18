@@ -273,7 +273,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ onChatActive, autoOpenAi, onAut
       </div>
 
       <div className="px-6 pt-4 pb-4 flex items-center justify-between z-10 border-b border-gray-50 bg-white">
-         <h1 className="text-[26px] font-medium text-kletta-dark tracking-tight">Messages</h1>
+         <h1 className="text-[20px] font-bold text-kletta-dark tracking-tight">Messages</h1>
          <div className="flex gap-2">
             <button className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors">
                 <IconMagnifyingGlass size={24} weight="bold" className="text-kletta-dark" />

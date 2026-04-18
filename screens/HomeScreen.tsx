@@ -164,7 +164,7 @@ const ScanSalesReportSheet = ({ onClose, onContinue }: { onClose: () => void, on
         <div className="absolute bottom-0 left-0 right-0 bg-white p-6 border-t border-gray-100">
            <button 
              onClick={onContinue}
-             className="w-full h-[56px] bg-kletta-yellow rounded-[14px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all shadow-sm"
+             className="w-full h-[48px] bg-kletta-yellow rounded-[14px] text-kletta-dark font-bold text-[16px] active:scale-[0.98] transition-all shadow-sm"
            >
              Continue
            </button>
@@ -211,7 +211,7 @@ const DashboardContent = ({
   onOpenFilter: () => void 
 }) => {
   return (
-    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-[#F7F6EE] animate-fade-in">
+    <div className="w-full h-full relative overflow-hidden flex flex-col font-aktifo bg-white animate-fade-in">
         
         {/* Scrollable Content */}
         <div className="flex-1 w-full overflow-y-auto no-scrollbar pb-64">
@@ -253,7 +253,7 @@ const DashboardContent = ({
 
           {/* Unified Summary Card - Overlapping Header */}
           <div className="px-5 -mt-12 relative z-10 mb-6">
-              <div className="bg-white rounded-[20px] flex flex-col overflow-hidden border border-gray-200">
+              <div className="bg-white rounded-[12px] flex flex-col overflow-hidden border border-gray-200">
                  
                  {/* Stats Row */}
                  <div className="flex justify-between py-4 px-1">
@@ -274,12 +274,12 @@ const DashboardContent = ({
                  </div>
 
                  {/* Integrated View Summary Link */}
-                 <div className="border-t border-gray-100 py-2 flex justify-center bg-white">
+                 <div className="border-t border-gray-100 py-2 flex justify-center bg-[#F5F5F5]">
                     <button 
                       onClick={onViewSummary}
-                      className="flex items-center gap-1 text-[13px] font-semibold text-[#005A66] hover:opacity-70 transition-opacity active:opacity-60"
+                      className="flex items-center gap-1 text-[13px] font-bold text-[#005A66] hover:opacity-70 transition-opacity active:opacity-60"
                     >
-                      View summary
+                      View summary »
                     </button>
                  </div>
               </div>
@@ -302,8 +302,8 @@ const DashboardContent = ({
             </div>
 
             {/* 2. Upcoming Section */}
-            <div className="bg-white rounded-[20px] p-5 border border-gray-200">
-              <div className="flex justify-between items-center mb-4">
+            <div className="bg-white rounded-[12px]">
+              <div className="flex justify-between items-center mb-4 px-1">
                   <h3 className="font-medium text-[16px] text-kletta-dark">Upcoming</h3>
               </div>
               <div className="space-y-0">
@@ -336,7 +336,7 @@ const DashboardContent = ({
             </div>
 
             {/* 3. Banner */}
-            <div className="bg-kletta-yellow rounded-[20px] p-5 flex items-start justify-between relative shadow-sm">
+            <div className="bg-kletta-yellow rounded-[12px] p-5 flex items-start justify-between relative shadow-sm">
               <div className="flex gap-3.5 items-center">
                  <div className="w-10 h-10 flex items-center justify-center">
                     <IconRun size={30} color="#000000" weight="fill" />
@@ -351,7 +351,7 @@ const DashboardContent = ({
             </div>
             
             {/* 4. Setup Account */}
-            <div className="bg-white rounded-[20px] p-5 border border-gray-200">
+            <div className="bg-white rounded-[12px]">
               <div className="flex justify-between items-center mb-4 px-1">
                 <h3 className="font-medium text-[16px] text-kletta-dark">Set up your account</h3>
                 <span className="text-[11px] font-medium text-[#008c9e]">50% complete</span>
@@ -376,9 +376,9 @@ const DashboardContent = ({
             </div>
 
              {/* 5. Overdue */}
-             <button className="w-full py-4 bg-kletta-yellow rounded-[20px] flex flex-col items-center justify-center font-medium text-kletta-dark shadow-sm active:scale-[0.98] transition-transform gap-0.5">
-              <span className="text-xl tracking-tight font-bold">27(28)</span>
-              <span className="text-[11px] font-medium opacity-70 uppercase tracking-wide">Overdue invoices</span>
+             <button className="w-full h-[48px] bg-kletta-yellow rounded-[12px] flex flex-col items-center justify-center font-medium text-kletta-dark shadow-sm active:scale-[0.98] transition-transform gap-0.5">
+              <span className="text-xl tracking-tight font-bold leading-none">27(28)</span>
+              <span className="text-[10px] font-medium opacity-70 uppercase tracking-wide leading-none">Overdue invoices</span>
             </button>
 
             {/* 6. Next Steps Section */}
@@ -386,7 +386,7 @@ const DashboardContent = ({
               <h3 className="font-medium text-[17px] text-kletta-dark tracking-tight px-1">Next you could...</h3>
               
               {/* Care Promo Banner */}
-              <div className="bg-kletta-yellow rounded-[20px] p-5 flex items-start justify-between shadow-sm relative group overflow-hidden border border-kletta-yellow/40">
+              <div className="bg-kletta-yellow rounded-[12px] p-5 flex items-start justify-between shadow-sm relative group overflow-hidden border border-kletta-yellow/40">
                 <div className="flex gap-4 items-center">
                    <div className="w-11 h-11 bg-white/30 rounded-full flex items-center justify-center shrink-0">
                       <IconScales size={26} className="text-kletta-dark" weight="bold" />
@@ -418,7 +418,7 @@ const DashboardContent = ({
 
 
             {/* 7. YEL Insurance */}
-            <div className="bg-[#00343B] rounded-[20px] p-6 text-white shadow-sm">
+            <div className="bg-[#00343B] rounded-[12px] p-6 text-white shadow-sm">
               <div className="flex justify-between items-start mb-2">
                 <h3 className="font-medium text-[16px] leading-tight max-w-[200px]">Get YEL insurance from Ilmarinen</h3>
                 <div className="mt-0.5">
@@ -488,7 +488,7 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
   };
 
   return (
-    <div className="h-full w-full pt-5 bg-[#F7F6EE] relative font-aktifo overflow-hidden">
+    <div className="h-full w-full pt-5 bg-white relative font-aktifo overflow-hidden">
       
       {/* Content Area Based on Tab */}
       <div className="absolute inset-0 w-full h-full z-0">
@@ -571,45 +571,46 @@ const HomeScreen: React.FC<NavigationProps> = ({ navigate, goBack, params }) => 
             )}
 
             {/* Fixed Bottom Tab Bar */}
-            <div className="bg-white border-t border-gray-100 pb-8 pt-3 px-4 flex justify-between items-end">
+            <div className="bg-white border-t border-gray-100 pb-8 pt-3 px-2 flex justify-between items-end">
                 <TabItem 
-                active={activeTab === 'home'} 
-                icon={IconHome} 
-                label="Home" 
-                onClick={() => setActiveTab('home')} 
+                  active={activeTab === 'home'} 
+                  iconName="home" 
+                  label="Home" 
+                  onClick={() => setActiveTab('home')} 
                 />
                 <TabItem 
-                active={activeTab === 'bank'} 
-                icon={IconBank} 
-                label="Bank" 
-                onClick={() => setActiveTab('bank')} 
+                  active={activeTab === 'sales'} 
+                  iconName="trending_up" 
+                  label="Sales" 
+                  onClick={() => setActiveTab('sales')} 
                 />
                 <TabItem 
-                active={activeTab === 'sales'} 
-                icon={IconSales} 
-                label="Sales" 
-                onClick={() => setActiveTab('sales')} 
+                  active={activeTab === 'expenses'} 
+                  iconName="receipt_long" 
+                  label="Expenses" 
+                  onClick={() => setActiveTab('expenses')} 
                 />
                 <TabItem 
-                active={activeTab === 'expenses'} 
-                icon={IconExpenses} 
-                label="Expenses" 
-                onClick={() => setActiveTab('expenses')} 
+                  active={activeTab === 'chat'} 
+                  iconName="chat_bubble" 
+                  label="Chat" 
+                  badge="7"
+                  onClick={() => {
+                    setActiveTab('chat');
+                    setOpenAiChatDirectly(false);
+                  }} 
                 />
                 <TabItem 
-                active={activeTab === 'chat'} 
-                icon={IconChat} 
-                label="Chat" 
-                onClick={() => {
-                  setActiveTab('chat');
-                  setOpenAiChatDirectly(false);
-                }} 
+                  active={activeTab === 'bank'} 
+                  iconName="account_balance" 
+                  label="Bank" 
+                  onClick={() => setActiveTab('bank')} 
                 />
                 <TabItem 
-                active={activeTab === 'assets'} 
-                icon={IconPieChart} 
-                label="Assets" 
-                onClick={() => setActiveTab('assets')} 
+                  active={activeTab === 'assets'} 
+                  iconName="directions_car" 
+                  label="Assets" 
+                  onClick={() => setActiveTab('assets')} 
                 />
             </div>
         </div>
@@ -712,16 +713,16 @@ const ChecklistItem = ({ text, onClick, icon }: { text: string, onClick?: () => 
     className="w-full flex items-center justify-between py-4 group -mx-2 px-2 hover:bg-gray-50 transition-colors"
   >
     <div className="flex-1 items-center gap-3 pr-2 hidden sm:flex">
-      <div className="w-6 h-6 flex items-center justify-center text-gray-400 shrink-0 transition-all">
+      <div className="w-6 h-6 flex items-center justify-center text-black shrink-0 transition-all">
          {React.cloneElement(icon as React.ReactElement<any>, { size: 20, weight: 'regular' })}
       </div>
-      <span className="text-[14px] font-medium text-gray-600 leading-tight">{text}</span>
+      <span className="text-[14px] font-medium text-black leading-tight">{text}</span>
     </div>
     <div className="flex-1 flex items-center gap-3 pr-2 sm:hidden">
-      <div className="w-6 h-6 flex items-center justify-center text-gray-400 shrink-0 transition-all">
+      <div className="w-6 h-6 flex items-center justify-center text-black shrink-0 transition-all">
          {React.cloneElement(icon as React.ReactElement<any>, { size: 20, weight: 'regular' })}
       </div>
-      <span className="text-[14px] font-medium text-gray-600 leading-tight">{text}</span>
+      <span className="text-[14px] font-medium text-black leading-tight">{text}</span>
     </div>
     <IconChevronRight size={18} className="text-gray-300 group-hover:text-kletta-teal transition-colors" weight="bold" />
   </button>
@@ -750,16 +751,19 @@ const NextStepRow = ({ number, icon, label, onClick }: { number?: number, icon?:
   </button>
 );
 
-const TabItem = ({ active, icon: Icon, label, onClick }: { active: boolean, icon: any, label: string, onClick: () => void }) => (
-  <button onClick={onClick} className="flex flex-col items-center gap-1 w-14 group">
-    <div className={`transition-all duration-200`}>
-        <Icon 
-           size={26} 
-           color={active ? '#00343B' : '#9ca3af'} 
-           weight={active ? "fill" : "regular"} 
-        />
+const TabItem = ({ active, iconName, label, onClick, badge }: { active: boolean, iconName: string, label: string, onClick: () => void, badge?: string }) => (
+  <button onClick={onClick} className="flex flex-col items-center gap-1 w-14 group relative">
+    <div className={`transition-all duration-200 flex items-center justify-center h-7 w-7 relative`}>
+        <span className={`material-symbols-rounded text-[24px] transition-colors ${active ? 'text-[#005A66]' : 'text-gray-400'}`} style={{ fontVariationSettings: active ? "'FILL' 1" : "'FILL' 0" }}>
+            {iconName}
+        </span>
+        {badge && (
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-kletta-yellow rounded-full flex items-center justify-center text-[10px] font-bold text-kletta-dark border border-white">
+                {badge}
+            </div>
+        )}
     </div>
-    <span className={`text-[10px] font-medium tracking-wide transition-colors ${active ? 'text-kletta-teal' : 'text-kletta-secondary'}`}>{label}</span>
+    <span className={`text-[10px] font-medium tracking-wide transition-colors ${active ? 'text-[#005A66]' : 'text-gray-400'}`}>{label}</span>
   </button>
 );
 

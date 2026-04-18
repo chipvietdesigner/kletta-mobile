@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   IconCellSignalFull, IconWifiHigh, IconBatteryFull, 
   IconPlus, IconCar, IconBike, IconChevronDown,
-  IconMotorcycle, IconTaxi, IconVan, IconSparkle, IconTrash
+  IconMotorcycle, IconTaxi, IconVan, IconSparkle, IconTrash,
+  IconSearch
 } from '../components/Icons';
 import { ScreenName } from '../types';
 
@@ -57,13 +58,26 @@ const AssetsScreen: React.FC<AssetsScreenProps> = ({ navigate }) => {
 
           {/* Title Row */}
           <div className="px-6 pt-4 pb-2 relative">
-              <div className="flex justify-center items-center relative">
-                  <h1 className="text-[20px] font-bold text-kletta-dark tracking-tight">Vehicles and assets</h1>
+              <div className="flex justify-between items-center relative">
+                  <h1 className="text-[24px] font-bold text-kletta-dark tracking-tight">Vehicles and assets</h1>
+                  <div className="flex items-center gap-2">
+                      <button className="w-10 h-10 flex items-center justify-center rounded-full text-kletta-dark hover:bg-gray-100 transition-colors">
+                        <IconSearch size={24} weight="regular" />
+                      </button>
+                      <button 
+                        onClick={() => navigate('add-vehicle')}
+                        className="w-10 h-10 flex items-center justify-center rounded-full text-kletta-dark hover:bg-gray-100 transition-colors"
+                      >
+                        <IconPlus size={28} weight="regular" />
+                      </button>
+                  </div>
+              </div>
+              <div className="flex mt-1">
                   <button 
-                    onClick={() => navigate('add-vehicle')}
-                    className="absolute right-0 w-10 h-10 flex items-center justify-center rounded-full text-kletta-dark hover:bg-gray-100 transition-colors"
+                    className="flex items-center gap-1 text-kletta-dark hover:opacity-70 transition-opacity"
                   >
-                    <IconPlus size={28} weight="regular" />
+                      <span className="text-[16px] font-medium">All time</span>
+                      <IconChevronDown size={14} weight="bold" />
                   </button>
               </div>
           </div>
@@ -108,37 +122,21 @@ const AssetsScreen: React.FC<AssetsScreenProps> = ({ navigate }) => {
   );
 };
 
-const VehicleRow = ({ name, type, usage, value, isAsset, onDelete }: any) => (
-   <div className="w-full px-6 py-6 border-b border-gray-100 bg-white">
-      <div className="space-y-1 mb-4">
-         <div className="flex items-center gap-1.5">
-            <span className="text-[15px] text-kletta-secondary font-normal">{isAsset ? 'Name:' : 'Make and Model:'}</span>
-            <span className="text-[15px] text-kletta-dark font-bold">{name}</span>
+const VehicleRow = ({ name, type, usage, value, isAsset }: any) => (
+   <div className="w-full px-6 py-4 flex items-start justify-between border-b border-gray-100 bg-white hover:bg-gray-50 transition-colors">
+      <div className="flex-1 min-w-0">
+         <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-[14px] font-semibold text-kletta-dark truncate">{name}</span>
          </div>
-         <div className="flex items-center gap-1.5">
-            <span className="text-[15px] text-kletta-secondary font-normal">{isAsset ? 'Asset type:' : 'Vehicle type:'}</span>
-            <span className="text-[15px] text-kletta-dark font-bold">{type}</span>
-         </div>
-         <div className="flex items-center gap-1.5">
-            <span className="text-[15px] text-kletta-secondary font-normal">{isAsset ? 'Usage:' : 'Business use:'}</span>
-            <span className="text-[15px] text-kletta-dark font-bold">{usage}</span>
-         </div>
-         <div className="flex items-center gap-1.5">
-            <span className="text-[15px] text-kletta-secondary font-normal">Value:</span>
-            <span className="text-[15px] text-kletta-dark font-bold">{value}</span>
-         </div>
+         <p className="text-[13px] text-gray-500 font-normal">
+           {type} • {usage}
+         </p>
       </div>
-      
-      <div className="flex justify-between items-center">
-         <button className="px-4 py-2 rounded-[8px] border border-gray-200 text-[14.5px] font-medium text-kletta-dark hover:bg-gray-50 transition-colors">
-            Mark as sold or broken
-         </button>
-         <button 
-            onClick={onDelete}
-            className="w-10 h-10 flex items-center justify-center text-[#E58B8B] hover:bg-red-50 rounded-full transition-colors active:scale-90"
-         >
-            <IconTrash size={22} weight="regular" />
-         </button>
+      <div className="flex flex-col items-end gap-1.5">
+         <span className="text-[16px] font-semibold text-kletta-dark leading-none">{value}</span>
+         <div className="px-3 h-[24px] bg-[#F2F2F2] rounded-[12px] flex items-center justify-center">
+             <span className="text-[11px] font-semibold text-kletta-dark">{isAsset ? 'Asset' : 'Vehicle'}</span>
+         </div>
       </div>
    </div>
 );

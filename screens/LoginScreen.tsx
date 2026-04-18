@@ -45,7 +45,7 @@ const LoginScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
 
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-8 pb-40">
         <div className="mb-12 max-w-[420px]">
-            <h2 className="text-[26px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome back.</h2>
+            <h2 className="text-[30px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome back.</h2>
             <p className="text-kletta-dark font-light text-[15px]">
                New to Kletta? <button onClick={() => navigate('signup-email')} className="text-kletta-teal font-medium hover:underline">Sign up</button>
             </p>
@@ -84,7 +84,7 @@ const LoginScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-12 border-t border-gray-50 z-20">
          <button 
            onClick={handleContinue}
-           className="w-full h-[60px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-[0_8px_24px_rgba(255,217,59,0.3)] active:scale-[0.98] transition-all"
+           className="w-full h-[48px] bg-kletta-yellow rounded-[16px] text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-[0_8px_24px_rgba(255,217,59,0.3)] active:scale-[0.98] transition-all"
          >
            Log in
          </button>

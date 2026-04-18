@@ -37,7 +37,7 @@ export const SummaryScreen: React.FC<NavigationProps> = ({ navigate, goBack }) =
                         <IconBack size={24} weight="bold" />
                     </button>
                 </div>
-                <h1 className="text-[20px] font-bold text-kletta-dark mb-1">Summary</h1>
+                <h1 className="text-[24px] font-bold text-kletta-dark mb-1">Summary</h1>
                 <div className="absolute right-6 top-[52px]">
                     <button className="w-10 h-10 -mr-2 rounded-full flex items-center justify-center text-kletta-dark hover:bg-white active:scale-95 transition-all">
                         <IconShare size={24} weight="bold" />
