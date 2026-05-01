@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { 
   IconBack, IconCellSignalFull, IconWifiHigh, IconBatteryFull, IconChevronRight, IconPlus,
   IconSearch, IconCheck, IconChevronDown, IconCalendarBlank, IconWarningCircle, IconSparkle,
-  IconCheckCircle
+  IconCheckCircle, IconSend, IconSpinner
 } from '../components/Icons';
 import { NavigationProps } from '../types';
 import { KlettaInput, KlettaTextarea } from '../components/Inputs';
+import { motion, AnimatePresence } from 'motion/react';
 
 // --- SHARED LAYOUT ---
 interface InvoiceFlowLayoutProps {
@@ -395,6 +396,15 @@ export const InvoiceNotesScreen: React.FC<NavigationProps> = ({ navigate, goBack
 // --- SCREEN 7: PREVIEW ---
 export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
     const [showDiscard, setShowDiscard] = useState(false);
+    const [isSending, setIsSending] = useState(false);
+
+    const handleSend = () => {
+        setIsSending(true);
+        // Simulate sending process for 5 seconds as requested
+        setTimeout(() => {
+            navigate('invoice-success');
+        }, 5000);
+    };
 
     return (
         <div className="relative h-full w-full"> 
@@ -416,10 +426,18 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                          </div>
 
                         <button 
-                            onClick={() => navigate('invoice-success')}
-                            className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                            onClick={handleSend}
+                            disabled={isSending}
+                            className={`w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2 ${isSending ? 'opacity-80' : ''}`}
                         >
-                            Send
+                            {isSending ? (
+                                <>
+                                    <IconSpinner size={20} className="text-kletta-dark" />
+                                    Sending...
+                                </>
+                            ) : (
+                                'Send'
+                            )}
                         </button>
                         <button 
                             onClick={() => navigate('home')}
@@ -518,6 +536,54 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                     </div>
                 </div>
             </InvoiceFlowLayout>
+
+            {/* Sending Animation Overlay */}
+            <AnimatePresence>
+                {isSending && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 z-[60] flex items-center justify-center p-8"
+                    >
+                        {/* Dimmed Backdrop */}
+                        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+                        
+                        {/* Modal Container */}
+                        <motion.div 
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white p-12 rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex flex-col items-center justify-center relative z-10"
+                        >
+                            {/* 4 dots Loading Grid */}
+                            <div className="grid grid-cols-2 gap-3 mb-8">
+                                <motion.div
+                                    className="w-2.5 h-2.5 rounded-full bg-[#5BA878]"
+                                    animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
+                                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                                />
+                                <motion.div
+                                    className="w-2.5 h-2.5 rounded-full bg-[#B2D8C1] opacity-40"
+                                    animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.9, 1.1, 0.9] }}
+                                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.2, ease: "easeInOut" }}
+                                />
+                                <motion.div
+                                    className="w-2.5 h-2.5 rounded-full bg-[#DCE6F5]"
+                                    animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
+                                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.6, ease: "easeInOut" }}
+                                />
+                                <motion.div
+                                    className="w-2.5 h-2.5 rounded-full bg-[#2B66D6]"
+                                    animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
+                                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.4, ease: "easeInOut" }}
+                                />
+                            </div>
+
+                            <p className="text-[17px] font-bold text-[#1B1B3A] tracking-tight">Sending...</p>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Discard Modal */}
             {showDiscard && (

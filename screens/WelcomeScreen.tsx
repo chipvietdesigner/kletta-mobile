@@ -1,47 +1,124 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { NavigationProps } from '../types';
-import { KlettaLogo, IconCellSignalFull, IconWifiHigh, IconBatteryFull } from '../components/Icons';
+import { 
+  KlettaLogo, 
+  IconCellSignalFull, 
+  IconWifiHigh, 
+  IconBatteryFull,
+  IconCheck,
+  IconStar,
+  IconCar,
+  IconLock,
+  IconShield
+} from '../components/Icons';
 
-const slides = [
-  {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop",
-    title: "Hassle-free bookkeeping and tax declarations",
-    description: "Kletta does your bookkeeping and tax declarations automatically based on the invoices you send and expenses you track."
-  },
-  {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop",
-    title: "Hassle-free bookkeeping and tax declarations",
-    description: "Kletta does your bookkeeping and tax declarations automatically based on the invoices you send and expenses you track."
-  },
-  {
-    id: 3,
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop",
-    title: "Hassle-free bookkeeping and tax declarations",
-    description: "Kletta does your bookkeeping and tax declarations automatically based on the invoices you send and expenses you track."
-  },
-  {
-    id: 4,
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1000&auto=format&fit=crop",
-    title: "Hassle-free bookkeeping and tax declarations",
-    description: "Kletta does your bookkeeping and tax declarations automatically based on the invoices you send and expenses you track."
-  }
-];
+
+const FeatureCard: React.FC<{ title: string, illustration: React.ReactNode }> = ({ title, illustration }) => (
+  <div className="bg-white rounded-[20px] px-3 pt-5 pb-4 flex flex-col items-center w-[125px] shrink-0 border border-black/[0.04] shadow-[0_4px_10px_rgba(0,0,0,0.03)] relative transform transition-all active:scale-[0.98]">
+    <div className="absolute top-3 right-3 w-[20px] h-[20px] bg-[#FFDC3E] rounded-full border-[2px] border-white flex items-center justify-center z-20 shadow-sm">
+      <IconCheck size={10} weight="bold" className="text-black" />
+    </div>
+    <div className="h-[75px] w-full flex items-center justify-center relative mb-3">
+      {illustration}
+    </div>
+    <p className="text-[12.5px] font-bold text-center leading-[1.2] text-black px-1 min-h-[3.6em] flex items-center justify-center">
+      {title}
+    </p>
+  </div>
+);
 
 const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const features = [
+    {
+      title: "Laskutus, kuittiskannaus",
+      illustration: (
+        <div className="relative w-full h-full flex items-center justify-center">
+          <div className="absolute top-[18%] left-[45%] w-[34px] h-[48px] bg-[#224449] rounded-[3px] rotate-[8deg] shadow-sm" />
+          <div className="w-[36px] h-[48px] bg-white border border-gray-100 rounded-[3px] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-2 flex flex-col gap-1 -rotate-[6deg] transform translate-x-1 relative z-10">
+              <div className="text-[4px] font-bold text-gray-400 uppercase tracking-tighter">INVOICE</div>
+              <div className="w-full h-px bg-gray-100 mt-1" />
+              <div className="w-full h-px bg-gray-100" />
+              <div className="w-[70%] h-px bg-gray-100" />
+              <div className="mt-auto flex justify-between items-end">
+                <div className="text-[7px] font-bold text-[#FFDC3E]">€</div>
+                <div className="w-[12px] h-px bg-gray-100" />
+              </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Käyttöomaisuus, GPS-seuranta",
+      illustration: (
+        <div className="w-full h-full flex items-center justify-center p-2">
+          <div className="w-[54px] h-[38px] bg-white border border-gray-100 rounded-[5px] shadow-[0_2px_6px_rgba(0,0,0,0.05)] flex flex-col overflow-hidden">
+              <div className="h-[7px] border-b border-gray-100 bg-[#005A66] flex items-center px-1.5 gap-0.5">
+                <div className="w-[1.5px] h-[1.5px] rounded-full bg-white/40" />
+                <div className="w-[1.5px] h-[1.5px] rounded-full bg-white/40" />
+                <div className="w-[1.5px] h-[1.5px] rounded-full bg-white/40" />
+              </div>
+              <div className="flex-1 p-1.5 flex items-center gap-1.5">
+                 <IconCar size={15} weight="fill" className="text-[#1A1A1A]" />
+                 <div className="flex-1 space-y-1">
+                    <div className="w-full h-px bg-gray-100" />
+                    <div className="w-[85%] h-px bg-gray-100" />
+                 </div>
+              </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Asiantuntijan chat-tuki",
+      illustration: (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="relative">
+            <div className="w-[40px] h-[28px] bg-[#005A66] rounded-[8px] rounded-bl-0 flex items-center justify-center shadow-lg -mr-4 relative z-10">
+              <div className="flex gap-0.5">
+                 <div className="w-[2px] h-[2px] rounded-full bg-white/60" />
+                 <div className="w-[2px] h-[2px] rounded-full bg-white/60" />
+                 <div className="w-[2px] h-[2px] rounded-full bg-white/60" />
+              </div>
+            </div>
+            <div className="w-[40px] h-[28px] bg-white border border-gray-100 rounded-[8px] rounded-br-0 shadow-md -mt-4 ml-4 flex items-center justify-center">
+              <div className="flex gap-0.5">
+                 <div className="w-[2px] h-[2px] rounded-full bg-gray-200" />
+                 <div className="w-[2px] h-[2px] rounded-full bg-gray-200" />
+                 <div className="w-[2px] h-[2px] rounded-full bg-gray-200" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Reduce anxiety, Reassurance",
+      illustration: (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="relative">
+            <div className="w-[48px] h-[48px] bg-white rounded-full border border-gray-100 shadow-md flex items-center justify-center relative z-10">
+              <IconShield size={24} weight="fill" className="text-[#005A66]" />
+            </div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#FFDC3E] rounded-full border-2 border-white flex items-center justify-center z-20 shadow-sm">
+               <IconLock size={10} weight="bold" className="text-black" />
+            </div>
+          </div>
+        </div>
+      )
+    }
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setActiveIndex((prev) => (prev + 1) % features.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
-
+  }, [features.length]);
   return (
-    <div className="h-full w-full flex flex-col items-center bg-[#FDEE98] font-aktifo overflow-hidden selection:bg-kletta-yellow selection:text-kletta-dark animate-fade-in">
+    <div className="h-full w-full flex flex-col items-center bg-[#FFEE99] font-aktifo overflow-hidden selection:bg-kletta-yellow selection:text-kletta-dark animate-fade-in relative">
       
       {/* Phone Header / Status Bar */}
       <div className="w-full h-[50px] flex justify-between items-end px-6 pb-2 text-kletta-dark pointer-events-none z-20 shrink-0">
@@ -53,130 +130,85 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
           </div>
       </div>
 
-      <div className="flex-1 w-full flex flex-col items-center px-6">
-          {/* Top Logo */}
-          <div className="pt-6 mb-8">
-              <KlettaLogo color="black" className="h-7 w-auto" />
-          </div>
+      <div className="w-full flex-1 flex flex-col items-center justify-between px-6 py-4 overflow-hidden">
+          
+          <div className="w-full flex-1 flex flex-col items-center justify-center">
+            {/* Logo Section */}
+            <div className="flex flex-col items-center mb-8">
+                <KlettaLogo color="black" className="scale-[1.15] mb-2" />
+                <p className="text-[#005A66] font-bold text-[15px] tracking-wide">Toiminimiyrittäjille</p>
+            </div>
 
-          {/* Carousel Section */}
-          <div className="relative w-full flex-1 flex flex-col items-center justify-center max-h-[420px]">
-              <div className="relative w-full aspect-[4/5] max-w-[280px] bg-white rounded-[32px] shadow-2xl overflow-hidden border-[6px] border-white">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentSlide}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.5, ease: "easeInOut" }}
-                      className="w-full h-full relative"
-                    >
-                      {/* Mock App Content - Tax Return 2024 */}
-                      <div className="w-full h-full bg-white p-3.5 flex flex-col">
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
-                            <span className="text-[9px]">‹</span>
-                          </div>
-                          <span className="text-[11px] font-bold">Tax return 2024</span>
-                          <div className="w-5 h-5" />
-                        </div>
+            <h1 className="text-[32px] font-bold text-black mb-10 text-center leading-[1.05] px-2">
+              Automatisoi<br />veroilmoitukset helposti
+            </h1>
 
-                        <div className="space-y-2.5">
-                          <div className="flex justify-between items-center">
-                            <span className="text-[9px] text-gray-500">Status</span>
-                            <span className="text-[9px] text-teal-600 font-bold flex items-center gap-1">
-                              Submitted <span className="w-1.5 h-1.5 bg-teal-600 rounded-full" />
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-[9px] text-gray-500">Accounting period</span>
-                            <span className="text-[9px] font-medium">Jan 1, 2024 – Dec 31, 2024</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-[9px] text-gray-500">Submission date</span>
-                            <span className="text-[9px] font-medium">Mar 10, 2025 9:43 am</span>
-                          </div>
+            {/* Social Proof Row */}
+            <div className="flex items-center gap-4 mb-10">
+                <div className="flex -space-x-3.5">
+                  <img src="https://i.pravatar.cc/150?u=1" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" alt="U1" referrerPolicy="no-referrer" />
+                  <img src="https://i.pravatar.cc/150?u=2" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" alt="U2" referrerPolicy="no-referrer" />
+                  <img src="https://i.pravatar.cc/150?u=3" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" alt="U3" referrerPolicy="no-referrer" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-0.5">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <IconStar key={i} className={i === 5 ? "text-[#005A66] opacity-30" : "text-[#005A66]"} size={18} weight="fill" />
+                    ))}
+                    <span className="text-[17px] font-bold text-black ml-2">4,3</span>
+                  </div>
+                  <p className="text-[12px] text-black/60 font-medium whitespace-nowrap">from 1000+ sole traders</p>
+                </div>
+            </div>
 
-                          <div className="pt-1.5 border-t border-gray-100">
-                            <div className="flex justify-between items-center mb-0.5">
-                              <span className="text-[10px] font-bold">Income</span>
-                              <span className="text-[9px]">▾</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-[9px] text-gray-500">Taxable business income</span>
-                              <span className="text-[9px] font-bold">€29,224.86</span>
-                            </div>
-                          </div>
-
-                          <div className="pt-1.5 border-t border-gray-100">
-                            <div className="flex justify-between items-center mb-0.5">
-                              <span className="text-[10px] font-bold">Expenses</span>
-                              <span className="text-[9px]">▾</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-[9px] text-gray-500">Deductible business expenses</span>
-                              <span className="text-[9px] font-bold">€11,993.80</span>
-                            </div>
-                          </div>
-
-                          <div className="pt-1.5 border-t border-gray-100">
-                            <div className="flex justify-between items-center mb-0.5">
-                              <span className="text-[10px] font-bold">Profit</span>
-                              <span className="text-[9px]">▾</span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-[9px] text-gray-500">Business profit</span>
-                              <span className="text-[9px] font-bold">€17,231.06</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Play Button Overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                           <div className="w-12 h-12 bg-[#005A66] rounded-full flex items-center justify-center pl-1 shadow-lg">
-                              <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[14px] border-l-white border-b-[8px] border-b-transparent" />
-                           </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-              </div>
-
-              {/* Pagination Dots */}
-              <div className="flex gap-1.5 mt-6">
-                {slides.map((_, idx) => (
-                  <div 
-                    key={idx}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-[#005A66] w-5' : 'bg-[#005A66]/20'}`}
+            {/* Carousel Section */}
+            <div className="w-full relative mb-4 overflow-hidden px-4">
+              <motion.div 
+                className="flex gap-3"
+                animate={{ x: -(activeIndex * (125 + 12)) }}
+                transition={{ type: 'spring', damping: 25, stiffness: 120 }}
+              >
+                {features.map((feature, i) => (
+                  <FeatureCard 
+                    key={i}
+                    title={feature.title}
+                    illustration={feature.illustration}
                   />
                 ))}
-              </div>
-          </div>
+              </motion.div>
+            </div>
 
-          {/* Text Content */}
-          <div className="w-full text-center mt-6 mb-8 px-4">
-              <h1 className="text-[24px] font-bold text-kletta-dark tracking-tight leading-[1.2] mb-3">
-                 {slides[currentSlide].title}
-              </h1>
-              <p className="text-[15px] text-kletta-dark/80 leading-[1.4] font-normal max-w-[300px] mx-auto">
-                 {slides[currentSlide].description}
-              </p>
+            {/* Pagination Dots */}
+            <div className="flex gap-3 mb-6">
+                {features.map((_, i) => (
+                  <div 
+                    key={i}
+                    className={`h-2.5 rounded-full transition-all duration-500 ${
+                      i === activeIndex ? "w-6 bg-[#005A66]" : "w-2.5 bg-black/[0.08]"
+                    }`} 
+                  />
+                ))}
+            </div>
+
+            <p className="text-[14px] font-medium text-black/70 text-center leading-relaxed max-w-[320px] px-4">
+              14 päivän kokeilujakso - peruuta milloin tahansa - Ei luottokorttia
+            </p>
           </div>
 
           {/* Bottom Buttons */}
-          <div className="w-full flex flex-col gap-3 pb-14">
+          <div className="w-full flex flex-col gap-3.5 pb-6">
               <button 
-                 onClick={() => navigate('signup-email')}
-                 className="w-full h-[48px] bg-[#005A66] rounded-[16px] text-white font-bold text-[17px] active:scale-[0.98] transition-all shadow-lg"
+                onClick={() => navigate('signup-email')}
+                className="w-full h-[56px] bg-[#005A66] rounded-[16px] text-white font-bold text-[18px] active:scale-[0.98] transition-all flex items-center justify-center shadow-[0_4px_16px_rgba(0,90,102,0.25)]"
               >
-                 Create account
+                Luo tili
               </button>
               
               <button 
-                 onClick={() => navigate('login')}
-                 className="w-full h-[48px] flex items-center justify-center text-kletta-dark font-medium text-[16px] active:opacity-60 transition-opacity"
+                onClick={() => navigate('login')}
+                className="w-full h-[56px] bg-[#FFEE99] rounded-[16px] text-black font-bold text-[18px] active:scale-[0.98] transition-all flex items-center justify-center border-2 border-black/25"
               >
-                 Have an account? <span className="underline font-bold ml-1">Log in</span>
+                Kirjaudu sisään
               </button>
           </div>
       </div>
