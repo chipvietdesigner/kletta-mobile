@@ -91,7 +91,7 @@ export const InvoicePaymentMethodScreen: React.FC<NavigationProps> = ({ navigate
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-customer-select')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                 >
                     Next
                 </button>
@@ -146,14 +146,14 @@ export const InvoiceCustomerSelectScreen: React.FC<NavigationProps> = ({ navigat
                 <div className="flex gap-3">
                     <button 
                          onClick={() => navigate('invoice-due-date')} 
-                         className="flex-1 py-4 bg-white border border-gray-200 rounded-[14px] font-medium text-[15px] text-kletta-dark active:bg-gray-50 transition-colors"
+                         className="flex-1 h-[52px] bg-white border border-gray-200 rounded-[12px] font-semibold text-[15px] text-kletta-dark active:bg-gray-50 transition-colors flex items-center justify-center"
                     >
                         No customer
                     </button>
                     <button 
                         onClick={() => navigate('invoice-customer-confirm', { customerId: selectedId })}
                         // Enable next even if not selected for demo flow, usually disabled={!selectedId}
-                        className="flex-[2] py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                        className="flex-[2] h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                     >
                         Next
                     </button>
@@ -212,7 +212,7 @@ export const InvoiceNewCustomerScreen: React.FC<NavigationProps> = ({ navigate, 
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-customer-confirm', { isNew: true })}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                 >
                     Next
                 </button>
@@ -275,7 +275,7 @@ export const InvoiceConfirmCustomerScreen: React.FC<NavigationProps> = ({ naviga
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-due-date')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                 >
                     Confirm
                 </button>
@@ -327,7 +327,7 @@ export const InvoiceDueDateScreen: React.FC<NavigationProps> = ({ navigate, goBa
             bottomAction={
                 <button 
                     onClick={() => navigate('invoice-notes')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                 >
                     Next
                 </button>
@@ -362,13 +362,13 @@ export const InvoiceNotesScreen: React.FC<NavigationProps> = ({ navigate, goBack
                 <div className="flex gap-3">
                     <button 
                          onClick={() => navigate('invoice-preview')} 
-                         className="flex-1 py-4 bg-white border border-gray-200 rounded-[14px] font-medium text-[15px] text-kletta-dark active:bg-gray-50 transition-colors"
+                         className="flex-1 h-[52px] bg-white border border-gray-200 rounded-[12px] font-semibold text-[15px] text-kletta-dark active:bg-gray-50 transition-colors flex items-center justify-center"
                     >
                         Skip
                     </button>
                     <button 
                         onClick={() => navigate('invoice-preview')}
-                        className="flex-[2] py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                        className="flex-[2] h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                     >
                         Next
                     </button>
@@ -428,7 +428,7 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                         <button 
                             onClick={handleSend}
                             disabled={isSending}
-                            className={`w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2 ${isSending ? 'opacity-80' : ''}`}
+                            className={`w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2 ${isSending ? 'opacity-80' : ''}`}
                         >
                             {isSending ? (
                                 <>
@@ -441,7 +441,7 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                         </button>
                         <button 
                             onClick={() => navigate('home')}
-                            className="w-full py-4 bg-white border border-gray-200 rounded-[14px] font-medium text-[15px] text-kletta-dark hover:bg-gray-50 transition-colors"
+                            className="w-full h-[52px] bg-white border border-gray-200 rounded-[12px] font-semibold text-[15px] text-kletta-dark hover:bg-gray-50 transition-colors flex items-center justify-center"
                         >
                             Save as draft
                         </button>
@@ -600,13 +600,13 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                         <div className="flex flex-col gap-3">
                              <button 
                                 onClick={() => setShowDiscard(false)}
-                                className="w-full py-3.5 bg-gray-100 rounded-[14px] font-medium text-[15px] text-kletta-dark hover:bg-gray-200 transition-colors"
+                                className="w-full h-[52px] bg-gray-100 rounded-[12px] font-semibold text-[15px] text-kletta-dark hover:bg-gray-200 transition-colors flex items-center justify-center"
                              >
                                 Keep editing
                              </button>
                              <button 
                                 onClick={() => navigate('home')}
-                                className="w-full py-3.5 bg-white border border-red-100 rounded-[14px] font-medium text-[15px] text-red-500 hover:bg-red-50 transition-colors"
+                                className="w-full h-[52px] bg-white border border-red-100 rounded-[12px] font-semibold text-[15px] text-red-500 hover:bg-red-50 transition-colors flex items-center justify-center"
                              >
                                 Discard
                              </button>
@@ -663,7 +663,7 @@ export const InvoiceSuccessScreen: React.FC<NavigationProps> = ({ navigate, para
              <div className="absolute bottom-0 left-0 right-0 p-6">
                  <button 
                     onClick={() => navigate('home')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                  >
                     Done
                  </button>

@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import { KlettaLogo, IconBack, IconBackspace, IconChevronRight, IconSpinner, IconCheck } from '../components/Icons';
 import { NavigationProps } from '../types';
 import { KlettaInput } from '../components/Inputs';
+import { useLanguage } from '../components/LanguageContext';
 
 // Screen 1: Sign Up Email
 export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
   const [email, setEmail] = useState('johndoe@gmail.com');
+  const { t } = useLanguage();
 
   const handleContinue = () => {
     if (email.includes('@')) {
       navigate('signup-verify', { email });
     } else {
-      alert('Please enter a valid email');
+      alert(t('email_error'));
     }
   };
 
@@ -26,18 +28,18 @@ export const SignUpEmailScreen: React.FC<NavigationProps> = ({ navigate, goBack 
       </div>
       <div className="flex-1 overflow-y-auto no-scrollbar px-8 pt-6 pb-32">
          <div className="mb-12 max-w-[420px]">
-            <h2 className="text-[26px] font-medium text-kletta-dark mb-2 tracking-tight">Welcome to Kletta!</h2>
-            <p className="text-kletta-dark font-light text-[15px]">Let's start by entering your e-mail address.</p>
+            <h2 className="text-[26px] font-medium text-kletta-dark mb-2 tracking-tight">{t('welcome_to_kletta')}</h2>
+            <p className="text-kletta-dark font-light text-[15px]">{t('start_by_email')}</p>
         </div>
         <div className="space-y-6 max-w-[420px] mx-auto">
            <div>
-              <KlettaInput label="Email Address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@example.com" autoFocus />
-              <p className="text-[13px] text-gray-700 font-normal ml-1 mt-2 flex items-start gap-1"><span className="text-kletta-teal">ℹ</span> We will send a 6-digit code to this email</p>
+              <KlettaInput label={t('email_label')} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('email_placeholder')} autoFocus />
+              <p className="text-[13px] text-gray-700 font-normal ml-1 mt-2 flex items-start gap-1"><span className="text-kletta-teal">ℹ</span> {t('send_code_msg')}</p>
            </div>
         </div>
       </div>
       <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-50 z-20">
-         <button onClick={handleContinue} className="w-full h-[48px] bg-kletta-yellow rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all">Continue</button>
+         <button onClick={handleContinue} className="w-full h-[52px] bg-kletta-yellow rounded-[12px] text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all">{t('continue_btn')}</button>
       </div>
     </div>
   );
@@ -118,7 +120,7 @@ export const VerifyEmailCodeScreen: React.FC<NavigationProps> = ({ navigate, goB
             </div>
             <p className="text-[14px] text-kletta-dark font-light leading-snug">I accept the <button className="underline font-medium hover:text-kletta-teal transition-colors">Term of service</button> and <button className="underline font-medium hover:text-kletta-teal transition-colors">Privacy Policy</button></p>
          </div>
-         <button onClick={handleSignUp} disabled={!isFormValid} className={`w-full h-[48px] rounded-2xl text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${isFormValid ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>Sign up</button>
+         <button onClick={handleSignUp} disabled={!isFormValid} className={`w-full h-[52px] rounded-[12px] text-kletta-dark font-semibold text-[16px] shadow-sm transition-all ${isFormValid ? 'bg-kletta-yellow hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>Sign up</button>
       </div>
     </div>
   );
@@ -281,7 +283,7 @@ export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ naviga
          <button 
             onClick={handleSubmit} 
             disabled={!selected || isLoading} 
-            className={`w-full h-[48px] rounded-2xl font-semibold text-[16px] shadow-sm transition-all ${
+            className={`w-full h-[52px] rounded-[12px] font-semibold text-[16px] shadow-sm transition-all ${
               selected && !isLoading ? 'bg-kletta-yellow text-kletta-dark hover:shadow-md active:scale-[0.98]' : 'bg-gray-100 text-gray-400 cursor-not-allowed'
             }`}
           >

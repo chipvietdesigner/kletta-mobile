@@ -160,13 +160,13 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
              {/* Create New Product */}
              <button 
                 onClick={() => setShowTypeSheet(true)}
-                className="w-full py-4 px-6 bg-white border-b border-gray-100 flex items-center gap-4 group hover:bg-gray-50 transition-colors"
+                className="w-full h-[72px] px-6 bg-white border-b border-gray-100 flex items-center gap-4 group hover:bg-gray-50 transition-colors"
              >
-                <div className="w-11 h-11 rounded-full bg-kletta-yellow flex items-center justify-center text-kletta-dark shadow-sm shrink-0 group-active:scale-95 transition-transform">
+                <div className="w-11 h-11 rounded-[12px] bg-kletta-yellow flex items-center justify-center text-kletta-dark shadow-sm shrink-0 group-active:scale-95 transition-transform">
                    <IconPlus size={20} weight="bold" />
                 </div>
                 <div className="flex-1 text-left">
-                   <p className="text-[15px] font-medium text-kletta-dark leading-tight">Create new product</p>
+                   <p className="text-[15px] font-semibold text-kletta-dark leading-tight">Create new product</p>
                    <p className="text-[13px] text-gray-400 font-light mt-0.5">Add custom item to inventory</p>
                 </div>
                 <div className="text-gray-300">
@@ -214,7 +214,7 @@ export const AddToInvoiceScreen: React.FC<NavigationProps> = ({ navigate, goBack
                </div>
                <button 
                   onClick={() => navigate('invoice-create-details')}
-                  className="bg-white rounded-xl px-6 py-3 font-medium text-[14px] text-kletta-dark shadow-sm active:scale-95 transition-transform flex items-center gap-2"
+                  className="bg-white rounded-[12px] px-6 h-[46px] font-semibold text-[14px] text-kletta-dark shadow-sm active:scale-95 transition-transform flex items-center gap-2"
                >
                   Next <IconChevronRight size={14} weight="bold" />
                </button>
@@ -409,7 +409,7 @@ const ProductConfigSheet: React.FC<ConfigSheetProps> = ({ product, onClose, onAd
                 <div className="pt-4 mt-2 border-t border-gray-50">
                     <button 
                         onClick={handleAdd}
-                        className="w-full py-4 bg-kletta-yellow rounded-[14px] text-kletta-dark font-medium text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex justify-between px-6 items-center"
+                        className="w-full h-[52px] bg-kletta-yellow rounded-[12px] text-kletta-dark font-semibold text-[16px] shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex justify-between px-6 items-center"
                     >
                         <span>Add line item</span>
                         <span className="opacity-90 font-medium">€{total.toFixed(2)}</span>
@@ -544,7 +544,7 @@ export const InvoiceCreateDetailsScreen: React.FC<NavigationProps> = ({ navigate
          <div className="absolute bottom-0 left-0 right-0 bg-white px-6 pt-4 pb-10 border-t border-gray-100 z-30">
             <button 
                onClick={() => navigate('invoice-payment-method')}
-               className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+               className="w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
             >
                Next
             </button>

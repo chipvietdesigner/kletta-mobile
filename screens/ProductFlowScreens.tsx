@@ -385,13 +385,13 @@ export const ProductSuccessScreen: React.FC<NavigationProps> = ({ navigate, para
              <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col gap-3">
                  <button 
                     onClick={() => navigate('home')}
-                    className="w-full py-4 bg-kletta-yellow rounded-[14px] font-medium text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all"
+                    className="w-full h-[52px] bg-kletta-yellow rounded-[12px] font-semibold text-[16px] text-kletta-dark shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center"
                  >
                     Done
                  </button>
                  <button 
                     onClick={() => navigate('product-select-type')}
-                    className="w-full py-4 text-[15px] font-medium text-kletta-dark active:opacity-60 transition-opacity"
+                    className="w-full h-[40px] text-[15px] font-medium text-kletta-dark active:opacity-60 transition-opacity flex items-center justify-center"
                  >
                     Add another
                  </button>

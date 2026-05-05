@@ -48,6 +48,7 @@ import {
   WifiHigh,
   CellSignalFull,
   Tag,
+  ChatTeardropText,
   CalendarBlank,
   PlusCircle,
   HandWaving,
@@ -150,6 +151,8 @@ export const IconQuestion: React.FC<IconProps> = ({ className, size = 24, color,
 // Settings Icons
 export const IconSignOut: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <SignOut className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconBell: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <Bell className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconMapPin: React.FC<IconProps> = ({ className, size = 24, color = "currentColor", weight }) => <MapPin className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconChatTeardropText: React.FC<IconProps> = ({ className, size = 24, color = "currentColor", weight }) => <ChatTeardropText className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconGlobe: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <Globe className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconLock: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <LockKey className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconUserCircle: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <UserCircle className={className} size={size} color={color} weight={weight || "bold"} />;
@@ -162,6 +165,7 @@ export const IconCellSignalFull: React.FC<IconProps> = ({ className, size = 24, 
 
 // Onboarding Icons
 export const IconShield: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <ShieldCheck className={className} size={size} color={color} weight={weight || "bold"} />;
+export const IconShieldCheck: React.FC<IconProps> = ({ className, size = 24, color = "currentColor", weight }) => <ShieldCheck className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconFile: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <FileText className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconFileCheck: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <FileText className={className} size={size} color={color} weight={weight || "bold"} />;
 export const IconUpload: React.FC<IconProps> = ({ className, size = 24, color, weight }) => <UploadSimple className={className} size={size} color={color} weight={weight || "bold"} />;

@@ -207,7 +207,7 @@ const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
                 <button 
                     onClick={handlePrimaryClick}
                     disabled={disablePrimary}
-                    className={`w-full h-[48px] flex items-center justify-center rounded-2xl font-medium text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
+                    className={`w-full h-[52px] flex items-center justify-center rounded-[12px] font-semibold text-[16px] shadow-sm transition-all active:scale-[0.98] ${disablePrimary ? 'bg-gray-100 text-gray-400' : 'bg-kletta-yellow text-kletta-dark hover:shadow-md'}`}
                 >
                     {primaryLabel}
                 </button>

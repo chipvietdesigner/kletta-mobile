@@ -47,6 +47,7 @@ const ALL_SALES = [
 
 const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFilter, onModalToggle }) => {
   const [view, setView] = useState<'main' | 'outstanding'>('main');
+  const [filter, setFilter] = useState<'All' | 'Paid' | 'Unpaid' | 'Overdue'>('All');
 
   const handleOpenOutstanding = () => {
     setView('outstanding');
@@ -57,6 +58,11 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
     setView('main');
     if (onModalToggle) onModalToggle(false);
   };
+
+  const filteredSales = ALL_SALES.filter(item => {
+    if (filter === 'All') return true;
+    return item.status === filter;
+  });
 
   if (view === 'outstanding') {
     return (
@@ -131,10 +137,11 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
       {/* Segmented Control - Pill Style */}
       <div className="px-6 py-2">
           <div className="bg-[#F2F2F2] p-0.5 rounded-[10px] flex w-full h-[36px]">
-              {['All', 'Paid', 'Unpaid', 'Overdue'].map((tab) => (
+              {(['All', 'Paid', 'Unpaid', 'Overdue'] as const).map((tab) => (
                 <button 
                   key={tab}
-                  className={`flex-1 h-full rounded-[8px] text-[13px] transition-all flex items-center justify-center ${tab === 'All' ? 'bg-white text-[#0C0D0D] font-medium shadow-sm' : 'text-[#0C0D0D] font-normal hover:opacity-70'}`}
+                  onClick={() => setFilter(tab)}
+                  className={`flex-1 h-full rounded-[8px] text-[13px] transition-all flex items-center justify-center ${tab === filter ? 'bg-white text-[#0C0D0D] font-semibold shadow-sm' : 'text-[#0C0D0D] font-normal hover:opacity-70'}`}
                 >
                   {tab}
                 </button>
@@ -147,10 +154,19 @@ const SalesScreen: React.FC<SalesScreenProps> = ({ navigate, dateRange, onOpenFi
           
           {/* All Sales Section */}
           <div className="bg-white">
-              <div className="space-y-0 pb-32">
-                  {ALL_SALES.map((item, idx) => (
-                     <SaleListItem key={idx} {...item} />
+              <div className="space-y-0 pb-32 transition-all">
+                  {filteredSales.map((item, idx) => (
+                     <SaleListItem key={`${item.id}-${idx}`} {...item} />
                   ))}
+                  {filteredSales.length === 0 && (
+                    <div className="flex flex-col items-center justify-center pt-20 px-10 text-center">
+                        <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                            <IconShoppingCart size={32} className="text-gray-200" />
+                        </div>
+                        <p className="text-kletta-dark font-medium text-[16px]">No {filter.toLowerCase()} invoices</p>
+                        <p className="text-gray-500 text-[13px] mt-1">There are no sales in this category for the selected period.</p>
+                    </div>
+                  )}
               </div>
           </div>
       </div>
