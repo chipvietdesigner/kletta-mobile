@@ -42,15 +42,15 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
   const features = [
     {
       title: t('feature_invoicing'),
-      illustration: <IconReceipt size={40} weight="fill" className="text-[#005A66]" />
+      illustration: <IconReceipt size={40} weight="fill" className="text-[#002D33]" />
     },
     {
       title: t('feature_assets'),
-      illustration: <IconMapPin size={40} weight="fill" className="text-[#005A66]" />
+      illustration: <IconMapPin size={40} weight="fill" className="text-[#002D33]" />
     },
     {
       title: t('feature_chat'),
-      illustration: <IconChatTeardropText size={40} weight="fill" className="text-[#005A66]" />
+      illustration: <IconChatTeardropText size={40} weight="fill" className="text-[#002D33]" />
     }
   ];
 
@@ -116,18 +116,24 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
                  >
                     <button 
                       onClick={() => { setLanguage('en'); setShowLangMenu(false); }}
-                      className={`w-full px-4 py-3 flex items-center gap-3 active:bg-gray-50 transition-colors ${language === 'en' ? 'bg-[#005A66]/5' : ''}`}
+                      className={`w-full px-4 py-3 flex items-center justify-between active:bg-gray-50 transition-colors ${language === 'en' ? 'bg-[#005A66]/5' : ''}`}
                     >
-                      <span className="text-[20px]">🇬🇧</span>
-                      <span className={`text-[15px] font-bold ${language === 'en' ? 'text-[#005A66]' : 'text-black'}`}>English</span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-[20px]">🇬🇧</span>
+                        <span className={`text-[15px] font-bold ${language === 'en' ? 'text-[#002D33]' : 'text-black'}`}>English</span>
+                      </div>
+                      {language === 'en' && <IconCheck size={14} className="text-[#002D33]" weight="bold" />}
                     </button>
                     <div className="h-px bg-black/5 mx-2" />
                     <button 
                       onClick={() => { setLanguage('fi'); setShowLangMenu(false); }}
-                      className={`w-full px-4 py-3 flex items-center gap-3 active:bg-gray-50 transition-colors ${language === 'fi' ? 'bg-[#005A66]/5' : ''}`}
+                      className={`w-full px-4 py-3 flex items-center justify-between active:bg-gray-50 transition-colors ${language === 'fi' ? 'bg-[#002D33]/5' : ''}`}
                     >
-                      <span className="text-[20px]">🇫🇮</span>
-                      <span className={`text-[15px] font-bold ${language === 'fi' ? 'text-[#005A66]' : 'text-black'}`}>Suomi</span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-[20px]">🇫🇮</span>
+                        <span className={`text-[15px] font-bold ${language === 'fi' ? 'text-[#002D33]' : 'text-black'}`}>Suomi</span>
+                      </div>
+                      {language === 'fi' && <IconCheck size={14} className="text-[#002D33]" weight="bold" />}
                     </button>
                  </motion.div>
                )}
@@ -138,7 +144,7 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
             {/* Logo Section */}
             <div className="flex flex-col items-center mb-8">
                 <KlettaLogo color="black" className="scale-[1.15] mb-2" />
-                <p className="text-[#005A66] font-bold text-[15px] tracking-wide">{t('for_sole_traders')}</p>
+                <p className="text-[#002D33] font-bold text-[15px] tracking-wide">{t('for_sole_traders')}</p>
             </div>
 
             <h1 className="text-[32px] font-bold text-black mb-10 text-center leading-[1.05] px-2 whitespace-pre-line">
@@ -155,7 +161,7 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
                 <div className="flex flex-col">
                   <div className="flex items-center gap-0.5">
                     {[1, 2, 3, 4, 5].map((i) => (
-                      <IconStar key={i} className={i === 5 ? "text-[#005A66] opacity-30" : "text-[#005A66]"} size={18} weight="fill" />
+                      <IconStar key={i} className={i === 5 ? "text-[#002D33] opacity-30" : "text-[#002D33]"} size={18} weight="fill" />
                     ))}
                     <span className="text-[17px] font-bold text-black ml-2">4,3</span>
                   </div>
@@ -198,7 +204,7 @@ const WelcomeScreen: React.FC<NavigationProps> = ({ navigate }) => {
                   <div 
                     key={i}
                     className={`h-2.5 rounded-full transition-all duration-500 ${
-                      i === activeIndex ? "w-6 bg-[#005A66]" : "w-2.5 bg-black/[0.08]"
+                      i === activeIndex ? "w-6 bg-[#002D33]" : "w-2.5 bg-black/[0.08]"
                     }`} 
                   />
                 ))}

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { IconBack, IconCheckCircle, IconWarningCircle } from '../components/Icons';
+import { IconBack, IconCheckCircle, IconWarningCircle, IconCheck } from '../components/Icons';
 import { NavigationProps } from '../types';
 import PasscodeSheet from '../components/PasscodeSheet';
 import { KlettaInput } from '../components/Inputs';
@@ -70,7 +70,7 @@ const LoginScreen: React.FC<NavigationProps> = ({ navigate, goBack }) => {
                 className="flex items-center gap-2 group"
               >
                 <div className={`w-5 h-5 rounded-md border-[1.5px] transition-colors flex items-center justify-center ${rememberMe ? 'bg-kletta-teal border-kletta-teal' : 'border-gray-300 group-hover:border-kletta-teal'}`}>
-                   {rememberMe && <IconBack size={12} color="white" weight="bold" className="rotate-[270deg]" />}
+                   {rememberMe && <IconCheck size={12} color="white" weight="bold" />}
                 </div>
                 <span className="text-[14px] text-kletta-secondary font-medium">{t('remember_me')}</span>
               </button>

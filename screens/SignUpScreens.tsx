@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { KlettaLogo, IconBack, IconBackspace, IconChevronRight, IconSpinner, IconCheck } from '../components/Icons';
 import { NavigationProps } from '../types';
 import { KlettaInput } from '../components/Inputs';
@@ -305,16 +306,25 @@ export const SignUpBusinessLocationScreen: React.FC<NavigationProps> = ({ naviga
 };
 
 // Helper component for location items
-const LocationItem = ({ label, flag, selected, onClick, isFirst }: { label: string, flag: string, selected: boolean, onClick: () => void, isFirst?: boolean }) => (
+const LocationItem = ({ label, flag, selected, onClick }: { label: string, flag: string, selected: boolean, onClick: () => void, isFirst?: boolean }) => (
   <button 
     onClick={onClick} 
-    className={`w-full py-6 flex items-center justify-start transition-all group active:opacity-70`}
+    className={`w-full py-6 flex items-center justify-between transition-all group active:opacity-70`}
   >
     <div className="flex items-center gap-4">
       <span className="text-[24px] shrink-0 leading-none">{flag}</span>
-      <span className={`text-[18px] font-medium ${selected ? 'text-kletta-yellow' : 'text-kletta-teal'}`}>
+      <span className={`text-[18px] font-medium ${selected ? 'text-kletta-teal' : 'text-kletta-teal'}`}>
         {label}
       </span>
     </div>
+    {selected && (
+      <motion.div 
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="w-6 h-6 rounded-full bg-kletta-teal flex items-center justify-center shadow-sm"
+      >
+        <IconCheck size={14} weight="bold" color="white" />
+      </motion.div>
+    )}
   </button>
 );

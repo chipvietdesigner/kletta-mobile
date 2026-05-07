@@ -551,35 +551,35 @@ export const InvoicePreviewScreen: React.FC<NavigationProps> = ({ navigate, goBa
                         
                         {/* Modal Container */}
                         <motion.div 
-                            initial={{ scale: 0.95, opacity: 0 }}
+                            initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            className="bg-white p-12 rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex flex-col items-center justify-center relative z-10"
+                            className="bg-white p-16 rounded-[40px] shadow-[0_24px_50px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center relative z-10 min-w-[240px]"
                         >
                             {/* 4 dots Loading Grid */}
-                            <div className="grid grid-cols-2 gap-3 mb-8">
+                            <div className="grid grid-cols-2 gap-4 mb-10">
                                 <motion.div
-                                    className="w-2.5 h-2.5 rounded-full bg-[#5BA878]"
-                                    animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
-                                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                                    className="w-[18px] h-[18px] rounded-full bg-[#7AB696]"
+                                    animate={{ opacity: [0.3, 1, 0.3] }}
+                                    transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
                                 />
                                 <motion.div
-                                    className="w-2.5 h-2.5 rounded-full bg-[#B2D8C1] opacity-40"
-                                    animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.9, 1.1, 0.9] }}
-                                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.2, ease: "easeInOut" }}
+                                    className="w-[18px] h-[18px] rounded-full bg-[#DFF1E6]"
+                                    animate={{ opacity: [0.3, 1, 0.3] }}
+                                    transition={{ duration: 1.2, repeat: Infinity, delay: 0.2, ease: "easeInOut" }}
                                 />
                                 <motion.div
-                                    className="w-2.5 h-2.5 rounded-full bg-[#DCE6F5]"
-                                    animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
-                                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.6, ease: "easeInOut" }}
+                                    className="w-[18px] h-[18px] rounded-full bg-[#F2F6FB]"
+                                    animate={{ opacity: [0.3, 1, 0.3] }}
+                                    transition={{ duration: 1.2, repeat: Infinity, delay: 0.6, ease: "easeInOut" }}
                                 />
                                 <motion.div
-                                    className="w-2.5 h-2.5 rounded-full bg-[#2B66D6]"
-                                    animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
-                                    transition={{ duration: 1.5, repeat: Infinity, delay: 0.4, ease: "easeInOut" }}
+                                    className="w-[18px] h-[18px] rounded-full bg-[#A9C1EB]"
+                                    animate={{ opacity: [0.3, 1, 0.3] }}
+                                    transition={{ duration: 1.2, repeat: Infinity, delay: 0.4, ease: "easeInOut" }}
                                 />
                             </div>
 
-                            <p className="text-[17px] font-bold text-[#1B1B3A] tracking-tight">Sending...</p>
+                            <p className="text-[22px] font-bold text-[#1B1B3A] tracking-tight">Sending...</p>
                         </motion.div>
                     </motion.div>
                 )}
